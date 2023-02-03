@@ -1,0 +1,47 @@
+{
+    "name": "@use-miller/marketing-site",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start": "vite",
+        "build": "tsc && vite build",
+        "serve": "vite preview",
+        "test": "npx vitest",
+        "pre-commit": "npx lint-staged",
+        "coverage": "npx vitest run --coverage"
+    },
+    "dependencies": {
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "react-router": "6.7.0",
+        "react-router-dom": "6.7.0"
+    },
+    "resolutions": {
+        "@types/react": "18.0.25"
+    },
+    "devDependencies": {
+        "@types/jest": "29.2.6",
+        "@types/react": "18.0.27",
+        "@types/react-dom": "18.0.10",
+        "@types/react-router-dom": "5.3.3",
+        "@typescript-eslint/eslint-plugin": "5.48.2",
+        "@typescript-eslint/parser": "5.48.2",
+        "@vitejs/plugin-react": "3.0.1",
+        "autoprefixer": "10.4.13",
+        "babel-eslint": "10.1.0",
+        "eslint": "8.26.0",
+        "eslint-config-react-app": "7.0.1",
+        "eslint-plugin-flowtype": "8.0.3",
+        "eslint-plugin-import": "2.27.5",
+        "eslint-plugin-jsx-a11y": "6.7.1",
+        "eslint-plugin-react": "7.32.1",
+        "eslint-plugin-react-hooks": "4.6.0",
+        "eslint-plugin-tailwind": "0.2.1",
+        "jest": "29.3.1",
+        "postcss": "8.4.21",
+        "tailwindcss": "3.2.4",
+        "typescript": "4.9.4",
+        "vite": "4.0.4",
+        "vitest": "0.28.1"
+    }
+}

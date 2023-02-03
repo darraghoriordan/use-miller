@@ -1,0 +1,2 @@
+do_token = "add your token here"
+do_ssh_path = "/home/your_user_name/.ssh/authorized_keys/somekey.pub"

@@ -1,0 +1,51 @@
+{
+    "name": "@use-miller/marketing-site",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "pre-commit": "npx lint-staged"
+    },
+    "browserslist": "defaults, not ie <= 11",
+    "dependencies": {
+        "@auth0/auth0-spa-js": "2.0.2",
+        "@headlessui/react": "1.7.8",
+        "@tailwindcss/forms": "0.5.3",
+        "@use-miller/shared-api-client": "*",
+        "autoprefixer": "10.4.13",
+        "clsx": "1.2.1",
+        "focus-visible": "5.2.0",
+        "next": "13.1.6",
+        "postcss-focus-visible": "8.0.1",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "tailwindcss": "3.2.4"
+    },
+    "devDependencies": {
+        "@nrwl/eslint-plugin-nx": "15.6.3",
+        "@nrwl/jest": "15.6.3",
+        "@nrwl/linter": "15.6.3",
+        "@nrwl/node": "15.6.3",
+        "@types/react": "18.0.27",
+        "@types/react-dom": "18.0.10",
+        "@types/react-router-dom": "5.3.3",
+        "@typescript-eslint/eslint-plugin": "5.49.0",
+        "@typescript-eslint/parser": "5.49.0",
+        "eslint": "8.26.0",
+        "eslint-config-next": "13.1.6",
+        "eslint-config-react-app": "7.0.1",
+        "eslint-plugin-flowtype": "8.0.3",
+        "eslint-plugin-import": "2.27.5",
+        "eslint-plugin-jsx-a11y": "6.7.1",
+        "eslint-plugin-react": "7.32.1",
+        "eslint-plugin-react-hooks": "4.6.0",
+        "eslint-plugin-tailwind": "0.2.1",
+        "nx": "15.6.3",
+        "prettier": "2.8.3",
+        "prettier-plugin-tailwindcss": "0.2.2",
+        "typescript": "4.9.4"
+    }
+}

@@ -1,0 +1,22 @@
+# Top-most level settings
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+
+# 4 space indentation
+[*.{js,ts,jsx,tsx,py,rb,php,css,scss,less,json,yaml}]
+indent_style = space
+indent_size = 4
+
+# Tabs for Makefiles
+[Makefile]
+indent_style = tab
+
+# Tabs for Markdown
+[*.{md,markdown}]
+indent_style = tab
+trim_trailing_whitespace = false

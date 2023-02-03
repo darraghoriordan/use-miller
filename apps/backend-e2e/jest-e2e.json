@@ -1,0 +1,13 @@
+{
+  "preset": "ts-jest",
+  "roots": ["<rootDir>/src"],
+  "testEnvironment": "jsdom",
+  "extensionsToTreatAsEsm": [".ts"],
+  "testRegex": ".e2e-spec.ts$",
+  "setupFiles": ["<rootDir>/src/preRun.ts"],
+  "globals": {
+    "ts-jest": {
+      "useESM": true
+    }
+  }
+}

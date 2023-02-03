@@ -1,0 +1,29 @@
+{
+    "cSpell.words": [
+        "clsx",
+        "darraghor",
+        "Formik",
+        "Initialising",
+        "nestjs",
+        "Popover",
+        "sonarjs"
+    ],
+    "eslint.workingDirectories": [
+        {
+            "directory": "./apps/backend",
+            "changeProcessCWD": true
+        },
+        {
+            "directory": "./apps/frontend",
+            "changeProcessCWD": true
+        },
+        {
+            "directory": "./apps/backend-e2e",
+            "changeProcessCWD": true
+        },
+        {
+            "directory": "./apps/marketing",
+            "changeProcessCWD": true
+        },
+    ],
+}

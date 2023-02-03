@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .active-menu-item {
+    @apply border border-light-shade bg-gray-700;
+  }
+
+  :root {
+    @apply bg-light-shade;
+  }
+  .info-link:hover {
+    @apply underline;
+  }
+  .info-link::after {
+    transform: rotate(-40deg);
+    content: "→";
+    display: inline-block;
+  }
+}

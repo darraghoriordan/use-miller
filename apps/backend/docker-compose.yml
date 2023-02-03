@@ -1,0 +1,31 @@
+# Use postgres/example user/password credentials
+# run with: docker-compose -f stack.yml up
+version: "3.1"
+
+services:
+    db:
+        container_name: ${COMPOSE_PROJECT_NAME}_postgres
+        image: postgres:14.6-alpine
+        restart: "no"
+        ports:
+            - ${APP_POSTGRES_PORT}:5432
+        volumes:
+            - ./infrastructure/database-initialisation:/docker-entrypoint-initdb.d
+            - ./.docker-compose/.persist/postgres:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_DB=${APP_POSTGRES_DATABASE}
+            - POSTGRES_SCHEMA_NAME=${APP_POSTGRES_SCHEMA}
+            - POSTGRES_USER=${APP_POSTGRES_USER}
+            - POSTGRES_PASSWORD=${APP_POSTGRES_PASSWORD}
+    redis:
+        container_name: ${COMPOSE_PROJECT_NAME}_redis
+        image: redis:7-alpine
+        restart: "no"
+        command: redis-server --save 20 1 --loglevel warning
+        ports:
+            - ${APP_REDIS_PORT}:6379
+        volumes:
+            - ./.docker-compose/.persist/redis:/data
+        environment:
+            - REDIS_REPLICATION_MODE=master
+            - REDIS_ARGS="--requirepass redis-pass"

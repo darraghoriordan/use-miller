@@ -1,0 +1,94 @@
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .cta-new-tick {
+    background: rgba(0, 0, 0, 0);
+    animation: change-cta-new-bg ease-out 1 2s;
+  }
+  .cta-new::before {
+    content: "[\00A0]\00A0";
+  }
+  .cta-new-tick::before {
+    content: "[\00A0]\00A0";
+    animation: change-cta-new-content linear 1 2s;
+  }
+
+  @keyframes change-cta-new-bg {
+    0% {
+      background: rgba(246, 249, 241, 0);
+    }
+    80%,
+    100% {
+      background: rgba(246, 249, 241, 1);
+    }
+  }
+  @keyframes change-cta-new-content {
+    0% {
+      content: "[\00A0]\00A0";
+    }
+    20%,
+    100% {
+      content: "[\2713]\00A0";
+    }
+  }
+
+  .cta-animation::before {
+    content: "Family friendly policies";
+    animation: change-cta-text infinite 15s;
+    padding-left: 10px;
+  }
+
+  @keyframes change-cta-text {
+    0% {
+      opacity: 1;
+      content: "[\2713]\00A0 Family friendly policies";
+    }
+    20% {
+      opacity: 0;
+      content: "[\2713]\00A0 Family friendly policies";
+    }
+    24% {
+      opacity: 0;
+      content: "[\2713]\00A0 Remote possible from anywhere";
+    }
+    25% {
+      opacity: 1;
+      content: "[\2713]\00A0 Remote possible from anywhere";
+    }
+    45% {
+      opacity: 0;
+      content: "[\2713]\00A0 Remote possible from anywhere";
+    }
+    48% {
+      opacity: 0;
+      content: "[\2713]\00A0 Minimum compensation $XXX,XXX";
+    }
+    50% {
+      opacity: 1;
+      content: "[\2713]\00A0 Minimum compensation $XXX,XXX";
+    }
+    70% {
+      opacity: 0;
+      content: "[\2713]\00A0 Minimum compensation $XXX,XXX";
+    }
+    73% {
+      opacity: 0;
+      content: "[\2713]\00A0 An active diversity program";
+    }
+    75% {
+      opacity: 1;
+      content: "[\2713]\00A0 An active diversity program";
+    }
+    100% {
+      opacity: 0;
+      content: "[\2713]\00A0 An active diversity program";
+    }
+    /* 99% {
+      opacity: 0;
+      content: "[\2713]\00A0 Family friendly policies";
+    } */
+  }
+}

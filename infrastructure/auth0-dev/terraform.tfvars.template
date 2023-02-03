@@ -1,0 +1,3 @@
+app_auth0_dev_domain = "myapp.au.auth0.com"
+app_auth0_dev_management_client_id = "ABC123"
+app_auth0_dev_management_client_secret = "ABC123"
