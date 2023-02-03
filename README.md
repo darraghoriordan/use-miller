@@ -158,17 +158,18 @@ Create an `A` record for `api.yourdomain.com` to `10.123.123.123` (replace with 
 
 You'll probably prefer to host the front end and marketing apps on netlify.
 
-## Running the app
+## Running the backend app
 
 ```bash
+## change to the be directory
+cd apps/backend
+
+# run the docker infrastructure
+pnpm run up
+
 # development
-$ npm run start
+$ pnpm run start
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
 ## Test

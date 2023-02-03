@@ -6,7 +6,7 @@
     "private": true,
     "license": "UNLICENSED",
     "scripts": {
-        "up": "mkdir -p ./.docker-compose/.persist/postgres && docker compose up -d",
+        "up": "mkdir -p ./.docker-compose/volumes/postgres ./.docker-compose/volumes/redis && chmod -R 777 ./.docker-compose && docker compose up -d",
         "down": "docker compose down",
         "build": "pnpm rimraf dist && pnpm nest build --tsc --path tsconfig.build.json",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

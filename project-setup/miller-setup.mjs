@@ -200,11 +200,11 @@ inquirer.default
                     variableValues.app_auth0_dev_domain.value;
                 beEnvVars.COMPOSE_PROJECT_NAME = underscoreCaseName;
                 beEnvVars.APP_POSTGRES_PORT = `54${Math.floor(
-                    Math.random() * 100
-                )}`;
+                    Math.random() * 10
+                )}${Math.floor(Math.random() * 10)}`;
                 beEnvVars.APP_REDIS_PORT = `63${Math.floor(
-                    Math.random() * 100
-                )}`;
+                    Math.random() * 10
+                )}${Math.floor(Math.random() * 10)}`;
                 beEnvVars.APP_POSTGRES_DATABASE = `${answers.projectName
                     .toLowerCase()
                     .replace(" ", "")}db`;

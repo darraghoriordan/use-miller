@@ -11,12 +11,13 @@ services:
             - ${APP_POSTGRES_PORT}:5432
         volumes:
             - ./infrastructure/database-initialisation:/docker-entrypoint-initdb.d
-            - ./.docker-compose/.persist/postgres:/var/lib/postgresql/data
+            - ./.docker-compose/volumes/postgres:/var/lib/postgresql/data
         environment:
             - POSTGRES_DB=${APP_POSTGRES_DATABASE}
             - POSTGRES_SCHEMA_NAME=${APP_POSTGRES_SCHEMA}
             - POSTGRES_USER=${APP_POSTGRES_USER}
             - POSTGRES_PASSWORD=${APP_POSTGRES_PASSWORD}
+            - PGDATA=/var/lib/postgresql/data/pgdata
     redis:
         container_name: ${COMPOSE_PROJECT_NAME}_redis
         image: redis:7-alpine
@@ -25,7 +26,7 @@ services:
         ports:
             - ${APP_REDIS_PORT}:6379
         volumes:
-            - ./.docker-compose/.persist/redis:/data
+            - ./.docker-compose/volumes/redis:/data
         environment:
             - REDIS_REPLICATION_MODE=master
             - REDIS_ARGS="--requirepass redis-pass"
