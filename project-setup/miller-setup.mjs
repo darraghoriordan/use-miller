@@ -7,6 +7,7 @@ import { exec } from "child_process";
 import { promisify } from "util";
 import dotenv from "dotenv";
 import chalk from "chalk";
+import { exit } from "process";
 const execPromise = promisify(exec);
 
 console.log(figlet.textSync("MillerWeb Dev Init"));
@@ -41,6 +42,7 @@ inquirer.default
             },
         },
     ])
+
     .then(async (answers) => {
         console.info(`${os.EOL}Setting name to: `, typeof answers.projectName);
         // write the project name to a file so it can be read by other scripts
@@ -248,7 +250,7 @@ inquirer.default
                     "You don't have to run this script again, you can work with env vars and terraform directly."
                 );
                 console.log(
-                    "You can now run 'yarn mill:dev' to run the app locally."
+                    "You can now run 'npm run mill:dev' to run the app locally."
                 );
             });
     });

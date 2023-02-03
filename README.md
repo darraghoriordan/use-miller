@@ -2,7 +2,7 @@
 
 ## initialise the project
 
-I recommend forking the project on Github and then cloning your fork. This will make it easier to keep up to date with the latest changes.
+I recommend NOT forking the project on Github. Instead, create a new repo and copy the files over.
 
 ## Node versions
 
@@ -28,15 +28,19 @@ To change back to your default node version use
 nvm use default
 ```
 
-## Yarn package manager
+## pnpm package manager
 
-The project is built around yarn workspaces
+The project is built around workspaces and pnpm package manager
 
-Install yarn with
+Install pnpm with
 
 ```bash
-npm i -g yarn
+npm i -g pnpm
 ```
+
+## Docker
+
+The project uses docker to run local development backend tools (database, redis). This is already configured for you but you must install docker from https://www.docker.com/products/docker-desktop to use it.
 
 ## Initialise your new project
 
@@ -46,7 +50,7 @@ This will initialise the project with your own name and description.
 
 ```bash
 # in the root run
-yarn mill:init
+npm run mill:init
 ```
 
 ==========

@@ -10,13 +10,13 @@
     },
     "scripts": {
         "clean": "rm -Rf ./dist/",
-        "build": "cd apps/backend && yarn build",
-        "mill:dev": "cd apps/backend && yarn up -d && cd ../.. && concurrently \"cd apps/frontend && yarn start\" \"cd apps/backend && yarn start:dev\"",
+        "build": "cd apps/backend && npm run build",
+        "mill:dev": "cd apps/backend && npm run up -d && cd ../.. && concurrently \"cd apps/frontend && npm run start\" \"cd apps/backend && npm run start:dev\"",
         "start:be:prod": "cd apps/backend && npm run start:prod",
         "pre-commit": "npx lint-staged",
         "prettier": "prettier --write src/*",
         "prepare": "husky install && chmod ug+x .husky/*",
-        "mill:init": "pnpm install && yarn lerna bootstrap && node project-setup/miller-setup.mjs"
+        "mill:init": "pnpm install && node project-setup/miller-setup.mjs"
     },
     "dependencies": {
         "tslib": "^2.5.0"
