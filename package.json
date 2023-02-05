@@ -8,7 +8,7 @@
     "packageManager": "pnpm@7.26.2",
     "repository": {
         "type": "git",
-        "url": "//github.com/darraghoriordan/use-miller"
+        "url": "https://github.com/darraghoriordan/use-miller.git"
     },
     "author": {
         "name": "Darragh ORiordan",
