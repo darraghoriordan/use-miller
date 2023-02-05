@@ -16,5 +16,5 @@ jobs:
             - run: pnpm run build
             - name: Release
               env:
-                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+                  GH_TOKEN: ${{ secrets.GH_TOKEN_SM }}
               run: npx semantic-release
