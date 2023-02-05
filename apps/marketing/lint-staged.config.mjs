@@ -5,7 +5,7 @@ const buildEslintCommand = (filenames) =>
         .map((f) => path.relative(process.cwd(), f))
         .join(" --file ")}`;
 const config = {
-    "*.{js,jsx,ts,tsx}": [buildEslintCommand],
+    "*.{js,jsx,ts,tsx}": [buildEslintCommand, `prettier --write`],
 
     // Type check TypeScript files
     // "**/*.(ts|tsx)": (files) => {
