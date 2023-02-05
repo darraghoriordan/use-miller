@@ -7,10 +7,8 @@ module.exports = {
     // Type check TypeScript files
     "**/*.ts": (files) => {
         return [
-            `prettier --parser typescript --write ${files.join(" ")}`,
-            `npx eslint -c .eslintrc.js --ext .ts --max-warnings 0 ${files.join(
-                " "
-            )}`,
+            `prettier --write ${files.join(" ")}`,
+            `npx eslint -c .eslintrc.js --max-warnings 0 ${files.join(" ")}`,
         ];
     },
 };
