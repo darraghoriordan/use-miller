@@ -52,7 +52,7 @@ on success
             </Head>
             <Header />
             <main>
-                <div>Initialising payment.......</div>
+                <div>Initialising payment..df.....</div>
             </main>
             <Footer />
         </>
