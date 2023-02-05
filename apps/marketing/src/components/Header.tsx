@@ -84,7 +84,7 @@ function MobileNavigation() {
                     >
                         <MobileNavLink href="#features">Features</MobileNavLink>
                         <MobileNavLink href="#pricing">Pricing</MobileNavLink>
-                        <MobileNavLink href="#pricing">
+                        <MobileNavLink href="/payment/init-payment">
                             Get Started
                         </MobileNavLink>
                         <hr className="m-2 border-slate-300/40" />
@@ -127,7 +127,9 @@ export function Header() {
                             <NavLink href="#features">Features</NavLink>
 
                             <NavLink href="#pricing">Pricing</NavLink>
-                            <NavLink href="#testimonials">GetStarted</NavLink>
+                            <NavLink href="/payment/init-payment">
+                                GetStarted
+                            </NavLink>
                         </div>
                         <div className="hidden md:block">
                             <NavLink href="/login">Sign in</NavLink>

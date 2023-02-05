@@ -54,11 +54,38 @@ npm run mill:init
 ```
 
 ==========
-Deploying to a server
+
+# Running locally
 
 ## Install terraform for your Operating System
 
 install terraform - https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli#install-terraform
+
+## Sign up for Auth0
+
+Auth0 (https://auth0.com/)
+
+Why Auth0? Guaranteed security out of the box. You get 7000 monthly active users for free.
+
+When you are successful and have more users than that, you'll be glad you're using an authentication platform rather than rolling your own. You need MFA, password reset, email verification, and more. Auth0 has it all. You become successful and start working with SAML in enterprise - you just have to turn on some toggles in Auth0.
+
+Create two auth0 tenants
+
+your-app.auth0.com and your-app-dev.auth0.com
+
+## Sign up for Stripe
+
+You must sign up for Stripe to use the payment system.
+
+After you have created a stripe account and you're in the stripe Dashboard, click on the "Developers" link in the left hand menu. Then turn on the "Test Data" toggle.
+
+Now during Miller setup you will be asked for your stripe test api key. You can find this in the "API Keys" section of the stripe dashboard. Take the secret test key. It should start with `sk_test_`. Store it somewhere safe for now.
+
+Next you will need a webhook verification key. This is used to verify the messages that Stripe sends your application about a user's payments. You can find this in the "Webhooks" section of the Developer dashboard.
+
+Click on "Test in local environment" and you'll see some code. Copy the endpoint secret value. It should start with `whsec_`. Store it somewhere safe for now.
+
+# Deploying to production
 
 ## Sign up for Digital Ocean
 
@@ -74,18 +101,6 @@ You'll need a read and write api key from digital ocean. This will allow terrafo
 1. Copy the token somewhere safe for now.
 
 ![Digital Ocean Api](./readme-images/digioceanapikey.png)
-
-## Sign up for Auth0
-
-Auth0 (https://auth0.com/)
-
-Why Auth0? Guaranteed security out of the box. You get 7000 monthly active users for free.
-
-When you are successful and have more users than that, you'll be glad you're using an authentication platform rather than rolling your own.
-
-Create two auth0 tenants
-
-your-app.auth0.com and your-app-dev.auth0.com
 
 ## One-time setup of a suitable dokku droplet
 

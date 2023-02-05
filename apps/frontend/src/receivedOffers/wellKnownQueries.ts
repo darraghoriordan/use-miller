@@ -1,5 +1,5 @@
 const wellKnownQueries = {
-  receivedOffersGetAll: "received-roles",
+    receivedOffersGetAll: "received-roles",
 };
 
 export default wellKnownQueries;

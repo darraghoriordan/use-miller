@@ -1,5 +1,5 @@
 const wellKnownQueries = {
-  initUser: "init-user",
+    initUser: "init-user",
 };
 
 export default wellKnownQueries;

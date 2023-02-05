@@ -8,7 +8,6 @@
         "build": "cd ../../libs/shared-api-client && pnpm install && cd ../../apps/frontend && vite build",
         "serve": "vite preview",
         "test": "npx vitest",
-        "pre-commit": "npx lint-staged",
         "coverage": "npx vitest run --coverage"
     },
     "eslintConfig": {

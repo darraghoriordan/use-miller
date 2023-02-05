@@ -1,3 +1,3 @@
 export class InitUserDto {
-  userWasInitialised!: boolean;
+    userWasInitialised!: boolean;
 }

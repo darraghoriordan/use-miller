@@ -1,0 +1,17 @@
+name: BuildPR
+on:
+    pull_request:
+        branches:
+            - main
+jobs:
+    buildTest:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: "18"
+            - uses: pnpm/action-setup@v2
+            - run: pnpm run lint
+            - run: pnpm run test
+            - run: pnpm build

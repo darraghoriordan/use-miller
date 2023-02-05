@@ -1,4 +1,5 @@
 import { PaymentsApi } from "@use-miller/shared-api-client";
+import Link from "next/link";
 import { getAnonymousApiInstance } from "../api-setup/api-factory";
 import { Container } from "./Container";
 
@@ -11,33 +12,6 @@ export function Hero() {
         "Send emails using popular providers (twillio, mailgun, fastmail etc) via smtp",
         "Bring your ideas to life in minutes with custom tooling to initialise SaaS projects",
     ];
-
-    const redirectGetCheckoutLinkAndRedirectToStripeCheckout = async () => {
-        const apiClient = getAnonymousApiInstance(PaymentsApi);
-        const apiResponse =
-            await apiClient.stripeUnauthenticatedCheckoutControllerCreateCheckoutSession(
-                {
-                    stripeCheckoutSessionRequestDto: {
-                        lineItems: [
-                            {
-                                price: "price_1MVa3fCZhqgg93xWmuuA1nZc",
-                                quantity: 1,
-                            },
-                        ],
-                        mode: "subscription",
-                        successFrontendPath:
-                            "/payment/success?session_id={CHECKOUT_SESSION_ID}",
-                        cancelFrontendPath: "/payment/cancel",
-                    },
-                }
-            );
-        /*
-on success
-  const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
-  const customer = await stripe.customers.retrieve(session.customer);
-*/
-        window.location.href = apiResponse.stripeSessionUrl;
-    };
 
     return (
         <Container className="pt-20 pb-16 text-left lg:pt-32">
@@ -63,14 +37,12 @@ on success
                         technology sorted.
                     </p>
                     <div className="mx-auto mt-10 flex gap-x-6 md:mx-0">
-                        <button
-                            onClick={() => {
-                                redirectGetCheckoutLinkAndRedirectToStripeCheckout();
-                            }}
+                        <Link
+                            href={"/payment/init-payment"}
                             className="w-full max-w-md rounded-lg bg-violet-700 text-lg"
                         >
                             Get a demo today
-                        </button>
+                        </Link>
                     </div>
                     <div className="mt-32" id="features">
                         <p className=" max-w-4xl text-left font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">

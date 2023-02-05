@@ -4,21 +4,24 @@
     "description": "",
     "author": "",
     "private": true,
+    "type": "module",
     "license": "UNLICENSED",
+    "packageManager": "pnpm@7.26.2",
     "engines": {
-        "node": "18.13.0"
+        "node": ">=18",
+        "pnpm": ">=7"
     },
     "scripts": {
         "clean": "rm -Rf ./dist/",
         "build": "cd apps/backend && npm run build",
         "mill:dev": "cd apps/backend && npm run up -d && cd ../.. && concurrently \"cd apps/frontend && npm run start\" \"cd apps/backend && npm run start:dev\"",
         "start:be:prod": "cd apps/backend && npm run start:prod",
-        "pre-commit": "npx lint-staged",
         "prettier": "prettier --write src/*",
         "prepare": "husky install && chmod ug+x .husky/*",
-        "mill:init": "pnpm install && node project-setup/miller-setup.mjs"
+        "mill:init": "pnpm install && ts-node --esm project-setup/miller-setup.mts"
     },
     "dependencies": {
+        "@types/inquirer": "9.0.3",
         "tslib": "^2.5.0"
     },
     "devDependencies": {

@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "ESNext",
         "declaration": true,
         "removeComments": false,
         "emitDecoratorMetadata": true,
@@ -17,10 +17,13 @@
         "skipLibCheck": true,
         "skipDefaultLibCheck": true,
         "resolveJsonModule": true,
+        "moduleResolution": "node",
         "esModuleInterop": true,
         "inlineSources": false,
         "target": "ES2020",
-        "lib": ["es2020"],
+        "lib": [
+            "es2020"
+        ],
         "sourceMap": true,
         "outDir": "./dist",
         "baseUrl": "./"

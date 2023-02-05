@@ -6,8 +6,8 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint",
-        "pre-commit": "npx lint-staged"
+        "lint": "next lint --no-cache",
+        "prettier": "prettier --write src/*"
     },
     "browserslist": "defaults, not ie <= 11",
     "dependencies": {
