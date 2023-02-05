@@ -2,11 +2,19 @@
     "name": "use-miller",
     "version": "1.0.1",
     "description": "Dev tooling",
-    "author": "Darragh ORiordan",
     "private": true,
     "type": "module",
     "license": "UNLICENSED",
     "packageManager": "pnpm@7.26.2",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/darraghoriordan/use-miller"
+    },
+    "author": {
+        "name": "Darragh ORiordan",
+        "email": "darragh.oriordan@gmail.com",
+        "url": "https://darraghoriordan.com"
+    },
     "engines": {
         "node": ">=18",
         "pnpm": ">=7"
