@@ -4,7 +4,7 @@ const buildEslintCommand = (filenames) =>
     `next lint --fix --file ${filenames
         .map((f) => path.relative(process.cwd(), f))
         .join(" --file ")}`;
-module.exports = {
+const config = {
     "*.{js,jsx,ts,tsx}": [buildEslintCommand],
 
     // Type check TypeScript files
@@ -15,3 +15,5 @@ module.exports = {
     //     //     "cd apps/marketing && npm run prettier",
     // },
 };
+
+export default config;
