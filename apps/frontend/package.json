@@ -7,7 +7,7 @@
         "build:netlify": "cd ../../libs/shared-api-client && pnpm install && cd ../../apps/frontend && pnpm install && vite build",
         "build": "cd ../../libs/shared-api-client && pnpm install && cd ../../apps/frontend && vite build",
         "serve": "vite preview",
-        "test": "npx vitest",
+        "test": "vitest --passWithNoTests",
         "coverage": "npx vitest run --coverage"
     },
     "eslintConfig": {

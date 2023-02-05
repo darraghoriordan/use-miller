@@ -8,9 +8,7 @@ module.exports = {
     "**/*.(ts)": (files) => {
         return [
             `prettier --parser typescript --write ${files.join(" ")}`,
-            `npx eslint -c .eslintrc.js --ext .ts --max-warnings 0 ${files.join(
-                " "
-            )}`,
+            `npx eslint -c .eslintrc.js --max-warnings 0 ${files.join(" ")}`,
         ];
     },
 };

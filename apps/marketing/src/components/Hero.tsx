@@ -1,6 +1,4 @@
-import { PaymentsApi } from "@use-miller/shared-api-client";
 import Link from "next/link";
-import { getAnonymousApiInstance } from "../api-setup/api-factory";
 import { Container } from "./Container";
 
 export function Hero() {

@@ -48,10 +48,13 @@ module.exports = {
     },
     ignorePatterns: [".eslintrc.js"],
     rules: {
-        // "jest/no-try-expect":"off",
-        // "jest/no-conditional-expect":"off",
-        // "sonarjs/no-duplicate-string":"off",
-        // "no-eval": "error",
+        // just to get working for new pnpm workspace
+        // "@typescript-eslint/no-unsafe-member-access": "off",
+        // "@typescript-eslint/no-unsafe-assignment": "off",
+        // "@typescript-eslint/no-unsafe-call": "off",
+        // "@typescript-eslint/no-unsafe-argument": "off",
+        // "@typescript-eslint/no-unsafe-return": "off",
+        // end just to get working for new pnpm workspace
         "@typescript-eslint/interface-name-prefix": "off",
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
