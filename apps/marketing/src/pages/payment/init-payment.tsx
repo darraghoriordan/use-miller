@@ -47,12 +47,12 @@ on success
                 <title>Miller - A product kit for makers</title>
                 <meta
                     name="description"
-content="Have an idea for a product? Skip straight to the good stuff - providing valuable features to your customers. Miller has all the technology sorted."
+                    content="Have an idea for a product? Skip straight to the good stuff - providing valuable features to your customers. Miller has all the technology sorted."
                 />
             </Head>
             <Header />
             <main>
-                <div>Initialising payment.....</div>
+                <div>Initialising payment.......</div>
             </main>
             <Footer />
         </>
