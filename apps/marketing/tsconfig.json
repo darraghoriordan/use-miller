@@ -29,7 +29,8 @@
     "include": [
         "next-env.d.ts",
         "**/*.ts",
-        "**/*.tsx"
+        "**/*.tsx",
+        "apps/marketing/types/envVars.d.ts"
     ],
     "exclude": [
         "node_modules"

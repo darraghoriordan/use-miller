@@ -11,7 +11,7 @@
     },
     "browserslist": "defaults, not ie <= 11",
     "dependencies": {
-        "@auth0/auth0-spa-js": "2.0.2",
+        "@auth0/nextjs-auth0": "2.2.1",
         "@headlessui/react": "1.7.9",
         "@tailwindcss/forms": "0.5.3",
         "@use-miller/shared-api-client": "*",
@@ -35,7 +35,7 @@
         "@nrwl/jest": "15.6.3",
         "@nrwl/linter": "15.6.3",
         "@nrwl/node": "15.6.3",
-        "@types/node": "18.11.18",
+        "@types/node": "18.11.19",
         "@types/react": "18.0.27",
         "@types/react-dom": "18.0.10",
         "@types/react-router-dom": "5.3.3",

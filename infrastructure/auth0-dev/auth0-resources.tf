@@ -1,5 +1,5 @@
 resource "auth0_tenant" "dev_tenant" {
-  friendly_name     = "Miller App Development Tenant"
+  friendly_name     = "Miller App (Development)"
   default_directory = "Username-Password-Authentication"
 }
 
@@ -7,11 +7,11 @@ resource "auth0_client" "frontend_spa_app" {
   name                       = "Frontend App"
   description                = "The frontend client application"
   app_type                   = "spa"
-  callbacks                  = ["http://localhost:3000"]
+  callbacks                  = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
   oidc_conformant            = true
-  allowed_origins            = ["http://localhost:3000"]
-  allowed_logout_urls        = ["http://localhost:3000"]
-  web_origins                = ["http://localhost:3000"]
+  allowed_origins            = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
+  allowed_logout_urls        = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
+  web_origins                = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
   token_endpoint_auth_method = "none"
   grant_types = [
     "authorization_code",
@@ -39,6 +39,7 @@ resource "auth0_resource_server" "backend_api_app" {
   token_lifetime                                  = 86400
   skip_consent_for_verifiable_first_party_clients = true
   enforce_policies                                = true
+  token_dialect                                   = "access_token_authz"
 
   scopes {
     value       = "read:own"
@@ -96,6 +97,14 @@ resource "auth0_role" "super_user_role" {
   }
 }
 
+resource "auth0_user" "dev_test_basic_user" {
+  connection_name = "Username-Password-Authentication"
+  email           = "testbasic@testbasic.com"
+  password        = "apasspass$12$12"
+  nickname        = "testbasic"
+
+}
+
 resource "auth0_user" "dev_test_user" {
   connection_name = "Username-Password-Authentication"
   email           = "test@test.com"
@@ -126,5 +135,12 @@ output "test_user_username" {
 }
 output "test_user_password" {
   value     = auth0_user.dev_test_user.password
+  sensitive = true
+}
+output "test_user_basic_username" {
+  value = auth0_user.dev_test_basic_user.email
+}
+output "test_user_basic_password" {
+  value     = auth0_user.dev_test_basic_user.password
   sensitive = true
 }

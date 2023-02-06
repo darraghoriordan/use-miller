@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { Button } from "./Button";
 import { Container } from "./Container";
 import { NavLink } from "./NavLink";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 function MobileNavLink({
     href,
@@ -48,7 +49,16 @@ function MobileNavIcon({ open }: { open: boolean }) {
     );
 }
 
+const signUpUri = `https://${
+    process.env.NEXT_PUBLIC_AUTH0_DOMAIN
+}/authorize?response_type=code&client_id=${
+    process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID
+}&screen_hint=signup&redirect_uri=${
+    process.env.NEXT_PUBLIC_APP_BASE_PATH
+}&scope=${encodeURIComponent("openid email profile read:own offline_access")}`;
+
 export const MobileNavigation = () => {
+    const { user, isLoading } = useUser();
     return (
         <Popover>
             <Popover.Button
@@ -82,13 +92,30 @@ export const MobileNavigation = () => {
                         as="div"
                         className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
                     >
-                        <MobileNavLink href="#features">Features</MobileNavLink>
-                        <MobileNavLink href="#pricing">Pricing</MobileNavLink>
-                        <MobileNavLink href="/payment/init-payment">
-                            Get Started
+                        <MobileNavLink href="/#features">
+                            Features
                         </MobileNavLink>
-                        <hr className="m-2 border-slate-300/40" />
-                        <MobileNavLink href="/login">Sign in</MobileNavLink>
+                        <MobileNavLink href="/#pricing">Pricing</MobileNavLink>
+                        {user && (
+                            <MobileNavLink
+                                href={process.env.NEXT_PUBLIC_APP_BASE_PATH}
+                            >
+                                Dashboard
+                            </MobileNavLink>
+                        )}
+                        {(isLoading || !user) && (
+                            <>
+                                <MobileNavLink href={signUpUri}>
+                                    Get Started
+                                </MobileNavLink>
+                                <hr className="m-2 border-slate-300/40" />
+                                <MobileNavLink
+                                    href={process.env.NEXT_PUBLIC_APP_BASE_PATH}
+                                >
+                                    Sign in
+                                </MobileNavLink>
+                            </>
+                        )}
                     </Popover.Panel>
                 </Transition.Child>
             </Transition.Root>
@@ -97,6 +124,7 @@ export const MobileNavigation = () => {
 };
 
 export function Header() {
+    const { user, isLoading } = useUser();
     return (
         <header className="pt-6 pb-10">
             <Container>
@@ -124,16 +152,29 @@ export function Header() {
                     </div>
                     <div className="flex items-center gap-x-5 md:gap-x-8">
                         <div className="hidden md:flex md:gap-x-6">
-                            <NavLink href="#features">Features</NavLink>
-
-                            <NavLink href="#pricing">Pricing</NavLink>
-                            <NavLink href="/payment/init-payment">
-                                GetStarted
-                            </NavLink>
+                            <NavLink href="/#features">Features</NavLink>
+                            <NavLink href="/#pricing">Pricing</NavLink>
+                            {(isLoading || !user) && (
+                                <NavLink href={signUpUri}>Get Started</NavLink>
+                            )}
                         </div>
                         <div className="hidden md:block">
-                            <NavLink href="/login">Sign in</NavLink>
+                            {(isLoading || !user) && (
+                                <NavLink
+                                    href={process.env.NEXT_PUBLIC_APP_BASE_PATH}
+                                >
+                                    Sign in
+                                </NavLink>
+                            )}
+                            {user && (
+                                <NavLink
+                                    href={process.env.NEXT_PUBLIC_APP_BASE_PATH}
+                                >
+                                    Dashboard
+                                </NavLink>
+                            )}
                         </div>
+
                         <div className="-mr-1 md:hidden">
                             <MobileNavigation />
                         </div>

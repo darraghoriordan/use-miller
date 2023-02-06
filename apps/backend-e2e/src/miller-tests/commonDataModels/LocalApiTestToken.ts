@@ -14,14 +14,20 @@ export default class LocalApiTestToken {
     public date_received: Date;
 
     public needNewToken(): boolean {
-        const noAccessToken = this.access_token === undefined;
+        const noExistingAccessToken = this.access_token === undefined;
         // now - date received / 1000 > expires in
         const yesterday = new Date(Date.now() - 24 * 3600 * 1000);
-        const expired = yesterday > this.date_received;
+        const existingIsExpired = yesterday > this.date_received;
 
-        const needNewToken = noAccessToken || expired;
+        const overallNeedNewToken = noExistingAccessToken || existingIsExpired;
 
-        console.log(JSON.stringify({ needNewToken, expired, noAccessToken }));
-        return needNewToken;
+        if (overallNeedNewToken) {
+            console.log("Need new auth token test result", {
+                overallNeedNewToken,
+                existingIsExpired,
+                noExistingAccessToken,
+            });
+        }
+        return overallNeedNewToken;
     }
 }

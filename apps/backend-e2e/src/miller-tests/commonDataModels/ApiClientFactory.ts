@@ -1,10 +1,6 @@
 import {
     BaseAPI,
     Configuration,
-    FilterSettingsApi,
-    ReceivedRolesApi,
-    SharingLinksApi,
-    SubmittedRolesApi,
     EmailClientApi,
     PersonsApi,
     ApplicationSupportApi,
@@ -17,13 +13,9 @@ export class ApiClientFactory {
     static jsonType = "application/json";
     static validToken = "";
 
-    public static getAll(): {
+    public static getAllAuthenticated(): {
         applicationSupportApi: ApplicationSupportApi;
         personApi: PersonsApi;
-        submittedRolesApi: SubmittedRolesApi;
-        filterSettingsApi: FilterSettingsApi;
-        receivedRolesApi: ReceivedRolesApi;
-        sharingLinksApi: SharingLinksApi;
         emailClientApi: EmailClientApi;
     } {
         return {
@@ -31,14 +23,6 @@ export class ApiClientFactory {
                 ApplicationSupportApi
             ),
             personApi: ApiClientFactory.getAuthenticatedApiInstance(PersonsApi),
-            submittedRolesApi:
-                ApiClientFactory.getAuthenticatedApiInstance(SubmittedRolesApi),
-            receivedRolesApi:
-                ApiClientFactory.getAuthenticatedApiInstance(ReceivedRolesApi),
-            filterSettingsApi:
-                ApiClientFactory.getAuthenticatedApiInstance(FilterSettingsApi),
-            sharingLinksApi:
-                ApiClientFactory.getAuthenticatedApiInstance(SharingLinksApi),
             emailClientApi:
                 ApiClientFactory.getAuthenticatedApiInstance<EmailClientApi>(
                     EmailClientApi
@@ -51,6 +35,17 @@ export class ApiClientFactory {
         const apiConfig = new Configuration({
             basePath: process.env.TEST_API_URL,
             accessToken: AuthenticatedRequests.validToken,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            fetchApi: fetch as any,
+        });
+        return new apiService(apiConfig);
+    }
+
+    public static getUnAuthenticatedApiInstance<T extends BaseAPI>(apiService: {
+        new (apiConfig: Configuration): T;
+    }) {
+        const apiConfig = new Configuration({
+            basePath: process.env.TEST_API_URL,
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             fetchApi: fetch as any,
         });

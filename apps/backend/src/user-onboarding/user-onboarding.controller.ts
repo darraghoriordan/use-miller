@@ -1,5 +1,6 @@
 import {
     CoreLoggerService,
+    DefaultAuthGuard,
     RequestWithUser,
 } from "@darraghor/nest-backend-libs";
 import {
@@ -10,9 +11,8 @@ import {
     HttpCode,
     HttpStatus,
 } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from "@nestjs/swagger";
-import { InitUserDto } from "./InitUserResult.dto";
+import { InitUserResponseDto } from "./InitUserResponseDto";
 import { UserOnboardingService } from "./user-onboarding.service";
 
 @Controller("user-onboarding")
@@ -23,12 +23,14 @@ export class UserOnboardingController {
         private readonly logger: CoreLoggerService
     ) {}
 
-    @UseGuards(AuthGuard("jwt"))
+    @UseGuards(DefaultAuthGuard)
     @ApiBearerAuth()
     @Post("init-user")
     @HttpCode(HttpStatus.ACCEPTED)
-    @ApiOkResponse({ type: InitUserDto })
-    async initUser(@Request() request: RequestWithUser): Promise<InitUserDto> {
+    @ApiOkResponse({ type: InitUserResponseDto })
+    async initUser(
+        @Request() request: RequestWithUser
+    ): Promise<InitUserResponseDto> {
         this.logger.log("Initializing user: " + request.user.auth0UserId);
         const isUerInitialised = await this.onboardingService.initUser(
             request.user.auth0UserId

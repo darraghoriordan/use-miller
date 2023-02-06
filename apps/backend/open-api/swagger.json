@@ -210,10 +210,19 @@
         ]
       }
     },
-    "/person": {
+    "/person/{uuid}": {
       "get": {
-        "operationId": "PersonController_findSelf",
-        "parameters": [],
+        "operationId": "PersonController_findOne",
+        "parameters": [
+          {
+            "name": "uuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -234,9 +243,7 @@
             "bearer": []
           }
         ]
-      }
-    },
-    "/person/{uuid}": {
+      },
       "patch": {
         "operationId": "PersonController_update",
         "parameters": [
@@ -607,7 +614,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/InitUserDto"
+                  "$ref": "#/components/schemas/InitUserResponseDto"
                 }
               }
             }
@@ -623,9 +630,9 @@
         ]
       }
     },
-    "/payments/stripe/checkout-session-unauthenticated": {
+    "/payments/stripe/checkout-session": {
       "post": {
-        "operationId": "StripeUnauthenticatedCheckoutController_createCheckoutSession",
+        "operationId": "StripeCheckoutController_createCheckoutSession",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -651,6 +658,11 @@
         },
         "tags": [
           "Payments"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
         ]
       }
     },
@@ -713,6 +725,143 @@
                   "items": {
                     "$ref": "#/components/schemas/OrganisationSubscriptionRecord"
                   }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Organisations"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "OrganisationSubscriptionsController_addSubscription",
+        "parameters": [
+          {
+            "name": "orgUuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveOrganisationSubscriptionRecordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationSubscriptionRecord"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Organisations"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/organisation/{orgUuid}/subscriptions/{uuid}": {
+      "put": {
+        "operationId": "OrganisationSubscriptionsController_updateSubscription",
+        "parameters": [
+          {
+            "name": "uuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orgUuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveOrganisationSubscriptionRecordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganisationSubscriptionRecord"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Organisations"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "OrganisationSubscriptionsController_deleteSubscription",
+        "parameters": [
+          {
+            "name": "orgUuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "uuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
                 }
               }
             }
@@ -881,7 +1030,7 @@
           "roles"
         ]
       },
-      "InitUserDto": {
+      "InitUserResponseDto": {
         "type": "object",
         "properties": {
           "userWasInitialised": {
@@ -971,6 +1120,7 @@
             "type": "string"
           },
           "validUntil": {
+            "format": "date-time",
             "type": "string"
           },
           "createdDate": {
@@ -986,6 +1136,30 @@
           "stripePriceId",
           "validUntil",
           "createdDate"
+        ]
+      },
+      "SaveOrganisationSubscriptionRecordDto": {
+        "type": "object",
+        "properties": {
+          "stripeSubscriptionId": {
+            "type": "string"
+          },
+          "stripeCustomerId": {
+            "type": "string"
+          },
+          "stripePriceId": {
+            "type": "string"
+          },
+          "validUntil": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "stripeSubscriptionId",
+          "stripeCustomerId",
+          "stripePriceId",
+          "validUntil"
         ]
       }
     }

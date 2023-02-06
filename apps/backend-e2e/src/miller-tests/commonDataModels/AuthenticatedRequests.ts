@@ -1,41 +1,14 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import request from "supertest";
+
 import LocalApiTestToken from "./LocalApiTestToken";
 import fs from "fs";
+import axios from "axios";
+
 export class AuthenticatedRequests {
     static contentType = "content-type";
     static jsonType = "application/json";
     static validToken = "";
 
-    public static getRequestAuthenticated(path: string): request.Test {
-        return request(process.env.TEST_API_URL)
-            .get(path)
-            .auth(AuthenticatedRequests.validToken, { type: "bearer" })
-            .set(
-                AuthenticatedRequests.contentType,
-                AuthenticatedRequests.jsonType
-            );
-    }
-
-    public static postRequestAuthenticated(path: string): request.Test {
-        return request(process.env.TEST_API_URL)
-            .post(path)
-            .auth(AuthenticatedRequests.validToken, { type: "bearer" })
-            .set(
-                AuthenticatedRequests.contentType,
-                AuthenticatedRequests.jsonType
-            );
-    }
-
-    public static deleteRequestAuthenticated(path: string): request.Test {
-        return request(process.env.TEST_API_URL)
-            .delete(path)
-            .auth(AuthenticatedRequests.validToken, { type: "bearer" })
-            .set(
-                AuthenticatedRequests.contentType,
-                AuthenticatedRequests.jsonType
-            );
-    }
     public static tokenPath = "./local-api-test-token.json";
 
     public static async setToken(): Promise<void> {
@@ -57,33 +30,35 @@ export class AuthenticatedRequests {
 
                 if (localToken.needNewToken()) {
                     console.log("Getting new token...");
-                    const requestParameters = new URLSearchParams({
-                        /* eslint-disable @typescript-eslint/naming-convention */
-                        grant_type: "password",
-                        username: process.env.AUTH0_USERNAME!,
-                        password: process.env.AUTH0_PASSWORD!,
-                        audience: process.env.AUTH0_AUDIENCE!,
-                        scope: process.env.AUTH0_SCOPES!,
-                        client_id: process.env.AUTH0_CLIENT_ID!,
-                        client_secret: process.env.AUTH0_CLIENT_SECRET!,
+                    const options = {
+                        method: "POST",
+                        url: `https://${process.env.AUTH0_DOMAIN!}/oauth/token`,
 
-                        /* eslint-enable @typescript-eslint/naming-convention */
-                    });
-                    const authPostResponse = await request(
-                        `https://${process.env.AUTH0_DOMAIN!}`
-                    )
-                        .post("/oauth/token")
-                        .set(
-                            "content-type",
-                            "application/x-www-form-urlencoded"
-                        )
-                        .send(requestParameters.toString());
+                        headers: {
+                            ["content-type"]:
+                                "application/x-www-form-urlencoded",
+                        },
+                        data: new URLSearchParams({
+                            // eslint-disable-next-line @typescript-eslint/naming-convention
+                            grant_type: "password",
+                            username: process.env.AUTH0_TEST_ACCOUNT_USERNAME!,
+                            password: process.env.AUTH0_TEST_ACCOUNT_PASSWORD!,
+                            audience: process.env.AUTH0_AUDIENCE!,
+                            scope: process.env.AUTH0_SCOPES!,
+                            // eslint-disable-next-line @typescript-eslint/naming-convention
+                            client_id: process.env.AUTH0_CLIENT_ID!,
+                            // eslint-disable-next-line @typescript-eslint/naming-convention
+                            client_secret: process.env.AUTH0_CLIENT_SECRET!,
+                        }),
+                    };
+                    const authPostResponse = await axios.request(options);
+
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                    if (!authPostResponse.body.access_token) {
-                        console.log("No access token returned from auth0", {
-                            requestParams: requestParameters.toString(),
+                    if (!authPostResponse.data.access_token) {
+                        console.error("No access token returned from auth0", {
+                            options,
                             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                            body: authPostResponse.body,
+                            body: authPostResponse.data,
                             status: authPostResponse.status,
                             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                             requestHeaders: authPostResponse.headers,
@@ -93,11 +68,11 @@ export class AuthenticatedRequests {
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                     localToken.access_token =
                         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                        authPostResponse.body.access_token;
+                        authPostResponse.data.access_token;
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-                    localToken.token_type = authPostResponse.body.token_type;
+                    localToken.token_type = authPostResponse.data.token_type;
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-                    localToken.expires_in = authPostResponse.body.expires_in;
+                    localToken.expires_in = authPostResponse.data.expires_in;
                     localToken.date_received = new Date();
 
                     fs.writeFileSync(
@@ -113,6 +88,7 @@ export class AuthenticatedRequests {
                 AuthenticatedRequests.validToken = localToken.access_token!;
             } catch (error) {
                 console.error(error);
+                throw error;
             }
         }
     }
