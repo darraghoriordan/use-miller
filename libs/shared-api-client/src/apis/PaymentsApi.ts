@@ -53,11 +53,11 @@ export interface PaymentsApiInterface {
      * @throws {RequiredError}
      * @memberof PaymentsApiInterface
      */
-    stripeCustomerPortalControllerCreateCustomerPortalSessionRaw(): Promise<runtime.ApiResponse<void>>;
+    stripeCustomerPortalControllerCreateCustomerPortalSessionRaw(): Promise<runtime.ApiResponse<string>>;
 
     /**
      */
-    stripeCustomerPortalControllerCreateCustomerPortalSession(): Promise<void>;
+    stripeCustomerPortalControllerCreateCustomerPortalSession(): Promise<string>;
 
     /**
      * 
@@ -119,7 +119,7 @@ export class PaymentsApi extends runtime.BaseAPI implements PaymentsApiInterface
 
     /**
      */
-    async stripeCustomerPortalControllerCreateCustomerPortalSessionRaw(): Promise<runtime.ApiResponse<void>> {
+    async stripeCustomerPortalControllerCreateCustomerPortalSessionRaw(): Promise<runtime.ApiResponse<string>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -139,13 +139,14 @@ export class PaymentsApi extends runtime.BaseAPI implements PaymentsApiInterface
             query: queryParameters,
         });
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.TextApiResponse(response) as any;
     }
 
     /**
      */
-    async stripeCustomerPortalControllerCreateCustomerPortalSession(): Promise<void> {
-        await this.stripeCustomerPortalControllerCreateCustomerPortalSessionRaw();
+    async stripeCustomerPortalControllerCreateCustomerPortalSession(): Promise<string> {
+        const response = await this.stripeCustomerPortalControllerCreateCustomerPortalSessionRaw();
+        return await response.value();
     }
 
     /**

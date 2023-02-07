@@ -2,18 +2,34 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
     Organisation,
+    OrganisationMembershipsApi,
     OrganisationsApi,
     OrganisationSubscriptionRecord,
+    OrganisationSubscriptionsApi,
     OrganisationSubscriptionsControllerAddSubscriptionRequest,
     Person,
     PersonsApi,
 } from "@use-miller/shared-api-client";
 import { ApiClientFactory } from "./commonDataModels/ApiClientFactory";
 
+// This follows a user through the first steps when they hit
+// the api for the first time.
 describe("When getting a user the first time", () => {
     const personApi = ApiClientFactory.getAuthenticatedApiInstance(PersonsApi);
     const orgApi =
         ApiClientFactory.getAuthenticatedApiInstance(OrganisationsApi);
+    const orgMembershipsApi = ApiClientFactory.getAuthenticatedApiInstance(
+        OrganisationMembershipsApi
+    );
+
+    const subscriptionsApi = ApiClientFactory.getAuthenticatedApiInstance(
+        OrganisationSubscriptionsApi
+    );
+    const superUserSubscriptionsApi =
+        ApiClientFactory.getAuthenticatedApiInstance(
+            OrganisationSubscriptionsApi,
+            true
+        );
 
     let foundPerson: Person | undefined;
 
@@ -23,7 +39,7 @@ describe("When getting a user the first time", () => {
         });
         expect(foundPerson).toMatchObject({
             auth0UserId: expect.any(String),
-            email: "test@test.com",
+            email: "testbasic@testbasic.com",
         });
     });
 
@@ -43,9 +59,19 @@ describe("When getting a user the first time", () => {
         org = orgs[0];
     });
 
+    it("the user's org has one membership for the user", async () => {
+        const memberships =
+            await orgMembershipsApi.organisationMembershipsControllerFindAll({
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                orgUuid: org!.uuid,
+            });
+        expect(memberships).toHaveLength(1);
+        expect(memberships[0]).toMatchObject({});
+    });
+
     it("the user's org has no subscriptions", async () => {
         const subscriptions =
-            await orgApi.organisationSubscriptionsControllerFindAll({
+            await subscriptionsApi.organisationSubscriptionsControllerFindAll({
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 orgUuid: org!.uuid,
             });
@@ -53,7 +79,7 @@ describe("When getting a user the first time", () => {
     });
 
     let sub: OrganisationSubscriptionRecord | undefined;
-    it("we can add a subscription", async () => {
+    it("as super user we can add a subscription", async () => {
         const requestParameters = {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             orgUuid: org!.uuid,
@@ -67,22 +93,38 @@ describe("When getting a user the first time", () => {
                 stripePriceId: "price_123",
             },
         } as OrganisationSubscriptionsControllerAddSubscriptionRequest;
-        console.log(requestParameters);
-        sub = await orgApi.organisationSubscriptionsControllerAddSubscription(
-            requestParameters
-        );
+
+        sub =
+            await superUserSubscriptionsApi.organisationSubscriptionsControllerAddSubscription(
+                requestParameters
+            );
         expect(sub.uuid).toBeDefined();
     });
 
-    it("we can tidy up", async () => {
-        const isDeleted =
-            await orgApi.organisationSubscriptionsControllerDeleteSubscription({
+    it("as a super user we can tidy up", async () => {
+        const subscriptions =
+            await subscriptionsApi.organisationSubscriptionsControllerFindAll({
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 orgUuid: org!.uuid,
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                uuid: sub!.uuid,
             });
 
-        expect(isDeleted).toBe("true");
+        const results = [];
+        for (const subscription of subscriptions) {
+            const isDeleted =
+                await superUserSubscriptionsApi.organisationSubscriptionsControllerDeleteSubscription(
+                    {
+                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                        orgUuid: org!.uuid,
+                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                        uuid: subscription.uuid,
+                    }
+                );
+            results.push(isDeleted);
+        }
+
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        for (const r of results) {
+            expect(r).toBe("true");
+        }
     });
 });

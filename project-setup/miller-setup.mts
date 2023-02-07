@@ -353,7 +353,7 @@ console.log(
     "The application has been configured with the name of your app and all env variables are configured"
 );
 console.log(
-    "You don't have to run this script again, you can work with env vars and terraform directly. But the script is re-runnable safely."
+    "This script is re-runnable safely. You don't have to run it, you can work with env vars and terraform directly. But running the script will overwrite the same env vars. "
 );
 console.log(
     `${os.EOL}You can now run ${chalk.magenta(

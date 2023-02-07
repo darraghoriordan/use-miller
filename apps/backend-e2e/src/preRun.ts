@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { AuthenticatedRequests } from "./miller-tests/commonDataModels/AuthenticatedRequests";
+import { AuthenticationTokenManager } from "./miller-tests/commonDataModels/AuthenticationTokenManager";
 dotenv.config();
 // This is a hack for tests
 import { TextEncoder, TextDecoder } from "util";
@@ -10,6 +10,13 @@ global.TextDecoder = TextDecoder as any;
 // End of hack
 
 // loads our auth token once into the static class we use to build requests
-await AuthenticatedRequests.setToken();
-console.log("Using token", AuthenticatedRequests.validToken);
+await AuthenticationTokenManager.init();
+console.log(
+    "Using basic token",
+    AuthenticationTokenManager.validBasicUserToken
+);
+console.log(
+    "Using super token",
+    AuthenticationTokenManager.validSuperUserToken
+);
 export {};

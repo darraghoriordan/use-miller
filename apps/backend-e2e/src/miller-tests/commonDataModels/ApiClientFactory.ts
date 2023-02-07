@@ -5,7 +5,7 @@ import {
     PersonsApi,
     ApplicationSupportApi,
 } from "@use-miller/shared-api-client";
-import { AuthenticatedRequests } from "./AuthenticatedRequests";
+import { AuthenticationTokenManager } from "./AuthenticationTokenManager";
 import fetch from "node-fetch";
 
 export class ApiClientFactory {
@@ -13,28 +13,38 @@ export class ApiClientFactory {
     static jsonType = "application/json";
     static validToken = "";
 
-    public static getAllAuthenticated(): {
+    public static getAllAuthenticated(elevateToSuperUser = false): {
         applicationSupportApi: ApplicationSupportApi;
         personApi: PersonsApi;
         emailClientApi: EmailClientApi;
     } {
         return {
             applicationSupportApi: ApiClientFactory.getAuthenticatedApiInstance(
-                ApplicationSupportApi
+                ApplicationSupportApi,
+                elevateToSuperUser
             ),
-            personApi: ApiClientFactory.getAuthenticatedApiInstance(PersonsApi),
+            personApi: ApiClientFactory.getAuthenticatedApiInstance(
+                PersonsApi,
+                elevateToSuperUser
+            ),
             emailClientApi:
                 ApiClientFactory.getAuthenticatedApiInstance<EmailClientApi>(
-                    EmailClientApi
+                    EmailClientApi,
+                    elevateToSuperUser
                 ),
         };
     }
-    public static getAuthenticatedApiInstance<T extends BaseAPI>(apiService: {
-        new (apiConfig: Configuration): T;
-    }) {
+    public static getAuthenticatedApiInstance<T extends BaseAPI>(
+        apiService: {
+            new (apiConfig: Configuration): T;
+        },
+        elevateToSuperUser = false
+    ) {
         const apiConfig = new Configuration({
             basePath: process.env.TEST_API_URL,
-            accessToken: AuthenticatedRequests.validToken,
+            accessToken: elevateToSuperUser
+                ? AuthenticationTokenManager.validSuperUserToken
+                : AuthenticationTokenManager.validBasicUserToken,
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             fetchApi: fetch as any,
         });

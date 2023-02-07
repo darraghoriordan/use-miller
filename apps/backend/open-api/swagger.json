@@ -305,7 +305,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Person"
+                  "type": "boolean"
                 }
               }
             }
@@ -501,7 +501,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Organisation"
+                    "$ref": "#/components/schemas/OrganisationMembership"
                   }
                 }
               }
@@ -509,7 +509,7 @@
           }
         },
         "tags": [
-          "Organisations"
+          "Organisation Memberships"
         ],
         "security": [
           {
@@ -552,7 +552,7 @@
           }
         },
         "tags": [
-          "Organisations"
+          "Organisation Memberships"
         ],
         "security": [
           {
@@ -595,7 +595,7 @@
           }
         },
         "tags": [
-          "Organisations"
+          "Organisation Memberships"
         ],
         "security": [
           {
@@ -689,7 +689,14 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "The URL to the customer portal",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -731,7 +738,7 @@
           }
         },
         "tags": [
-          "Organisations"
+          "Organisation Subscriptions"
         ],
         "security": [
           {
@@ -774,7 +781,7 @@
           }
         },
         "tags": [
-          "Organisations"
+          "Organisation Subscriptions"
         ],
         "security": [
           {
@@ -827,7 +834,7 @@
           }
         },
         "tags": [
-          "Organisations"
+          "Organisation Subscriptions"
         ],
         "security": [
           {
@@ -868,7 +875,7 @@
           }
         },
         "tags": [
-          "Organisations"
+          "Organisation Subscriptions"
         ],
         "security": [
           {
@@ -1011,6 +1018,36 @@
             "type": "string"
           }
         }
+      },
+      "OrganisationMembership": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "createdDate",
+          "updateDate",
+          "deletedDate"
+        ]
       },
       "CreateUpdateMembershipDto": {
         "type": "object",

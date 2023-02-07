@@ -3,6 +3,7 @@ export * from './InitUserResponseDto';
 export * from './InlineResponse200';
 export * from './InlineResponse503';
 export * from './Organisation';
+export * from './OrganisationMembership';
 export * from './OrganisationSubscriptionRecord';
 export * from './Person';
 export * from './SaveOrganisationSubscriptionRecordDto';
