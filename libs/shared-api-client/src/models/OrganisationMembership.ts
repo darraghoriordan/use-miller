@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    MembershipRole,
+    MembershipRoleFromJSON,
+    MembershipRoleFromJSONTyped,
+    MembershipRoleToJSON,
+} from './';
+
 /**
  * 
  * @export
@@ -31,6 +38,24 @@ export interface OrganisationMembership {
      * @memberof OrganisationMembership
      */
     uuid: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganisationMembership
+     */
+    personId: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OrganisationMembership
+     */
+    organisationId: number;
+    /**
+     * 
+     * @type {Array<MembershipRole>}
+     * @memberof OrganisationMembership
+     */
+    roles: Array<MembershipRole>;
     /**
      * 
      * @type {Date}
@@ -63,6 +88,9 @@ export function OrganisationMembershipFromJSONTyped(json: any, ignoreDiscriminat
         
         'id': json['id'],
         'uuid': json['uuid'],
+        'personId': json['personId'],
+        'organisationId': json['organisationId'],
+        'roles': ((json['roles'] as Array<any>).map(MembershipRoleFromJSON)),
         'createdDate': (new Date(json['createdDate'])),
         'updateDate': (new Date(json['updateDate'])),
         'deletedDate': (new Date(json['deletedDate'])),
@@ -80,6 +108,9 @@ export function OrganisationMembershipToJSON(value?: OrganisationMembership | nu
         
         'id': value.id,
         'uuid': value.uuid,
+        'personId': value.personId,
+        'organisationId': value.organisationId,
+        'roles': ((value.roles as Array<any>).map(MembershipRoleToJSON)),
         'createdDate': (value.createdDate.toISOString()),
         'updateDate': (value.updateDate.toISOString()),
         'deletedDate': (value.deletedDate.toISOString()),

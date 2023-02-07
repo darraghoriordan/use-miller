@@ -16,6 +16,7 @@ src/models/CreateUpdateMembershipDto.ts
 src/models/InitUserResponseDto.ts
 src/models/InlineResponse200.ts
 src/models/InlineResponse503.ts
+src/models/MembershipRole.ts
 src/models/Organisation.ts
 src/models/OrganisationMembership.ts
 src/models/OrganisationSubscriptionRecord.ts

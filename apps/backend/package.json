@@ -27,7 +27,7 @@
         "client:generate": "pnpm miller api:write-client --fePath ../../apps/frontend --itPath ../../apps/backend-e2e --packageName @use-miller/shared-api-client"
     },
     "dependencies": {
-        "@darraghor/nest-backend-libs": "2.17.15",
+        "@darraghor/nest-backend-libs": "2.17.18",
         "@nestjs/bull": "0.6.2",
         "@nestjs/cli": "9.2.0",
         "@nestjs/common": "9.3.2",

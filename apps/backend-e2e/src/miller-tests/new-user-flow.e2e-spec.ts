@@ -66,7 +66,14 @@ describe("When getting a user the first time", () => {
                 orgUuid: org!.uuid,
             });
         expect(memberships).toHaveLength(1);
-        expect(memberships[0]).toMatchObject({});
+        console.log("memberships", memberships);
+        expect(memberships[0]).toMatchObject({
+            roles: [
+                {
+                    name: "owner",
+                },
+            ],
+        });
     });
 
     it("the user's org has no subscriptions", async () => {

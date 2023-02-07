@@ -57,6 +57,12 @@ export interface OrganisationSubscriptionRecord {
     validUntil: Date;
     /**
      * 
+     * @type {number}
+     * @memberof OrganisationSubscriptionRecord
+     */
+    organisationId: number;
+    /**
+     * 
      * @type {Date}
      * @memberof OrganisationSubscriptionRecord
      */
@@ -79,6 +85,7 @@ export function OrganisationSubscriptionRecordFromJSONTyped(json: any, ignoreDis
         'stripeCustomerId': json['stripeCustomerId'],
         'stripePriceId': json['stripePriceId'],
         'validUntil': (new Date(json['validUntil'])),
+        'organisationId': json['organisationId'],
         'createdDate': (new Date(json['createdDate'])),
     };
 }
@@ -98,6 +105,7 @@ export function OrganisationSubscriptionRecordToJSON(value?: OrganisationSubscri
         'stripeCustomerId': value.stripeCustomerId,
         'stripePriceId': value.stripePriceId,
         'validUntil': (value.validUntil.toISOString()),
+        'organisationId': value.organisationId,
         'createdDate': (value.createdDate.toISOString()),
     };
 }

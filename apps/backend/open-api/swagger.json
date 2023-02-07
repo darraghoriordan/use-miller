@@ -1019,13 +1019,16 @@
           }
         }
       },
-      "OrganisationMembership": {
+      "MembershipRole": {
         "type": "object",
         "properties": {
           "id": {
             "type": "number"
           },
-          "uuid": {
+          "membershipId": {
+            "type": "number"
+          },
+          "name": {
             "type": "string"
           },
           "createdDate": {
@@ -1043,7 +1046,53 @@
         },
         "required": [
           "id",
+          "membershipId",
+          "name",
+          "createdDate",
+          "updateDate",
+          "deletedDate"
+        ]
+      },
+      "OrganisationMembership": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "personId": {
+            "type": "number"
+          },
+          "organisationId": {
+            "type": "number"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MembershipRole"
+            }
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
           "uuid",
+          "personId",
+          "organisationId",
+          "roles",
           "createdDate",
           "updateDate",
           "deletedDate"
@@ -1160,6 +1209,9 @@
             "format": "date-time",
             "type": "string"
           },
+          "organisationId": {
+            "type": "number"
+          },
           "createdDate": {
             "format": "date-time",
             "type": "string"
@@ -1172,6 +1224,7 @@
           "stripeCustomerId",
           "stripePriceId",
           "validUntil",
+          "organisationId",
           "createdDate"
         ]
       },

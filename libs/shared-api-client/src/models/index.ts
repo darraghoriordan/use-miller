@@ -2,6 +2,7 @@ export * from './CreateUpdateMembershipDto';
 export * from './InitUserResponseDto';
 export * from './InlineResponse200';
 export * from './InlineResponse503';
+export * from './MembershipRole';
 export * from './Organisation';
 export * from './OrganisationMembership';
 export * from './OrganisationSubscriptionRecord';
