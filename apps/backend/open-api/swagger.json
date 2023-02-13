@@ -763,7 +763,10 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SaveOrganisationSubscriptionRecordDto"
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -791,57 +794,6 @@
       }
     },
     "/organisation/{orgUuid}/subscriptions/{uuid}": {
-      "put": {
-        "operationId": "OrganisationSubscriptionsController_updateSubscription",
-        "parameters": [
-          {
-            "name": "uuid",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "orgUuid",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SaveOrganisationSubscriptionRecordDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrganisationSubscriptionRecord"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Organisation Subscriptions"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      },
       "delete": {
         "operationId": "OrganisationSubscriptionsController_deleteSubscription",
         "parameters": [
@@ -1145,7 +1097,7 @@
       "StripeCheckoutSessionRequestDto": {
         "type": "object",
         "properties": {
-          "clientReferenceId": {
+          "organisationId": {
             "type": "string"
           },
           "lineItems": {
@@ -1196,13 +1148,22 @@
           "uuid": {
             "type": "string"
           },
-          "stripeSubscriptionId": {
+          "productDisplayName": {
             "type": "string"
           },
-          "stripeCustomerId": {
+          "paymentSystemTransactionId": {
             "type": "string"
           },
-          "stripePriceId": {
+          "paymentSystemProductId": {
+            "type": "string"
+          },
+          "paymentSystemCustomerId": {
+            "type": "string"
+          },
+          "paymentSystemMode": {
+            "type": "string"
+          },
+          "paymentSystemName": {
             "type": "string"
           },
           "validUntil": {
@@ -1215,41 +1176,30 @@
           "createdDate": {
             "format": "date-time",
             "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "uuid",
-          "stripeSubscriptionId",
-          "stripeCustomerId",
-          "stripePriceId",
-          "validUntil",
-          "organisationId",
-          "createdDate"
-        ]
-      },
-      "SaveOrganisationSubscriptionRecordDto": {
-        "type": "object",
-        "properties": {
-          "stripeSubscriptionId": {
+          },
+          "updatedDate": {
+            "format": "date-time",
             "type": "string"
           },
-          "stripeCustomerId": {
-            "type": "string"
-          },
-          "stripePriceId": {
-            "type": "string"
-          },
-          "validUntil": {
+          "deletedDate": {
             "format": "date-time",
             "type": "string"
           }
         },
         "required": [
-          "stripeSubscriptionId",
-          "stripeCustomerId",
-          "stripePriceId",
-          "validUntil"
+          "id",
+          "uuid",
+          "productDisplayName",
+          "paymentSystemTransactionId",
+          "paymentSystemProductId",
+          "paymentSystemCustomerId",
+          "paymentSystemMode",
+          "paymentSystemName",
+          "validUntil",
+          "organisationId",
+          "createdDate",
+          "updatedDate",
+          "deletedDate"
         ]
       }
     }

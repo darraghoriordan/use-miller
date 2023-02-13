@@ -19,7 +19,7 @@
         "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
         "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli -d ../../node_modules/@darraghor/nest-backend-libs/dist/database-postgres/PostrgresMigrationsHelper.js",
         "gen": "npm run typeorm migration:generate ",
-        "db": "typeorm-ts-node-commonjs -d ../../node_modules/@darraghor/nest-backend-libs/dist/database-postgres/PostrgresMigrationsHelper.js",
+        "db": "typeorm-ts-node-commonjs -d node_modules/@darraghor/nest-backend-libs/dist/database-postgres/PostrgresMigrationsHelper.js",
         "db:gen": "npm run build && npm run db migration:generate",
         "db:run": "npm run db migration:run",
         "db:rev": "npm run db migration:revert",
@@ -27,7 +27,7 @@
         "client:generate": "pnpm miller api:write-client --fePath ../../apps/frontend --itPath ../../apps/backend-e2e --packageName @use-miller/shared-api-client"
     },
     "dependencies": {
-        "@darraghor/nest-backend-libs": "2.18.0",
+        "@darraghor/nest-backend-libs": "2.18.5",
         "@nestjs/bull": "0.6.3",
         "@nestjs/cli": "9.2.0",
         "@nestjs/common": "9.3.8",

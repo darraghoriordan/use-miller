@@ -2,14 +2,14 @@ import {
     CoreModule,
     StripeAccountModule,
     StripeCheckoutController,
-    StripeEventHandler,
+    OrganisationSubscriptionsModule,
 } from "@darraghor/nest-backend-libs";
 import { Module } from "@nestjs/common";
 
 @Module({
-    imports: [CoreModule, StripeAccountModule],
+    imports: [CoreModule, StripeAccountModule, OrganisationSubscriptionsModule],
     controllers: [StripeCheckoutController],
-    providers: [StripeEventHandler],
+    providers: [],
     exports: [],
 })
 export class PaymentsModule {}
