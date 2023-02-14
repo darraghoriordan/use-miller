@@ -272,7 +272,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Person"
+                  "$ref": "#/components/schemas/BooleanResult"
                 }
               }
             }
@@ -305,7 +305,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "boolean"
+                  "$ref": "#/components/schemas/BooleanResult"
                 }
               }
             }
@@ -327,7 +327,14 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -435,7 +442,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Organisation"
+                  "$ref": "#/components/schemas/BooleanResult"
                 }
               }
             }
@@ -588,7 +595,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "boolean"
+                  "$ref": "#/components/schemas/BooleanResult"
                 }
               }
             }
@@ -693,7 +700,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "$ref": "#/components/schemas/UrlResponseDto"
                 }
               }
             }
@@ -763,10 +770,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
+                "$ref": "#/components/schemas/SaveOrganisationSubscriptionRecordDto"
               }
             }
           }
@@ -777,7 +781,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrganisationSubscriptionRecord"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrganisationSubscriptionRecord"
+                  }
                 }
               }
             }
@@ -820,7 +827,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "boolean"
+                  "$ref": "#/components/schemas/BooleanResult"
                 }
               }
             }
@@ -919,6 +926,17 @@
       "UpdatePersonDto": {
         "type": "object",
         "properties": {}
+      },
+      "BooleanResult": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "result"
+        ]
       },
       "Organisation": {
         "type": "object",
@@ -1139,6 +1157,10 @@
           "stripeSessionUrl"
         ]
       },
+      "UrlResponseDto": {
+        "type": "object",
+        "properties": {}
+      },
       "OrganisationSubscriptionRecord": {
         "type": "object",
         "properties": {
@@ -1200,6 +1222,45 @@
           "createdDate",
           "updatedDate",
           "deletedDate"
+        ]
+      },
+      "SaveOrganisationSubscriptionRecordDto": {
+        "type": "object",
+        "properties": {
+          "productDisplayName": {
+            "type": "string"
+          },
+          "paymentSystemTransactionId": {
+            "type": "string"
+          },
+          "paymentSystemProductId": {
+            "type": "string"
+          },
+          "millerPaymentReferenceUuid": {
+            "type": "string"
+          },
+          "paymentSystemCustomerId": {
+            "type": "string"
+          },
+          "paymentSystemMode": {
+            "type": "string"
+          },
+          "paymentSystemName": {
+            "type": "string"
+          },
+          "validUntil": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "productDisplayName",
+          "paymentSystemTransactionId",
+          "paymentSystemProductId",
+          "paymentSystemCustomerId",
+          "paymentSystemMode",
+          "paymentSystemName",
+          "validUntil"
         ]
       }
     }

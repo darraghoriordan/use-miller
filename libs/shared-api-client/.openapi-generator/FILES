@@ -12,6 +12,7 @@ src/apis/PersonsApi.ts
 src/apis/UsersApi.ts
 src/apis/index.ts
 src/index.ts
+src/models/BooleanResult.ts
 src/models/CreateUpdateMembershipDto.ts
 src/models/InitUserResponseDto.ts
 src/models/InlineResponse200.ts

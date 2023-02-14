@@ -1,3 +1,4 @@
+export * from './BooleanResult';
 export * from './CreateUpdateMembershipDto';
 export * from './InitUserResponseDto';
 export * from './InlineResponse200';

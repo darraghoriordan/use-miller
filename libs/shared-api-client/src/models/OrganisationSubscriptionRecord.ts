@@ -36,19 +36,37 @@ export interface OrganisationSubscriptionRecord {
      * @type {string}
      * @memberof OrganisationSubscriptionRecord
      */
-    stripeSubscriptionId: string;
+    productDisplayName: string;
     /**
      * 
      * @type {string}
      * @memberof OrganisationSubscriptionRecord
      */
-    stripeCustomerId: string;
+    paymentSystemTransactionId: string;
     /**
      * 
      * @type {string}
      * @memberof OrganisationSubscriptionRecord
      */
-    stripePriceId: string;
+    paymentSystemProductId: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganisationSubscriptionRecord
+     */
+    paymentSystemCustomerId: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganisationSubscriptionRecord
+     */
+    paymentSystemMode: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganisationSubscriptionRecord
+     */
+    paymentSystemName: string;
     /**
      * 
      * @type {Date}
@@ -67,6 +85,18 @@ export interface OrganisationSubscriptionRecord {
      * @memberof OrganisationSubscriptionRecord
      */
     createdDate: Date;
+    /**
+     * 
+     * @type {Date}
+     * @memberof OrganisationSubscriptionRecord
+     */
+    updatedDate: Date;
+    /**
+     * 
+     * @type {Date}
+     * @memberof OrganisationSubscriptionRecord
+     */
+    deletedDate: Date;
 }
 
 export function OrganisationSubscriptionRecordFromJSON(json: any): OrganisationSubscriptionRecord {
@@ -81,12 +111,17 @@ export function OrganisationSubscriptionRecordFromJSONTyped(json: any, ignoreDis
         
         'id': json['id'],
         'uuid': json['uuid'],
-        'stripeSubscriptionId': json['stripeSubscriptionId'],
-        'stripeCustomerId': json['stripeCustomerId'],
-        'stripePriceId': json['stripePriceId'],
+        'productDisplayName': json['productDisplayName'],
+        'paymentSystemTransactionId': json['paymentSystemTransactionId'],
+        'paymentSystemProductId': json['paymentSystemProductId'],
+        'paymentSystemCustomerId': json['paymentSystemCustomerId'],
+        'paymentSystemMode': json['paymentSystemMode'],
+        'paymentSystemName': json['paymentSystemName'],
         'validUntil': (new Date(json['validUntil'])),
         'organisationId': json['organisationId'],
         'createdDate': (new Date(json['createdDate'])),
+        'updatedDate': (new Date(json['updatedDate'])),
+        'deletedDate': (new Date(json['deletedDate'])),
     };
 }
 
@@ -101,12 +136,17 @@ export function OrganisationSubscriptionRecordToJSON(value?: OrganisationSubscri
         
         'id': value.id,
         'uuid': value.uuid,
-        'stripeSubscriptionId': value.stripeSubscriptionId,
-        'stripeCustomerId': value.stripeCustomerId,
-        'stripePriceId': value.stripePriceId,
+        'productDisplayName': value.productDisplayName,
+        'paymentSystemTransactionId': value.paymentSystemTransactionId,
+        'paymentSystemProductId': value.paymentSystemProductId,
+        'paymentSystemCustomerId': value.paymentSystemCustomerId,
+        'paymentSystemMode': value.paymentSystemMode,
+        'paymentSystemName': value.paymentSystemName,
         'validUntil': (value.validUntil.toISOString()),
         'organisationId': value.organisationId,
         'createdDate': (value.createdDate.toISOString()),
+        'updatedDate': (value.updatedDate.toISOString()),
+        'deletedDate': (value.deletedDate.toISOString()),
     };
 }
 

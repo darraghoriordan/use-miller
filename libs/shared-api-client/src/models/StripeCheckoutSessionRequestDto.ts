@@ -31,7 +31,7 @@ export interface StripeCheckoutSessionRequestDto {
      * @type {string}
      * @memberof StripeCheckoutSessionRequestDto
      */
-    clientReferenceId?: string;
+    organisationId?: string;
     /**
      * 
      * @type {Array<StripeCheckoutLineItem>}
@@ -68,7 +68,7 @@ export function StripeCheckoutSessionRequestDtoFromJSONTyped(json: any, ignoreDi
     }
     return {
         
-        'clientReferenceId': !exists(json, 'clientReferenceId') ? undefined : json['clientReferenceId'],
+        'organisationId': !exists(json, 'organisationId') ? undefined : json['organisationId'],
         'lineItems': ((json['lineItems'] as Array<any>).map(StripeCheckoutLineItemFromJSON)),
         'mode': json['mode'],
         'successFrontendPath': json['successFrontendPath'],
@@ -85,7 +85,7 @@ export function StripeCheckoutSessionRequestDtoToJSON(value?: StripeCheckoutSess
     }
     return {
         
-        'clientReferenceId': value.clientReferenceId,
+        'organisationId': value.organisationId,
         'lineItems': ((value.lineItems as Array<any>).map(StripeCheckoutLineItemToJSON)),
         'mode': value.mode,
         'successFrontendPath': value.successFrontendPath,

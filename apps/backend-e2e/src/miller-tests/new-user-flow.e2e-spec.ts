@@ -85,7 +85,7 @@ describe("When getting a user the first time", () => {
         expect(subscriptions).toHaveLength(0);
     });
 
-    let sub: OrganisationSubscriptionRecord | undefined;
+    let sub: OrganisationSubscriptionRecord[] | undefined;
     it("as super user we can add a subscription", async () => {
         const requestParameters = {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -95,9 +95,13 @@ describe("When getting a user the first time", () => {
                 validUntil: new Date(
                     new Date().setFullYear(new Date().getFullYear() + 1)
                 ),
-                stripeSubscriptionId: "sub_123",
-                stripeCustomerId: "cus_123",
-                stripePriceId: "price_123",
+                paymentSystemName: "stripe",
+                paymentSystemMode: "payment",
+                paymentSystemCustomerId: "cus_123",
+                // millerPaymentReferenceUuid: "123", no payment reference when creating manually
+                paymentSystemProductId: "prod_123",
+                paymentSystemTransactionId: "txn_123",
+                productDisplayName: "Test Product",
             },
         } as OrganisationSubscriptionsControllerAddSubscriptionRequest;
 
@@ -105,7 +109,7 @@ describe("When getting a user the first time", () => {
             await superUserSubscriptionsApi.organisationSubscriptionsControllerAddSubscription(
                 requestParameters
             );
-        expect(sub.uuid).toBeDefined();
+        expect(sub[0].uuid).toBeDefined();
     });
 
     it("as a super user we can tidy up", async () => {
@@ -131,7 +135,7 @@ describe("When getting a user the first time", () => {
 
         // eslint-disable-next-line @typescript-eslint/naming-convention
         for (const r of results) {
-            expect(r).toBe("true");
+            expect(r.result).toBe(true);
         }
     });
 });

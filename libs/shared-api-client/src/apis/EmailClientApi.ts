@@ -14,6 +14,11 @@
 
 
 import * as runtime from '../runtime';
+import {
+    BooleanResult,
+    BooleanResultFromJSON,
+    BooleanResultToJSON,
+} from '../models';
 
 /**
  * EmailClientApi - interface
@@ -28,11 +33,11 @@ export interface EmailClientApiInterface {
      * @throws {RequiredError}
      * @memberof EmailClientApiInterface
      */
-    emailClientControllerVerifyRaw(): Promise<runtime.ApiResponse<void>>;
+    emailClientControllerVerifyRaw(): Promise<runtime.ApiResponse<BooleanResult>>;
 
     /**
      */
-    emailClientControllerVerify(): Promise<void>;
+    emailClientControllerVerify(): Promise<BooleanResult>;
 
 }
 
@@ -43,7 +48,7 @@ export class EmailClientApi extends runtime.BaseAPI implements EmailClientApiInt
 
     /**
      */
-    async emailClientControllerVerifyRaw(): Promise<runtime.ApiResponse<void>> {
+    async emailClientControllerVerifyRaw(): Promise<runtime.ApiResponse<BooleanResult>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -63,13 +68,14 @@ export class EmailClientApi extends runtime.BaseAPI implements EmailClientApiInt
             query: queryParameters,
         });
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => BooleanResultFromJSON(jsonValue));
     }
 
     /**
      */
-    async emailClientControllerVerify(): Promise<void> {
-        await this.emailClientControllerVerifyRaw();
+    async emailClientControllerVerify(): Promise<BooleanResult> {
+        const response = await this.emailClientControllerVerifyRaw();
+        return await response.value();
     }
 
 }
