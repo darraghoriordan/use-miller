@@ -347,6 +347,64 @@
         ]
       }
     },
+    "/email-client/peekalljobs": {
+      "get": {
+        "operationId": "EmailClientController_peekQueueJobs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QueueItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Email-client"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/email-client/peekfailedjobs": {
+      "get": {
+        "operationId": "EmailClientController_peekFailedQueueJobs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QueueItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Email-client"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/organisation/{uuid}": {
       "get": {
         "operationId": "OrganisationController_findOne",
@@ -690,6 +748,64 @@
         ]
       }
     },
+    "/payments/stripe/peekalljobs": {
+      "get": {
+        "operationId": "StripeWebhookController_peekQueueJobs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QueueItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Payments"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/payments/stripe/peekfailedjobs": {
+      "get": {
+        "operationId": "StripeWebhookController_peekFailedQueueJobs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QueueItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Payments"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/payments/stripe/customer-portal-session": {
       "post": {
         "operationId": "StripeCustomerPortalController_createCustomerPortalSession",
@@ -861,134 +977,6 @@
       }
     },
     "schemas": {
-      "Person": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "email": {
-            "type": "string"
-          },
-          "uuid": {
-            "type": "string"
-          },
-          "emailVerified": {
-            "type": "boolean"
-          },
-          "blocked": {
-            "type": "boolean"
-          },
-          "name": {
-            "type": "string"
-          },
-          "familyName": {
-            "type": "string"
-          },
-          "givenName": {
-            "type": "string"
-          },
-          "picture": {
-            "type": "string"
-          },
-          "auth0UserId": {
-            "type": "string"
-          },
-          "username": {
-            "type": "string"
-          },
-          "createdDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "updateDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "deletedDate": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "email",
-          "uuid",
-          "emailVerified",
-          "blocked",
-          "picture",
-          "auth0UserId",
-          "createdDate",
-          "updateDate",
-          "deletedDate"
-        ]
-      },
-      "UpdatePersonDto": {
-        "type": "object",
-        "properties": {}
-      },
-      "BooleanResult": {
-        "type": "object",
-        "properties": {
-          "result": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "result"
-        ]
-      },
-      "Organisation": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "uuid": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "createdDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "updateDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "deletedDate": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "uuid",
-          "name",
-          "createdDate",
-          "updateDate",
-          "deletedDate"
-        ]
-      },
-      "UpdateOrganisationDto": {
-        "type": "object",
-        "properties": {
-          "members": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Person"
-            }
-          },
-          "owner": {
-            "$ref": "#/components/schemas/Person"
-          },
-          "name": {
-            "type": "string"
-          }
-        }
-      },
       "MembershipRole": {
         "type": "object",
         "properties": {
@@ -1067,6 +1055,168 @@
           "updateDate",
           "deletedDate"
         ]
+      },
+      "Person": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "email": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "emailVerified": {
+            "type": "boolean"
+          },
+          "blocked": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "familyName": {
+            "type": "string"
+          },
+          "givenName": {
+            "type": "string"
+          },
+          "picture": {
+            "type": "string"
+          },
+          "auth0UserId": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "memberships": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrganisationMembership"
+            }
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "uuid",
+          "emailVerified",
+          "blocked",
+          "picture",
+          "auth0UserId",
+          "memberships",
+          "createdDate",
+          "updateDate",
+          "deletedDate"
+        ]
+      },
+      "UpdatePersonDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "BooleanResult": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "QueueItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "queueDateLocal": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "result": {
+            "type": "string"
+          },
+          "data": {
+            "type": "string"
+          },
+          "failReason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "queueDateLocal",
+          "result",
+          "data"
+        ]
+      },
+      "Organisation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "name",
+          "createdDate",
+          "updateDate",
+          "deletedDate"
+        ]
+      },
+      "UpdateOrganisationDto": {
+        "type": "object",
+        "properties": {
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Person"
+            }
+          },
+          "owner": {
+            "$ref": "#/components/schemas/Person"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
       },
       "CreateUpdateMembershipDto": {
         "type": "object",
