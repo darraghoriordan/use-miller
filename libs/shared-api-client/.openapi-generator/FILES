@@ -7,6 +7,7 @@ src/apis/EmailClientApi.ts
 src/apis/OrganisationMembershipsApi.ts
 src/apis/OrganisationSubscriptionsApi.ts
 src/apis/OrganisationsApi.ts
+src/apis/PaymentReferencesApi.ts
 src/apis/PaymentsApi.ts
 src/apis/PersonsApi.ts
 src/apis/UsersApi.ts
@@ -21,7 +22,9 @@ src/models/MembershipRole.ts
 src/models/Organisation.ts
 src/models/OrganisationMembership.ts
 src/models/OrganisationSubscriptionRecord.ts
+src/models/PaymentSessionReference.ts
 src/models/Person.ts
+src/models/QueueItemDto.ts
 src/models/SaveOrganisationSubscriptionRecordDto.ts
 src/models/StripeCheckoutLineItem.ts
 src/models/StripeCheckoutSessionRequestDto.ts

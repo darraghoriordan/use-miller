@@ -54,6 +54,12 @@ export interface SaveOrganisationSubscriptionRecordDto {
      * @type {string}
      * @memberof SaveOrganisationSubscriptionRecordDto
      */
+    paymentSystemCustomerEmail: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SaveOrganisationSubscriptionRecordDto
+     */
     paymentSystemMode: string;
     /**
      * 
@@ -84,6 +90,7 @@ export function SaveOrganisationSubscriptionRecordDtoFromJSONTyped(json: any, ig
         'paymentSystemProductId': json['paymentSystemProductId'],
         'millerPaymentReferenceUuid': !exists(json, 'millerPaymentReferenceUuid') ? undefined : json['millerPaymentReferenceUuid'],
         'paymentSystemCustomerId': json['paymentSystemCustomerId'],
+        'paymentSystemCustomerEmail': json['paymentSystemCustomerEmail'],
         'paymentSystemMode': json['paymentSystemMode'],
         'paymentSystemName': json['paymentSystemName'],
         'validUntil': (new Date(json['validUntil'])),
@@ -104,6 +111,7 @@ export function SaveOrganisationSubscriptionRecordDtoToJSON(value?: SaveOrganisa
         'paymentSystemProductId': value.paymentSystemProductId,
         'millerPaymentReferenceUuid': value.millerPaymentReferenceUuid,
         'paymentSystemCustomerId': value.paymentSystemCustomerId,
+        'paymentSystemCustomerEmail': value.paymentSystemCustomerEmail,
         'paymentSystemMode': value.paymentSystemMode,
         'paymentSystemName': value.paymentSystemName,
         'validUntil': (value.validUntil.toISOString()),

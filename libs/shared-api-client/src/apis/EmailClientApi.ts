@@ -18,6 +18,9 @@ import {
     BooleanResult,
     BooleanResultFromJSON,
     BooleanResultToJSON,
+    QueueItemDto,
+    QueueItemDtoFromJSON,
+    QueueItemDtoToJSON,
 } from '../models';
 
 /**
@@ -27,6 +30,30 @@ import {
  * @interface EmailClientApiInterface
  */
 export interface EmailClientApiInterface {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmailClientApiInterface
+     */
+    emailClientControllerPeekFailedQueueJobsRaw(): Promise<runtime.ApiResponse<Array<QueueItemDto>>>;
+
+    /**
+     */
+    emailClientControllerPeekFailedQueueJobs(): Promise<Array<QueueItemDto>>;
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmailClientApiInterface
+     */
+    emailClientControllerPeekQueueJobsRaw(): Promise<runtime.ApiResponse<Array<QueueItemDto>>>;
+
+    /**
+     */
+    emailClientControllerPeekQueueJobs(): Promise<Array<QueueItemDto>>;
+
     /**
      * 
      * @param {*} [options] Override http request option.
@@ -45,6 +72,70 @@ export interface EmailClientApiInterface {
  * 
  */
 export class EmailClientApi extends runtime.BaseAPI implements EmailClientApiInterface {
+
+    /**
+     */
+    async emailClientControllerPeekFailedQueueJobsRaw(): Promise<runtime.ApiResponse<Array<QueueItemDto>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/email-client/peekfailedjobs`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(QueueItemDtoFromJSON));
+    }
+
+    /**
+     */
+    async emailClientControllerPeekFailedQueueJobs(): Promise<Array<QueueItemDto>> {
+        const response = await this.emailClientControllerPeekFailedQueueJobsRaw();
+        return await response.value();
+    }
+
+    /**
+     */
+    async emailClientControllerPeekQueueJobsRaw(): Promise<runtime.ApiResponse<Array<QueueItemDto>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/email-client/peekalljobs`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(QueueItemDtoFromJSON));
+    }
+
+    /**
+     */
+    async emailClientControllerPeekQueueJobs(): Promise<Array<QueueItemDto>> {
+        const response = await this.emailClientControllerPeekQueueJobsRaw();
+        return await response.value();
+    }
 
     /**
      */

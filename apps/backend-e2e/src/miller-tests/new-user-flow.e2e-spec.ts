@@ -100,6 +100,7 @@ describe("When getting a user the first time", () => {
                 paymentSystemCustomerId: "cus_123",
                 // millerPaymentReferenceUuid: "123", no payment reference when creating manually
                 paymentSystemProductId: "prod_123",
+                paymentSystemCustomerEmail: "test@test.com",
                 paymentSystemTransactionId: "txn_123",
                 productDisplayName: "Test Product",
             },

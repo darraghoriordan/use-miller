@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    OrganisationMembership,
+    OrganisationMembershipFromJSON,
+    OrganisationMembershipFromJSONTyped,
+    OrganisationMembershipToJSON,
+} from './';
+
 /**
  * 
  * @export
@@ -87,6 +94,12 @@ export interface Person {
     username?: string;
     /**
      * 
+     * @type {Array<OrganisationMembership>}
+     * @memberof Person
+     */
+    memberships: Array<OrganisationMembership>;
+    /**
+     * 
      * @type {Date}
      * @memberof Person
      */
@@ -126,6 +139,7 @@ export function PersonFromJSONTyped(json: any, ignoreDiscriminator: boolean): Pe
         'picture': json['picture'],
         'auth0UserId': json['auth0UserId'],
         'username': !exists(json, 'username') ? undefined : json['username'],
+        'memberships': ((json['memberships'] as Array<any>).map(OrganisationMembershipFromJSON)),
         'createdDate': (new Date(json['createdDate'])),
         'updateDate': (new Date(json['updateDate'])),
         'deletedDate': (new Date(json['deletedDate'])),
@@ -152,6 +166,7 @@ export function PersonToJSON(value?: Person | null): any {
         'picture': value.picture,
         'auth0UserId': value.auth0UserId,
         'username': value.username,
+        'memberships': ((value.memberships as Array<any>).map(OrganisationMembershipToJSON)),
         'createdDate': (value.createdDate.toISOString()),
         'updateDate': (value.updateDate.toISOString()),
         'deletedDate': (value.deletedDate.toISOString()),

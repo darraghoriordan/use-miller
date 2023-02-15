@@ -60,6 +60,12 @@ export interface OrganisationSubscriptionRecord {
      * @type {string}
      * @memberof OrganisationSubscriptionRecord
      */
+    paymentSystemCustomerEmail: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganisationSubscriptionRecord
+     */
     paymentSystemMode: string;
     /**
      * 
@@ -115,6 +121,7 @@ export function OrganisationSubscriptionRecordFromJSONTyped(json: any, ignoreDis
         'paymentSystemTransactionId': json['paymentSystemTransactionId'],
         'paymentSystemProductId': json['paymentSystemProductId'],
         'paymentSystemCustomerId': json['paymentSystemCustomerId'],
+        'paymentSystemCustomerEmail': json['paymentSystemCustomerEmail'],
         'paymentSystemMode': json['paymentSystemMode'],
         'paymentSystemName': json['paymentSystemName'],
         'validUntil': (new Date(json['validUntil'])),
@@ -140,6 +147,7 @@ export function OrganisationSubscriptionRecordToJSON(value?: OrganisationSubscri
         'paymentSystemTransactionId': value.paymentSystemTransactionId,
         'paymentSystemProductId': value.paymentSystemProductId,
         'paymentSystemCustomerId': value.paymentSystemCustomerId,
+        'paymentSystemCustomerEmail': value.paymentSystemCustomerEmail,
         'paymentSystemMode': value.paymentSystemMode,
         'paymentSystemName': value.paymentSystemName,
         'validUntil': (value.validUntil.toISOString()),

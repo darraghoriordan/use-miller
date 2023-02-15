@@ -810,13 +810,23 @@
       "post": {
         "operationId": "StripeCustomerPortalController_createCustomerPortalSession",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StripeCustomerPortalRequestDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "The URL to the customer portal",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UrlResponseDto"
+                  "$ref": "#/components/schemas/StripeCustomerPortalResponseDto"
                 }
               }
             }
@@ -951,6 +961,35 @@
         },
         "tags": [
           "Organisation Subscriptions"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/payment-reference": {
+      "get": {
+        "operationId": "PaymentSessionReferenceController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentSessionReference"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Payment references"
         ],
         "security": [
           {
@@ -1307,9 +1346,31 @@
           "stripeSessionUrl"
         ]
       },
-      "UrlResponseDto": {
+      "StripeCustomerPortalRequestDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "subscriptionRecordUuid": {
+            "type": "string"
+          },
+          "returnUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "subscriptionRecordUuid",
+          "returnUrl"
+        ]
+      },
+      "StripeCustomerPortalResponseDto": {
+        "type": "object",
+        "properties": {
+          "sessionUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sessionUrl"
+        ]
       },
       "OrganisationSubscriptionRecord": {
         "type": "object",
@@ -1330,6 +1391,9 @@
             "type": "string"
           },
           "paymentSystemCustomerId": {
+            "type": "string"
+          },
+          "paymentSystemCustomerEmail": {
             "type": "string"
           },
           "paymentSystemMode": {
@@ -1365,6 +1429,7 @@
           "paymentSystemTransactionId",
           "paymentSystemProductId",
           "paymentSystemCustomerId",
+          "paymentSystemCustomerEmail",
           "paymentSystemMode",
           "paymentSystemName",
           "validUntil",
@@ -1392,6 +1457,9 @@
           "paymentSystemCustomerId": {
             "type": "string"
           },
+          "paymentSystemCustomerEmail": {
+            "type": "string"
+          },
           "paymentSystemMode": {
             "type": "string"
           },
@@ -1408,9 +1476,30 @@
           "paymentSystemTransactionId",
           "paymentSystemProductId",
           "paymentSystemCustomerId",
+          "paymentSystemCustomerEmail",
           "paymentSystemMode",
           "paymentSystemName",
           "validUntil"
+        ]
+      },
+      "PaymentSessionReference": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "createdDate"
         ]
       }
     }
