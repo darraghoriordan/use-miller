@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    BooleanResult,
+    BooleanResultFromJSON,
+    BooleanResultToJSON,
     Organisation,
     OrganisationFromJSON,
     OrganisationToJSON,
@@ -75,11 +78,11 @@ export interface OrganisationsApiInterface {
      * @throws {RequiredError}
      * @memberof OrganisationsApiInterface
      */
-    organisationControllerRemoveRaw(requestParameters: OrganisationControllerRemoveRequest): Promise<runtime.ApiResponse<Organisation>>;
+    organisationControllerRemoveRaw(requestParameters: OrganisationControllerRemoveRequest): Promise<runtime.ApiResponse<BooleanResult>>;
 
     /**
      */
-    organisationControllerRemove(requestParameters: OrganisationControllerRemoveRequest): Promise<Organisation>;
+    organisationControllerRemove(requestParameters: OrganisationControllerRemoveRequest): Promise<BooleanResult>;
 
     /**
      * 
@@ -172,7 +175,7 @@ export class OrganisationsApi extends runtime.BaseAPI implements OrganisationsAp
 
     /**
      */
-    async organisationControllerRemoveRaw(requestParameters: OrganisationControllerRemoveRequest): Promise<runtime.ApiResponse<Organisation>> {
+    async organisationControllerRemoveRaw(requestParameters: OrganisationControllerRemoveRequest): Promise<runtime.ApiResponse<BooleanResult>> {
         if (requestParameters.uuid === null || requestParameters.uuid === undefined) {
             throw new runtime.RequiredError('uuid','Required parameter requestParameters.uuid was null or undefined when calling organisationControllerRemove.');
         }
@@ -196,12 +199,12 @@ export class OrganisationsApi extends runtime.BaseAPI implements OrganisationsAp
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => OrganisationFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => BooleanResultFromJSON(jsonValue));
     }
 
     /**
      */
-    async organisationControllerRemove(requestParameters: OrganisationControllerRemoveRequest): Promise<Organisation> {
+    async organisationControllerRemove(requestParameters: OrganisationControllerRemoveRequest): Promise<BooleanResult> {
         const response = await this.organisationControllerRemoveRaw(requestParameters);
         return await response.value();
     }

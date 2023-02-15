@@ -24,19 +24,49 @@ export interface SaveOrganisationSubscriptionRecordDto {
      * @type {string}
      * @memberof SaveOrganisationSubscriptionRecordDto
      */
-    stripeSubscriptionId: string;
+    productDisplayName: string;
     /**
      * 
      * @type {string}
      * @memberof SaveOrganisationSubscriptionRecordDto
      */
-    stripeCustomerId: string;
+    paymentSystemTransactionId: string;
     /**
      * 
      * @type {string}
      * @memberof SaveOrganisationSubscriptionRecordDto
      */
-    stripePriceId: string;
+    paymentSystemProductId: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SaveOrganisationSubscriptionRecordDto
+     */
+    millerPaymentReferenceUuid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SaveOrganisationSubscriptionRecordDto
+     */
+    paymentSystemCustomerId: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SaveOrganisationSubscriptionRecordDto
+     */
+    paymentSystemCustomerEmail: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SaveOrganisationSubscriptionRecordDto
+     */
+    paymentSystemMode: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SaveOrganisationSubscriptionRecordDto
+     */
+    paymentSystemName: string;
     /**
      * 
      * @type {Date}
@@ -55,9 +85,14 @@ export function SaveOrganisationSubscriptionRecordDtoFromJSONTyped(json: any, ig
     }
     return {
         
-        'stripeSubscriptionId': json['stripeSubscriptionId'],
-        'stripeCustomerId': json['stripeCustomerId'],
-        'stripePriceId': json['stripePriceId'],
+        'productDisplayName': json['productDisplayName'],
+        'paymentSystemTransactionId': json['paymentSystemTransactionId'],
+        'paymentSystemProductId': json['paymentSystemProductId'],
+        'millerPaymentReferenceUuid': !exists(json, 'millerPaymentReferenceUuid') ? undefined : json['millerPaymentReferenceUuid'],
+        'paymentSystemCustomerId': json['paymentSystemCustomerId'],
+        'paymentSystemCustomerEmail': json['paymentSystemCustomerEmail'],
+        'paymentSystemMode': json['paymentSystemMode'],
+        'paymentSystemName': json['paymentSystemName'],
         'validUntil': (new Date(json['validUntil'])),
     };
 }
@@ -71,9 +106,14 @@ export function SaveOrganisationSubscriptionRecordDtoToJSON(value?: SaveOrganisa
     }
     return {
         
-        'stripeSubscriptionId': value.stripeSubscriptionId,
-        'stripeCustomerId': value.stripeCustomerId,
-        'stripePriceId': value.stripePriceId,
+        'productDisplayName': value.productDisplayName,
+        'paymentSystemTransactionId': value.paymentSystemTransactionId,
+        'paymentSystemProductId': value.paymentSystemProductId,
+        'millerPaymentReferenceUuid': value.millerPaymentReferenceUuid,
+        'paymentSystemCustomerId': value.paymentSystemCustomerId,
+        'paymentSystemCustomerEmail': value.paymentSystemCustomerEmail,
+        'paymentSystemMode': value.paymentSystemMode,
+        'paymentSystemName': value.paymentSystemName,
         'validUntil': (value.validUntil.toISOString()),
     };
 }

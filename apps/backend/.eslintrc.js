@@ -124,7 +124,7 @@ module.exports = {
             {
                 selector: "property",
                 modifiers: ["readonly"],
-                format: ["PascalCase"],
+                format: ["camelCase"],
             },
             {
                 selector: "enumMember",

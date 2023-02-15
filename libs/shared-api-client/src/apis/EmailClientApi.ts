@@ -14,6 +14,14 @@
 
 
 import * as runtime from '../runtime';
+import {
+    BooleanResult,
+    BooleanResultFromJSON,
+    BooleanResultToJSON,
+    QueueItemDto,
+    QueueItemDtoFromJSON,
+    QueueItemDtoToJSON,
+} from '../models';
 
 /**
  * EmailClientApi - interface
@@ -28,11 +36,35 @@ export interface EmailClientApiInterface {
      * @throws {RequiredError}
      * @memberof EmailClientApiInterface
      */
-    emailClientControllerVerifyRaw(): Promise<runtime.ApiResponse<void>>;
+    emailClientControllerPeekFailedQueueJobsRaw(): Promise<runtime.ApiResponse<Array<QueueItemDto>>>;
 
     /**
      */
-    emailClientControllerVerify(): Promise<void>;
+    emailClientControllerPeekFailedQueueJobs(): Promise<Array<QueueItemDto>>;
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmailClientApiInterface
+     */
+    emailClientControllerPeekQueueJobsRaw(): Promise<runtime.ApiResponse<Array<QueueItemDto>>>;
+
+    /**
+     */
+    emailClientControllerPeekQueueJobs(): Promise<Array<QueueItemDto>>;
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmailClientApiInterface
+     */
+    emailClientControllerVerifyRaw(): Promise<runtime.ApiResponse<BooleanResult>>;
+
+    /**
+     */
+    emailClientControllerVerify(): Promise<BooleanResult>;
 
 }
 
@@ -43,7 +75,71 @@ export class EmailClientApi extends runtime.BaseAPI implements EmailClientApiInt
 
     /**
      */
-    async emailClientControllerVerifyRaw(): Promise<runtime.ApiResponse<void>> {
+    async emailClientControllerPeekFailedQueueJobsRaw(): Promise<runtime.ApiResponse<Array<QueueItemDto>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/email-client/peekfailedjobs`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(QueueItemDtoFromJSON));
+    }
+
+    /**
+     */
+    async emailClientControllerPeekFailedQueueJobs(): Promise<Array<QueueItemDto>> {
+        const response = await this.emailClientControllerPeekFailedQueueJobsRaw();
+        return await response.value();
+    }
+
+    /**
+     */
+    async emailClientControllerPeekQueueJobsRaw(): Promise<runtime.ApiResponse<Array<QueueItemDto>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/email-client/peekalljobs`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(QueueItemDtoFromJSON));
+    }
+
+    /**
+     */
+    async emailClientControllerPeekQueueJobs(): Promise<Array<QueueItemDto>> {
+        const response = await this.emailClientControllerPeekQueueJobsRaw();
+        return await response.value();
+    }
+
+    /**
+     */
+    async emailClientControllerVerifyRaw(): Promise<runtime.ApiResponse<BooleanResult>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -63,13 +159,14 @@ export class EmailClientApi extends runtime.BaseAPI implements EmailClientApiInt
             query: queryParameters,
         });
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => BooleanResultFromJSON(jsonValue));
     }
 
     /**
      */
-    async emailClientControllerVerify(): Promise<void> {
-        await this.emailClientControllerVerifyRaw();
+    async emailClientControllerVerify(): Promise<BooleanResult> {
+        const response = await this.emailClientControllerVerifyRaw();
+        return await response.value();
     }
 
 }

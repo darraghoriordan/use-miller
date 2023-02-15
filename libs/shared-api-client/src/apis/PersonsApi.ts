@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    BooleanResult,
+    BooleanResultFromJSON,
+    BooleanResultToJSON,
     Person,
     PersonFromJSON,
     PersonToJSON,
@@ -60,11 +63,11 @@ export interface PersonsApiInterface {
      * @throws {RequiredError}
      * @memberof PersonsApiInterface
      */
-    personControllerRemoveRaw(requestParameters: PersonControllerRemoveRequest): Promise<runtime.ApiResponse<boolean>>;
+    personControllerRemoveRaw(requestParameters: PersonControllerRemoveRequest): Promise<runtime.ApiResponse<BooleanResult>>;
 
     /**
      */
-    personControllerRemove(requestParameters: PersonControllerRemoveRequest): Promise<boolean>;
+    personControllerRemove(requestParameters: PersonControllerRemoveRequest): Promise<BooleanResult>;
 
     /**
      * 
@@ -74,11 +77,11 @@ export interface PersonsApiInterface {
      * @throws {RequiredError}
      * @memberof PersonsApiInterface
      */
-    personControllerUpdateRaw(requestParameters: PersonControllerUpdateRequest): Promise<runtime.ApiResponse<Person>>;
+    personControllerUpdateRaw(requestParameters: PersonControllerUpdateRequest): Promise<runtime.ApiResponse<BooleanResult>>;
 
     /**
      */
-    personControllerUpdate(requestParameters: PersonControllerUpdateRequest): Promise<Person>;
+    personControllerUpdate(requestParameters: PersonControllerUpdateRequest): Promise<BooleanResult>;
 
 }
 
@@ -125,7 +128,7 @@ export class PersonsApi extends runtime.BaseAPI implements PersonsApiInterface {
 
     /**
      */
-    async personControllerRemoveRaw(requestParameters: PersonControllerRemoveRequest): Promise<runtime.ApiResponse<boolean>> {
+    async personControllerRemoveRaw(requestParameters: PersonControllerRemoveRequest): Promise<runtime.ApiResponse<BooleanResult>> {
         if (requestParameters.uuid === null || requestParameters.uuid === undefined) {
             throw new runtime.RequiredError('uuid','Required parameter requestParameters.uuid was null or undefined when calling personControllerRemove.');
         }
@@ -149,19 +152,19 @@ export class PersonsApi extends runtime.BaseAPI implements PersonsApiInterface {
             query: queryParameters,
         });
 
-        return new runtime.TextApiResponse(response) as any;
+        return new runtime.JSONApiResponse(response, (jsonValue) => BooleanResultFromJSON(jsonValue));
     }
 
     /**
      */
-    async personControllerRemove(requestParameters: PersonControllerRemoveRequest): Promise<boolean> {
+    async personControllerRemove(requestParameters: PersonControllerRemoveRequest): Promise<BooleanResult> {
         const response = await this.personControllerRemoveRaw(requestParameters);
         return await response.value();
     }
 
     /**
      */
-    async personControllerUpdateRaw(requestParameters: PersonControllerUpdateRequest): Promise<runtime.ApiResponse<Person>> {
+    async personControllerUpdateRaw(requestParameters: PersonControllerUpdateRequest): Promise<runtime.ApiResponse<BooleanResult>> {
         if (requestParameters.uuid === null || requestParameters.uuid === undefined) {
             throw new runtime.RequiredError('uuid','Required parameter requestParameters.uuid was null or undefined when calling personControllerUpdate.');
         }
@@ -192,12 +195,12 @@ export class PersonsApi extends runtime.BaseAPI implements PersonsApiInterface {
             body: requestParameters.body as any,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => PersonFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => BooleanResultFromJSON(jsonValue));
     }
 
     /**
      */
-    async personControllerUpdate(requestParameters: PersonControllerUpdateRequest): Promise<Person> {
+    async personControllerUpdate(requestParameters: PersonControllerUpdateRequest): Promise<BooleanResult> {
         const response = await this.personControllerUpdateRaw(requestParameters);
         return await response.value();
     }

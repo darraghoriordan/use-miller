@@ -6,8 +6,8 @@ describe("When using the email client", () => {
         ApiClientFactory.getAuthenticatedApiInstance(EmailClientApi);
 
     it("I can verify the email settings", async () => {
-        const noResult = await emailClientApi.emailClientControllerVerify();
+        const result = await emailClientApi.emailClientControllerVerify();
 
-        expect(noResult).toBe(undefined);
+        expect(result.result).toBe(true);
     });
 });

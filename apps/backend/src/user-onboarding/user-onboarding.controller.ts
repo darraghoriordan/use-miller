@@ -1,5 +1,4 @@
 import {
-    CoreLoggerService,
     DefaultAuthGuard,
     RequestWithUser,
 } from "@darraghor/nest-backend-libs";
@@ -10,6 +9,7 @@ import {
     Post,
     HttpCode,
     HttpStatus,
+    Logger,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { InitUserResponseDto } from "./InitUserResponseDto";
@@ -18,10 +18,9 @@ import { UserOnboardingService } from "./user-onboarding.service";
 @Controller("user-onboarding")
 @ApiTags("Users")
 export class UserOnboardingController {
-    constructor(
-        private readonly onboardingService: UserOnboardingService,
-        private readonly logger: CoreLoggerService
-    ) {}
+    private readonly logger = new Logger(UserOnboardingController.name);
+
+    constructor(private readonly onboardingService: UserOnboardingService) {}
 
     @UseGuards(DefaultAuthGuard)
     @ApiBearerAuth()

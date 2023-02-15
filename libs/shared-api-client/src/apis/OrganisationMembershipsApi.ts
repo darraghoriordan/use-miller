@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    BooleanResult,
+    BooleanResultFromJSON,
+    BooleanResultToJSON,
     CreateUpdateMembershipDto,
     CreateUpdateMembershipDtoFromJSON,
     CreateUpdateMembershipDtoToJSON,
@@ -82,11 +85,11 @@ export interface OrganisationMembershipsApiInterface {
      * @throws {RequiredError}
      * @memberof OrganisationMembershipsApiInterface
      */
-    organisationMembershipsControllerRemoveRaw(requestParameters: OrganisationMembershipsControllerRemoveRequest): Promise<runtime.ApiResponse<boolean>>;
+    organisationMembershipsControllerRemoveRaw(requestParameters: OrganisationMembershipsControllerRemoveRequest): Promise<runtime.ApiResponse<BooleanResult>>;
 
     /**
      */
-    organisationMembershipsControllerRemove(requestParameters: OrganisationMembershipsControllerRemoveRequest): Promise<boolean>;
+    organisationMembershipsControllerRemove(requestParameters: OrganisationMembershipsControllerRemoveRequest): Promise<BooleanResult>;
 
 }
 
@@ -176,7 +179,7 @@ export class OrganisationMembershipsApi extends runtime.BaseAPI implements Organ
 
     /**
      */
-    async organisationMembershipsControllerRemoveRaw(requestParameters: OrganisationMembershipsControllerRemoveRequest): Promise<runtime.ApiResponse<boolean>> {
+    async organisationMembershipsControllerRemoveRaw(requestParameters: OrganisationMembershipsControllerRemoveRequest): Promise<runtime.ApiResponse<BooleanResult>> {
         if (requestParameters.orgUuid === null || requestParameters.orgUuid === undefined) {
             throw new runtime.RequiredError('orgUuid','Required parameter requestParameters.orgUuid was null or undefined when calling organisationMembershipsControllerRemove.');
         }
@@ -204,12 +207,12 @@ export class OrganisationMembershipsApi extends runtime.BaseAPI implements Organ
             query: queryParameters,
         });
 
-        return new runtime.TextApiResponse(response) as any;
+        return new runtime.JSONApiResponse(response, (jsonValue) => BooleanResultFromJSON(jsonValue));
     }
 
     /**
      */
-    async organisationMembershipsControllerRemove(requestParameters: OrganisationMembershipsControllerRemoveRequest): Promise<boolean> {
+    async organisationMembershipsControllerRemove(requestParameters: OrganisationMembershipsControllerRemoveRequest): Promise<BooleanResult> {
         const response = await this.organisationMembershipsControllerRemoveRaw(requestParameters);
         return await response.value();
     }

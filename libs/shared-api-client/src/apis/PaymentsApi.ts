@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    QueueItemDto,
+    QueueItemDtoFromJSON,
+    QueueItemDtoToJSON,
     StripeCheckoutSessionRequestDto,
     StripeCheckoutSessionRequestDtoFromJSON,
     StripeCheckoutSessionRequestDtoToJSON,
@@ -25,6 +28,10 @@ import {
 
 export interface StripeCheckoutControllerCreateCheckoutSessionRequest {
     stripeCheckoutSessionRequestDto: StripeCheckoutSessionRequestDto;
+}
+
+export interface StripeCustomerPortalControllerCreateCustomerPortalSessionRequest {
+    body: object;
 }
 
 /**
@@ -49,15 +56,40 @@ export interface PaymentsApiInterface {
 
     /**
      * 
+     * @param {object} body 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PaymentsApiInterface
      */
-    stripeCustomerPortalControllerCreateCustomerPortalSessionRaw(): Promise<runtime.ApiResponse<string>>;
+    stripeCustomerPortalControllerCreateCustomerPortalSessionRaw(requestParameters: StripeCustomerPortalControllerCreateCustomerPortalSessionRequest): Promise<runtime.ApiResponse<object>>;
 
     /**
      */
-    stripeCustomerPortalControllerCreateCustomerPortalSession(): Promise<string>;
+    stripeCustomerPortalControllerCreateCustomerPortalSession(requestParameters: StripeCustomerPortalControllerCreateCustomerPortalSessionRequest): Promise<object>;
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PaymentsApiInterface
+     */
+    stripeWebhookControllerPeekFailedQueueJobsRaw(): Promise<runtime.ApiResponse<Array<QueueItemDto>>>;
+
+    /**
+     */
+    stripeWebhookControllerPeekFailedQueueJobs(): Promise<Array<QueueItemDto>>;
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PaymentsApiInterface
+     */
+    stripeWebhookControllerPeekQueueJobsRaw(): Promise<runtime.ApiResponse<Array<QueueItemDto>>>;
+
+    /**
+     */
+    stripeWebhookControllerPeekQueueJobs(): Promise<Array<QueueItemDto>>;
 
     /**
      * 
@@ -119,10 +151,16 @@ export class PaymentsApi extends runtime.BaseAPI implements PaymentsApiInterface
 
     /**
      */
-    async stripeCustomerPortalControllerCreateCustomerPortalSessionRaw(): Promise<runtime.ApiResponse<string>> {
+    async stripeCustomerPortalControllerCreateCustomerPortalSessionRaw(requestParameters: StripeCustomerPortalControllerCreateCustomerPortalSessionRequest): Promise<runtime.ApiResponse<object>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling stripeCustomerPortalControllerCreateCustomerPortalSession.');
+        }
+
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -137,15 +175,80 @@ export class PaymentsApi extends runtime.BaseAPI implements PaymentsApiInterface
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: requestParameters.body as any,
         });
 
-        return new runtime.TextApiResponse(response) as any;
+        return new runtime.JSONApiResponse<any>(response);
     }
 
     /**
      */
-    async stripeCustomerPortalControllerCreateCustomerPortalSession(): Promise<string> {
-        const response = await this.stripeCustomerPortalControllerCreateCustomerPortalSessionRaw();
+    async stripeCustomerPortalControllerCreateCustomerPortalSession(requestParameters: StripeCustomerPortalControllerCreateCustomerPortalSessionRequest): Promise<object> {
+        const response = await this.stripeCustomerPortalControllerCreateCustomerPortalSessionRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     */
+    async stripeWebhookControllerPeekFailedQueueJobsRaw(): Promise<runtime.ApiResponse<Array<QueueItemDto>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/payments/stripe/peekfailedjobs`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(QueueItemDtoFromJSON));
+    }
+
+    /**
+     */
+    async stripeWebhookControllerPeekFailedQueueJobs(): Promise<Array<QueueItemDto>> {
+        const response = await this.stripeWebhookControllerPeekFailedQueueJobsRaw();
+        return await response.value();
+    }
+
+    /**
+     */
+    async stripeWebhookControllerPeekQueueJobsRaw(): Promise<runtime.ApiResponse<Array<QueueItemDto>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/payments/stripe/peekalljobs`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(QueueItemDtoFromJSON));
+    }
+
+    /**
+     */
+    async stripeWebhookControllerPeekQueueJobs(): Promise<Array<QueueItemDto>> {
+        const response = await this.stripeWebhookControllerPeekQueueJobsRaw();
         return await response.value();
     }
 

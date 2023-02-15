@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    BooleanResult,
+    BooleanResultFromJSON,
+    BooleanResultToJSON,
     OrganisationSubscriptionRecord,
     OrganisationSubscriptionRecordFromJSON,
     OrganisationSubscriptionRecordToJSON,
@@ -37,12 +40,6 @@ export interface OrganisationSubscriptionsControllerFindAllRequest {
     orgUuid: string;
 }
 
-export interface OrganisationSubscriptionsControllerUpdateSubscriptionRequest {
-    uuid: string;
-    orgUuid: string;
-    saveOrganisationSubscriptionRecordDto: SaveOrganisationSubscriptionRecordDto;
-}
-
 /**
  * OrganisationSubscriptionsApi - interface
  * 
@@ -58,11 +55,11 @@ export interface OrganisationSubscriptionsApiInterface {
      * @throws {RequiredError}
      * @memberof OrganisationSubscriptionsApiInterface
      */
-    organisationSubscriptionsControllerAddSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerAddSubscriptionRequest): Promise<runtime.ApiResponse<OrganisationSubscriptionRecord>>;
+    organisationSubscriptionsControllerAddSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerAddSubscriptionRequest): Promise<runtime.ApiResponse<Array<OrganisationSubscriptionRecord>>>;
 
     /**
      */
-    organisationSubscriptionsControllerAddSubscription(requestParameters: OrganisationSubscriptionsControllerAddSubscriptionRequest): Promise<OrganisationSubscriptionRecord>;
+    organisationSubscriptionsControllerAddSubscription(requestParameters: OrganisationSubscriptionsControllerAddSubscriptionRequest): Promise<Array<OrganisationSubscriptionRecord>>;
 
     /**
      * 
@@ -72,11 +69,11 @@ export interface OrganisationSubscriptionsApiInterface {
      * @throws {RequiredError}
      * @memberof OrganisationSubscriptionsApiInterface
      */
-    organisationSubscriptionsControllerDeleteSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerDeleteSubscriptionRequest): Promise<runtime.ApiResponse<boolean>>;
+    organisationSubscriptionsControllerDeleteSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerDeleteSubscriptionRequest): Promise<runtime.ApiResponse<BooleanResult>>;
 
     /**
      */
-    organisationSubscriptionsControllerDeleteSubscription(requestParameters: OrganisationSubscriptionsControllerDeleteSubscriptionRequest): Promise<boolean>;
+    organisationSubscriptionsControllerDeleteSubscription(requestParameters: OrganisationSubscriptionsControllerDeleteSubscriptionRequest): Promise<BooleanResult>;
 
     /**
      * 
@@ -91,21 +88,6 @@ export interface OrganisationSubscriptionsApiInterface {
      */
     organisationSubscriptionsControllerFindAll(requestParameters: OrganisationSubscriptionsControllerFindAllRequest): Promise<Array<OrganisationSubscriptionRecord>>;
 
-    /**
-     * 
-     * @param {string} uuid 
-     * @param {string} orgUuid 
-     * @param {SaveOrganisationSubscriptionRecordDto} saveOrganisationSubscriptionRecordDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrganisationSubscriptionsApiInterface
-     */
-    organisationSubscriptionsControllerUpdateSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerUpdateSubscriptionRequest): Promise<runtime.ApiResponse<OrganisationSubscriptionRecord>>;
-
-    /**
-     */
-    organisationSubscriptionsControllerUpdateSubscription(requestParameters: OrganisationSubscriptionsControllerUpdateSubscriptionRequest): Promise<OrganisationSubscriptionRecord>;
-
 }
 
 /**
@@ -115,7 +97,7 @@ export class OrganisationSubscriptionsApi extends runtime.BaseAPI implements Org
 
     /**
      */
-    async organisationSubscriptionsControllerAddSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerAddSubscriptionRequest): Promise<runtime.ApiResponse<OrganisationSubscriptionRecord>> {
+    async organisationSubscriptionsControllerAddSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerAddSubscriptionRequest): Promise<runtime.ApiResponse<Array<OrganisationSubscriptionRecord>>> {
         if (requestParameters.orgUuid === null || requestParameters.orgUuid === undefined) {
             throw new runtime.RequiredError('orgUuid','Required parameter requestParameters.orgUuid was null or undefined when calling organisationSubscriptionsControllerAddSubscription.');
         }
@@ -146,19 +128,19 @@ export class OrganisationSubscriptionsApi extends runtime.BaseAPI implements Org
             body: SaveOrganisationSubscriptionRecordDtoToJSON(requestParameters.saveOrganisationSubscriptionRecordDto),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => OrganisationSubscriptionRecordFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(OrganisationSubscriptionRecordFromJSON));
     }
 
     /**
      */
-    async organisationSubscriptionsControllerAddSubscription(requestParameters: OrganisationSubscriptionsControllerAddSubscriptionRequest): Promise<OrganisationSubscriptionRecord> {
+    async organisationSubscriptionsControllerAddSubscription(requestParameters: OrganisationSubscriptionsControllerAddSubscriptionRequest): Promise<Array<OrganisationSubscriptionRecord>> {
         const response = await this.organisationSubscriptionsControllerAddSubscriptionRaw(requestParameters);
         return await response.value();
     }
 
     /**
      */
-    async organisationSubscriptionsControllerDeleteSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerDeleteSubscriptionRequest): Promise<runtime.ApiResponse<boolean>> {
+    async organisationSubscriptionsControllerDeleteSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerDeleteSubscriptionRequest): Promise<runtime.ApiResponse<BooleanResult>> {
         if (requestParameters.orgUuid === null || requestParameters.orgUuid === undefined) {
             throw new runtime.RequiredError('orgUuid','Required parameter requestParameters.orgUuid was null or undefined when calling organisationSubscriptionsControllerDeleteSubscription.');
         }
@@ -186,12 +168,12 @@ export class OrganisationSubscriptionsApi extends runtime.BaseAPI implements Org
             query: queryParameters,
         });
 
-        return new runtime.TextApiResponse(response) as any;
+        return new runtime.JSONApiResponse(response, (jsonValue) => BooleanResultFromJSON(jsonValue));
     }
 
     /**
      */
-    async organisationSubscriptionsControllerDeleteSubscription(requestParameters: OrganisationSubscriptionsControllerDeleteSubscriptionRequest): Promise<boolean> {
+    async organisationSubscriptionsControllerDeleteSubscription(requestParameters: OrganisationSubscriptionsControllerDeleteSubscriptionRequest): Promise<BooleanResult> {
         const response = await this.organisationSubscriptionsControllerDeleteSubscriptionRaw(requestParameters);
         return await response.value();
     }
@@ -229,53 +211,6 @@ export class OrganisationSubscriptionsApi extends runtime.BaseAPI implements Org
      */
     async organisationSubscriptionsControllerFindAll(requestParameters: OrganisationSubscriptionsControllerFindAllRequest): Promise<Array<OrganisationSubscriptionRecord>> {
         const response = await this.organisationSubscriptionsControllerFindAllRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     */
-    async organisationSubscriptionsControllerUpdateSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerUpdateSubscriptionRequest): Promise<runtime.ApiResponse<OrganisationSubscriptionRecord>> {
-        if (requestParameters.uuid === null || requestParameters.uuid === undefined) {
-            throw new runtime.RequiredError('uuid','Required parameter requestParameters.uuid was null or undefined when calling organisationSubscriptionsControllerUpdateSubscription.');
-        }
-
-        if (requestParameters.orgUuid === null || requestParameters.orgUuid === undefined) {
-            throw new runtime.RequiredError('orgUuid','Required parameter requestParameters.orgUuid was null or undefined when calling organisationSubscriptionsControllerUpdateSubscription.');
-        }
-
-        if (requestParameters.saveOrganisationSubscriptionRecordDto === null || requestParameters.saveOrganisationSubscriptionRecordDto === undefined) {
-            throw new runtime.RequiredError('saveOrganisationSubscriptionRecordDto','Required parameter requestParameters.saveOrganisationSubscriptionRecordDto was null or undefined when calling organisationSubscriptionsControllerUpdateSubscription.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/organisation/{orgUuid}/subscriptions/{uuid}`.replace(`{${"uuid"}}`, encodeURIComponent(String(requestParameters.uuid))).replace(`{${"orgUuid"}}`, encodeURIComponent(String(requestParameters.orgUuid))),
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-            body: SaveOrganisationSubscriptionRecordDtoToJSON(requestParameters.saveOrganisationSubscriptionRecordDto),
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => OrganisationSubscriptionRecordFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async organisationSubscriptionsControllerUpdateSubscription(requestParameters: OrganisationSubscriptionsControllerUpdateSubscriptionRequest): Promise<OrganisationSubscriptionRecord> {
-        const response = await this.organisationSubscriptionsControllerUpdateSubscriptionRaw(requestParameters);
         return await response.value();
     }
 

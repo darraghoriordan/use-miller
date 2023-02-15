@@ -1,3 +1,4 @@
+export * from './BooleanResult';
 export * from './CreateUpdateMembershipDto';
 export * from './InitUserResponseDto';
 export * from './InlineResponse200';
@@ -6,7 +7,9 @@ export * from './MembershipRole';
 export * from './Organisation';
 export * from './OrganisationMembership';
 export * from './OrganisationSubscriptionRecord';
+export * from './PaymentSessionReference';
 export * from './Person';
+export * from './QueueItemDto';
 export * from './SaveOrganisationSubscriptionRecordDto';
 export * from './StripeCheckoutLineItem';
 export * from './StripeCheckoutSessionRequestDto';
