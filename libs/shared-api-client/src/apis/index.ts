@@ -1,4 +1,5 @@
 export * from './ApplicationSupportApi';
+export * from './CourseFilesApi';
 export * from './EmailClientApi';
 export * from './OrganisationMembershipsApi';
 export * from './OrganisationSubscriptionsApi';

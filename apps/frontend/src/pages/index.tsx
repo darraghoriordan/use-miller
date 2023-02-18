@@ -2,34 +2,38 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
-import { FileStructure, mapFiles } from "../fileMapper";
-import util from "util";
+import Editor from "@monaco-editor/react";
+import { getAccessToken, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import useGetFiles from "../components/course-files/useGetFiles";
 
-export async function getServerSideProps() {
-    const files = await mapFiles();
-    console.log(
-        "files",
-        util.inspect(files, false, null, true /* enable colors */)
-    );
+export const getServerSideProps = withPageAuthRequired({
+    getServerSideProps: async (context) => {
+        const token = getAccessToken(context.req!, context.res!);
+        return {
+            props: {
+                accessToken: token,
+            },
+        };
+    },
+});
 
-    return {
-        props: {
-            files: files,
-            // files: {
-            //     name: "USE-MILLER-FAKE",
-            //     type: "folder",
-            //     isOpen: true,
-            //     path: "/",
-            //     children: [],
-            // },
-        }, // will be passed to the page component as props
-    };
-}
-
-export default function Home({ files }: { files: FileStructure }) {
+const Home = (props: { accessToken: string }) => {
     const FileTree = dynamic(() => import("../components/FileTree"), {
         ssr: false,
     });
+
+    const { data, isError, isLoading } = useGetFiles(
+        props.accessToken,
+        "miller"
+    );
+    if (isError) {
+        return <div>Error</div>;
+    }
+    if (isLoading) {
+        return <div>Loading</div>;
+    }
+
+    const firstContents = "// Welcome to Miller!";
 
     return (
         <>
@@ -42,11 +46,19 @@ export default function Home({ files }: { files: FileStructure }) {
             </Head>
             <Header />
             <main>
-                <div className="ml-10 bg-white">
-                    <FileTree files={files} />
+                <div className="ml-10 bg-white h-full flex">
+                    <FileTree files={data} />
+                    <Editor
+                        theme="vs-dark"
+                        height="90vh"
+                        defaultLanguage="javascript"
+                        defaultValue={firstContents}
+                    />
                 </div>
             </main>
             <Footer />
         </>
     );
-}
+};
+
+export default Home;

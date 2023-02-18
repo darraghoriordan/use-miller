@@ -1,5 +1,7 @@
 export * from './BooleanResult';
 export * from './CreateUpdateMembershipDto';
+export * from './FileMetaDto';
+export * from './FileStructureDto';
 export * from './InitUserResponseDto';
 export * from './InlineResponse200';
 export * from './InlineResponse503';
@@ -14,4 +16,6 @@ export * from './SaveOrganisationSubscriptionRecordDto';
 export * from './StripeCheckoutLineItem';
 export * from './StripeCheckoutSessionRequestDto';
 export * from './StripeCheckoutSessionResponseDto';
+export * from './StripeCustomerPortalRequestDto';
+export * from './StripeCustomerPortalResponseDto';
 export * from './UpdateOrganisationDto';

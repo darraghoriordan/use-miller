@@ -24,6 +24,12 @@ import {
     StripeCheckoutSessionResponseDto,
     StripeCheckoutSessionResponseDtoFromJSON,
     StripeCheckoutSessionResponseDtoToJSON,
+    StripeCustomerPortalRequestDto,
+    StripeCustomerPortalRequestDtoFromJSON,
+    StripeCustomerPortalRequestDtoToJSON,
+    StripeCustomerPortalResponseDto,
+    StripeCustomerPortalResponseDtoFromJSON,
+    StripeCustomerPortalResponseDtoToJSON,
 } from '../models';
 
 export interface StripeCheckoutControllerCreateCheckoutSessionRequest {
@@ -31,7 +37,7 @@ export interface StripeCheckoutControllerCreateCheckoutSessionRequest {
 }
 
 export interface StripeCustomerPortalControllerCreateCustomerPortalSessionRequest {
-    body: object;
+    stripeCustomerPortalRequestDto: StripeCustomerPortalRequestDto;
 }
 
 /**
@@ -56,16 +62,16 @@ export interface PaymentsApiInterface {
 
     /**
      * 
-     * @param {object} body 
+     * @param {StripeCustomerPortalRequestDto} stripeCustomerPortalRequestDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PaymentsApiInterface
      */
-    stripeCustomerPortalControllerCreateCustomerPortalSessionRaw(requestParameters: StripeCustomerPortalControllerCreateCustomerPortalSessionRequest): Promise<runtime.ApiResponse<object>>;
+    stripeCustomerPortalControllerCreateCustomerPortalSessionRaw(requestParameters: StripeCustomerPortalControllerCreateCustomerPortalSessionRequest): Promise<runtime.ApiResponse<StripeCustomerPortalResponseDto>>;
 
     /**
      */
-    stripeCustomerPortalControllerCreateCustomerPortalSession(requestParameters: StripeCustomerPortalControllerCreateCustomerPortalSessionRequest): Promise<object>;
+    stripeCustomerPortalControllerCreateCustomerPortalSession(requestParameters: StripeCustomerPortalControllerCreateCustomerPortalSessionRequest): Promise<StripeCustomerPortalResponseDto>;
 
     /**
      * 
@@ -151,9 +157,9 @@ export class PaymentsApi extends runtime.BaseAPI implements PaymentsApiInterface
 
     /**
      */
-    async stripeCustomerPortalControllerCreateCustomerPortalSessionRaw(requestParameters: StripeCustomerPortalControllerCreateCustomerPortalSessionRequest): Promise<runtime.ApiResponse<object>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling stripeCustomerPortalControllerCreateCustomerPortalSession.');
+    async stripeCustomerPortalControllerCreateCustomerPortalSessionRaw(requestParameters: StripeCustomerPortalControllerCreateCustomerPortalSessionRequest): Promise<runtime.ApiResponse<StripeCustomerPortalResponseDto>> {
+        if (requestParameters.stripeCustomerPortalRequestDto === null || requestParameters.stripeCustomerPortalRequestDto === undefined) {
+            throw new runtime.RequiredError('stripeCustomerPortalRequestDto','Required parameter requestParameters.stripeCustomerPortalRequestDto was null or undefined when calling stripeCustomerPortalControllerCreateCustomerPortalSession.');
         }
 
         const queryParameters: any = {};
@@ -175,15 +181,15 @@ export class PaymentsApi extends runtime.BaseAPI implements PaymentsApiInterface
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.body as any,
+            body: StripeCustomerPortalRequestDtoToJSON(requestParameters.stripeCustomerPortalRequestDto),
         });
 
-        return new runtime.JSONApiResponse<any>(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => StripeCustomerPortalResponseDtoFromJSON(jsonValue));
     }
 
     /**
      */
-    async stripeCustomerPortalControllerCreateCustomerPortalSession(requestParameters: StripeCustomerPortalControllerCreateCustomerPortalSessionRequest): Promise<object> {
+    async stripeCustomerPortalControllerCreateCustomerPortalSession(requestParameters: StripeCustomerPortalControllerCreateCustomerPortalSessionRequest): Promise<StripeCustomerPortalResponseDto> {
         const response = await this.stripeCustomerPortalControllerCreateCustomerPortalSessionRaw(requestParameters);
         return await response.value();
     }

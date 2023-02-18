@@ -997,6 +997,84 @@
           }
         ]
       }
+    },
+    "/course-files/{courseName}": {
+      "get": {
+        "operationId": "CourseFilesController_listCourseFiles",
+        "parameters": [
+          {
+            "name": "courseName",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileStructureDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Course Files"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/course-files/{courseName}/contents/{b64Path}": {
+      "get": {
+        "operationId": "CourseFilesController_getFile",
+        "parameters": [
+          {
+            "name": "courseName",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "b64Path",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileMetaDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Course Files"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
     }
   },
   "info": {
@@ -1500,6 +1578,53 @@
           "id",
           "uuid",
           "createdDate"
+        ]
+      },
+      "FileStructureDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "folder",
+              "file"
+            ]
+          },
+          "isOpen": {
+            "type": "boolean"
+          },
+          "fileLocation": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileStructureDto"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "fileLocation"
+        ]
+      },
+      "FileMetaDto": {
+        "type": "object",
+        "properties": {
+          "contents": {
+            "type": "string"
+          },
+          "fileLocation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "contents",
+          "fileLocation"
         ]
       }
     }

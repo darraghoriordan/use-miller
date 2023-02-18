@@ -3,6 +3,7 @@
 README.md
 package.json
 src/apis/ApplicationSupportApi.ts
+src/apis/CourseFilesApi.ts
 src/apis/EmailClientApi.ts
 src/apis/OrganisationMembershipsApi.ts
 src/apis/OrganisationSubscriptionsApi.ts
@@ -15,6 +16,8 @@ src/apis/index.ts
 src/index.ts
 src/models/BooleanResult.ts
 src/models/CreateUpdateMembershipDto.ts
+src/models/FileMetaDto.ts
+src/models/FileStructureDto.ts
 src/models/InitUserResponseDto.ts
 src/models/InlineResponse200.ts
 src/models/InlineResponse503.ts
@@ -29,6 +32,8 @@ src/models/SaveOrganisationSubscriptionRecordDto.ts
 src/models/StripeCheckoutLineItem.ts
 src/models/StripeCheckoutSessionRequestDto.ts
 src/models/StripeCheckoutSessionResponseDto.ts
+src/models/StripeCustomerPortalRequestDto.ts
+src/models/StripeCustomerPortalResponseDto.ts
 src/models/UpdateOrganisationDto.ts
 src/models/index.ts
 src/runtime.ts

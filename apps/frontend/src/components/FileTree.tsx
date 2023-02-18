@@ -1,9 +1,9 @@
 import { useLayoutEffect, useState } from "react";
 import FolderTree, { NodeData } from "react-folder-tree";
 import { FileIcon, defaultStyles } from "react-file-icon";
-import { FileStructure } from "../fileMapper";
+import { FileStructureDto } from "@use-miller/shared-api-client";
 
-const FileTree = (props: { files: FileStructure }) => {
+const FileTree = (props: { files: FileStructureDto }) => {
     let [data, setData] = useState(props.files);
 
     const handleClick = (opts: {
