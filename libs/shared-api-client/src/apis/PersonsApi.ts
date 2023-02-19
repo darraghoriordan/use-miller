@@ -18,9 +18,9 @@ import {
     BooleanResult,
     BooleanResultFromJSON,
     BooleanResultToJSON,
-    Person,
-    PersonFromJSON,
-    PersonToJSON,
+    PersonDto,
+    PersonDtoFromJSON,
+    PersonDtoToJSON,
 } from '../models';
 
 export interface PersonControllerFindOneRequest {
@@ -50,11 +50,11 @@ export interface PersonsApiInterface {
      * @throws {RequiredError}
      * @memberof PersonsApiInterface
      */
-    personControllerFindOneRaw(requestParameters: PersonControllerFindOneRequest): Promise<runtime.ApiResponse<Person>>;
+    personControllerFindOneRaw(requestParameters: PersonControllerFindOneRequest): Promise<runtime.ApiResponse<PersonDto>>;
 
     /**
      */
-    personControllerFindOne(requestParameters: PersonControllerFindOneRequest): Promise<Person>;
+    personControllerFindOne(requestParameters: PersonControllerFindOneRequest): Promise<PersonDto>;
 
     /**
      * 
@@ -92,7 +92,7 @@ export class PersonsApi extends runtime.BaseAPI implements PersonsApiInterface {
 
     /**
      */
-    async personControllerFindOneRaw(requestParameters: PersonControllerFindOneRequest): Promise<runtime.ApiResponse<Person>> {
+    async personControllerFindOneRaw(requestParameters: PersonControllerFindOneRequest): Promise<runtime.ApiResponse<PersonDto>> {
         if (requestParameters.uuid === null || requestParameters.uuid === undefined) {
             throw new runtime.RequiredError('uuid','Required parameter requestParameters.uuid was null or undefined when calling personControllerFindOne.');
         }
@@ -116,12 +116,12 @@ export class PersonsApi extends runtime.BaseAPI implements PersonsApiInterface {
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => PersonFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => PersonDtoFromJSON(jsonValue));
     }
 
     /**
      */
-    async personControllerFindOne(requestParameters: PersonControllerFindOneRequest): Promise<Person> {
+    async personControllerFindOne(requestParameters: PersonControllerFindOneRequest): Promise<PersonDto> {
         const response = await this.personControllerFindOneRaw(requestParameters);
         return await response.value();
     }

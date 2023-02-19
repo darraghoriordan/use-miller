@@ -80,7 +80,7 @@ describe("When getting a user the first time", () => {
         const subscriptions =
             await subscriptionsApi.organisationSubscriptionsControllerFindAll({
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                orgUuid: org!.uuid,
+                orgId: org!.id,
             });
         expect(subscriptions).toHaveLength(0);
     });
@@ -89,7 +89,7 @@ describe("When getting a user the first time", () => {
     it("as super user we can add a subscription", async () => {
         const requestParameters = {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            orgUuid: org!.uuid,
+            orgId: org!.id,
             saveOrganisationSubscriptionRecordDto: {
                 // 1 year from now
                 validUntil: new Date(
@@ -117,7 +117,7 @@ describe("When getting a user the first time", () => {
         const subscriptions =
             await subscriptionsApi.organisationSubscriptionsControllerFindAll({
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                orgUuid: org!.uuid,
+                orgId: org!.id,
             });
 
         const results = [];
@@ -126,7 +126,7 @@ describe("When getting a user the first time", () => {
                 await superUserSubscriptionsApi.organisationSubscriptionsControllerDeleteSubscription(
                     {
                         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                        orgUuid: org!.uuid,
+                        orgId: org!.id,
                         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                         uuid: subscription.uuid,
                     }

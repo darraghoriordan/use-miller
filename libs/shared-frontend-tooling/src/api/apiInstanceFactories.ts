@@ -4,9 +4,11 @@ export const getAuthenticatedApiInstance = async <T extends BaseAPI>(
     apiService: {
         new (apiConfig: Configuration): T;
     },
-    authToken: string,
-    apiBase: string
+    apiBase: string,
+    getAccessTokenSilently: () => Promise<string>
 ) => {
+    const authToken = await getAccessTokenSilently();
+
     const apiConfig = new Configuration({
         basePath: apiBase,
         accessToken: authToken,

@@ -1,48 +1,22 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
-
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ["./src/**/*.{js,jsx,ts,tsx}"],
+    content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
     variants: {
         animation: ["motion-safe"],
+        opacity: ({ after }) => after(["disabled"]),
+        extend: {},
     },
     theme: {
-        fontSize: {
-            xs: ["0.75rem", { lineHeight: "1rem" }],
-            sm: ["0.875rem", { lineHeight: "1.5rem" }],
-            base: ["1rem", { lineHeight: "1.75rem" }],
-            lg: ["1.125rem", { lineHeight: "2rem" }],
-            xl: ["1.25rem", { lineHeight: "2rem" }],
-            "2xl": ["1.5rem", { lineHeight: "2rem" }],
-            "3xl": ["2rem", { lineHeight: "2.5rem" }],
-            "4xl": ["2.5rem", { lineHeight: "3.5rem" }],
-            "5xl": ["3rem", { lineHeight: "3.5rem" }],
-            "6xl": ["3.75rem", { lineHeight: "1" }],
-            "7xl": ["4.5rem", { lineHeight: "1.1" }],
-            "8xl": ["6rem", { lineHeight: "1" }],
-            "9xl": ["8rem", { lineHeight: "1" }],
-        },
         extend: {
-            animation: {
-                fadeIn: "fadeIn 2s ease-in forwards",
-            },
-            keyframes: {
-                fadeIn: {
-                    "0%": { opacity: 0 },
-                    "100%": { opacity: 1 },
-                },
-            },
-            borderRadius: {
-                "4xl": "2rem",
-            },
-            fontFamily: {
-                sans: ["Inter", ...defaultTheme.fontFamily.sans],
-                display: ["Lexend", ...defaultTheme.fontFamily.sans],
-            },
-            maxWidth: {
-                "2xl": "40rem",
+            colors: {
+                "light-shade": "#F8FAF4", // ivory white
+                "light-accent": "#C5C5C5", // darkish-green-(text)
+                "main-brand": "#21CD9C", // bright-green
+                "dark-accent": "#282828", // vs code highlight
+                "dark-mid": "#212122", // vs code explorer
+                "dark-shade": "#1E1E1E", // vscode editor dark
             },
         },
     },
-    plugins: [require("@tailwindcss/forms")],
+
+    plugins: [],
 };

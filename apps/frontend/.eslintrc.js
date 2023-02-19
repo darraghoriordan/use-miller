@@ -1,9 +1,3 @@
 module.exports = {
-    extends: ["plugin:tailwind/recommended"],
-    settings: {
-        next: {
-            rootDir: "apps/marketing/",
-        },
-    },
-    ignorePatterns: [],
+  extends: ["react-app", "plugin:tailwind/recommended"],
 };

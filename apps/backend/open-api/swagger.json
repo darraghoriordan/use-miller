@@ -229,7 +229,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Person"
+                  "$ref": "#/components/schemas/PersonDto"
                 }
               }
             }
@@ -842,16 +842,16 @@
         ]
       }
     },
-    "/organisation/{orgUuid}/subscriptions": {
+    "/organisation/{orgId}/subscriptions": {
       "get": {
         "operationId": "OrganisationSubscriptionsController_findAll",
         "parameters": [
           {
-            "name": "orgUuid",
+            "name": "orgId",
             "required": true,
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "number"
             }
           }
         ],
@@ -883,11 +883,11 @@
         "operationId": "OrganisationSubscriptionsController_addSubscription",
         "parameters": [
           {
-            "name": "orgUuid",
+            "name": "orgId",
             "required": true,
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "number"
             }
           }
         ],
@@ -926,16 +926,16 @@
         ]
       }
     },
-    "/organisation/{orgUuid}/subscriptions/{uuid}": {
+    "/organisation/{orgId}/subscriptions/{uuid}": {
       "delete": {
         "operationId": "OrganisationSubscriptionsController_deleteSubscription",
         "parameters": [
           {
-            "name": "orgUuid",
+            "name": "orgId",
             "required": true,
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "number"
             }
           },
           {
@@ -1173,9 +1173,12 @@
           "deletedDate"
         ]
       },
-      "Person": {
+      "PersonDto": {
         "type": "object",
         "properties": {
+          "isSuper": {
+            "type": "boolean"
+          },
           "id": {
             "type": "number"
           },
@@ -1229,6 +1232,7 @@
           }
         },
         "required": [
+          "isSuper",
           "id",
           "email",
           "uuid",
@@ -1313,6 +1317,75 @@
           "id",
           "uuid",
           "name",
+          "createdDate",
+          "updateDate",
+          "deletedDate"
+        ]
+      },
+      "Person": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "email": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "emailVerified": {
+            "type": "boolean"
+          },
+          "blocked": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "familyName": {
+            "type": "string"
+          },
+          "givenName": {
+            "type": "string"
+          },
+          "picture": {
+            "type": "string"
+          },
+          "auth0UserId": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "memberships": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrganisationMembership"
+            }
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "uuid",
+          "emailVerified",
+          "blocked",
+          "picture",
+          "auth0UserId",
+          "memberships",
           "createdDate",
           "updateDate",
           "deletedDate"

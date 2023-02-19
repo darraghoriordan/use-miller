@@ -27,17 +27,17 @@ import {
 } from '../models';
 
 export interface OrganisationSubscriptionsControllerAddSubscriptionRequest {
-    orgUuid: string;
+    orgId: number;
     saveOrganisationSubscriptionRecordDto: SaveOrganisationSubscriptionRecordDto;
 }
 
 export interface OrganisationSubscriptionsControllerDeleteSubscriptionRequest {
-    orgUuid: string;
+    orgId: number;
     uuid: string;
 }
 
 export interface OrganisationSubscriptionsControllerFindAllRequest {
-    orgUuid: string;
+    orgId: number;
 }
 
 /**
@@ -49,7 +49,7 @@ export interface OrganisationSubscriptionsControllerFindAllRequest {
 export interface OrganisationSubscriptionsApiInterface {
     /**
      * 
-     * @param {string} orgUuid 
+     * @param {number} orgId 
      * @param {SaveOrganisationSubscriptionRecordDto} saveOrganisationSubscriptionRecordDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -63,7 +63,7 @@ export interface OrganisationSubscriptionsApiInterface {
 
     /**
      * 
-     * @param {string} orgUuid 
+     * @param {number} orgId 
      * @param {string} uuid 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -77,7 +77,7 @@ export interface OrganisationSubscriptionsApiInterface {
 
     /**
      * 
-     * @param {string} orgUuid 
+     * @param {number} orgId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrganisationSubscriptionsApiInterface
@@ -98,8 +98,8 @@ export class OrganisationSubscriptionsApi extends runtime.BaseAPI implements Org
     /**
      */
     async organisationSubscriptionsControllerAddSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerAddSubscriptionRequest): Promise<runtime.ApiResponse<Array<OrganisationSubscriptionRecord>>> {
-        if (requestParameters.orgUuid === null || requestParameters.orgUuid === undefined) {
-            throw new runtime.RequiredError('orgUuid','Required parameter requestParameters.orgUuid was null or undefined when calling organisationSubscriptionsControllerAddSubscription.');
+        if (requestParameters.orgId === null || requestParameters.orgId === undefined) {
+            throw new runtime.RequiredError('orgId','Required parameter requestParameters.orgId was null or undefined when calling organisationSubscriptionsControllerAddSubscription.');
         }
 
         if (requestParameters.saveOrganisationSubscriptionRecordDto === null || requestParameters.saveOrganisationSubscriptionRecordDto === undefined) {
@@ -121,7 +121,7 @@ export class OrganisationSubscriptionsApi extends runtime.BaseAPI implements Org
             }
         }
         const response = await this.request({
-            path: `/organisation/{orgUuid}/subscriptions`.replace(`{${"orgUuid"}}`, encodeURIComponent(String(requestParameters.orgUuid))),
+            path: `/organisation/{orgId}/subscriptions`.replace(`{${"orgId"}}`, encodeURIComponent(String(requestParameters.orgId))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -141,8 +141,8 @@ export class OrganisationSubscriptionsApi extends runtime.BaseAPI implements Org
     /**
      */
     async organisationSubscriptionsControllerDeleteSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerDeleteSubscriptionRequest): Promise<runtime.ApiResponse<BooleanResult>> {
-        if (requestParameters.orgUuid === null || requestParameters.orgUuid === undefined) {
-            throw new runtime.RequiredError('orgUuid','Required parameter requestParameters.orgUuid was null or undefined when calling organisationSubscriptionsControllerDeleteSubscription.');
+        if (requestParameters.orgId === null || requestParameters.orgId === undefined) {
+            throw new runtime.RequiredError('orgId','Required parameter requestParameters.orgId was null or undefined when calling organisationSubscriptionsControllerDeleteSubscription.');
         }
 
         if (requestParameters.uuid === null || requestParameters.uuid === undefined) {
@@ -162,7 +162,7 @@ export class OrganisationSubscriptionsApi extends runtime.BaseAPI implements Org
             }
         }
         const response = await this.request({
-            path: `/organisation/{orgUuid}/subscriptions/{uuid}`.replace(`{${"orgUuid"}}`, encodeURIComponent(String(requestParameters.orgUuid))).replace(`{${"uuid"}}`, encodeURIComponent(String(requestParameters.uuid))),
+            path: `/organisation/{orgId}/subscriptions/{uuid}`.replace(`{${"orgId"}}`, encodeURIComponent(String(requestParameters.orgId))).replace(`{${"uuid"}}`, encodeURIComponent(String(requestParameters.uuid))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -181,8 +181,8 @@ export class OrganisationSubscriptionsApi extends runtime.BaseAPI implements Org
     /**
      */
     async organisationSubscriptionsControllerFindAllRaw(requestParameters: OrganisationSubscriptionsControllerFindAllRequest): Promise<runtime.ApiResponse<Array<OrganisationSubscriptionRecord>>> {
-        if (requestParameters.orgUuid === null || requestParameters.orgUuid === undefined) {
-            throw new runtime.RequiredError('orgUuid','Required parameter requestParameters.orgUuid was null or undefined when calling organisationSubscriptionsControllerFindAll.');
+        if (requestParameters.orgId === null || requestParameters.orgId === undefined) {
+            throw new runtime.RequiredError('orgId','Required parameter requestParameters.orgId was null or undefined when calling organisationSubscriptionsControllerFindAll.');
         }
 
         const queryParameters: any = {};
@@ -198,7 +198,7 @@ export class OrganisationSubscriptionsApi extends runtime.BaseAPI implements Org
             }
         }
         const response = await this.request({
-            path: `/organisation/{orgUuid}/subscriptions`.replace(`{${"orgUuid"}}`, encodeURIComponent(String(requestParameters.orgUuid))),
+            path: `/organisation/{orgId}/subscriptions`.replace(`{${"orgId"}}`, encodeURIComponent(String(requestParameters.orgId))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

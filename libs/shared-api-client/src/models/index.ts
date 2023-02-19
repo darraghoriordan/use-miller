@@ -11,6 +11,7 @@ export * from './OrganisationMembership';
 export * from './OrganisationSubscriptionRecord';
 export * from './PaymentSessionReference';
 export * from './Person';
+export * from './PersonDto';
 export * from './QueueItemDto';
 export * from './SaveOrganisationSubscriptionRecordDto';
 export * from './StripeCheckoutLineItem';

@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+
+  :root {
+    @apply bg-white;
+  }
+
+  .TreeNode
+  {
+    @apply
+    bg-dark-shade
+    flex
+    items-center
+}
+  .FolderTree {
+    @apply
+    bg-dark-mid
+    text-light-accent
+     tracking-wider
+     overflow-auto
+     w-full
+  }
+}
+.TreeNode {
+   display: flex;
+    align-items: center;
+}
+.FolderTree .CheckBox{display:inline-block;margin-right:3px}.FolderTree .TreeNode{padding:2px 0}.FolderTree .TreeNode .TreeNodeToolBar{margin-left:3px}.FolderTree .TreeNode .TreeNodeToolBar svg{padding:0 2px}.FolderTree .TreeNode .iconContainer{padding:0 2px}.FolderTree .TreeNode .iconContainer svg{padding-top:1px;vertical-align:text-top}.FolderTree .TreeNode .iconContainer:not(.typeIconContainer) svg:hover{cursor:pointer}.FolderTree .EditableName .displayName:hover{color:#4d94ff;cursor:pointer}.FolderTree .EditableName .editableNameToolbar{margin-left:3px}.FolderTree .EditableName .editableNameToolbar svg{margin:0 2px}.FolderTree .icon:hover.OKIcon{color:#5cd65c}.FolderTree .icon:hover.CancelIcon{color:#f33}.FolderTree .icon:hover.EditIcon{color:#b3f}.FolderTree .icon:hover.DeleteIcon{color:#ff66b3}.FolderTree .icon:hover.AddFileIcon{color:#009973}.FolderTree .icon:hover.AddFolderIcon{color:#009973}
+ span.iconContainer.typeIconContainer {
+    width:1em;
+ }
