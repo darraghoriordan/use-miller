@@ -72,7 +72,7 @@ importers:
   apps/backend:
     specifiers:
       '@darraghor/eslint-plugin-nestjs-typed': 3.18.0
-      '@darraghor/nest-backend-libs': 2.18.29
+      '@darraghor/nest-backend-libs': 2.19.3
       '@nestjs/bull': 0.6.3
       '@nestjs/cli': 9.2.0
       '@nestjs/common': 9.3.9
@@ -135,7 +135,7 @@ importers:
       typeorm: 0.3.12
       typescript: 4.9.5
     dependencies:
-      '@darraghor/nest-backend-libs': 2.18.29_726vgeczvuu3wre5b4a3qsow2y
+      '@darraghor/nest-backend-libs': 2.19.3_726vgeczvuu3wre5b4a3qsow2y
       '@nestjs/bull': 0.6.3_jsdxn6vypp2tcyo3cxrak5wh2u
       '@nestjs/cli': 9.2.0
       '@nestjs/common': 9.3.9_welcnyot5bzd5wa2aovbkxpi4i
@@ -2253,8 +2253,8 @@ packages:
       - typescript
     dev: true
 
-  /@darraghor/nest-backend-libs/2.18.29_726vgeczvuu3wre5b4a3qsow2y:
-    resolution: {integrity: sha512-icDW+Rj7PudJ110HiD9jm38GKwI/RxvnTT8uuRvLonOwqXT+qGbzJJh0aheN4QAeZ9OPPEqoqKvKFGwJOQvp7g==}
+  /@darraghor/nest-backend-libs/2.19.3_726vgeczvuu3wre5b4a3qsow2y:
+    resolution: {integrity: sha512-DEtM01CPivBxE+LH6FzJW6YtTAlSl9t3WKPMWAMpRc04UaYXyCUM+bHDzDtPTWYlHzI1M8VRD8aBO6KG18wfAQ==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:

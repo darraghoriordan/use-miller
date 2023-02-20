@@ -17,7 +17,7 @@ export default defineConfig({
     test: {
         globals: true,
     },
-    server: { port: 3000 },
+    server: { port: 3001 },
     optimizeDeps: {
         include: [
             "@use-miller/shared-api-client",

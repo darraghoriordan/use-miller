@@ -46,9 +46,6 @@ function MobileNavIcon({ open }: { open: boolean }) {
     return (
         <svg
             aria-hidden="true"
-            onClick={() => {
-                console.log("open", open);
-            }}
             className="overflow-visible h-3.5 w-3.5 stroke-gray-300"
             fill="none"
             strokeWidth={2}
@@ -75,7 +72,7 @@ function MobileNavIcon({ open }: { open: boolean }) {
 export const MobileNavigation = () => {
     const [open, setOpen] = useState(false);
     const { logout } = useAuth0();
-    console.log("open", open);
+
     return (
         <Popover>
             <Popover.Button
@@ -109,7 +106,7 @@ export const MobileNavigation = () => {
                 >
                     <Popover.Panel
                         as="div"
-                        className="absolute inset-x-0 flex flex-col p-4 mt-4 text-lg tracking-tight bg-white shadow-xl top-full origin-top rounded-2xl text-slate-900 ring-1 ring-slate-900/5"
+                        className="absolute inset-x-0 flex flex-col p-4 mt-4 text-lg tracking-tight bg-white shadow-xl top-full origin-top rounded-md text-slate-900 ring-1 ring-slate-900/5"
                     >
                         <MobileNavLink href="/">Dashboard</MobileNavLink>
 
@@ -140,7 +137,7 @@ export const Header = () => {
     if (isLoading) {
         return <div>Loading...</div>;
     }
-    console.log("is a super", data?.isSuper);
+
     return (
         <header className="px-12 pt-2 pb-2 border-b-2 border-dark-shade bg-dark-accent">
             <nav className="relative z-50 flex justify-between ">

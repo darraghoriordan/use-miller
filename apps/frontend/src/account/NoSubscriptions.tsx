@@ -3,14 +3,13 @@ import useGetPaymentLink from "./payments/useGetPaymentLink";
 import StyledButton from "./StyledButton";
 
 export default function NoSubscriptions({
-    organisationId,
+    organisationUuid,
 }: {
-    organisationId?: number;
+    organisationUuid?: string;
 }) {
     const { mutateAsync } = useGetPaymentLink();
 
     const onClick = async () => {
-        console.log("link");
         const link = await mutateAsync({
             successFrontendPath: "/account",
             cancelFrontendPath: "/account",
@@ -22,8 +21,9 @@ export default function NoSubscriptions({
                 },
             ],
             mode: "subscription",
+            organisationId: organisationUuid,
         });
-        console.log("link", link);
+
         window.location.href = link.stripeSessionUrl;
     };
 

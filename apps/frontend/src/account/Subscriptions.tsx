@@ -1,8 +1,14 @@
-import ManageBillingLink from "./ManageBillingLink";
 import NoSubscriptions from "./NoSubscriptions";
 import useGetSubscriptions from "./subscriptions/useGetSubscriptions";
+import SubscriptionActionCard from "./SubscriptionsActionsCard";
 
-export const Subscriptions = ({ orgId }: { orgId: number }) => {
+export const Subscriptions = ({
+    orgId,
+    orgUuid,
+}: {
+    orgId: number;
+    orgUuid: string;
+}) => {
     const { data: subsData, isLoading, isError } = useGetSubscriptions(orgId);
 
     if (isLoading) {
@@ -13,21 +19,19 @@ export const Subscriptions = ({ orgId }: { orgId: number }) => {
     }
 
     if (subsData && subsData?.length === 0) {
-        return <NoSubscriptions />;
+        return <NoSubscriptions organisationUuid={orgUuid} />;
     }
     return (
-        <>
+        <div className="grid grid-cols-2 gap-20">
             {subsData?.map((subscription) => {
                 return (
-                    <div>
-                        <div>{subscription.productDisplayName}</div>
-                        <div>{subscription.paymentSystemMode}</div>
-                        <ManageBillingLink
-                            subscriptionUuid={subscription.uuid}
-                        />
-                    </div>
+                    <SubscriptionActionCard
+                        key={subscription.uuid}
+                        subscriptionRecord={subscription}
+                        colorVariant="green"
+                    />
                 );
             })}
-        </>
+        </div>
     );
 };

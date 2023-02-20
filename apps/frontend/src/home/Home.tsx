@@ -45,7 +45,7 @@ const Home = () => {
         <Container className="bg-white">
             <div className="flex flex-col w-full h-full mt-10 space-y-6">
                 <h1 className="text-5xl font-bold leading-tight tracking-tight text-black">
-                    Your Miller products - time to start building!
+                    Time to start building!
                 </h1>
                 <Quotes />
                 <h2 className="pb-10 text-4xl font-bold leading-tight tracking-tight text-dark-accent">

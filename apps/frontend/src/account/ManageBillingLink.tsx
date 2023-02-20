@@ -1,23 +1,29 @@
 import useGetCustomerPortalSession from "./payments/useGetCustomerPortalSession";
-
+import StyledButton from "./StyledButton";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 const ManageBillingLink = ({
     subscriptionUuid,
+    paymentProvider,
 }: {
     subscriptionUuid: string;
+    paymentProvider: string;
 }) => {
     const { mutateAsync } = useGetCustomerPortalSession();
     let linkClick = async (uuid: string) => {
+        const url = new URL(window.location.href);
+
         const link = await mutateAsync({
-            returnUrl: window.location.href,
+            returnUrl: url.pathname,
             subscriptionRecordUuid: uuid,
         });
         window.location.href = link.sessionUrl;
     };
 
     return (
-        <button onClick={() => linkClick(subscriptionUuid)}>
-            Manage Billing
-        </button>
+        <StyledButton onClick={() => linkClick(subscriptionUuid)}>
+            Manage Billing {paymentProvider ? "on " + paymentProvider : ""}
+            <ArrowTopRightOnSquareIcon className="w-5 h-5 ml-2" />
+        </StyledButton>
     );
 };
 

@@ -8,19 +8,19 @@ const data = [
         author: "Vince Lombardi",
     },
     {
-        text: "My biggest motivation? Just to keep challenging myself. I see life almost like one long University education that I never had -- everyday I’m learning something new.",
+        text: "My biggest motivation? Just to keep challenging myself. I see life almost like one long University education that I never had -- everyday I'm learning something new.",
         author: "Richard Branson",
     },
     {
-        text: "Every time you state what you want or believe, you’re the first to hear it. It’s a message to both you and others about what you think is possible. Don’t put a ceiling on yourself.",
+        text: "Every time you state what you want or believe, you're the first to hear it. It's a message to both you and others about what you think is possible. Don't put a ceiling on yourself.",
         author: "Oprah Winfrey",
     },
     {
-        text: "It’s fine to celebrate success but it is more important to heed the lessons of failure.",
+        text: "It's fine to celebrate success but it is more important to heed the lessons of failure.",
         author: "Bill Gates",
     },
     {
-        text: "I have not failed. I’ve just found 10,000 ways that won’t work.",
+        text: "I have not failed. I've just found 10,000 ways that won't work.",
         author: "Thomas Edison",
     },
     {
@@ -28,7 +28,7 @@ const data = [
         author: "Winston Churchill",
     },
     {
-        text: "Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do. So throw off the bowlines. Sail away from the safe harbor. Catch the trade winds in your sails. Explore. Dream. Discover.",
+        text: "Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do. So throw off the bowlines. Sail away from the safe harbor. Catch the trade winds in your sails. Explore. Dream. Discover.",
         author: "Mark Twain",
     },
     {
