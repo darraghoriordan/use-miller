@@ -2,7 +2,9 @@ import React from "react";
 
 import { Route, Routes } from "react-router-dom";
 import Account from "../../account/Account";
-import Admin from "../../admin/Admin";
+import PaymentsSuperAdmin from "../../admin/PaymentsSuperAdmin";
+import SuperAdmin from "../../admin/SuperAdmin";
+import UsersSuperAdmin from "../../admin/UsersSuperAdmin";
 import Home from "../../home/Home";
 import LayoutErrorBoundary from "../LayoutErrorBoundry";
 import MainLayout from "../MainLayout";
@@ -25,9 +27,20 @@ function AppRoutes() {
                     element={<ProtectedRoute component={Account} />}
                 />
                 <Route
-                    path="admin"
-                    element={<ProtectedRoute component={Admin} />}
-                />
+                    path="super-admin"
+                    element={<ProtectedRoute component={SuperAdmin} />}
+                >
+                    <Route
+                        path="users"
+                        element={<ProtectedRoute component={UsersSuperAdmin} />}
+                    />
+                    <Route
+                        path="payments"
+                        element={
+                            <ProtectedRoute component={PaymentsSuperAdmin} />
+                        }
+                    />
+                </Route>
             </Route>
         </Routes>
     );

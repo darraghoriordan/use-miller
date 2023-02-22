@@ -157,7 +157,9 @@ export const Header = () => {
                         <StyledNavLink to="/account">Account</StyledNavLink>
 
                         {data && data.isSuper && (
-                            <StyledNavLink to="/admin">Admin</StyledNavLink>
+                            <StyledNavLink to="/super-admin">
+                                SuperAdmin
+                            </StyledNavLink>
                         )}
                     </div>
 

@@ -321,6 +321,35 @@
         ]
       }
     },
+    "/person": {
+      "get": {
+        "operationId": "PersonController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PersonDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Persons"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/email-client/verify": {
       "get": {
         "operationId": "EmailClientController_verify",
@@ -842,6 +871,52 @@
         ]
       }
     },
+    "/payments/stripe/events": {
+      "get": {
+        "operationId": "StripeEventsController_getLastEvents",
+        "parameters": [
+          {
+            "name": "skip",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "take",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StripeCheckoutSessionResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Payments"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/organisation/{orgId}/subscriptions": {
       "get": {
         "operationId": "OrganisationSubscriptionsController_findAll",
@@ -954,6 +1029,35 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BooleanResult"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Organisation Subscriptions"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/organisation/subscriptions": {
+      "get": {
+        "operationId": "AllSubscriptionsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrganisationSubscriptionRecord"
+                  }
                 }
               }
             }

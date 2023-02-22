@@ -1,11 +1,7 @@
-import {
-    DefaultAuthGuard,
-    RequestWithUser,
-} from "@darraghor/nest-backend-libs";
+import { DefaultAuthGuard } from "@darraghor/nest-backend-libs";
 import {
     Controller,
     UseGuards,
-    Request,
     HttpCode,
     HttpStatus,
     Get,
@@ -32,8 +28,7 @@ export class CourseFilesController {
     @HttpCode(HttpStatus.OK)
     @ApiOkResponse({ type: FileStructureDto })
     async listCourseFiles(
-        @Param("courseName") courseName: string,
-        @Request() request: RequestWithUser
+        @Param("courseName") courseName: string
     ): Promise<FileStructureDto> {
         // eslint-disable-next-line sonarjs/no-small-switch
         const courseMeta = this.courseMetaService.getMeta(courseName);
@@ -46,8 +41,7 @@ export class CourseFilesController {
     @ApiOkResponse({ type: FileMetaDto })
     async getFile(
         @Param("courseName") courseName: string,
-        @Param("b64Path") b64Path: string,
-        @Request() request: RequestWithUser
+        @Param("b64Path") b64Path: string
     ): Promise<FileMetaDto> {
         const path = Buffer.from(b64Path, "base64").toString("ascii");
         // eslint-disable-next-line sonarjs/no-small-switch

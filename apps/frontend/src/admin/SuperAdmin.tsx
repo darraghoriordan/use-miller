@@ -2,8 +2,8 @@ import React from "react";
 import useGetPerson from "../account/persons/useGetPerson";
 import ProductActionsCard from "../home/ProductActionsCard";
 import { Container } from "../layout/Container";
-import { CreditCardIcon } from "@heroicons/react/24/outline";
-const Admin = () => {
+import { CreditCardIcon, UserIcon } from "@heroicons/react/24/outline";
+const SuperAdmin = () => {
     const { data } = useGetPerson("me");
     if (!data?.isSuper) return <div>No access</div>;
 
@@ -17,8 +17,15 @@ const Admin = () => {
                 <ProductActionsCard
                     actions={[
                         {
-                            title: "Payments",
-                            href: "/admin/payments",
+                            title: "Users",
+                            href: "/super-admin/users",
+                            icon: UserIcon,
+                            description: "Review your users.",
+                            iconForeground: "green",
+                        },
+                        {
+                            title: "Subs and Payments",
+                            href: "/super-admin/payments",
                             icon: CreditCardIcon,
                             description: "Review payments and subscriptions.",
                             iconForeground: "green",
@@ -30,4 +37,4 @@ const Admin = () => {
     );
 };
 
-export default Admin;
+export default SuperAdmin;

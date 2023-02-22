@@ -5,6 +5,7 @@ import {
     DatabaseModule,
     OrganisationModule,
     SmtpEmailClientModule,
+    PersonModule,
 } from "@darraghor/nest-backend-libs";
 import { UserOnboardingModule } from "./user-onboarding/user-onboarding.module";
 import { PaymentsModule } from "./payments/payments.module";
@@ -15,6 +16,7 @@ import { CourseFilesModule } from "./course-files/course-files.module";
         CoreModule,
         DatabaseModule,
         AuthzModule,
+        PersonModule,
         SmtpEmailClientModule,
         OrganisationModule,
         UserOnboardingModule,

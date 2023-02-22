@@ -61,28 +61,21 @@ const Home = () => {
                                 "Learn how to build a Miller product from scratch.",
                             iconForeground: "green",
                         },
-                        {
-                            title: "Tutorial - Your first Miller product (30 mins)",
-                            href: "/learn-courses/miller/tutorials/your-first-miller-product",
-                            icon: ClockIcon,
-                            description:
-                                "Learn how to build a Miller product from scratch.",
-                            iconForeground: "red",
-                        },
+
                         {
                             title: "Documentation - Miller Web SaaS",
                             href: "/learn-courses/miller/documentation",
                             icon: CheckBadgeIcon,
                             description:
                                 "View the full documentation for Miller Web SaaS.",
-                            iconForeground: "amber",
+                            iconForeground: "green",
                         },
                         {
                             title: "Latest Code - Miller Web SaaS",
                             href: "/learn-courses/miller/documentation",
                             icon: CheckBadgeIcon,
-                            description: "View the latest code.",
-                            iconForeground: "cyan",
+                            description: "View the latest code for Miller Web.",
+                            iconForeground: "violet",
                         },
                         {
                             title: "Nest Libraries Documentation",
@@ -90,14 +83,15 @@ const Home = () => {
                             icon: CheckBadgeIcon,
                             description:
                                 "View the full documentation for Miller Nest Backend Libraries.",
-                            iconForeground: "violet",
+                            iconForeground: "green",
                         },
                         {
                             title: "Latest Code - Miller Nest Libraries",
                             href: "/learn-courses/miller/documentation",
                             icon: CheckBadgeIcon,
-                            description: "View the latest code.",
-                            iconForeground: "pink",
+                            description:
+                                "View the latest code for the Miller NestJs backend libraries.",
+                            iconForeground: "violet",
                         },
                     ]}
                 />
