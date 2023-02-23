@@ -134,17 +134,13 @@ export const Header = () => {
     const headerContext = useContext(HeaderContext);
     const { data, isLoading } = useGetPerson("me");
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
     return (
         <header className="px-12 pt-2 pb-2 border-b-2 border-dark-shade bg-dark-accent">
             <nav className="relative z-50 flex justify-between ">
                 <div className="flex items-center md:gap-x-12">
                     <img src={logo} alt="Logo" className="h-16" />
                     <NavLink
-                        to="#"
+                        to="/"
                         aria-label="Home"
                         className="text-3xl text-white"
                     >
@@ -156,7 +152,7 @@ export const Header = () => {
                         <StyledNavLink to="/">Products Home</StyledNavLink>
                         <StyledNavLink to="/account">Account</StyledNavLink>
 
-                        {data && data.isSuper && (
+                        {!isLoading && data && data.isSuper && (
                             <StyledNavLink to="/super-admin">
                                 SuperAdmin
                             </StyledNavLink>

@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import AppRoutes from "./layout/routes/AppRoutes";
+import AppRoutes from "./routes/AppRoutes";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import Auth0ProviderWithHistory from "./layout/Auth0ProviderWithHistory";

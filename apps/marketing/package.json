@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
         "build": "next build",
-        "start": "next start",
+        "start": "next dev",
+        "start:prod": "next start",
         "lint": "next lint ",
         "prettier": "prettier --write src/*"
     },

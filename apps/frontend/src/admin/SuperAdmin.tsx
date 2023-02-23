@@ -1,6 +1,6 @@
 import React from "react";
 import useGetPerson from "../account/persons/useGetPerson";
-import ProductActionsCard from "../home/ProductActionsCard";
+import ProductActionsCard from "../components/ProductActionsCard";
 import { Container } from "../layout/Container";
 import { CreditCardIcon, UserIcon } from "@heroicons/react/24/outline";
 const SuperAdmin = () => {
@@ -20,14 +20,15 @@ const SuperAdmin = () => {
                             title: "Users",
                             href: "/super-admin/users",
                             icon: UserIcon,
-                            description: "Review your users.",
+                            description: "Review all users.",
                             iconForeground: "green",
                         },
                         {
                             title: "Subs and Payments",
                             href: "/super-admin/payments",
                             icon: CreditCardIcon,
-                            description: "Review payments and subscriptions.",
+                            description:
+                                "Review all payments and subscriptions.",
                             iconForeground: "green",
                         },
                     ]}

@@ -6,8 +6,9 @@ import AppGlobalContext from "../layout/AppGlobalContext";
 import { Container } from "../layout/Container";
 import HeaderContext from "../layout/HeaderContext";
 import useGetPerson from "./persons/useGetPerson";
-import StyledButton from "./StyledButton";
+import StyledButton from "../components/StyledButton";
 import { Subscriptions } from "./Subscriptions";
+import StyledHeader1 from "../components/StyledHeader1";
 
 const Account = () => {
     const { logout } = useAuth0();
@@ -34,18 +35,15 @@ const Account = () => {
         <Container className="bg-white">
             <div className="flex flex-col w-full h-full mt-10 space-y-10">
                 <div>
-                    <div className="flex justify-between">
-                        <h1 className="mb-10 text-4xl font-bold leading-tight tracking-tight text-black">
-                            Account - {appContext.currentOrganisation.name}
-                        </h1>
-                        <StyledButton onClick={() => logout()}>
-                            Logout
-                            <ArrowLeftOnRectangleIcon />
-                        </StyledButton>
-                    </div>
+                    <StyledHeader1>
+                        {appContext.currentOrganisation.name}
+                    </StyledHeader1>
+
+                    <StyledHeader1>Your products</StyledHeader1>
+
                     <p className="mb-10">
                         Any products you have purchased will be listed below.
-                        Use the links to manage the billing for your products.
+                        Use the links to manage the billing.
                     </p>
                     {personData?.memberships.some(
                         (m) =>
@@ -58,6 +56,17 @@ const Account = () => {
                             orgUuid={appContext.currentOrganisation.uuid}
                         />
                     )}
+
+                    <StyledHeader1 className="mt-8">Your account</StyledHeader1>
+                    <StyledButton onClick={() => logout()}>
+                        Log out of your account
+                        <ArrowLeftOnRectangleIcon className="w-6 h-6 ml-2" />
+                    </StyledButton>
+                    <p className="mt-4 mb-4">Email: {personData.email}</p>
+                    <p className="mt-4 mb-4">
+                        Member since:{" "}
+                        {personData.createdDate.toLocaleDateString()}
+                    </p>
                 </div>
             </div>
         </Container>

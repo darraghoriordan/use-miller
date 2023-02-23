@@ -27,7 +27,7 @@
         "client:generate": "pnpm miller api:write-client --fePath ../../apps/frontend --itPath ../../apps/backend-e2e --packageName @use-miller/shared-api-client"
     },
     "dependencies": {
-        "@darraghor/nest-backend-libs": "2.20.13",
+        "@darraghor/nest-backend-libs": "file://../../../nest-backend-libs",
         "@nestjs/bull": "0.6.3",
         "@nestjs/cli": "9.2.0",
         "@nestjs/common": "9.3.9",
@@ -54,11 +54,10 @@
         "rimraf": "4.1.2",
         "rxjs": "7.8.0",
         "swagger-ui-express": "4.6.1",
-        "tslog": "4.7.4",
         "typeorm": "0.3.12"
     },
     "devDependencies": {
-        "@darraghor/eslint-plugin-nestjs-typed": "3.18.0",
+        "@darraghor/eslint-plugin-nestjs-typed": "3.18.1",
         "@nestjs/schematics": "9.0.4",
         "@nestjs/testing": "9.3.9",
         "@types/auth0": "2.35.9",

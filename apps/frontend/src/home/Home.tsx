@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { Container } from "../layout/Container";
 import HeaderContext from "../layout/HeaderContext";
-import ProductActionsCard from "./ProductActionsCard";
+import ProductActionsCard from "../components/ProductActionsCard";
 import { CheckBadgeIcon, ClockIcon } from "@heroicons/react/24/outline";
 import Quotes from "./Quotes";
 import AppGlobalContext from "../layout/AppGlobalContext";

@@ -10,7 +10,7 @@ import AppGlobalContext from "./AppGlobalContext";
 import { Organisation } from "@use-miller/shared-api-client";
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import StyledButton from "../account/StyledButton";
+import StyledButton from "../components/StyledButton";
 
 const MainLayout: FunctionComponent = ({ children }: PropsWithChildren<{}>) => {
     const [context, setContext] = useState({ title: "Miller" });

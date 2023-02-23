@@ -40,6 +40,11 @@ export interface StripeCustomerPortalControllerCreateCustomerPortalSessionReques
     stripeCustomerPortalRequestDto: StripeCustomerPortalRequestDto;
 }
 
+export interface StripeEventsControllerGetLastEventsRequest {
+    skip: number;
+    take: number;
+}
+
 /**
  * PaymentsApi - interface
  * 
@@ -72,6 +77,20 @@ export interface PaymentsApiInterface {
     /**
      */
     stripeCustomerPortalControllerCreateCustomerPortalSession(requestParameters: StripeCustomerPortalControllerCreateCustomerPortalSessionRequest): Promise<StripeCustomerPortalResponseDto>;
+
+    /**
+     * 
+     * @param {number} skip 
+     * @param {number} take 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PaymentsApiInterface
+     */
+    stripeEventsControllerGetLastEventsRaw(requestParameters: StripeEventsControllerGetLastEventsRequest): Promise<runtime.ApiResponse<Array<StripeCheckoutSessionResponseDto>>>;
+
+    /**
+     */
+    stripeEventsControllerGetLastEvents(requestParameters: StripeEventsControllerGetLastEventsRequest): Promise<Array<StripeCheckoutSessionResponseDto>>;
 
     /**
      * 
@@ -191,6 +210,54 @@ export class PaymentsApi extends runtime.BaseAPI implements PaymentsApiInterface
      */
     async stripeCustomerPortalControllerCreateCustomerPortalSession(requestParameters: StripeCustomerPortalControllerCreateCustomerPortalSessionRequest): Promise<StripeCustomerPortalResponseDto> {
         const response = await this.stripeCustomerPortalControllerCreateCustomerPortalSessionRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     */
+    async stripeEventsControllerGetLastEventsRaw(requestParameters: StripeEventsControllerGetLastEventsRequest): Promise<runtime.ApiResponse<Array<StripeCheckoutSessionResponseDto>>> {
+        if (requestParameters.skip === null || requestParameters.skip === undefined) {
+            throw new runtime.RequiredError('skip','Required parameter requestParameters.skip was null or undefined when calling stripeEventsControllerGetLastEvents.');
+        }
+
+        if (requestParameters.take === null || requestParameters.take === undefined) {
+            throw new runtime.RequiredError('take','Required parameter requestParameters.take was null or undefined when calling stripeEventsControllerGetLastEvents.');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.skip !== undefined) {
+            queryParameters['skip'] = requestParameters.skip;
+        }
+
+        if (requestParameters.take !== undefined) {
+            queryParameters['take'] = requestParameters.take;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/payments/stripe/events`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(StripeCheckoutSessionResponseDtoFromJSON));
+    }
+
+    /**
+     */
+    async stripeEventsControllerGetLastEvents(requestParameters: StripeEventsControllerGetLastEventsRequest): Promise<Array<StripeCheckoutSessionResponseDto>> {
+        const response = await this.stripeEventsControllerGetLastEventsRaw(requestParameters);
         return await response.value();
     }
 

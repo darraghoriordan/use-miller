@@ -31,13 +31,13 @@
         ]
     },
     "dependencies": {
-        "@auth0/auth0-react": "2.0.0",
+        "@auth0/auth0-react": "2.0.1",
         "@headlessui/react": "1.7.11",
         "@heroicons/react": "2.0.16",
         "@monaco-editor/react": "4.4.6",
         "@tanstack/react-query": "4.24.10",
         "@use-miller/shared-api-client": "*",
-        "@use-miller/shared-frontend-tooling": "*",
+        "@use-miller/shared-frontend-tooling": "workspace:*",
         "clsx": "1.2.1",
         "formik": "2.2.9",
         "react": "18.2.0",

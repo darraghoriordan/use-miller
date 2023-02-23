@@ -49,6 +49,18 @@ export interface OrganisationSubscriptionsControllerFindAllRequest {
 export interface OrganisationSubscriptionsApiInterface {
     /**
      * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganisationSubscriptionsApiInterface
+     */
+    allSubscriptionsControllerFindAllRaw(): Promise<runtime.ApiResponse<Array<OrganisationSubscriptionRecord>>>;
+
+    /**
+     */
+    allSubscriptionsControllerFindAll(): Promise<Array<OrganisationSubscriptionRecord>>;
+
+    /**
+     * 
      * @param {number} orgId 
      * @param {SaveOrganisationSubscriptionRecordDto} saveOrganisationSubscriptionRecordDto 
      * @param {*} [options] Override http request option.
@@ -94,6 +106,38 @@ export interface OrganisationSubscriptionsApiInterface {
  * 
  */
 export class OrganisationSubscriptionsApi extends runtime.BaseAPI implements OrganisationSubscriptionsApiInterface {
+
+    /**
+     */
+    async allSubscriptionsControllerFindAllRaw(): Promise<runtime.ApiResponse<Array<OrganisationSubscriptionRecord>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/organisation/subscriptions`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(OrganisationSubscriptionRecordFromJSON));
+    }
+
+    /**
+     */
+    async allSubscriptionsControllerFindAll(): Promise<Array<OrganisationSubscriptionRecord>> {
+        const response = await this.allSubscriptionsControllerFindAllRaw();
+        return await response.value();
+    }
 
     /**
      */

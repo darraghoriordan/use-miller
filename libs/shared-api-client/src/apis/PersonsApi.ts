@@ -45,6 +45,18 @@ export interface PersonControllerUpdateRequest {
 export interface PersonsApiInterface {
     /**
      * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PersonsApiInterface
+     */
+    personControllerFindAllRaw(): Promise<runtime.ApiResponse<Array<PersonDto>>>;
+
+    /**
+     */
+    personControllerFindAll(): Promise<Array<PersonDto>>;
+
+    /**
+     * 
      * @param {string} uuid 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -89,6 +101,38 @@ export interface PersonsApiInterface {
  * 
  */
 export class PersonsApi extends runtime.BaseAPI implements PersonsApiInterface {
+
+    /**
+     */
+    async personControllerFindAllRaw(): Promise<runtime.ApiResponse<Array<PersonDto>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/person`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(PersonDtoFromJSON));
+    }
+
+    /**
+     */
+    async personControllerFindAll(): Promise<Array<PersonDto>> {
+        const response = await this.personControllerFindAllRaw();
+        return await response.value();
+    }
 
     /**
      */

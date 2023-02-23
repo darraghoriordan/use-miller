@@ -1,5 +1,8 @@
 import wellKnownQueries from "./wellKnownQueries";
-import { PersonDto, PersonsApi } from "@use-miller/shared-api-client";
+import {
+    OrganisationSubscriptionRecord,
+    OrganisationSubscriptionsApi,
+} from "@use-miller/shared-api-client";
 import { getAuthenticatedApiInstance } from "@use-miller/shared-frontend-tooling";
 import { useQuery } from "@tanstack/react-query";
 import { GetTokenSilentlyOptions, useAuth0 } from "@auth0/auth0-react";
@@ -9,20 +12,20 @@ const apiCall = async (
     getAccessTokenSilently: (
         options?: GetTokenSilentlyOptions | undefined
     ) => Promise<string>
-): Promise<PersonDto[]> => {
+): Promise<OrganisationSubscriptionRecord[]> => {
     const apiClient = await getAuthenticatedApiInstance(
-        PersonsApi,
+        OrganisationSubscriptionsApi,
         apiBase,
         getAccessTokenSilently
     );
 
-    return await apiClient.personControllerFindAll();
+    return await apiClient.allSubscriptionsControllerFindAll();
 };
 
-export default function useGetAllUsers() {
+export default function useGetAllSubscriptions() {
     const { getAccessTokenSilently } = useAuth0();
     return useQuery(
-        [wellKnownQueries.getAllUsers],
+        [wellKnownQueries.getAllSubscriptions],
         () => apiCall(getAccessTokenSilently),
         { refetchOnWindowFocus: false }
     );
