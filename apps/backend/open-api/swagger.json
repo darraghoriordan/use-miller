@@ -1044,7 +1044,7 @@
         ]
       }
     },
-    "/organisation/subscriptions": {
+    "/subscriptions": {
       "get": {
         "operationId": "AllSubscriptionsController_findAll",
         "parameters": [],

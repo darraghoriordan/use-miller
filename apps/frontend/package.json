@@ -36,7 +36,7 @@
         "@heroicons/react": "2.0.16",
         "@monaco-editor/react": "4.4.6",
         "@tanstack/react-query": "4.24.10",
-        "@use-miller/shared-api-client": "*",
+        "@use-miller/shared-api-client": "workspace:*",
         "@use-miller/shared-frontend-tooling": "workspace:*",
         "clsx": "1.2.1",
         "formik": "2.2.9",
