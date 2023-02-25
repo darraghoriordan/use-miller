@@ -2,10 +2,10 @@ import { Fragment, PropsWithChildren } from "react";
 import Link from "next/link";
 import { Popover, Transition } from "@headlessui/react";
 import clsx from "clsx";
-import { Button } from "./Button";
 import { Container } from "./Container";
 import { NavLink } from "./NavLink";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { StyledLink } from "@use-miller/shared-frontend-tooling";
 
 function MobileNavLink({
     href,
@@ -130,16 +130,15 @@ export function Header() {
             <Container>
                 <nav className="relative z-50 flex justify-between">
                     <div className="flex items-center md:hidden md:gap-x-12">
-                        <Button
+                        <StyledLink
                             className="px- rounded-md border border-gray-300 bg-transparent py-1 text-gray-300"
-                            href="/register"
-                            color="blue"
+                            href={"/register"}
                         >
                             <span>
                                 Get started{" "}
                                 <span className="hidden lg:inline">today</span>
                             </span>
-                        </Button>
+                        </StyledLink>
                     </div>
                     <div className="flex items-center md:gap-x-12">
                         <Link

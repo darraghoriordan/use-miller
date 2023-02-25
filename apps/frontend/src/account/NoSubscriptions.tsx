@@ -1,6 +1,6 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import useGetPaymentLink from "./payments/useGetPaymentLink";
-import StyledButton from "../components/StyledButton";
+import StyledButton from "@use-miller/shared-frontend-tooling/src/components/StyledButton";
 
 export default function NoSubscriptions({
     organisationUuid,

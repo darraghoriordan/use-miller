@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import logo from "../transp-windmill.png";
-import StyledButton from "./StyledButton";
+import StyledButton from "@use-miller/shared-frontend-tooling/src/components/StyledButton";
 
 export const Error = ({ message }: { message: string }) => {
     const { logout } = useAuth0();

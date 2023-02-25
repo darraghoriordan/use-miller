@@ -1,13 +1,11 @@
 import { useContext } from "react";
 import { useEffect } from "react";
 import { Container } from "../layout/Container";
-import HeaderContext from "../layout/HeaderContext";
 import ProductActionsCard from "../components/ProductActionsCard";
 import { CheckBadgeIcon, ClockIcon } from "@heroicons/react/24/outline";
 import Quotes from "./Quotes";
 import AppGlobalContext from "../layout/AppGlobalContext";
 import useGetSubscriptions from "../account/subscriptions/useGetSubscriptions";
-
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
@@ -59,7 +57,7 @@ const Home = () => {
                             icon: ClockIcon,
                             description:
                                 "Learn how to build a Miller product from scratch.",
-                            iconForeground: "green",
+                            iconForeground: "red",
                         },
 
                         {
@@ -75,7 +73,7 @@ const Home = () => {
                             href: "/learn-courses/miller/documentation",
                             icon: CheckBadgeIcon,
                             description: "View the latest code for Miller Web.",
-                            iconForeground: "violet",
+                            iconForeground: "green",
                         },
                         {
                             title: "Nest Libraries Documentation",
@@ -83,7 +81,7 @@ const Home = () => {
                             icon: CheckBadgeIcon,
                             description:
                                 "View the full documentation for Miller Nest Backend Libraries.",
-                            iconForeground: "green",
+                            iconForeground: "violet",
                         },
                         {
                             title: "Latest Code - Miller Nest Libraries",

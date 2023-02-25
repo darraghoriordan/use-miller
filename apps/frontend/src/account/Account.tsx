@@ -4,7 +4,7 @@ import { useContext } from "react";
 import AppGlobalContext from "../layout/AppGlobalContext";
 import { Container } from "../layout/Container";
 import useGetPerson from "./persons/useGetPerson";
-import StyledButton from "../components/StyledButton";
+import StyledButton from "@use-miller/shared-frontend-tooling/src/components/StyledButton";
 import { Subscriptions } from "./Subscriptions";
 import StyledHeader1 from "../components/StyledHeader1";
 import { Loading } from "../components/Loading";

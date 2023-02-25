@@ -1,5 +1,5 @@
 import useGetCustomerPortalSession from "./payments/useGetCustomerPortalSession";
-import StyledButton from "../components/StyledButton";
+import StyledButton from "@use-miller/shared-frontend-tooling/src/components/StyledButton";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 const ManageBillingLink = ({
     subscriptionUuid,
