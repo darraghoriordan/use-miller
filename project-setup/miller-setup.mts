@@ -226,7 +226,7 @@ const stripeTfRunParams: TerraformVariablesMapperParams<StripeTerraformInputVari
             },
             {
                 name: "app_stripe_customer_portal_privacy_url",
-                default: "http://localhost:3001/privacy",
+                default: "http://localhost:3000/privacy",
                 validate: (input) => {
                     console.log(input);
                     if (input.length < 1) {
@@ -241,7 +241,7 @@ const stripeTfRunParams: TerraformVariablesMapperParams<StripeTerraformInputVari
 
             {
                 name: "app_stripe_customer_portal_terms_conditions_url",
-                default: "http://localhost:3001/termsconditions",
+                default: "http://localhost:3000/termsconditions",
                 validate: (input) => {
                     console.log(input);
                     if (input.length < 1) {
@@ -255,7 +255,7 @@ const stripeTfRunParams: TerraformVariablesMapperParams<StripeTerraformInputVari
             },
             {
                 name: "app_stripe_customer_portal_return_url",
-                default: "http://localhost:3000/profile",
+                default: "http://localhost:3001/profile",
                 validate: (input) => {
                     console.log(input);
                     if (input.length < 1) {

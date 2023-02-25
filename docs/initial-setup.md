@@ -10,9 +10,6 @@ npm i -g pnpm
 npm i -g nvm
 nvm use
 
-# install dependencies
-pnpm i
-
 # initialise your project
 pnpm run mill:init
 ```
