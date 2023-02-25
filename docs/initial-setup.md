@@ -1,3 +1,18 @@
-I recommend forking the repo and then cloning your fork. This way you can make changes and push them to your fork.
+## Your first Miller project
 
-When I update the repo, you can easily diff to see what I changed and pull the changes into your fork.
+Extract the contents of the zip file to your project directory and run
+
+```bash
+# install pnpm
+npm i -g pnpm
+
+# install node version
+npm i -g nvm
+nvm use
+
+# install dependencies
+pnpm i
+
+# initialise your project
+pnpm run mill:init
+```

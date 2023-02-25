@@ -1,4 +1,6 @@
 import Editor from "@monaco-editor/react";
+import { Loading } from "../components/Loading";
+import { Error } from "../components/Error";
 import useGetFileContent from "./course-files/useGetFileContent";
 
 const EditorWrapper = (props: { filePath: string | undefined }) => {
@@ -10,16 +12,16 @@ const EditorWrapper = (props: { filePath: string | undefined }) => {
     );
 
     if (isError) {
-        return <div>Error getting file content</div>;
+        return <Error message={"Error loading a file"} />;
     }
     if (isLoading) {
-        return <div>Loading</div>;
+        return <Loading />;
     }
 
     return (
         <>
             <div className="flex bg-dark-mid ">
-                <div className="text-sm px-4 py-2 text-orange-300 bg-dark-shade inline-block">
+                <div className="inline-block px-4 py-2 text-sm text-orange-300 bg-dark-shade">
                     {data.fileLocation.split("/").pop()}
                 </div>
             </div>

@@ -100,7 +100,7 @@ You'll need a read and write api key from digital ocean. This will allow terrafo
 1. Create a read write token.
 1. Copy the token somewhere safe for now.
 
-![Digital Ocean Api](./readme-images/digioceanapikey.png)
+![Digital Ocean Api](./docs/readme-images/digioceanapikey.png)
 
 ## One-time setup of a suitable dokku droplet
 
@@ -141,7 +141,7 @@ If you know your domain you can set it now in the "hostname" field. You can chan
 
 You should check `use virtual naming for apps`. This makes it easy to CNAME urls later.
 
-![The main dokku screen](./readme-images/dokku-first-page.png)
+![The main dokku screen](./docs/readme-images/dokku-first-page.png)
 
 ## Try ssh in to the server
 

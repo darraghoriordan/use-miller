@@ -78,7 +78,7 @@ console.info(
     `${os.EOL}Setting project names to: ${answers.projectName}, ${snakeCaseName}, ${underscoreCaseName}`
 );
 
-await searchFilesForTextAndReplace("path-template", snakeCaseName);
+await searchFilesForTextAndReplace("use-miller", snakeCaseName);
 // -------------
 
 const auth0TfRunParams: TerraformVariablesMapperParams<Auth0DevTerraformInputVariables> =
@@ -283,6 +283,8 @@ swapEnvVars({
             auth0DevTerraformOutputVariables.app_auth0_dev_domain.value,
         VITE_AUTH0_CLIENT_ID:
             auth0DevTerraformOutputVariables.auth0_client_id.value,
+        VITE_STRIPE_REGULAR_PRICE_ID:
+            stripeTerraformOutputVariables.regular_price_id.value,
     },
 });
 swapEnvVars({
@@ -317,7 +319,7 @@ swapEnvVars({
             .toLowerCase()
             .replace(" ", "")}db`,
         APP_TITLE: `${answers.projectName} BE`,
-        bEMAIL_SENDER_NAME: `${answers.projectName}`,
+        EMAIL_SENDER_NAME: `${answers.projectName}`,
         STRIPE_ACCESS_TOKEN:
             stripeTerraformOutputVariables.app_stripe_api_token.value,
 

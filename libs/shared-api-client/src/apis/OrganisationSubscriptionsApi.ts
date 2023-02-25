@@ -123,7 +123,7 @@ export class OrganisationSubscriptionsApi extends runtime.BaseAPI implements Org
             }
         }
         const response = await this.request({
-            path: `/organisation/subscriptions`,
+            path: `/subscriptions`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

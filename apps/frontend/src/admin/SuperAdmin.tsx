@@ -11,7 +11,7 @@ const SuperAdmin = () => {
         <Container className="bg-white">
             <div className="flex flex-col w-full h-full mt-10 space-y-6">
                 <h1 className="text-5xl font-bold leading-tight tracking-tight text-black">
-                    Admin Tools
+                    Super-admin Tools
                 </h1>
 
                 <ProductActionsCard
@@ -28,7 +28,14 @@ const SuperAdmin = () => {
                             href: "/super-admin/payments",
                             icon: CreditCardIcon,
                             description:
-                                "Review all payments and subscriptions.",
+                                "Review all existing payments and subscriptions.",
+                            iconForeground: "green",
+                        },
+                        {
+                            title: "Payment events",
+                            href: "/super-admin/payment-events",
+                            icon: CreditCardIcon,
+                            description: "Review payment events.",
                             iconForeground: "green",
                         },
                     ]}

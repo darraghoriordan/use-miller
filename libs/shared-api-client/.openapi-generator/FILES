@@ -30,6 +30,7 @@ src/models/Person.ts
 src/models/PersonDto.ts
 src/models/QueueItemDto.ts
 src/models/SaveOrganisationSubscriptionRecordDto.ts
+src/models/StripeCheckoutEvent.ts
 src/models/StripeCheckoutLineItem.ts
 src/models/StripeCheckoutSessionRequestDto.ts
 src/models/StripeCheckoutSessionResponseDto.ts

@@ -18,6 +18,9 @@ import {
     QueueItemDto,
     QueueItemDtoFromJSON,
     QueueItemDtoToJSON,
+    StripeCheckoutEvent,
+    StripeCheckoutEventFromJSON,
+    StripeCheckoutEventToJSON,
     StripeCheckoutSessionRequestDto,
     StripeCheckoutSessionRequestDtoFromJSON,
     StripeCheckoutSessionRequestDtoToJSON,
@@ -86,11 +89,11 @@ export interface PaymentsApiInterface {
      * @throws {RequiredError}
      * @memberof PaymentsApiInterface
      */
-    stripeEventsControllerGetLastEventsRaw(requestParameters: StripeEventsControllerGetLastEventsRequest): Promise<runtime.ApiResponse<Array<StripeCheckoutSessionResponseDto>>>;
+    stripeEventsControllerGetLastEventsRaw(requestParameters: StripeEventsControllerGetLastEventsRequest): Promise<runtime.ApiResponse<Array<StripeCheckoutEvent>>>;
 
     /**
      */
-    stripeEventsControllerGetLastEvents(requestParameters: StripeEventsControllerGetLastEventsRequest): Promise<Array<StripeCheckoutSessionResponseDto>>;
+    stripeEventsControllerGetLastEvents(requestParameters: StripeEventsControllerGetLastEventsRequest): Promise<Array<StripeCheckoutEvent>>;
 
     /**
      * 
@@ -215,7 +218,7 @@ export class PaymentsApi extends runtime.BaseAPI implements PaymentsApiInterface
 
     /**
      */
-    async stripeEventsControllerGetLastEventsRaw(requestParameters: StripeEventsControllerGetLastEventsRequest): Promise<runtime.ApiResponse<Array<StripeCheckoutSessionResponseDto>>> {
+    async stripeEventsControllerGetLastEventsRaw(requestParameters: StripeEventsControllerGetLastEventsRequest): Promise<runtime.ApiResponse<Array<StripeCheckoutEvent>>> {
         if (requestParameters.skip === null || requestParameters.skip === undefined) {
             throw new runtime.RequiredError('skip','Required parameter requestParameters.skip was null or undefined when calling stripeEventsControllerGetLastEvents.');
         }
@@ -251,12 +254,12 @@ export class PaymentsApi extends runtime.BaseAPI implements PaymentsApiInterface
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(StripeCheckoutSessionResponseDtoFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(StripeCheckoutEventFromJSON));
     }
 
     /**
      */
-    async stripeEventsControllerGetLastEvents(requestParameters: StripeEventsControllerGetLastEventsRequest): Promise<Array<StripeCheckoutSessionResponseDto>> {
+    async stripeEventsControllerGetLastEvents(requestParameters: StripeEventsControllerGetLastEventsRequest): Promise<Array<StripeCheckoutEvent>> {
         const response = await this.stripeEventsControllerGetLastEventsRaw(requestParameters);
         return await response.value();
     }

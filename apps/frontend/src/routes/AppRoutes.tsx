@@ -2,6 +2,7 @@ import React from "react";
 
 import { Route, Routes } from "react-router-dom";
 import Account from "../account/Account";
+import PaymentEventsSuperAdmin from "../admin/PaymentEventsSuperAdmin";
 import PaymentsSuperAdmin from "../admin/PaymentsSuperAdmin";
 import SuperAdmin from "../admin/SuperAdmin";
 import UsersSuperAdmin from "../admin/UsersSuperAdmin";
@@ -37,6 +38,12 @@ function AppRoutes() {
                 <Route
                     path="super-admin/payments"
                     element={<ProtectedRoute component={PaymentsSuperAdmin} />}
+                />
+                <Route
+                    path="super-admin/payment-events"
+                    element={
+                        <ProtectedRoute component={PaymentEventsSuperAdmin} />
+                    }
                 />
             </Route>
         </Routes>

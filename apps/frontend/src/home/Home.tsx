@@ -9,9 +9,10 @@ import AppGlobalContext from "../layout/AppGlobalContext";
 import useGetSubscriptions from "../account/subscriptions/useGetSubscriptions";
 
 import { useNavigate } from "react-router-dom";
+import { Loading } from "../components/Loading";
+import { Error } from "../components/Error";
 
 const Home = () => {
-    const { setContext } = useContext(HeaderContext);
     const { appContext } = useContext(AppGlobalContext);
     const nav = useNavigate();
     const {
@@ -23,10 +24,6 @@ const Home = () => {
         appContext?.currentOrganisation?.id !== undefined
     );
     useEffect(() => {
-        if (subsData && subsData?.length > 0) {
-            setContext({ title: "Miller / Home" });
-        }
-
         if (
             subsIsError ||
             (subsData &&
@@ -35,10 +32,13 @@ const Home = () => {
         ) {
             nav("/account");
         }
-    }, [nav, setContext, subsData, subsIsError]);
+    }, [nav, subsData, subsIsError]);
 
+    if (subsIsError) {
+        return <Error message={"Error finding your subscriptions"} />;
+    }
     if (subsIsLoading) {
-        return <div>Loading</div>;
+        return <Loading />;
     }
 
     return (

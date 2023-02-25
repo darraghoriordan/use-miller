@@ -1,22 +1,18 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 import { useContext } from "react";
-import { useEffect } from "react";
 import AppGlobalContext from "../layout/AppGlobalContext";
 import { Container } from "../layout/Container";
-import HeaderContext from "../layout/HeaderContext";
 import useGetPerson from "./persons/useGetPerson";
 import StyledButton from "../components/StyledButton";
 import { Subscriptions } from "./Subscriptions";
 import StyledHeader1 from "../components/StyledHeader1";
-
+import { Loading } from "../components/Loading";
+import { Error } from "../components/Error";
 const Account = () => {
     const { logout } = useAuth0();
-    const { setContext } = useContext(HeaderContext); // the header titles
+
     const { appContext } = useContext(AppGlobalContext); // the selected organisation
-    useEffect(() => {
-        setContext({ title: "Miller / Account" });
-    }, [setContext]);
 
     const {
         data: personData,
@@ -25,10 +21,10 @@ const Account = () => {
     } = useGetPerson("me");
 
     if (personIsError) {
-        return <div>Error getting user</div>;
+        return <Error message={"Error finding your user details"} />;
     }
     if (personIsLoading) {
-        return <div>Loading</div>;
+        return <Loading />;
     }
 
     return (
@@ -58,15 +54,15 @@ const Account = () => {
                     )}
 
                     <StyledHeader1 className="mt-8">Your account</StyledHeader1>
-                    <StyledButton onClick={() => logout()}>
-                        Log out of your account
-                        <ArrowLeftOnRectangleIcon className="w-6 h-6 ml-2" />
-                    </StyledButton>
                     <p className="mt-4 mb-4">Email: {personData.email}</p>
                     <p className="mt-4 mb-4">
                         Member since:{" "}
                         {personData.createdDate.toLocaleDateString()}
                     </p>
+                    <StyledButton className="mb-4" onClick={() => logout()}>
+                        Log out of your account
+                        <ArrowLeftOnRectangleIcon className="w-6 h-6 ml-2" />
+                    </StyledButton>
                 </div>
             </div>
         </Container>

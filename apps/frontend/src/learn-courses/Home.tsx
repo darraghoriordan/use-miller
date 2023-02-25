@@ -1,20 +1,14 @@
 import { useState } from "react";
-import { useContext } from "react";
 import { useEffect } from "react";
 import { NodeData } from "react-folder-tree";
+import { Loading } from "../components/Loading";
+import { Error } from "../components/Error";
 import { Container } from "../layout/Container";
-import HeaderContext from "../layout/HeaderContext";
 import useGetFiles from "./course-files/useGetFiles";
 import EditorWrapper from "./EditorWrapper";
 import FileTree from "./FileTree";
 
 const Home = () => {
-    const { setContext } = useContext(HeaderContext);
-
-    useEffect(() => {
-        setContext({ title: "Miller / Learn" });
-    }, []);
-
     const { data, isError, isLoading } = useGetFiles("miller");
 
     const [selectedItemPath, setSelectedItemPath] = useState<
@@ -30,10 +24,10 @@ const Home = () => {
     }, [data]);
 
     if (isError) {
-        return <div>Error...</div>;
+        return <Error message={"Error finding your user details"} />;
     }
     if (isLoading) {
-        return <div>Loading</div>;
+        return <Loading />;
     }
 
     const handleClick = (opts: {

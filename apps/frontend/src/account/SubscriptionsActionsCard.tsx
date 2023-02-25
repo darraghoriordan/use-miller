@@ -51,7 +51,7 @@ export default function SubscriptionActionCard({
                 </h3>
                 {subscriptionRecord.paymentSystemMode === "subscription" && (
                     <p className="text-sm text-gray-500">
-                        {`Your subscription is valid until ${subscriptionRecord.validUntil.toLocaleDateString()}`}
+                        {`Your subscription is valid until ${subscriptionRecord.validUntil?.toLocaleDateString()}`}
                     </p>
                 )}
 

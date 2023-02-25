@@ -1,7 +1,6 @@
 import React, { FunctionComponent, PropsWithChildren } from "react";
 
 import { Outlet } from "react-router-dom";
-
 import { Header } from "./Header";
 import HeaderContext from "./HeaderContext";
 import { useState } from "react";
@@ -10,11 +9,12 @@ import AppGlobalContext from "./AppGlobalContext";
 import { Organisation } from "@use-miller/shared-api-client";
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import StyledButton from "../components/StyledButton";
+import { Loading } from "../components/Loading";
+import { Error } from "../components/Error";
 
 const MainLayout: FunctionComponent = ({ children }: PropsWithChildren<{}>) => {
     const [context, setContext] = useState({ title: "Miller" });
-    const { logout, loginWithRedirect } = useAuth0();
+    const { loginWithRedirect } = useAuth0();
     const { data, isError, error, isLoading } = useGetOrgs();
     const [appContext, setAppContext] = useState<{
         currentOrganisation: Organisation;
@@ -26,38 +26,27 @@ const MainLayout: FunctionComponent = ({ children }: PropsWithChildren<{}>) => {
         }
     }, [data]);
 
+    let control = <Loading />;
+    if (data && !isLoading) {
+        control = <Outlet />;
+    }
+
     if (isError) {
         if ((error as any)?.error === "login_required") {
             loginWithRedirect();
         }
-        return (
-            <HeaderContext.Provider value={{ context, setContext }}>
-                <Header />
-                <main>
-                    <div className="">
-                        <div>Error getting organisation</div>
-                        <StyledButton onClick={() => logout()}>
-                            Logout to attempt a reset
-                        </StyledButton>
-                    </div>
-                </main>
-            </HeaderContext.Provider>
-        );
-    }
-    if (isLoading) {
-        return <div>Loading</div>;
-    }
-    if (!data || data.length === 0) {
-        return <div>No organisations!</div>;
-    }
 
+        if (isError) {
+            control = (
+                <Error message={"Couldn't load an organisation for you!"} />
+            );
+        }
+    }
     return (
         <AppGlobalContext.Provider value={{ appContext, setAppContext }}>
             <HeaderContext.Provider value={{ context, setContext }}>
                 <Header />
-                <main>
-                    <Outlet />
-                </main>
+                <main>{control}</main>
             </HeaderContext.Provider>
         </AppGlobalContext.Provider>
     );

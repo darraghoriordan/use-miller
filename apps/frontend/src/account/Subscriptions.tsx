@@ -1,3 +1,5 @@
+import { Loading } from "../components/Loading";
+import { Error } from "../components/Error";
 import NoSubscriptions from "./NoSubscriptions";
 import useGetSubscriptions from "./subscriptions/useGetSubscriptions";
 import SubscriptionActionCard from "./SubscriptionsActionsCard";
@@ -11,11 +13,11 @@ export const Subscriptions = ({
 }) => {
     const { data: subsData, isLoading, isError } = useGetSubscriptions(orgId);
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
     if (isError) {
-        return <div>Error getting subscriptions</div>;
+        return <Error message={"Error finding your subscriptions"} />;
+    }
+    if (isLoading) {
+        return <Loading />;
     }
 
     if (subsData && subsData?.length === 0) {

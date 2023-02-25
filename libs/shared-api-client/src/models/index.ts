@@ -14,6 +14,7 @@ export * from './Person';
 export * from './PersonDto';
 export * from './QueueItemDto';
 export * from './SaveOrganisationSubscriptionRecordDto';
+export * from './StripeCheckoutEvent';
 export * from './StripeCheckoutLineItem';
 export * from './StripeCheckoutSessionRequestDto';
 export * from './StripeCheckoutSessionResponseDto';

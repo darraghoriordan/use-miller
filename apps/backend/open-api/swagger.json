@@ -900,7 +900,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/StripeCheckoutSessionResponseDto"
+                    "$ref": "#/components/schemas/StripeCheckoutEvent"
                   }
                 }
               }
@@ -1625,6 +1625,37 @@
         },
         "required": [
           "sessionUrl"
+        ]
+      },
+      "StripeCheckoutEvent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "clientReferenceId": {
+            "type": "string"
+          },
+          "stripeSessionId": {
+            "type": "string"
+          },
+          "stripeObjectType": {
+            "type": "string"
+          },
+          "stripeDataAsString": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "createdDate",
+          "stripeSessionId",
+          "stripeObjectType",
+          "stripeDataAsString"
         ]
       },
       "OrganisationSubscriptionRecord": {

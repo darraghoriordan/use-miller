@@ -1,4 +1,5 @@
 import React from "react";
+import { BackLink } from "../components/BackLink";
 import StyledHeader1 from "../components/StyledHeader1";
 import { Container } from "../layout/Container";
 import useGetAllUsers from "./admin-apis/useGetAllUsers";
@@ -7,6 +8,7 @@ const UsersSuperAdmin = () => {
     const { data } = useGetAllUsers();
     return (
         <Container>
+            <BackLink to={"/super-admin"} />
             <StyledHeader1>All Users</StyledHeader1>
 
             <div className="mt-8 flow-root">
@@ -15,6 +17,12 @@ const UsersSuperAdmin = () => {
                         <table className="min-w-full divide-y divide-gray-300">
                             <thead>
                                 <tr>
+                                    <th
+                                        scope="col"
+                                        className="px-3 text-sm font-semibold text-left text-gray-900 py-3.5"
+                                    >
+                                        Id
+                                    </th>
                                     <th
                                         scope="col"
                                         className="pl-6 pr-3 text-sm font-semibold text-left text-gray-900 py-3.5 sm:pl-0"
@@ -40,12 +48,7 @@ const UsersSuperAdmin = () => {
                                     >
                                         Joined
                                     </th>
-                                    <th
-                                        scope="col"
-                                        className="px-3 text-sm font-semibold text-left text-gray-900 py-3.5"
-                                    >
-                                        Id
-                                    </th>
+
                                     <th
                                         scope="col"
                                         className="px-3 text-sm font-semibold text-left text-gray-900 py-3.5"
@@ -63,7 +66,10 @@ const UsersSuperAdmin = () => {
                             <tbody className="divide-y divide-gray-200">
                                 {data &&
                                     data.map((person) => (
-                                        <tr key={person.email}>
+                                        <tr key={person.id}>
+                                            <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {person.id}
+                                            </td>
                                             <td className="py-4 pl-6 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-0">
                                                 {person.givenName}
                                             </td>
@@ -77,9 +83,7 @@ const UsersSuperAdmin = () => {
                                             <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                 {person.createdDate.toLocaleDateString()}
                                             </td>
-                                            <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                {person.id}
-                                            </td>
+
                                             <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                 {person.uuid}
                                             </td>

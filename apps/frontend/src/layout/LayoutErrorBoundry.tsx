@@ -1,5 +1,7 @@
 import React from "react";
-
+import { Error } from "../components/Error";
+import { Container } from "./Container";
+import { Header } from "./Header";
 class LayoutErrorBoundary extends React.Component<
     React.PropsWithChildren,
     { hasError: boolean }
@@ -22,7 +24,16 @@ class LayoutErrorBoundary extends React.Component<
     render() {
         if (this.state.hasError) {
             // You can render any custom fallback UI
-            return <h1>Something went wrong.</h1>;
+            return (
+                <div>
+                    <Header />
+                    <main>
+                        <Container>
+                            <Error message={`Something went wrong`}></Error>
+                        </Container>
+                    </main>
+                </div>
+            );
         }
 
         return this.props.children;
