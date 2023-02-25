@@ -75,10 +75,8 @@ const searchFilesForTextAndReplace = async (
         const fileContents = fs.readFileSync(file, "utf8");
 
         if (fileContents.includes(searchText)) {
-            const newFileContents = fileContents.replace(
-                searchText,
-                replaceText
-            );
+            const regex = new RegExp(searchText, "g");
+            const newFileContents = fileContents.replace(regex, replaceText);
             fs.writeFileSync(file, newFileContents);
         }
     });
