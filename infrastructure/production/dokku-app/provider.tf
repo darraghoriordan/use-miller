@@ -10,7 +10,7 @@ terraform {
   backend "s3" {
     endpoint                    = "https://sfo3.digitaloceanspaces.com/"
     bucket                      = "darragh-com"
-    key                         = "miller-app-terraform-state/apps/miller-app"
+    key                         = "miller-app-terraform-state/apps/use-miller-dokku-app"
     region                      = "us-east-1"
     skip_credentials_validation = true
     skip_metadata_api_check     = true
@@ -27,18 +27,7 @@ variable "do_ssh_path" {
   type        = string
   description = "The path to an ssh certificate to use for droplets"
 }
-variable "app_auth0_dev_domain" {
-  type        = string
-  description = "The auth0 domain for DEV account"
-}
-variable "app_auth0_dev_management_client_id" {
-  type        = string
-  description = "The auth0 client ID for DEV Management API"
-}
-variable "app_auth0_dev_management_client_secret" {
-  type        = string
-  description = "The auth0 client secret for DEV Management API"
-}
+
 variable "app_auth0_prod_domain" {
   type        = string
   description = "The auth0 domain for PROD account"
@@ -51,6 +40,11 @@ variable "app_auth0_prod_management_client_secret" {
   type        = string
   description = "The auth0 client secret for PROD Management API"
 }
+variable "app_public_domain" {
+  type        = string
+  description = "The public domain for your api"
+}
+
 variable "app_web_port" {
   type = string
 }
@@ -111,17 +105,6 @@ variable "app_stripe_checkout_failure_url" {
 }
 variable "app_stripe_checkout_price_id" {
   type = string
-}
-
-provider "auth0_dev" {
-  domain        = var.app_auth0_dev_domain
-  client_id     = var.app_auth0_dev_management_client_id
-  client_secret = var.app_auth0_dev_management_client_secret
-}
-provider "auth0_prod" {
-  domain        = var.app_auth0_prod_domain
-  client_id     = var.app_auth0_prod_management_client_id
-  client_secret = var.app_auth0_prod_management_client_secret
 }
 
 provider "dokku" {

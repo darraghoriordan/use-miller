@@ -41,6 +41,14 @@ const runTerraform = async (projectPath: string, commands: string[]) => {
     return tfResult;
 };
 
+const runPnpmInstall = async (projectPath: string, commands?: string[]) => {
+    const tfResult = await execPromise(`pnpm install ${commands?.join(" ")}`, {
+        cwd: projectPath,
+    });
+
+    return tfResult;
+};
+
 const writeTerraformVariables = (
     tfVarsPath: string,
     values: { [key: string]: string }
@@ -104,4 +112,5 @@ export {
     swapEnvVars,
     writeTerraformVariables,
     writeEnvVars,
+    runPnpmInstall,
 };

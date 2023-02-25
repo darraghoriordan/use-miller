@@ -3,10 +3,10 @@
 Extract the contents of the zip file to your project directory and run
 
 ```bash
-# install pnpm
+# install pnpm if you don't have it
 npm i -g pnpm
 
-# install node version
+# install node version with nvm
 npm i -g nvm
 nvm use
 

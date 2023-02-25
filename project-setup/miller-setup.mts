@@ -3,7 +3,11 @@ import figlet from "figlet";
 import fs from "fs";
 import os from "os";
 import chalk from "chalk";
-import { searchFilesForTextAndReplace, swapEnvVars } from "./setup-helpers.mjs";
+import {
+    runPnpmInstall,
+    searchFilesForTextAndReplace,
+    swapEnvVars,
+} from "./setup-helpers.mjs";
 import runTfEnvVarMapping, {
     TerraformVariablesMapperParams,
 } from "./setup-terraform-project.mjs";
@@ -75,7 +79,7 @@ const snakeCaseName = answers.projectName.toLowerCase().replace(" ", "-");
 const underscoreCaseName = answers.projectName.toLowerCase().replace(" ", "_");
 
 console.info(
-    `${os.EOL}Setting project names to: ${answers.projectName}, ${snakeCaseName}, ${underscoreCaseName}`
+    `${os.EOL}Using project name(s): ${answers.projectName}, ${snakeCaseName}, ${underscoreCaseName}`
 );
 
 await searchFilesForTextAndReplace("use-miller", snakeCaseName);
@@ -83,8 +87,9 @@ await searchFilesForTextAndReplace("use-miller", snakeCaseName);
 
 const auth0TfRunParams: TerraformVariablesMapperParams<Auth0DevTerraformInputVariables> =
     {
-        terraformVariablesPath: "./infrastructure/auth0-dev/terraform.tfvars",
-        terraformProjectPath: "./infrastructure/auth0-dev",
+        terraformVariablesPath:
+            "./infrastructure/local-dev/auth0-dev/terraform.tfvars",
+        terraformProjectPath: "./infrastructure/local-dev/auth0-dev",
         introText: `${
             os.EOL
         }=====================================================${os.EOL}${
@@ -154,8 +159,9 @@ const auth0DevTerraformOutputVariables = await runTfEnvVarMapping<
 
 const stripeTfRunParams: TerraformVariablesMapperParams<StripeTerraformInputVariables> =
     {
-        terraformVariablesPath: "./infrastructure/stripe-dev/terraform.tfvars",
-        terraformProjectPath: "./infrastructure/stripe-dev",
+        terraformVariablesPath:
+            "./infrastructure/local-dev/stripe-dev/terraform.tfvars",
+        terraformProjectPath: "./infrastructure/local-dev/stripe-dev",
         introText: `${
             os.EOL
         }=====================================================${os.EOL}${
@@ -348,6 +354,10 @@ swapEnvVars({
     },
 });
 
+// execute the command "pnpm install" in the root of the project
+console.log("re-installing dependencies with new names");
+await runPnpmInstall("./");
+
 console.log(
     `${os.EOL}Setup complete. You have a configured auth0 instance for dev, the application has been configured with your auth0 details`
 );
@@ -355,7 +365,7 @@ console.log(
     "The application has been configured with the name of your app and all env variables are configured"
 );
 console.log(
-    "This script is re-runnable safely. You don't have to run it, you can work with env vars and terraform directly. But running the script will overwrite the same env vars. "
+    "This script is re-runnable safely. You don't have to run it again, you can work with all projects directly now. Note that running the script will overwrite the same env vars. "
 );
 console.log(
     `${os.EOL}You can now run ${chalk.magenta(

@@ -1,12 +1,12 @@
-resource "stripe_product" "use_miller_product" {
-  name        = "Miller Web Regular"
+resource "stripe_product" "regular_product" {
+  name        = "A Regular product"
   description = "Web product kit with 1 year of updates"
   shippable   = false
   active      = true
 }
 
-resource "stripe_price" "use_miller_regular_price" {
-  product     = stripe_product.use_miller_product.id
+resource "stripe_price" "regular_price" {
+  product     = stripe_product.regular_product.id
   unit_amount = 34900
   currency    = "usd"
   recurring {
@@ -38,7 +38,7 @@ resource "stripe_price" "use_miller_regular_price" {
 #   ]
 # }
 
-resource "stripe_portal_configuration" "use_miller_portal_configuration" {
+resource "stripe_portal_configuration" "portal_configuration" {
   business_profile {
     headline             = var.app_stripe_customer_portal_header
     privacy_policy_url   = var.app_stripe_customer_portal_privacy_url
@@ -73,15 +73,15 @@ resource "stripe_portal_configuration" "use_miller_portal_configuration" {
       default_allowed_updates = ["price", "quantity", "promotion_code"]
       proration_behavior      = "none"
       products {
-        product = stripe_product.use_miller_product.id
-        prices  = [stripe_price.use_miller_regular_price.id]
+        product = stripe_product.regular_product.id
+        prices  = [stripe_price.regular_price.id]
       }
     }
   }
 }
 
 output "regular_price_id" {
-  value     = stripe_price.use_miller_regular_price.id
+  value     = stripe_price.regular_price.id
   sensitive = false
 }
 
