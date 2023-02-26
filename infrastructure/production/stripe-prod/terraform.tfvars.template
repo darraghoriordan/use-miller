@@ -1,0 +1,7 @@
+app_stripe_api_token = "thetoken"
+app_stripe_webhook_verification_key = "the key"
+app_stripe_webhook_url = "http://localhost:34522/payments/stripe/webhook-receiver"
+app_stripe_customer_portal_privacy_url = "http://localhost:3001/privacy"
+app_stripe_customer_portal_header = "Use Miller Billing"
+app_stripe_customer_portal_terms_conditions_url = "http://localhost:3001/termsconditions"
+app_stripe_customer_portal_return_url = "http://localhost:3000/profile"

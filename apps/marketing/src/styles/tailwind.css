@@ -5,3 +5,10 @@
 #__next {
     min-height: 100%;
 }
+
+.intro-image-rotation {
+    transform: perspective(1260px) rotateY(-20.2deg) rotateX(10.6deg) scale(1);
+}
+.intro-image {
+    box-shadow: 0 2px 50px 0 rgb(68 125 232 / 50%);
+}

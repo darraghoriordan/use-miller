@@ -1,6 +1,6 @@
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import { NavLink } from "react-router-dom";
-
+import { colorVariants } from "@use-miller/shared-frontend-tooling";
 export class ProductAction {
     title!: string;
     href!: string;
@@ -13,39 +13,6 @@ export default function ProductActionsCard({
 }: {
     actions: ProductAction[];
 }) {
-    const colorVariants = {
-        green: {
-            hoverShadow: "hover:shadow-green-500/30",
-            foreground: "text-green-500",
-            hoverForeground: "hover:text-green-500",
-        },
-        red: {
-            hoverShadow: "hover:shadow-red-500/30",
-            foreground: "text-red-500",
-            hoverForeground: "hover:text-red-500",
-        },
-        amber: {
-            hoverShadow: "hover:shadow-amber-500/30",
-            foreground: "text-amber-500",
-            hoverForeground: "hover:text-amber-500",
-        },
-        cyan: {
-            hoverShadow: "hover:shadow-cyan-500/30",
-            foreground: "text-cyan-500",
-            hoverForeground: "hover:text-cyan-500",
-        },
-        violet: {
-            hoverShadow: "hover:shadow-violet-500/30",
-            foreground: "text-violet-500",
-            hoverForeground: "hover:text-violet-500",
-        },
-        pink: {
-            hoverShadow: "hover:shadow-pink-500/30",
-            foreground: "text-pink-500",
-            hoverForeground: "hover:text-pink-500",
-        },
-    };
-
     return (
         <div className=" rounded-md divide-gray-200 grid grid-cols-2 divide-y-0 gap-4 ">
             {actions.map((action, actionIdx) => (

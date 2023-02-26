@@ -1,0 +1,51 @@
+export const colorVariants = {
+    green: {
+        hoverShadow: "hover:shadow-green-500/30",
+        hoverFocusRing: "focus:ring-green-400",
+        foreground: "text-green-500",
+        background: "bg-green-500",
+        hoverForeground: "hover:text-green-500",
+        hoverBackground: "hover:bg-green-600",
+    },
+    red: {
+        hoverFocusRing: "focus:ring-red-400",
+        hoverShadow: "hover:shadow-red-500/30",
+        foreground: "text-red-500",
+        background: "bg-red-500",
+        hoverForeground: "hover:text-red-500",
+        hoverBackground: "hover:bg-red-600",
+    },
+    amber: {
+        hoverFocusRing: "focus:ring-amber-400",
+        hoverShadow: "hover:shadow-amber-500/30",
+        foreground: "text-amber-500",
+        background: "bg-amber-500",
+        hoverForeground: "hover:text-amber-500",
+        hoverBackground: "hover:bg-amber-600",
+    },
+    cyan: {
+        hoverFocusRing: "focus:ring-cyan-400",
+        hoverShadow: "hover:shadow-cyan-500/30",
+        foreground: "text-cyan-500",
+        background: "bg-cyan-500",
+        hoverForeground: "hover:text-cyan-500",
+        hoverBackground: "hover:bg-cyan-600",
+    },
+    violet: {
+        hoverFocusRing: "focus:ring-violet-400",
+        hoverShadow: "hover:shadow-violet-500/30",
+        foreground: "text-violet-500",
+        background: "bg-violet-500",
+        hoverForeground: "hover:text-violet-500",
+        hoverBackground: "hover:bg-violet-600",
+    },
+    pink: {
+        hoverFocusRing: "focus:ring-pink-400",
+        hoverShadow: "hover:shadow-pink-500/30",
+        foreground: "text-pink-500",
+        background: "bg-pink-500",
+        hoverForeground: "hover:text-pink-500",
+        hoverBackground: "hover:bg-pink-600",
+    },
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidGhlbWVDb2xvcnMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi9zcmMvdGhlbWVDb2xvcnMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsTUFBTSxDQUFDLE1BQU0sYUFBYSxHQUFHO0lBQ3pCLEtBQUssRUFBRTtRQUNILFdBQVcsRUFBRSwyQkFBMkI7UUFDeEMsY0FBYyxFQUFFLHNCQUFzQjtRQUN0QyxVQUFVLEVBQUUsZ0JBQWdCO1FBQzVCLFVBQVUsRUFBRSxjQUFjO1FBQzFCLGVBQWUsRUFBRSxzQkFBc0I7UUFDdkMsZUFBZSxFQUFFLG9CQUFvQjtLQUN4QztJQUNELEdBQUcsRUFBRTtRQUNELGNBQWMsRUFBRSxvQkFBb0I7UUFDcEMsV0FBVyxFQUFFLHlCQUF5QjtRQUN0QyxVQUFVLEVBQUUsY0FBYztRQUMxQixVQUFVLEVBQUUsWUFBWTtRQUN4QixlQUFlLEVBQUUsb0JBQW9CO1FBQ3JDLGVBQWUsRUFBRSxrQkFBa0I7S0FDdEM7SUFDRCxLQUFLLEVBQUU7UUFDSCxjQUFjLEVBQUUsc0JBQXNCO1FBQ3RDLFdBQVcsRUFBRSwyQkFBMkI7UUFDeEMsVUFBVSxFQUFFLGdCQUFnQjtRQUM1QixVQUFVLEVBQUUsY0FBYztRQUMxQixlQUFlLEVBQUUsc0JBQXNCO1FBQ3ZDLGVBQWUsRUFBRSxvQkFBb0I7S0FDeEM7SUFDRCxJQUFJLEVBQUU7UUFDRixjQUFjLEVBQUUscUJBQXFCO1FBQ3JDLFdBQVcsRUFBRSwwQkFBMEI7UUFDdkMsVUFBVSxFQUFFLGVBQWU7UUFDM0IsVUFBVSxFQUFFLGFBQWE7UUFDekIsZUFBZSxFQUFFLHFCQUFxQjtRQUN0QyxlQUFlLEVBQUUsbUJBQW1CO0tBQ3ZDO0lBQ0QsTUFBTSxFQUFFO1FBQ0osY0FBYyxFQUFFLHVCQUF1QjtRQUN2QyxXQUFXLEVBQUUsNEJBQTRCO1FBQ3pDLFVBQVUsRUFBRSxpQkFBaUI7UUFDN0IsVUFBVSxFQUFFLGVBQWU7UUFDM0IsZUFBZSxFQUFFLHVCQUF1QjtRQUN4QyxlQUFlLEVBQUUscUJBQXFCO0tBQ3pDO0lBQ0QsSUFBSSxFQUFFO1FBQ0YsY0FBYyxFQUFFLHFCQUFxQjtRQUNyQyxXQUFXLEVBQUUsMEJBQTBCO1FBQ3ZDLFVBQVUsRUFBRSxlQUFlO1FBQzNCLFVBQVUsRUFBRSxhQUFhO1FBQ3pCLGVBQWUsRUFBRSxxQkFBcUI7UUFDdEMsZUFBZSxFQUFFLG1CQUFtQjtLQUN2QztDQUNKLENBQUMifQ==

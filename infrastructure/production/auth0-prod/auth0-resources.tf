@@ -1,5 +1,5 @@
-resource "auth0_tenant" "dev_tenant" {
-  friendly_name     = "use-miller app (Development)"
+resource "auth0_tenant" "prod_tenant" {
+  friendly_name     = "use-miller App (Production)"
   default_directory = "Username-Password-Authentication"
 }
 
@@ -97,50 +97,20 @@ resource "auth0_role" "super_user_role" {
   }
 }
 
-resource "auth0_user" "dev_test_basic_user" {
-  connection_name = "Username-Password-Authentication"
-  email           = "testbasic@testbasic.com"
-  password        = "apasspass$12$12"
-  nickname        = "testbasic"
-
-}
-
-resource "auth0_user" "dev_test_user" {
-  connection_name = "Username-Password-Authentication"
-  email           = "test@test.com"
-  password        = "apasspass$12$12"
-  nickname        = "testnick"
-  roles           = [auth0_role.super_user_role.id]
-}
-
 output "auth0_client_id" {
   value = auth0_client.frontend_spa_app.client_id
 }
-output "app_auth0_dev_domain" {
-  value = var.app_auth0_dev_domain
+output "app_auth0_prod_domain" {
+  value = var.app_auth0_prod_domain
 }
-output "app_auth0_dev_management_client_id" {
-  value = var.app_auth0_dev_management_client_id
+output "app_auth0_prod_management_client_id" {
+  value = var.app_auth0_prod_management_client_id
 }
-output "app_auth0_dev_management_client_secret" {
-  value     = var.app_auth0_dev_management_client_secret
+output "app_auth0_prod_management_client_secret" {
+  value     = var.app_auth0_prod_management_client_secret
   sensitive = true
 }
 output "auth0_client_secret" {
   value     = auth0_client.frontend_spa_app.client_secret
-  sensitive = true
-}
-output "test_user_username" {
-  value = auth0_user.dev_test_user.email
-}
-output "test_user_password" {
-  value     = auth0_user.dev_test_user.password
-  sensitive = true
-}
-output "test_user_basic_username" {
-  value = auth0_user.dev_test_basic_user.email
-}
-output "test_user_basic_password" {
-  value     = auth0_user.dev_test_basic_user.password
   sensitive = true
 }
