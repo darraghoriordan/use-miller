@@ -6,18 +6,30 @@ import { useAuth0 } from "@auth0/auth0-react";
 import HeaderContext from "./HeaderContext";
 import { useContext } from "react";
 import logo from "../transp-windmill.png";
-import useGetPerson from "../account/persons/useGetPerson";
+import { PersonDto } from "@use-miller/shared-api-client";
+import { Container } from "./Container";
 
-function MobileNavLink({
-    href,
+const MobileNavButton = ({
     onClick,
     children,
-}: { href?: string; onClick?: () => void } & PropsWithChildren) {
+}: { onClick: () => unknown } & PropsWithChildren) => {
+    return (
+        <button
+            onClick={onClick}
+            className="block w-full p-2 py-4 text-xl font-bold text-left"
+        >
+            {children}
+        </button>
+    );
+};
+function MobileNavLink({
+    href,
+    children,
+}: { href?: string } & PropsWithChildren) {
     return (
         <Popover.Button
             as={NavLink}
             to={href || "#"}
-            onClick={onClick}
             className="block w-full p-2 py-4 text-xl font-bold"
         >
             {children}
@@ -34,8 +46,10 @@ const StyledNavLink = ({
             to={to}
             className={({ isActive, isPending }) =>
                 isActive
-                    ? "px-3 py-2 font-medium rounded-sm text-light-accent hover:bg-dark-accent hover:text-white text-md border-b-2 border-white"
-                    : "px-3 py-2 font-medium rounded-sm text-light-accent hover:bg-dark-accent hover:text-white text-md"
+                    ? // ? "px-3 py-2 font-medium rounded-sm text-light-accent hover:bg-dark-accent hover:text-white text-md border-b-2 border-white"
+                      // : "px-3 py-2 font-medium rounded-sm text-light-accent hover:bg-dark-accent hover:text-white text-md"
+                      "inline-block rounded-lg py-1 px-2 text-sm text-white hover:bg-slate-100 hover:text-slate-900 md:text-lg"
+                    : "inline-block rounded-lg py-1 px-2 text-sm text-white hover:bg-slate-100 hover:text-slate-900 md:text-lg"
             }
         >
             {children}
@@ -70,9 +84,7 @@ function MobileNavIcon({ open }: { open: boolean }) {
 }
 
 export const MobileNavigation = () => {
-    const [open, setOpen] = useState(false);
-    const { logout } = useAuth0();
-
+    const { logout, loginWithRedirect, user } = useAuth0();
     return (
         <Popover>
             <Popover.Button
@@ -108,21 +120,65 @@ export const MobileNavigation = () => {
                         as="div"
                         className="absolute inset-x-0 flex flex-col p-4 mt-4 text-lg tracking-tight bg-white shadow-xl top-full origin-top rounded-md text-slate-900 ring-1 ring-slate-900/5"
                     >
-                        <MobileNavLink href="/">Dashboard</MobileNavLink>
+                        {user && (
+                            <MobileNavLink href="/">Dashboard</MobileNavLink>
+                        )}
+                        {!user && (
+                            <>
+                                <MobileNavLink href="/#features">
+                                    Features
+                                </MobileNavLink>
+                                <MobileNavLink href="/#pricing">
+                                    Pricing
+                                </MobileNavLink>
 
-                        <hr className="m-2 border-slate-300/40" />
-                        <MobileNavLink href="/account">Account</MobileNavLink>
-                        <MobileNavLink
-                            onClick={() =>
-                                logout({
-                                    logoutParams: {
-                                        returnTo: window.location.origin,
-                                    },
-                                })
-                            }
-                        >
-                            Sign Out
-                        </MobileNavLink>
+                                <MobileNavButton
+                                    onClick={() =>
+                                        loginWithRedirect({
+                                            authorizationParams: {
+                                                screen_hint: "signup",
+                                                scope: "openid email profile read:own offline_access",
+                                            },
+                                        })
+                                    }
+                                >
+                                    Get Started
+                                </MobileNavButton>
+                                <hr className="m-2 border-slate-300/40" />
+                                <MobileNavButton
+                                    onClick={() =>
+                                        loginWithRedirect({
+                                            authorizationParams: {
+                                                scope: "openid email profile read:own offline_access",
+                                            },
+                                        })
+                                    }
+                                >
+                                    Sign in
+                                </MobileNavButton>
+                            </>
+                        )}
+
+                        {user && (
+                            <>
+                                <hr className="m-2 border-slate-300/40" />
+                                <MobileNavLink href="/account">
+                                    Account
+                                </MobileNavLink>
+                                <MobileNavButton
+                                    onClick={() =>
+                                        logout({
+                                            logoutParams: {
+                                                returnTo: import.meta.env
+                                                    .VITE_AUTH0_REDIRECT_URL,
+                                            },
+                                        })
+                                    }
+                                >
+                                    Sign Out
+                                </MobileNavButton>
+                            </>
+                        )}
                     </Popover.Panel>
                 </Transition.Child>
             </Transition.Root>
@@ -130,40 +186,80 @@ export const MobileNavigation = () => {
     );
 };
 
-export const Header = () => {
+export const Header = ({ person }: { person?: PersonDto }) => {
     const headerContext = useContext(HeaderContext);
-    const { data, isLoading } = useGetPerson("me");
+    const { logout, loginWithRedirect, user } = useAuth0();
 
     return (
-        <header className="px-12 pt-2 pb-2 border-b-2 border-dark-shade bg-dark-accent">
-            <nav className="relative z-50 flex justify-between ">
-                <div className="flex items-center md:gap-x-12">
-                    <img src={logo} alt="Logo" className="h-16" />
-                    <NavLink
-                        to="/"
-                        aria-label="Home"
-                        className="text-3xl text-white"
-                    >
-                        {headerContext.context.title}
-                    </NavLink>
-                </div>
-                <div className="flex items-center gap-x-5 md:gap-x-8">
-                    <div className="hidden md:block">
-                        <StyledNavLink to="/">Products Home</StyledNavLink>
-                        <StyledNavLink to="/account">Account</StyledNavLink>
+        <header className="pt-4 pb-4 bg-neutral-900">
+            <Container>
+                <nav className="relative z-50 flex justify-between ">
+                    <div className="flex items-center md:gap-x-12">
+                        <img src={logo} alt="Logo" className="h-16" />
+                        <NavLink
+                            to="/"
+                            aria-label="Home"
+                            className="text-3xl text-white"
+                        >
+                            {headerContext.context.title}
+                        </NavLink>
+                    </div>
+                    <div className="flex items-center gap-x-5 md:gap-x-8">
+                        {user && (
+                            <div className="hidden md:flex gap-x-5 md:gap-x-8">
+                                <StyledNavLink to="/">
+                                    Products Home
+                                </StyledNavLink>
+                                <StyledNavLink to="/account">
+                                    Account
+                                </StyledNavLink>
 
-                        {!isLoading && data && data.isSuper && (
-                            <StyledNavLink to="/super-admin">
-                                SuperAdmin
-                            </StyledNavLink>
+                                {person && person.isSuper && (
+                                    <StyledNavLink to="/super-admin">
+                                        SuperAdmin
+                                    </StyledNavLink>
+                                )}
+                            </div>
                         )}
-                    </div>
 
-                    <div className="-mr-1 md:hidden">
-                        <MobileNavigation />
+                        {!user && (
+                            <div className="hidden md:flex md:gap-x-6">
+                                <StyledNavLink
+                                    to={`${
+                                        import.meta.env.VITE_AUTH0_REDIRECT_URL
+                                    }/#features`}
+                                >
+                                    Features
+                                </StyledNavLink>
+                                <StyledNavLink
+                                    to={`${
+                                        import.meta.env.VITE_AUTH0_REDIRECT_URL
+                                    }/#pricing`}
+                                >
+                                    Pricing
+                                </StyledNavLink>
+                                <button
+                                    className="inline-block px-2 py-1 text-sm text-white rounded-lg hover:bg-slate-100 hover:text-slate-900 md:text-lg"
+                                    onClick={() =>
+                                        loginWithRedirect({
+                                            authorizationParams: {
+                                                screen_hint: "signup",
+                                                scope: "openid email profile read:own offline_access",
+                                            },
+                                        })
+                                    }
+                                >
+                                    Get Started
+                                </button>
+                            </div>
+                        )}
+
+                        <div className="-mr-1 md:hidden">
+                            <MobileNavigation />
+                        </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
+            </Container>
         </header>
     );
 };

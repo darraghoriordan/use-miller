@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { Container } from "./Container";
 import { NavLink } from "./NavLink";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { StyledLink } from "@use-miller/shared-frontend-tooling";
+import { colorVariants, StyledLink } from "@use-miller/shared-frontend-tooling";
 
 function MobileNavLink({
     href,
@@ -151,7 +151,14 @@ export function Header() {
                     </div>
                     <div className="flex items-center gap-x-5 md:gap-x-8">
                         <div className="hidden md:flex md:gap-x-6">
-                            <NavLink href="/#features">Features</NavLink>
+                            <NavLink
+                                href="/#features"
+                                className={
+                                    colorVariants["green"].hoverBackground
+                                }
+                            >
+                                Features
+                            </NavLink>
                             <NavLink href="/#pricing">Pricing</NavLink>
                             {(isLoading || !user) && (
                                 <NavLink href={signUpUri}>Get Started</NavLink>

@@ -14,8 +14,6 @@ import { CoursesMetaService } from "./courses-meta.service";
 import { FileMetaDto } from "./FileMetaDto";
 import { FileStructureDto } from "./FileStructureDto";
 
-@UseGuards(DefaultAuthGuard)
-@ApiBearerAuth()
 @Controller("course-files")
 @ApiTags("Course Files")
 export class CourseFilesController {
@@ -36,6 +34,8 @@ export class CourseFilesController {
         return await this.courseFileService.mapFiles(courseMeta);
     }
 
+    @UseGuards(DefaultAuthGuard)
+    @ApiBearerAuth()
     @Get(":courseName/contents/:b64Path")
     @HttpCode(HttpStatus.OK)
     @ApiOkResponse({ type: FileMetaDto })

@@ -78,7 +78,10 @@ export function Hero() {
                                 Buy now
                             </StyledLink>
                             <StyledLink
-                                href={"/payment/init-payment"}
+                                href={
+                                    process.env.NEXT_PUBLIC_APP_BASE_PATH +
+                                    "/open/code-doc/miller"
+                                }
                                 color="violet"
                                 className=" rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
                             >

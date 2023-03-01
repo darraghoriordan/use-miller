@@ -7,9 +7,9 @@ export const Error = ({ message }: { message: string }) => {
 
     return (
         <div className="fixed inset-0 z-10 overflow-y-auto">
-            <div className="flex flex-col items-center justify-center min-h-full p-4 text-center space-y-8">
-                <img src={logo} alt="Logo" className="h-48 mb-8" />
-                <div className="text-lg">{message}</div>
+            <div className="flex flex-col items-center justify-center min-h-full p-8 mt-8 text-center space-y-8">
+                <img src={logo} alt="Logo" className="h-40 mb-8" />
+                <div className="max-w-lg text-lg">{message}</div>
                 <StyledButton onClick={() => logout()}>
                     Logout to attempt a reset
                 </StyledButton>

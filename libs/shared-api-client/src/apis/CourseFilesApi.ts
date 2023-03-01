@@ -32,6 +32,11 @@ export interface CourseFilesControllerListCourseFilesRequest {
     courseName: string;
 }
 
+export interface OpenCourseFilesControllerGetFileRequest {
+    courseName: string;
+    b64Path: string;
+}
+
 /**
  * CourseFilesApi - interface
  * 
@@ -65,6 +70,20 @@ export interface CourseFilesApiInterface {
     /**
      */
     courseFilesControllerListCourseFiles(requestParameters: CourseFilesControllerListCourseFilesRequest): Promise<FileStructureDto>;
+
+    /**
+     * 
+     * @param {string} courseName 
+     * @param {string} b64Path 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CourseFilesApiInterface
+     */
+    openCourseFilesControllerGetFileRaw(requestParameters: OpenCourseFilesControllerGetFileRequest): Promise<runtime.ApiResponse<FileMetaDto>>;
+
+    /**
+     */
+    openCourseFilesControllerGetFile(requestParameters: OpenCourseFilesControllerGetFileRequest): Promise<FileMetaDto>;
 
 }
 
@@ -124,14 +143,6 @@ export class CourseFilesApi extends runtime.BaseAPI implements CourseFilesApiInt
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
         const response = await this.request({
             path: `/course-files/{courseName}`.replace(`{${"courseName"}}`, encodeURIComponent(String(requestParameters.courseName))),
             method: 'GET',
@@ -146,6 +157,38 @@ export class CourseFilesApi extends runtime.BaseAPI implements CourseFilesApiInt
      */
     async courseFilesControllerListCourseFiles(requestParameters: CourseFilesControllerListCourseFilesRequest): Promise<FileStructureDto> {
         const response = await this.courseFilesControllerListCourseFilesRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     */
+    async openCourseFilesControllerGetFileRaw(requestParameters: OpenCourseFilesControllerGetFileRequest): Promise<runtime.ApiResponse<FileMetaDto>> {
+        if (requestParameters.courseName === null || requestParameters.courseName === undefined) {
+            throw new runtime.RequiredError('courseName','Required parameter requestParameters.courseName was null or undefined when calling openCourseFilesControllerGetFile.');
+        }
+
+        if (requestParameters.b64Path === null || requestParameters.b64Path === undefined) {
+            throw new runtime.RequiredError('b64Path','Required parameter requestParameters.b64Path was null or undefined when calling openCourseFilesControllerGetFile.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/course-files/open/{courseName}/contents/{b64Path}`.replace(`{${"courseName"}}`, encodeURIComponent(String(requestParameters.courseName))).replace(`{${"b64Path"}}`, encodeURIComponent(String(requestParameters.b64Path))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FileMetaDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async openCourseFilesControllerGetFile(requestParameters: OpenCourseFilesControllerGetFileRequest): Promise<FileMetaDto> {
+        const response = await this.openCourseFilesControllerGetFileRaw(requestParameters);
         return await response.value();
     }
 

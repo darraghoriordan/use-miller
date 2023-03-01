@@ -1,21 +1,21 @@
 import React, { FunctionComponent, PropsWithChildren } from "react";
-
 import { Outlet } from "react-router-dom";
 import { Header } from "./Header";
-import HeaderContext from "./HeaderContext";
 import { useState } from "react";
 import useGetOrgs from "../account/organisations/useGetOrgs";
 import AppGlobalContext from "./AppGlobalContext";
 import { Organisation } from "@use-miller/shared-api-client";
 import { useEffect } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
+import HeaderContextProvider from "./HeaderContextProvider";
+import { useQueries } from "@tanstack/react-query";
+import useGetPerson from "../account/persons/useGetPerson";
 
 const MainLayout: FunctionComponent = ({ children }: PropsWithChildren<{}>) => {
-    const [context, setContext] = useState({ title: "Miller" });
-    const { loginWithRedirect } = useAuth0();
     const { data, isError, error, isLoading } = useGetOrgs();
+    const { data: person, isLoading: personIsLoading } = useGetPerson("me");
+
     const [appContext, setAppContext] = useState<{
         currentOrganisation: Organisation;
     }>({ currentOrganisation: {} as Organisation }); // this {} is a hack but it works!
@@ -32,22 +32,22 @@ const MainLayout: FunctionComponent = ({ children }: PropsWithChildren<{}>) => {
     }
 
     if (isError) {
-        if ((error as any)?.error === "login_required") {
-            loginWithRedirect();
-        }
-
         if (isError) {
             control = (
-                <Error message={"Couldn't load an organisation for you!"} />
+                <Error
+                    message={
+                        "We couldn't load an organisation for you! There's likely a problem with our backend. Please contact support or try again later."
+                    }
+                />
             );
         }
     }
     return (
         <AppGlobalContext.Provider value={{ appContext, setAppContext }}>
-            <HeaderContext.Provider value={{ context, setContext }}>
-                <Header />
+            <HeaderContextProvider>
+                <Header person={person} />
                 <main>{control}</main>
-            </HeaderContext.Provider>
+            </HeaderContextProvider>
         </AppGlobalContext.Provider>
     );
 };

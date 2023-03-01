@@ -24,6 +24,6 @@ export default function useGetOrgs() {
     return useQuery(
         [wellKnownQueries.getOrgs],
         () => apiCall(getAccessTokenSilently),
-        { refetchOnWindowFocus: false }
+        { refetchOnWindowFocus: false, retry: 1 }
     );
 }

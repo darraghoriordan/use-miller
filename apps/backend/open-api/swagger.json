@@ -1129,11 +1129,6 @@
         },
         "tags": [
           "Course Files"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
         ]
       }
     },
@@ -1177,6 +1172,44 @@
           {
             "bearer": []
           }
+        ]
+      }
+    },
+    "/course-files/open/{courseName}/contents/{b64Path}": {
+      "get": {
+        "operationId": "OpenCourseFilesController_getFile",
+        "parameters": [
+          {
+            "name": "courseName",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "b64Path",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileMetaDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Course Files"
         ]
       }
     }

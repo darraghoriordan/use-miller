@@ -7,8 +7,10 @@ import PaymentsSuperAdmin from "../admin/PaymentsSuperAdmin";
 import SuperAdmin from "../admin/SuperAdmin";
 import UsersSuperAdmin from "../admin/UsersSuperAdmin";
 import Home from "../home/Home";
+import LearnHome from "../learn-courses/Home";
 import LayoutErrorBoundary from "../layout/LayoutErrorBoundry";
 import MainLayout from "../layout/MainLayout";
+import UnAuthLayout from "../layout/UnAuthLayout";
 import ProtectedRoute from "./ProtectedRoute";
 
 function AppRoutes() {
@@ -18,7 +20,7 @@ function AppRoutes() {
                 path="/"
                 element={
                     <LayoutErrorBoundary>
-                        <MainLayout />{" "}
+                        <MainLayout />
                     </LayoutErrorBoundary>
                 }
             >
@@ -45,6 +47,17 @@ function AppRoutes() {
                         <ProtectedRoute component={PaymentEventsSuperAdmin} />
                     }
                 />
+            </Route>
+            <Route
+                path="/open"
+                element={
+                    <LayoutErrorBoundary>
+                        <UnAuthLayout />
+                    </LayoutErrorBoundary>
+                }
+            >
+                {" "}
+                <Route path="code-doc/:project" element={<LearnHome />} />
             </Route>
         </Routes>
     );

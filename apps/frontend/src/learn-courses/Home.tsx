@@ -7,9 +7,13 @@ import { Container } from "../layout/Container";
 import useGetFiles from "./course-files/useGetFiles";
 import EditorWrapper from "./EditorWrapper";
 import FileTree from "./FileTree";
+import { useParams } from "react-router";
 
 const Home = () => {
-    const { data, isError, isLoading } = useGetFiles("miller");
+    const params = useParams();
+    const { data, isError, isLoading } = useGetFiles(
+        params["project"] || "miller"
+    );
 
     const [selectedItemPath, setSelectedItemPath] = useState<
         string | undefined
@@ -24,10 +28,10 @@ const Home = () => {
     }, [data]);
 
     if (isError) {
-        return <Error message={"Error finding your user details"} />;
+        return <Error message={"Error finding the project file list"} />;
     }
     if (isLoading) {
-        return <Loading />;
+        return <Loading message="Loading project files..." />;
     }
 
     const handleClick = (opts: {
@@ -43,7 +47,7 @@ const Home = () => {
     };
 
     return (
-        <Container className="min-w-full bg-dark-shade">
+        <Container className="min-w-full bg-dark-shade border-t-2 border-black pt-2">
             <div className="flex w-full h-full">
                 <div className="w-1/6">
                     <FileTree files={data} handleClick={handleClick} />
