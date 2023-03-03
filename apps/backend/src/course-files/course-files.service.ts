@@ -115,9 +115,9 @@ export class CourseFilesService {
             contents:
                 partialText +
                 "\r" +
-                "\r// CLIPPED @ 200 characters //" +
+                "\r// Unlicensed file viewing is clipped @ 200 characters //" +
                 "\r" +
-                "// To see the full contents of each file please support development by purchasing !",
+                "// To see the full contents of each file please support development by purchasing! //",
             fileLocation,
         };
     };

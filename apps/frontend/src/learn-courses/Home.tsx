@@ -7,12 +7,28 @@ import { Container } from "../layout/Container";
 import useGetFiles from "./course-files/useGetFiles";
 import EditorWrapper from "./EditorWrapper";
 import FileTree from "./FileTree";
-import { useParams } from "react-router";
-import { PanelGroup, PanelResizeHandle, Panel } from "react-resizable-panels";
+import { useParams, useLocation } from "react-router";
+import { PanelGroup, Panel } from "react-resizable-panels";
 import ResizeHandle from "./ResizeHandle";
+import { StyledLink } from "@use-miller/shared-frontend-tooling";
+import StyledHeader1 from "../components/StyledHeader1";
 
 const Home = () => {
+    const projects = [
+        {
+            slug: "miller",
+            name: "Use Miller",
+            color: "green",
+        },
+        {
+            name: "NestJs Backend Libraries",
+            slug: "nestjs-backend-libs",
+            color: "pink",
+        },
+    ];
     const params = useParams();
+    const location = useLocation();
+
     const { data, isError, isLoading } = useGetFiles(
         params["project"] || "miller"
     );
@@ -53,9 +69,27 @@ const Home = () => {
     };
 
     return (
-        <Container className="h-full min-w-full pt-2 border-t-2 border-black bg-dark-shade">
+        <Container className="h-full min-w-full px-2 pt-2 mx-auto border-t border-black bg-dark-shade sm:px-2 lg:px-2">
+            <StyledHeader1>
+                {projects.find((p) => p.slug === params["project"])?.name}{" "}
+                Reference Documentation
+            </StyledHeader1>
+            <div className="flex items-center py-8 text-white bg-dark-mid gap-x-4">
+                <h2>Switch projects </h2>
+                {projects
+                    .filter((p) => !location.pathname.endsWith(p.slug))
+                    .map((project) => (
+                        <StyledLink
+                            key={project.slug}
+                            href={`/open/code-doc/${project.slug}`}
+                            color={project.color as any}
+                        >
+                            {project.name}
+                        </StyledLink>
+                    ))}
+            </div>
             <PanelGroup direction="horizontal">
-                <Panel defaultSize={20} minSize={20}>
+                <Panel defaultSize={20} minSize={5}>
                     <FileTree files={data} handleClick={handleClick} />
                 </Panel>
                 <ResizeHandle />

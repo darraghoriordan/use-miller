@@ -8,7 +8,7 @@ export default function ResizeHandle({
 }) {
     return (
         <PanelResizeHandle
-            className="flex items-stretch justify-between bg-transparent outline-none p-[.5rem] flex-[0_0_1.3rem] leading-[1.5em]"
+            className="flex items-stretch justify-between bg-transparent outline-none p-[.5rem] flex-[0_0_1.1rem] leading-[1.5em]"
             id={id}
         >
             <div className="relative flex-1 rounded-[.75rem] bg-slate-200">
