@@ -23,7 +23,34 @@
      overflow-auto
      w-full
   }
+  .FolderTree .TreeNode .iconContainer .displayName {
+    @apply whitespace-nowrap
 }
+}
+
+
+/* .ResizeHandleOuter {
+    flex: 0 0 1.5em;
+    position: relative;
+    outline: none;
+width:5px;
+    --background-color: transparent;
+  }
+  .ResizeHandleOuter[data-resize-handle-active] {
+    --background-color: #fff;
+  }
+
+  .ResizeHandleInner {
+    position: absolute;
+    top: 0.25em;
+    bottom: 0.25em;
+    left: 0.25em;
+    right: 0.25em;
+    border-radius: 0.25em;
+    background-color: var(--background-color);
+    transition: background-color 0.2s linear;
+  } */
+
 .TreeNode {
    display: flex;
     align-items: center;
@@ -31,4 +58,7 @@
 .FolderTree .CheckBox{display:inline-block;margin-right:3px}.FolderTree .TreeNode{padding:2px 0}.FolderTree .TreeNode .TreeNodeToolBar{margin-left:3px}.FolderTree .TreeNode .TreeNodeToolBar svg{padding:0 2px}.FolderTree .TreeNode .iconContainer{padding:0 2px}.FolderTree .TreeNode .iconContainer svg{padding-top:1px;vertical-align:text-top}.FolderTree .TreeNode .iconContainer:not(.typeIconContainer) svg:hover{cursor:pointer}.FolderTree .EditableName .displayName:hover{color:#4d94ff;cursor:pointer}.FolderTree .EditableName .editableNameToolbar{margin-left:3px}.FolderTree .EditableName .editableNameToolbar svg{margin:0 2px}.FolderTree .icon:hover.OKIcon{color:#5cd65c}.FolderTree .icon:hover.CancelIcon{color:#f33}.FolderTree .icon:hover.EditIcon{color:#b3f}.FolderTree .icon:hover.DeleteIcon{color:#ff66b3}.FolderTree .icon:hover.AddFileIcon{color:#009973}.FolderTree .icon:hover.AddFolderIcon{color:#009973}
  span.iconContainer.typeIconContainer {
     width:1em;
+ }
+ .FolderTree {
+    padding-top: 1em;
  }

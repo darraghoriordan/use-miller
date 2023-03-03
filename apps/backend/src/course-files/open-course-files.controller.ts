@@ -18,6 +18,6 @@ export class OpenCourseFilesController {
         const path = Buffer.from(b64Path, "base64").toString("ascii");
         // eslint-disable-next-line sonarjs/no-small-switch
 
-        return await this.courseFileService.getFileContents(path);
+        return await this.courseFileService.getPartialFileContents(path);
     }
 }

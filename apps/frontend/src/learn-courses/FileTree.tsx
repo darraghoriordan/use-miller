@@ -1,5 +1,5 @@
 import { useLayoutEffect, useState } from "react";
-import FolderTree, { NodeData } from "react-folder-tree";
+import FolderTree, { NodeData } from "@darraghor/react-folder-tree";
 import { FileIcon, defaultStyles } from "react-file-icon";
 import { FileStructureDto } from "@use-miller/shared-api-client";
 
@@ -8,6 +8,8 @@ const FileTree = (props: {
     handleClick: (opts: {
         defaultOnClick: () => void;
         nodeData: NodeData;
+        openMe: () => void;
+        closeMe: () => void;
     }) => void;
 }) => {
     let [data, setData] = useState(props.files);
@@ -48,10 +50,12 @@ const FileTree = (props: {
     }, []);
 
     return (
+        // css here is in the css file because
+        // the classes are specific to the folder tree library
         <FolderTree
             showCheckbox={false}
             data={data}
-            onNameClick={props.handleClick}
+            onNameClick={props.handleClick as any}
             initOpenStatus={"custom"}
             readOnly
             iconComponents={{

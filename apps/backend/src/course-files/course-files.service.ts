@@ -100,4 +100,25 @@ export class CourseFilesService {
             fileLocation,
         };
     };
+
+    getPartialFileContents = async (
+        fileLocation: string
+    ): Promise<FileMetaDto> => {
+        const contents = await fs.promises.readFile(fileLocation, {
+            encoding: "utf8",
+            flag: "r",
+        });
+
+        // take the first 3 lines of text
+        const partialText = contents.slice(0, 200);
+        return {
+            contents:
+                partialText +
+                "\r" +
+                "\r// CLIPPED @ 200 characters //" +
+                "\r" +
+                "// To see the full contents of each file please support development by purchasing !",
+            fileLocation,
+        };
+    };
 }

@@ -13,7 +13,7 @@ const EditorWrapper = (props: { filePath: string | undefined }) => {
 
     if (isError) {
         return (
-            <div className="fixed inset-0 z-10 overflow-y-auto">
+            <div className="fixed inset-0 z-10 overflow-y-auto relative">
                 <div className="flex flex-col items-center justify-center min-h-full p-8 mt-8 text-center space-y-8">
                     <div className="max-w-lg text-lg text-white">
                         {`Error loading file content ${error}`}
