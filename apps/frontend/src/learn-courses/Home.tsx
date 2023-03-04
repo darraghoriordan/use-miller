@@ -4,7 +4,7 @@ import { NodeData } from "@darraghor/react-folder-tree";
 import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
 import { Container } from "../layout/Container";
-import useGetFiles from "./course-files/useGetFiles";
+import useGetFiles from "./api/useGetFiles";
 import EditorWrapper from "./EditorWrapper";
 import FileTree from "./FileTree";
 import { useParams, useLocation } from "react-router";
@@ -14,18 +14,6 @@ import { StyledLink } from "@use-miller/shared-frontend-tooling";
 import StyledHeader1 from "../components/StyledHeader1";
 
 const Home = () => {
-    const projects = [
-        {
-            slug: "miller",
-            name: "Use Miller",
-            color: "green",
-        },
-        {
-            name: "NestJs Backend Libraries",
-            slug: "nestjs-backend-libs",
-            color: "pink",
-        },
-    ];
     const params = useParams();
     const location = useLocation();
 

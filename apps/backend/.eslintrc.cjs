@@ -8,29 +8,19 @@ module.exports = {
     plugins: [
         "@typescript-eslint/eslint-plugin",
         "unicorn",
-        "import",
         "@darraghor/nestjs-typed",
         "eslint-comments",
         "sonarjs",
         "promise",
         "jest",
     ],
-    settings: {
-        ["import/parsers"]: { "@typescript-eslint/parser": [".ts", ".tsx"] },
-        ["import/resolver"]: {
-            node: {
-                extensions: [".ts", ".tsx"],
-            },
-        },
-    },
+    settings: {},
     extends: [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:unicorn/recommended",
-        "plugin:import/errors",
-        "plugin:import/warnings",
-        "plugin:import/typescript",
+
         "plugin:unicorn/recommended",
         "plugin:eslint-comments/recommended",
         "plugin:sonarjs/recommended",
@@ -46,7 +36,7 @@ module.exports = {
         node: true,
         jest: true,
     },
-    ignorePatterns: [".eslintrc.js", "dist"],
+    ignorePatterns: [".eslintrc.cjs", "dist"],
     rules: {
         "import/namespace": "off", // this is very slow
         // "jest/no-try-expect":"off",

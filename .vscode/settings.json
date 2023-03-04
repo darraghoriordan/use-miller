@@ -8,6 +8,8 @@
         "Popover",
         "sonarjs"
     ],
+    "javascript.preferences.importModuleSpecifierEnding": "js",
+    "typescript.preferences.importModuleSpecifierEnding": "js",
     "eslint.workingDirectories": [
         {
             "directory": "./apps/backend",

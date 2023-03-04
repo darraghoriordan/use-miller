@@ -1,14 +1,20 @@
 import { CoreModule } from "@darraghor/nest-backend-libs";
 import { Module } from "@nestjs/common";
-import { CourseFilesController } from "./course-files.controller";
-import { CourseFilesService } from "./course-files.service";
-import { CoursesMetaService } from "./courses-meta.service";
-import { OpenCourseFilesController } from "./open-course-files.controller";
+import { CourseFilesController } from "./controllers/course-files.controller.js";
+import { CourseFilesService } from "./services/course-files.service.js";
+import { CoursesMetaService } from "./services/courses-meta.service.js";
+import MarkdownToHtmlService from "./services/markdownToHtml.service.js";
+import { OpenCourseFilesController } from "./controllers/open-course-files.controller.js";
+import { CourseMetaController } from "./controllers/course-meta.controller.js";
 
 @Module({
     imports: [CoreModule],
-    controllers: [CourseFilesController, OpenCourseFilesController],
-    providers: [CourseFilesService, CoursesMetaService],
+    controllers: [
+        CourseFilesController,
+        OpenCourseFilesController,
+        CourseMetaController,
+    ],
+    providers: [CourseFilesService, CoursesMetaService, MarkdownToHtmlService],
     exports: [],
 })
 export class CourseFilesModule {}

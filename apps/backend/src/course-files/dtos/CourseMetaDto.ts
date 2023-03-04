@@ -7,4 +7,8 @@ export class CourseMetaDto {
     public rootNodeName!: string;
     @ApiProperty()
     public rootLocation!: string;
+    @ApiProperty()
+    public name!: string;
+    @ApiProperty()
+    public color!: string;
 }

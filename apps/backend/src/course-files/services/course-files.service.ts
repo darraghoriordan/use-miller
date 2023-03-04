@@ -1,12 +1,17 @@
 import { Injectable, Logger } from "@nestjs/common";
 import path from "path";
 import fs from "fs";
-import { FileStructureDto } from "./FileStructureDto";
-import { CourseMetaDto } from "./CourseMetaDto";
-import { FileMetaDto } from "./FileMetaDto";
+import { FileStructureDto } from "../dtos/FileStructureDto.js";
+import { CourseMetaDto } from "../dtos/CourseMetaDto.js";
+import { FileMetaDto } from "../dtos/FileMetaDto.js";
+import MarkdownToHtmlService from "./markdownToHtml.service.js";
 
 @Injectable()
 export class CourseFilesService {
+    constructor(
+        private readonly markdownToHtmlService: MarkdownToHtmlService
+    ) {}
+
     private readonly logger = new Logger(CourseFilesService.name);
 
     async walk(root: FileStructureDto): Promise<FileStructureDto> {
@@ -89,6 +94,11 @@ export class CourseFilesService {
         return await this.walk(rootDirectory);
     };
 
+    getMarkdownAsHtml = async (path: string) => {
+        const contents = await this.getFileContents(path);
+        return this.markdownToHtmlService.markdownToHtml(contents.contents);
+    };
+
     getFileContents = async (fileLocation: string): Promise<FileMetaDto> => {
         const contents = await fs.promises.readFile(fileLocation, {
             encoding: "utf8",
@@ -104,10 +114,17 @@ export class CourseFilesService {
     getPartialFileContents = async (
         fileLocation: string
     ): Promise<FileMetaDto> => {
+        const fullFileExtensionFilter = [".md"]; // we can still show off some full files
         const contents = await fs.promises.readFile(fileLocation, {
             encoding: "utf8",
             flag: "r",
         });
+        if (fullFileExtensionFilter.includes(path.extname(fileLocation))) {
+            return {
+                contents,
+                fileLocation,
+            };
+        }
 
         // take the first 3 lines of text
         const partialText = contents.slice(0, 200);

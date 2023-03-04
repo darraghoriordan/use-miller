@@ -1212,6 +1212,30 @@
           "Course Files"
         ]
       }
+    },
+    "/course-meta": {
+      "get": {
+        "operationId": "CourseMetaController_listAllCourses",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CourseMetaDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Course Meta"
+        ]
+      }
     }
   },
   "info": {
@@ -1866,6 +1890,33 @@
         "required": [
           "contents",
           "fileLocation"
+        ]
+      },
+      "CourseMetaDto": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "rootNodeName": {
+            "type": "string"
+          },
+          "rootLocation": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "rootNodeName",
+          "rootLocation",
+          "name",
+          "color"
         ]
       }
     }

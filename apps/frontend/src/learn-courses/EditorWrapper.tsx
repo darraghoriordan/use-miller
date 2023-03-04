@@ -1,7 +1,7 @@
 import Editor from "@monaco-editor/react";
 import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
-import useGetFileContent from "./course-files/useGetFileContent";
+import useGetFileContent from "./api/useGetFileContent";
 
 const EditorWrapper = (props: { filePath: string | undefined }) => {
     const firstContents = "// Welcome to Miller!";

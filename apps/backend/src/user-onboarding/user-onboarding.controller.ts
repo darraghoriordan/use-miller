@@ -12,8 +12,8 @@ import {
     Logger,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from "@nestjs/swagger";
-import { InitUserResponseDto } from "./InitUserResponseDto";
-import { UserOnboardingService } from "./user-onboarding.service";
+import { InitUserResponseDto } from "./InitUserResponseDto.js";
+import { UserOnboardingService } from "./user-onboarding.service.js";
 
 @Controller("user-onboarding")
 @ApiTags("Users")

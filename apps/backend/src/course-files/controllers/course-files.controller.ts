@@ -9,10 +9,10 @@ import {
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 
-import { CourseFilesService } from "./course-files.service";
-import { CoursesMetaService } from "./courses-meta.service";
-import { FileMetaDto } from "./FileMetaDto";
-import { FileStructureDto } from "./FileStructureDto";
+import { CourseFilesService } from "../services/course-files.service.js";
+import { CoursesMetaService } from "../services/courses-meta.service.js";
+import { FileMetaDto } from "../dtos/FileMetaDto.js";
+import { FileStructureDto } from "../dtos/FileStructureDto.js";
 
 @Controller("course-files")
 @ApiTags("Course Files")
@@ -29,7 +29,7 @@ export class CourseFilesController {
         @Param("courseName") courseName: string
     ): Promise<FileStructureDto> {
         // eslint-disable-next-line sonarjs/no-small-switch
-        const courseMeta = this.courseMetaService.getMeta(courseName);
+        const courseMeta = this.courseMetaService.getOne(courseName);
 
         return await this.courseFileService.mapFiles(courseMeta);
     }
