@@ -1,7 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import path from "path";
 import { CourseMetaDto } from "../dtos/CourseMetaDto.js";
-import url from "url";
 
 const courseMeta: CourseMetaDto[] = [
     {
@@ -10,10 +8,8 @@ const courseMeta: CourseMetaDto[] = [
         name: "Use Miller",
         color: "green",
 
-        rootLocation: path.join(
-            path.dirname(url.fileURLToPath(import.meta.url)),
-            "../../../../.."
-        ),
+        rootLocation:
+            "/Users/darraghoriordan/Documents/personal-projects/use-miller",
     },
     {
         key: "nestjs-backend-libs",
@@ -21,10 +17,8 @@ const courseMeta: CourseMetaDto[] = [
         name: "NestJs Backend Libraries",
         color: "pink",
 
-        rootLocation: path.join(
-            path.dirname(url.fileURLToPath(import.meta.url)),
-            "../../../../../../nest-backend-libs"
-        ),
+        rootLocation:
+            "/Users/darraghoriordan/Documents/personal-projects/nest-backend-libs",
     },
 ];
 

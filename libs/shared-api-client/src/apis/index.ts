@@ -1,5 +1,6 @@
 export * from './ApplicationSupportApi';
 export * from './CourseFilesApi';
+export * from './CourseMetaApi';
 export * from './EmailClientApi';
 export * from './OrganisationMembershipsApi';
 export * from './OrganisationSubscriptionsApi';

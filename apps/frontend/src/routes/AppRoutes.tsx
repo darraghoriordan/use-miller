@@ -56,8 +56,10 @@ function AppRoutes() {
                     </LayoutErrorBoundary>
                 }
             >
-                {" "}
-                <Route path="code-doc/:project" element={<LearnHome />} />
+                <Route
+                    path="code-doc/:project/:filePath?"
+                    element={<LearnHome />}
+                />
             </Route>
         </Routes>
     );

@@ -1,4 +1,5 @@
 export * from './BooleanResult';
+export * from './CourseMetaDto';
 export * from './CreateUpdateMembershipDto';
 export * from './FileMetaDto';
 export * from './FileStructureDto';

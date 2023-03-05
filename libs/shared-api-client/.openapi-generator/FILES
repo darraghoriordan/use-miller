@@ -4,6 +4,7 @@ README.md
 package.json
 src/apis/ApplicationSupportApi.ts
 src/apis/CourseFilesApi.ts
+src/apis/CourseMetaApi.ts
 src/apis/EmailClientApi.ts
 src/apis/OrganisationMembershipsApi.ts
 src/apis/OrganisationSubscriptionsApi.ts
@@ -15,6 +16,7 @@ src/apis/UsersApi.ts
 src/apis/index.ts
 src/index.ts
 src/models/BooleanResult.ts
+src/models/CourseMetaDto.ts
 src/models/CreateUpdateMembershipDto.ts
 src/models/FileMetaDto.ts
 src/models/FileStructureDto.ts

@@ -6,6 +6,7 @@ import { CoursesMetaService } from "./services/courses-meta.service.js";
 import MarkdownToHtmlService from "./services/markdownToHtml.service.js";
 import { OpenCourseFilesController } from "./controllers/open-course-files.controller.js";
 import { CourseMetaController } from "./controllers/course-meta.controller.js";
+import PathMapperService from "./services/pathMapper.service.js";
 
 @Module({
     imports: [CoreModule],
@@ -14,7 +15,12 @@ import { CourseMetaController } from "./controllers/course-meta.controller.js";
         OpenCourseFilesController,
         CourseMetaController,
     ],
-    providers: [CourseFilesService, CoursesMetaService, MarkdownToHtmlService],
+    providers: [
+        CourseFilesService,
+        CoursesMetaService,
+        MarkdownToHtmlService,
+        PathMapperService,
+    ],
     exports: [],
 })
 export class CourseFilesModule {}

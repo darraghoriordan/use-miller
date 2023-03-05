@@ -11,21 +11,24 @@ import { unified } from "unified";
 import gfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
+import remarkEmbedImages from "remark-embed-images";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
 import { Injectable } from "@nestjs/common";
+import { read } from "to-vfile";
 
 @Injectable()
 class MarkdownToHtmlService {
-    async markdownToHtml(markdown: string): Promise<string> {
+    async markdownToHtml(path: string): Promise<string> {
         const file = await unified()
             .use(remarkParse)
             .use(gfm)
+            .use(remarkEmbedImages)
             .use(remarkRehype)
             .use(rehypePrism)
             .use(rehypeFormat)
             .use(rehypeStringify)
-            .process(markdown);
+            .process(await read(path));
 
         return file.toString();
     }

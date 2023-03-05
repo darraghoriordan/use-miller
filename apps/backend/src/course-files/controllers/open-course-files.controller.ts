@@ -15,8 +15,35 @@ export class OpenCourseFilesController {
         @Param("courseName") courseName: string,
         @Param("b64Path") b64Path: string
     ): Promise<FileMetaDto> {
-        const path = Buffer.from(b64Path, "base64").toString("ascii");
+        return await this.courseFileService.getPartialFileContents(
+            b64Path,
+            courseName
+        );
+    }
 
-        return await this.courseFileService.getPartialFileContents(path);
+    @Get(":courseName/contents-markdown/:markdownB64Path")
+    @HttpCode(HttpStatus.OK)
+    @ApiOkResponse({ type: FileMetaDto })
+    async getMarkdownFileAsHtml(
+        @Param("courseName") courseName: string,
+        @Param("markdownB64Path") markdownB64Path: string
+    ): Promise<FileMetaDto> {
+        return await this.courseFileService.getFileAsMarkdown(
+            markdownB64Path,
+            courseName
+        );
+    }
+
+    @Get(":courseName/nearest-readme/:b64Path")
+    @HttpCode(HttpStatus.OK)
+    @ApiOkResponse({ type: FileMetaDto })
+    async getNearestHtmlReadmeForFile(
+        @Param("courseName") courseName: string,
+        @Param("b64Path") b64Path: string
+    ): Promise<FileMetaDto> {
+        return await this.courseFileService.getNearestHtmlReadmeForFile(
+            b64Path,
+            courseName
+        );
     }
 }

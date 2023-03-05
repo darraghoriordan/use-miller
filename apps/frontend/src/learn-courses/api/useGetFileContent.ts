@@ -23,7 +23,6 @@ const apiCall = async (
             fileLocation: "/",
         } as FileMetaDto;
     }
-    const filePathBase64 = btoa(filePath);
     // need a path here for the anonymous user
     if (!user) {
         const apiClient = await getAnonymousApiInstance(
@@ -32,7 +31,7 @@ const apiCall = async (
         );
         return await apiClient.openCourseFilesControllerGetFile({
             courseName: courseKey,
-            b64Path: filePathBase64,
+            b64Path: filePath,
         });
     }
 
@@ -43,15 +42,19 @@ const apiCall = async (
     );
     return await apiClient.courseFilesControllerGetFile({
         courseName: courseKey,
-        b64Path: filePathBase64,
+        b64Path: filePath,
     });
 };
 
-export default function useGetFileContent(courseKey: string, filePath: string) {
+export default function useGetFileContent(
+    courseKey: string,
+    filePath: string,
+    enabled: boolean
+) {
     const { getAccessTokenSilently, user } = useAuth0();
     return useQuery(
         [wellKnownQueries.getCourseFileContent, courseKey, filePath],
         () => apiCall(getAccessTokenSilently, courseKey, user, filePath),
-        { refetchOnWindowFocus: false }
+        { refetchOnWindowFocus: false, enabled }
     );
 }

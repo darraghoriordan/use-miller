@@ -6,6 +6,7 @@ export default defineConfig({
     plugins: [reactRefresh()],
     build: {
         target: "es2020",
+
         commonjsOptions: {
             include: [
                 /shared-api-client/,

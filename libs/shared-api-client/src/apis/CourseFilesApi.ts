@@ -37,6 +37,16 @@ export interface OpenCourseFilesControllerGetFileRequest {
     b64Path: string;
 }
 
+export interface OpenCourseFilesControllerGetMarkdownFileAsHtmlRequest {
+    courseName: string;
+    markdownB64Path: string;
+}
+
+export interface OpenCourseFilesControllerGetNearestHtmlReadmeForFileRequest {
+    courseName: string;
+    b64Path: string;
+}
+
 /**
  * CourseFilesApi - interface
  * 
@@ -84,6 +94,34 @@ export interface CourseFilesApiInterface {
     /**
      */
     openCourseFilesControllerGetFile(requestParameters: OpenCourseFilesControllerGetFileRequest): Promise<FileMetaDto>;
+
+    /**
+     * 
+     * @param {string} courseName 
+     * @param {string} markdownB64Path 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CourseFilesApiInterface
+     */
+    openCourseFilesControllerGetMarkdownFileAsHtmlRaw(requestParameters: OpenCourseFilesControllerGetMarkdownFileAsHtmlRequest): Promise<runtime.ApiResponse<FileMetaDto>>;
+
+    /**
+     */
+    openCourseFilesControllerGetMarkdownFileAsHtml(requestParameters: OpenCourseFilesControllerGetMarkdownFileAsHtmlRequest): Promise<FileMetaDto>;
+
+    /**
+     * 
+     * @param {string} courseName 
+     * @param {string} b64Path 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CourseFilesApiInterface
+     */
+    openCourseFilesControllerGetNearestHtmlReadmeForFileRaw(requestParameters: OpenCourseFilesControllerGetNearestHtmlReadmeForFileRequest): Promise<runtime.ApiResponse<FileMetaDto>>;
+
+    /**
+     */
+    openCourseFilesControllerGetNearestHtmlReadmeForFile(requestParameters: OpenCourseFilesControllerGetNearestHtmlReadmeForFileRequest): Promise<FileMetaDto>;
 
 }
 
@@ -189,6 +227,70 @@ export class CourseFilesApi extends runtime.BaseAPI implements CourseFilesApiInt
      */
     async openCourseFilesControllerGetFile(requestParameters: OpenCourseFilesControllerGetFileRequest): Promise<FileMetaDto> {
         const response = await this.openCourseFilesControllerGetFileRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     */
+    async openCourseFilesControllerGetMarkdownFileAsHtmlRaw(requestParameters: OpenCourseFilesControllerGetMarkdownFileAsHtmlRequest): Promise<runtime.ApiResponse<FileMetaDto>> {
+        if (requestParameters.courseName === null || requestParameters.courseName === undefined) {
+            throw new runtime.RequiredError('courseName','Required parameter requestParameters.courseName was null or undefined when calling openCourseFilesControllerGetMarkdownFileAsHtml.');
+        }
+
+        if (requestParameters.markdownB64Path === null || requestParameters.markdownB64Path === undefined) {
+            throw new runtime.RequiredError('markdownB64Path','Required parameter requestParameters.markdownB64Path was null or undefined when calling openCourseFilesControllerGetMarkdownFileAsHtml.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/course-files/open/{courseName}/contents-markdown/{markdownB64Path}`.replace(`{${"courseName"}}`, encodeURIComponent(String(requestParameters.courseName))).replace(`{${"markdownB64Path"}}`, encodeURIComponent(String(requestParameters.markdownB64Path))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FileMetaDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async openCourseFilesControllerGetMarkdownFileAsHtml(requestParameters: OpenCourseFilesControllerGetMarkdownFileAsHtmlRequest): Promise<FileMetaDto> {
+        const response = await this.openCourseFilesControllerGetMarkdownFileAsHtmlRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     */
+    async openCourseFilesControllerGetNearestHtmlReadmeForFileRaw(requestParameters: OpenCourseFilesControllerGetNearestHtmlReadmeForFileRequest): Promise<runtime.ApiResponse<FileMetaDto>> {
+        if (requestParameters.courseName === null || requestParameters.courseName === undefined) {
+            throw new runtime.RequiredError('courseName','Required parameter requestParameters.courseName was null or undefined when calling openCourseFilesControllerGetNearestHtmlReadmeForFile.');
+        }
+
+        if (requestParameters.b64Path === null || requestParameters.b64Path === undefined) {
+            throw new runtime.RequiredError('b64Path','Required parameter requestParameters.b64Path was null or undefined when calling openCourseFilesControllerGetNearestHtmlReadmeForFile.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/course-files/open/{courseName}/nearest-readme/{b64Path}`.replace(`{${"courseName"}}`, encodeURIComponent(String(requestParameters.courseName))).replace(`{${"b64Path"}}`, encodeURIComponent(String(requestParameters.b64Path))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FileMetaDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async openCourseFilesControllerGetNearestHtmlReadmeForFile(requestParameters: OpenCourseFilesControllerGetNearestHtmlReadmeForFileRequest): Promise<FileMetaDto> {
+        const response = await this.openCourseFilesControllerGetNearestHtmlReadmeForFileRaw(requestParameters);
         return await response.value();
     }
 

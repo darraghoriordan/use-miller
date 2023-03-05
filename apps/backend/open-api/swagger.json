@@ -1213,6 +1213,82 @@
         ]
       }
     },
+    "/course-files/open/{courseName}/contents-markdown/{markdownB64Path}": {
+      "get": {
+        "operationId": "OpenCourseFilesController_getMarkdownFileAsHtml",
+        "parameters": [
+          {
+            "name": "courseName",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "markdownB64Path",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileMetaDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Course Files"
+        ]
+      }
+    },
+    "/course-files/open/{courseName}/nearest-readme/{b64Path}": {
+      "get": {
+        "operationId": "OpenCourseFilesController_getNearestHtmlReadmeForFile",
+        "parameters": [
+          {
+            "name": "courseName",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "b64Path",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileMetaDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Course Files"
+        ]
+      }
+    },
     "/course-meta": {
       "get": {
         "operationId": "CourseMetaController_listAllCourses",
@@ -1884,6 +1960,9 @@
             "type": "string"
           },
           "fileLocation": {
+            "type": "string"
+          },
+          "nearestReadmeLocation": {
             "type": "string"
           }
         },
