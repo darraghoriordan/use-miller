@@ -10,10 +10,11 @@ import FileTree from "./FileTree";
 import { useParams, useLocation } from "react-router";
 import { PanelGroup, Panel } from "react-resizable-panels";
 import ResizeHandle from "./ResizeHandle";
-import StyledHeader1 from "../components/StyledHeader1";
 import useGetAllCourses from "./api/useGetAllCourses.js";
 import MarkdownWrapper from "./MarkdownWrapper.js";
 import useGetFileContent from "./api/useGetFileContent.js";
+import clsx from "clsx";
+import { colorVariants } from "@use-miller/shared-frontend-tooling";
 
 type SelectedItem = {
     path: string;
@@ -41,14 +42,9 @@ const Home = () => {
     );
     // set the first file on first load
     useEffect(() => {
-        const firstFile = data?.children?.find(
-            (file) => file.type === "file" && file.name === "README.md"
-        );
-        if (!selectedItem && firstFile) {
-            // traverse the tree to find the nearest readme
-
+        if (!selectedItem) {
             setSelectedItemPath({
-                path: firstFile.fileLocation,
+                path: btoa("README.md"),
             });
         }
     }, [data]);
@@ -70,10 +66,9 @@ const Home = () => {
             window.history.replaceState(
                 null,
                 `${projectKey} File`,
-                `/open/code-doc/${projectKey}/${filePath}`
+                `/open/code-doc/${projectKey}/${fileData?.fileLocation}`
             );
 
-            console.log("file clicked", opts.nodeData.fileLocation);
             setSelectedItemPath({
                 path: opts.nodeData.fileLocation,
             });
@@ -86,73 +81,89 @@ const Home = () => {
     };
 
     return (
-        <Container className="h-full min-w-full px-2 pt-2 mx-auto border-t border-black bg-dark-shade sm:px-2 lg:px-2">
-            <StyledHeader1 className="text-white">
-                {projects.data.find((p) => p.key === params["project"])?.name}{" "}
-                Project
-            </StyledHeader1>
+        <>
+            <Container className="w-full h-full min-w-full mx-auto bg-white pl-2">
+                <PanelGroup direction="horizontal">
+                    <Panel defaultSize={15} minSize={5} className="pt-[1em]">
+                        <h1
+                            className={clsx(
+                                `mb-8 font-bold uppercase`,
+                                colorVariants["green"].foreground
+                            )}
+                        >
+                            Docs
+                        </h1>
+                        <h3 className="mt-6 mb-2 font-bold uppercase text-slate-900">
+                            Get Started
+                        </h3>
+                        <h3 className="mb-2 font-bold uppercase text-slate-900">
+                            Code Reference
+                        </h3>
+                        <ul className="mr-4">
+                            {projects.data.map((project) => {
+                                if (location.pathname.endsWith(project.key)) {
+                                    return (
+                                        <li
+                                            key={project.key}
+                                            className={clsx(
+                                                "px-2 py-1 mb-2 ml-1 text-sm rounded-md whitespace-nowrap",
+                                                colorVariants["green"]
+                                                    .backgroundShade
+                                            )}
+                                        >
+                                            <p
+                                                className={clsx(
+                                                    colorVariants["green"]
+                                                        .foreground
+                                                )}
+                                            >
+                                                {project.name}
+                                            </p>
+                                        </li>
+                                    );
+                                }
 
-            <PanelGroup direction="horizontal">
-                <Panel defaultSize={15} minSize={5} className="pt-[1em]">
-                    <h3 className="mb-2 font-bold uppercase text-slate-200">
-                        Projects
-                    </h3>
-                    <ul>
-                        {projects.data.map((project) => {
-                            if (location.pathname.endsWith(project.key)) {
                                 return (
                                     <li
                                         key={project.key}
-                                        className="px-2 py-1 mb-2 ml-1 text-sm rounded-md text-slate-200 whitespace-nowrap bg-orange-300/20"
+                                        className="px-2 mb-2 ml-1 text-sm  whitespace-nowrap"
                                     >
-                                        <p className="text-orange-300">
+                                        <a
+                                            href={`/open/code-doc/${project.key}`}
+                                            className="cursor-pointer"
+                                        >
                                             {project.name}
-                                        </p>
+                                        </a>
                                     </li>
                                 );
+                            })}
+                        </ul>
+                    </Panel>
+                    <ResizeHandle className="bg-dark-shade" />
+                    <Panel defaultSize={15} minSize={5}>
+                        <FileTree files={data} handleClick={handleClick} />
+                    </Panel>
+                    <ResizeHandle className="bg-dark-shade" />
+                    <Panel minSize={40}>
+                        <EditorWrapper
+                            data={fileData}
+                            isLoading={fileIsLoading}
+                            isError={fileIsError}
+                        />
+                    </Panel>
+                    <ResizeHandle className="bg-dark-shade" />
+                    <Panel defaultSize={30} minSize={20}>
+                        <MarkdownWrapper
+                            filePath={fileData?.nearestReadmeLocation}
+                            courseKey={projectKey}
+                            enabled={
+                                fileData?.nearestReadmeLocation !== undefined
                             }
-
-                            return (
-                                <li
-                                    key={project.key}
-                                    className="px-2 mb-2 ml-1 text-sm text-slate-200 whitespace-nowrap"
-                                >
-                                    <a
-                                        href={`/open/code-doc/${project.key}`}
-                                        className="cursor-pointer"
-                                    >
-                                        {project.name}
-                                    </a>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                    <h3 className="mt-6 mb-2 font-bold uppercase text-slate-200">
-                        Get Started
-                    </h3>
-                </Panel>
-                <ResizeHandle />
-                <Panel defaultSize={15} minSize={5}>
-                    <FileTree files={data} handleClick={handleClick} />
-                </Panel>
-                <ResizeHandle />
-                <Panel minSize={40}>
-                    <EditorWrapper
-                        data={fileData}
-                        isLoading={fileIsLoading}
-                        isError={fileIsError}
-                    />
-                </Panel>
-                <ResizeHandle />
-                <Panel defaultSize={30} minSize={20}>
-                    <MarkdownWrapper
-                        filePath={fileData?.nearestReadmeLocation}
-                        courseKey={projectKey}
-                        enabled={fileData?.nearestReadmeLocation !== undefined}
-                    ></MarkdownWrapper>
-                </Panel>
-            </PanelGroup>
-        </Container>
+                        ></MarkdownWrapper>
+                    </Panel>
+                </PanelGroup>
+            </Container>
+        </>
     );
 };
 

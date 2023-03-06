@@ -19,6 +19,29 @@ const EditorWrapper = (props: {
         });
         monaco.lineNumbers = false;
         monaco.editor.readOnly = true;
+        // monaco.editor.addAction({
+        //     id: "myPaste",
+        //     label: "423",
+        //     keybindings: [],
+        //     contextMenuGroupId: "9_cutcopypaste",
+        //     run: (editor: any) => {
+        //         alert("Add your custom pasting code here");
+        //     },
+        // });
+    }
+    function handleEditorOnMount(editor: any, monaco: Monaco) {
+        editor.addAction({
+            id: "askForHelp",
+            label: "AI Explain",
+            keybindings: [],
+            contextMenuGroupId: "9_cutcopypaste",
+            run: (editor: any) => {
+                const selection = editor
+                    .getModel()
+                    .getValueInRange(editor.getSelection());
+                alert("Add your custom pasting code here: " + selection);
+            },
+        });
     }
 
     if (isError) {
@@ -37,21 +60,22 @@ const EditorWrapper = (props: {
     }
 
     return (
-        <>
+        <div className="h-full bg-dark-shade">
             <div className="flex bg-dark-mid ">
                 <div className="inline-block px-4 py-2 text-sm text-orange-300 border-b border-orange-300 bg-dark-shade">
-                    {data ? data.fileLocation.split("/").pop() : "Welcome.txt"}
+                    {data ? data.fileName : "Welcome.txt"}
                 </div>
             </div>
             <Editor
                 theme="vs-dark"
                 height="90vh"
-                path={data?.fileLocation}
+                path={data?.fileName}
                 beforeMount={handleEditorWillMount}
+                onMount={handleEditorOnMount}
                 defaultValue={firstContents}
                 value={data?.contents}
             />
-        </>
+        </div>
     );
 };
 

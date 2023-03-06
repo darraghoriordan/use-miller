@@ -7,7 +7,7 @@ const MarkdownWrapper = (props: {
     enabled: boolean;
 }) => {
     const firstContents = "// Welcome to Miller!";
-    console.log("MarkdownWrapper", props);
+
     const { data, isError, isLoading, error } = useGetMarkdownContent(
         props.courseKey,
         props.filePath || "",
@@ -31,13 +31,13 @@ const MarkdownWrapper = (props: {
 
     return (
         <>
-            <div className="flex bg-dark-mid ">
+            <div className="flex bg-dark-mid">
                 <div className="inline-block px-4 py-2 text-sm text-orange-300 border-b border-orange-300 bg-dark-shade">
-                    (Nearest) README.md
+                    Notes for code section
                 </div>
             </div>
             <article
-                className="mx-4 mt-2 mb-4 prose prose-sm prose-invert"
+                className="mx-4 mt-2 mb-4 prose prose-sm"
                 dangerouslySetInnerHTML={{
                     __html: data.contents || firstContents,
                 }}

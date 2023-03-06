@@ -22,6 +22,7 @@ module.exports = {
 
         "hover:shadow-green-500/30",
         "focus:ring-green-400",
+        "bg-green-500/30",
         "text-green-500",
         "bg-green-500",
         "hover:text-green-500",

@@ -36,6 +36,12 @@ export interface FileMetaDto {
      * @type {string}
      * @memberof FileMetaDto
      */
+    fileName: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FileMetaDto
+     */
     nearestReadmeLocation?: string;
 }
 
@@ -51,6 +57,7 @@ export function FileMetaDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean
         
         'contents': json['contents'],
         'fileLocation': json['fileLocation'],
+        'fileName': json['fileName'],
         'nearestReadmeLocation': !exists(json, 'nearestReadmeLocation') ? undefined : json['nearestReadmeLocation'],
     };
 }
@@ -66,6 +73,7 @@ export function FileMetaDtoToJSON(value?: FileMetaDto | null): any {
         
         'contents': value.contents,
         'fileLocation': value.fileLocation,
+        'fileName': value.fileName,
         'nearestReadmeLocation': value.nearestReadmeLocation,
     };
 }

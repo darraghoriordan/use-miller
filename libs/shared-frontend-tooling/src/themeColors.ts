@@ -1,6 +1,7 @@
 export const colorVariants = {
     green: {
         hoverShadow: "hover:shadow-green-500/30",
+        backgroundShade: "bg-green-500/30",
         hoverFocusRing: "focus:ring-green-400",
         foreground: "text-green-500",
         background: "bg-green-500",
@@ -9,6 +10,7 @@ export const colorVariants = {
     },
     red: {
         hoverFocusRing: "focus:ring-red-400",
+        backgroundShade: "bg-red-500/30",
         hoverShadow: "hover:shadow-red-500/30",
         foreground: "text-red-500",
         background: "bg-red-500",
@@ -17,6 +19,7 @@ export const colorVariants = {
     },
     amber: {
         hoverFocusRing: "focus:ring-amber-400",
+        backgroundShade: "bg-amber-500/30",
         hoverShadow: "hover:shadow-amber-500/30",
         foreground: "text-amber-500",
         background: "bg-amber-500",
@@ -25,6 +28,7 @@ export const colorVariants = {
     },
     cyan: {
         hoverFocusRing: "focus:ring-cyan-400",
+        backgroundShade: "bg-cyan-500/30",
         hoverShadow: "hover:shadow-cyan-500/30",
         foreground: "text-cyan-500",
         background: "bg-cyan-500",
@@ -33,6 +37,7 @@ export const colorVariants = {
     },
     violet: {
         hoverFocusRing: "focus:ring-violet-400",
+        backgroundShade: "bg-violet-500/30",
         hoverShadow: "hover:shadow-violet-500/30",
         foreground: "text-violet-500",
         background: "bg-violet-500",
@@ -41,6 +46,7 @@ export const colorVariants = {
     },
     pink: {
         hoverFocusRing: "focus:ring-pink-400",
+        backgroundShade: "bg-pink-500/30",
         hoverShadow: "hover:shadow-pink-500/30",
         foreground: "text-pink-500",
         background: "bg-pink-500",

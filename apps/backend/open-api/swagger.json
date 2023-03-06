@@ -1962,13 +1962,17 @@
           "fileLocation": {
             "type": "string"
           },
+          "fileName": {
+            "type": "string"
+          },
           "nearestReadmeLocation": {
             "type": "string"
           }
         },
         "required": [
           "contents",
-          "fileLocation"
+          "fileLocation",
+          "fileName"
         ]
       },
       "CourseMetaDto": {

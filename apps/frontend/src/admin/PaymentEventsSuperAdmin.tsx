@@ -6,7 +6,7 @@ import useGetAllPaymentEvents from "./admin-apis/useGetAllPaymentEvents";
 
 const PaymentEventsSuperAdmin = () => {
     const { isLoading, isError, data } = useGetAllPaymentEvents();
-    console.log("data:", data);
+
     return (
         <Container>
             <BackLink to={"/super-admin"} />

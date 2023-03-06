@@ -192,7 +192,7 @@ export const Header = ({ person }: { person?: PersonDto }) => {
 
     return (
         <header className="pt-4 pb-4 bg-neutral-900">
-            <Container>
+            <Container className="px-4 max-w-7xl sm:px-6 lg:px-8">
                 <nav className="relative z-50 flex justify-between ">
                     <div className="flex items-center md:gap-x-12">
                         <img src={logo} alt="Logo" className="h-16" />

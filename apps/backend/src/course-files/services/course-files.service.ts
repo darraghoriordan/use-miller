@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import path from "path";
 import fs from "fs";
@@ -22,13 +23,11 @@ export class CourseFilesService {
         root: FileStructureDto,
         courseMeta: CourseMetaDto
     ): Promise<FileStructureDto> {
-        this.logger.log({ location: root.fileLocation }, "walking");
-
         const absolutePath = this.pathMapperService.mapBase64ToAbsolutePath(
             root.fileLocation,
             courseMeta.rootLocation
         );
-        this.logger.log({ absolutePath }, "full path");
+
         const fileSystemNodes = await this.getSortedFileSystemNodes(
             absolutePath
         );
@@ -42,7 +41,6 @@ export class CourseFilesService {
                     courseMeta.rootLocation
                 );
             if (d.isDirectory()) {
-                this.logger.log("walking deeper...This is a folder", d.name);
                 const entry: FileStructureDto = {
                     name: d.name,
                     type: "folder",
@@ -134,6 +132,7 @@ export class CourseFilesService {
         );
         return {
             contents: htmlData,
+            fileName: path.basename(fileLocation),
             fileLocation: b64Path,
             nearestReadmeLocation: b64Path,
         };
@@ -168,8 +167,10 @@ export class CourseFilesService {
         const htmlData = await this.markdownToHtmlService.markdownToHtml(
             fileLocation
         );
+        this.logger.log({ b64Path, courseMeta }, "nearest readme");
         return {
             contents: htmlData,
+            fileName: path.basename(fileLocation),
             fileLocation: b64Path,
             nearestReadmeLocation: b64Path,
         };
@@ -184,12 +185,16 @@ export class CourseFilesService {
             b64Path,
             courseMeta.rootLocation
         );
+        const nearestReadme =
+            this.findNearestReadme(fileLocation) || "README.md";
+        this.logger.log({ nearestReadme, courseMeta }, "nearest readme");
         return {
             contents: await this.getFileContents(fileLocation),
             fileLocation: b64Path,
+            fileName: path.basename(fileLocation),
             nearestReadmeLocation:
                 this.pathMapperService.mapPathToRelativeBase64(
-                    this.findNearestReadme(fileLocation) || "README.md",
+                    nearestReadme,
                     courseMeta.rootLocation
                 ),
         };
@@ -247,13 +252,18 @@ export class CourseFilesService {
             encoding: "utf8",
             flag: "r",
         });
+
         if (fullFileExtensionFilter.includes(path.extname(fileLocation))) {
+            const nearestReadme =
+                this.findNearestReadme(fileLocation) || "README.md";
+            this.logger.log({ nearestReadme, courseMeta }, "nearest readme");
             return {
                 contents,
-                fileLocation,
+                fileLocation: b64Path,
+                fileName: path.basename(fileLocation),
                 nearestReadmeLocation:
-                    this.pathMapperService.mapBase64ToAbsolutePath(
-                        this.findNearestReadme(fileLocation) || "README.md",
+                    this.pathMapperService.mapPathToRelativeBase64(
+                        nearestReadme,
                         courseMeta.rootLocation
                     ),
             };
@@ -269,13 +279,16 @@ export class CourseFilesService {
                 "\r" +
                 "// To see the full contents of each file please support development by purchasing! //";
         }
-
+        const nearestReadme =
+            this.findNearestReadme(fileLocation) || "README.md";
+        this.logger.log({ nearestReadme, courseMeta }, "nearest readme");
         return {
             contents: demoText,
-            fileLocation,
+            fileName: path.basename(fileLocation),
+            fileLocation: b64Path,
             nearestReadmeLocation:
                 this.pathMapperService.mapPathToRelativeBase64(
-                    this.findNearestReadme(fileLocation) || "README.md",
+                    nearestReadme,
                     courseMeta.rootLocation
                 ),
         };

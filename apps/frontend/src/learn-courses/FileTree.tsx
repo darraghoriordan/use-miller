@@ -50,18 +50,20 @@ const FileTree = (props: {
     }, []);
 
     return (
-        // css here is in the css file because
-        // the classes are specific to the folder tree library
-        <FolderTree
-            showCheckbox={false}
-            data={data}
-            onNameClick={props.handleClick as any}
-            initOpenStatus={"custom"}
-            readOnly
-            iconComponents={{
-                FileIcon: CustomFileIcon,
-            }}
-        />
+        <div className="h-full bg-dark-mid">
+            {/* // css here is in the css file because // the classes are specific
+            to the folder tree library */}
+            <FolderTree
+                showCheckbox={false}
+                data={data}
+                onNameClick={props.handleClick as any}
+                initOpenStatus={"custom"}
+                readOnly
+                iconComponents={{
+                    FileIcon: CustomFileIcon,
+                }}
+            />
+        </div>
     );
 };
 

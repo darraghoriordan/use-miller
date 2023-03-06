@@ -16,8 +16,6 @@ const apiCall = async (
         } as FileMetaDto;
     }
 
-    console.log("getting md from api", filePath);
-
     const apiClient = await getAnonymousApiInstance(CourseFilesApi, apiBase);
     return await apiClient.openCourseFilesControllerGetMarkdownFileAsHtml({
         courseName: courseKey,

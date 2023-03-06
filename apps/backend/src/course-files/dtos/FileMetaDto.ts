@@ -5,6 +5,8 @@ export class FileMetaDto {
     public contents!: string;
     @ApiProperty()
     public fileLocation!: string;
+    @ApiProperty()
+    public fileName!: string;
     @ApiPropertyOptional()
     public nearestReadmeLocation?: string;
 }

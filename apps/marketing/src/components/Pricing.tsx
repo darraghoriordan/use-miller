@@ -3,7 +3,6 @@ import StyledLink from "./StyledLink";
 import { Container } from "./Container";
 
 export function Pricing() {
-    console.log(colorVariants["cyan"]);
     return (
         <Container className="pb-16 text-left">
             <div className="flex ">

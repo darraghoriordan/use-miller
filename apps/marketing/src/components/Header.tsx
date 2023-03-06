@@ -132,6 +132,7 @@ export function Header() {
                     <div className="flex items-center md:hidden md:gap-x-12">
                         <StyledLink
                             className="px- rounded-md border border-gray-300 bg-transparent py-1 text-gray-300"
+                            color="violet"
                             href={"/register"}
                         >
                             <span>

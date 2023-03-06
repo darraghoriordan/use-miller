@@ -1,6 +1,7 @@
 export declare const colorVariants: {
     green: {
         hoverShadow: string;
+        backgroundShade: string;
         hoverFocusRing: string;
         foreground: string;
         background: string;
@@ -9,6 +10,7 @@ export declare const colorVariants: {
     };
     red: {
         hoverFocusRing: string;
+        backgroundShade: string;
         hoverShadow: string;
         foreground: string;
         background: string;
@@ -17,6 +19,7 @@ export declare const colorVariants: {
     };
     amber: {
         hoverFocusRing: string;
+        backgroundShade: string;
         hoverShadow: string;
         foreground: string;
         background: string;
@@ -25,6 +28,7 @@ export declare const colorVariants: {
     };
     cyan: {
         hoverFocusRing: string;
+        backgroundShade: string;
         hoverShadow: string;
         foreground: string;
         background: string;
@@ -33,6 +37,7 @@ export declare const colorVariants: {
     };
     violet: {
         hoverFocusRing: string;
+        backgroundShade: string;
         hoverShadow: string;
         foreground: string;
         background: string;
@@ -41,6 +46,7 @@ export declare const colorVariants: {
     };
     pink: {
         hoverFocusRing: string;
+        backgroundShade: string;
         hoverShadow: string;
         foreground: string;
         background: string;

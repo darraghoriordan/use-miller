@@ -1,6 +1,6 @@
 import { PanelResizeHandle } from "react-resizable-panels";
 export default function ResizeHandle({
-    className = "",
+    className,
     id,
 }: {
     className?: string;
@@ -8,10 +8,10 @@ export default function ResizeHandle({
 }) {
     return (
         <PanelResizeHandle
-            className="flex items-stretch justify-between bg-transparent outline-none p-[.5rem] flex-[0_0_1.1rem] leading-[1.5em]"
+            className={`flex items-stretch justify-between outline-none p-[.5rem] flex-[0_0_1.1rem] leading-[1.5em] ${className}`}
             id={id}
         >
-            <div className="relative flex-1 rounded-[.75rem] bg-slate-200">
+            <div className="relative flex-1 rounded-[.75rem]">
                 <svg
                     className="absolute hidden text-blue-400 w-[1rem] h-[1rem] fill-zinc-200 top-[calc(50%-0.5rem)] left-[calc(50%-0.5rem)]"
                     viewBox="0 0 24 24"
