@@ -1,18 +1,13 @@
 import { Loading } from "../components/Loading";
-import useGetMarkdownContent from "./api/useGetMarkdownContent.js";
 
 const MarkdownWrapper = (props: {
-    filePath: string | undefined;
-    courseKey: string;
-    enabled: boolean;
+    error: unknown;
+    isError: boolean;
+    isLoading: boolean;
+    data: string | undefined;
 }) => {
+    const { error, isError, isLoading, data } = props;
     const firstContents = "// Welcome to Miller!";
-
-    const { data, isError, isLoading, error } = useGetMarkdownContent(
-        props.courseKey,
-        props.filePath || "",
-        props.enabled
-    );
 
     if (isError) {
         return (
@@ -37,9 +32,9 @@ const MarkdownWrapper = (props: {
                 </div>
             </div>
             <article
-                className="mx-4 mt-2 mb-4 prose prose-sm"
+                className="mx-4 mt-2 mb-4 prose prose-sm prose-invert"
                 dangerouslySetInnerHTML={{
-                    __html: data.contents || firstContents,
+                    __html: data || firstContents,
                 }}
             ></article>
         </>

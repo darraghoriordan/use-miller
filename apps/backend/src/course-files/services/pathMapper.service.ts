@@ -11,10 +11,15 @@ import path from "path";
 class PathMapperService {
     //private readonly logger = new Logger(PathMapperService.name);
     public mapBase64ToAbsolutePath(base64: string, rootPath: string): string {
-        return path.join(
-            rootPath,
-            Buffer.from(base64, "base64").toString("ascii")
-        );
+        const decoded = Buffer.from(base64, "base64").toString("ascii");
+
+        const joinedPath = path.join(rootPath, decoded);
+        if (joinedPath.indexOf(rootPath) !== 0) {
+            // trying to break out of rootpath
+            throw new Error("Invalid path detected");
+        }
+
+        return joinedPath;
     }
     mapPathToRelativeBase64(absolutePath: string, rootPath: string): string {
         const relativePath = absolutePath.replace(rootPath, "");

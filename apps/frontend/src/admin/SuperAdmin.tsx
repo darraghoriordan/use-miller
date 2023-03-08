@@ -1,10 +1,10 @@
 import React from "react";
-import useGetPerson from "../account/persons/useGetPerson";
+import useGetUser from "../account/users/useGetUser";
 import ProductActionsCard from "../components/ProductActionsCard";
 import { Container } from "../layout/Container";
 import { CreditCardIcon, UserIcon } from "@heroicons/react/24/outline";
 const SuperAdmin = () => {
-    const { data } = useGetPerson("me");
+    const { data } = useGetUser("me");
     if (!data?.isSuper) return <div>No access</div>;
 
     return (

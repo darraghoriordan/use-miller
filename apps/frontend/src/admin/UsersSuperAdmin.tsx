@@ -65,30 +65,30 @@ const UsersSuperAdmin = () => {
                             </thead>
                             <tbody className="divide-y divide-gray-200">
                                 {data &&
-                                    data.map((person) => (
-                                        <tr key={person.id}>
+                                    data.map((user) => (
+                                        <tr key={user.id}>
                                             <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                {person.id}
+                                                {user.id}
                                             </td>
                                             <td className="py-4 pl-6 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-0">
-                                                {person.givenName}
+                                                {user.givenName}
                                             </td>
                                             <td className="py-4 pl-6 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-0">
-                                                {person.familyName}
+                                                {user.familyName}
                                             </td>
 
                                             <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                {person.email}
+                                                {user.email}
                                             </td>
                                             <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                {person.createdDate.toLocaleDateString()}
+                                                {user.createdDate.toLocaleDateString()}
                                             </td>
 
                                             <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                {person.uuid}
+                                                {user.uuid}
                                             </td>
                                             <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                {person.auth0UserId}
+                                                {user.auth0UserId}
                                             </td>
                                         </tr>
                                     ))}

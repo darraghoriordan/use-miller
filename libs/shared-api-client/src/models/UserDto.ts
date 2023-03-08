@@ -23,111 +23,118 @@ import {
 /**
  * 
  * @export
- * @interface Person
+ * @interface UserDto
  */
-export interface Person {
+export interface UserDto {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UserDto
+     */
+    isSuper: boolean;
     /**
      * 
      * @type {number}
-     * @memberof Person
+     * @memberof UserDto
      */
     id: number;
     /**
      * 
      * @type {string}
-     * @memberof Person
+     * @memberof UserDto
      */
     email: string;
     /**
      * 
      * @type {string}
-     * @memberof Person
+     * @memberof UserDto
      */
     uuid: string;
     /**
      * 
      * @type {boolean}
-     * @memberof Person
+     * @memberof UserDto
      */
     emailVerified: boolean;
     /**
      * 
      * @type {boolean}
-     * @memberof Person
+     * @memberof UserDto
      */
     blocked: boolean;
     /**
      * 
      * @type {string}
-     * @memberof Person
+     * @memberof UserDto
      */
     name?: string;
     /**
      * 
      * @type {string}
-     * @memberof Person
+     * @memberof UserDto
      */
     familyName?: string;
     /**
      * 
      * @type {string}
-     * @memberof Person
+     * @memberof UserDto
      */
     givenName?: string;
     /**
      * 
      * @type {string}
-     * @memberof Person
+     * @memberof UserDto
      */
     picture: string;
     /**
      * 
      * @type {string}
-     * @memberof Person
+     * @memberof UserDto
      */
     auth0UserId: string;
     /**
      * 
      * @type {string}
-     * @memberof Person
+     * @memberof UserDto
      */
     username?: string;
     /**
      * 
      * @type {Array<OrganisationMembership>}
-     * @memberof Person
+     * @memberof UserDto
      */
     memberships: Array<OrganisationMembership>;
     /**
      * 
      * @type {Date}
-     * @memberof Person
+     * @memberof UserDto
      */
     createdDate: Date;
     /**
      * 
      * @type {Date}
-     * @memberof Person
+     * @memberof UserDto
      */
     updateDate: Date;
     /**
      * 
      * @type {Date}
-     * @memberof Person
+     * @memberof UserDto
      */
     deletedDate: Date;
 }
 
-export function PersonFromJSON(json: any): Person {
-    return PersonFromJSONTyped(json, false);
+export function UserDtoFromJSON(json: any): UserDto {
+    return UserDtoFromJSONTyped(json, false);
 }
 
-export function PersonFromJSONTyped(json: any, ignoreDiscriminator: boolean): Person {
+export function UserDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserDto {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
+        'isSuper': json['isSuper'],
         'id': json['id'],
         'email': json['email'],
         'uuid': json['uuid'],
@@ -146,7 +153,7 @@ export function PersonFromJSONTyped(json: any, ignoreDiscriminator: boolean): Pe
     };
 }
 
-export function PersonToJSON(value?: Person | null): any {
+export function UserDtoToJSON(value?: UserDto | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -155,6 +162,7 @@ export function PersonToJSON(value?: Person | null): any {
     }
     return {
         
+        'isSuper': value.isSuper,
         'id': value.id,
         'email': value.email,
         'uuid': value.uuid,

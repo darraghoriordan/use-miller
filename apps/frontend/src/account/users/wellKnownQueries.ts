@@ -1,5 +1,5 @@
 const wellKnownQueries = {
-    getPerson: "get-person",
+    getUser: "get-user",
 };
 
 export default wellKnownQueries;

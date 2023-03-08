@@ -7,5 +7,4 @@ export * from './OrganisationSubscriptionsApi';
 export * from './OrganisationsApi';
 export * from './PaymentReferencesApi';
 export * from './PaymentsApi';
-export * from './PersonsApi';
 export * from './UsersApi';

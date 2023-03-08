@@ -10,11 +10,11 @@ import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
 import HeaderContextProvider from "./HeaderContextProvider";
 import { useQueries } from "@tanstack/react-query";
-import useGetPerson from "../account/persons/useGetPerson";
+import useGetUser from "../account/users/useGetUser";
 
 const MainLayout: FunctionComponent = ({ children }: PropsWithChildren<{}>) => {
     const { data, isError, error, isLoading } = useGetOrgs();
-    const { data: person, isLoading: personIsLoading } = useGetPerson("me");
+    const { data: user, isLoading: userIsLoading } = useGetUser("me");
 
     const [appContext, setAppContext] = useState<{
         currentOrganisation: Organisation;
@@ -45,7 +45,7 @@ const MainLayout: FunctionComponent = ({ children }: PropsWithChildren<{}>) => {
     return (
         <AppGlobalContext.Provider value={{ appContext, setAppContext }}>
             <HeaderContextProvider>
-                <Header person={person} />
+                <Header user={user} />
                 <main>{control}</main>
             </HeaderContextProvider>
         </AppGlobalContext.Provider>

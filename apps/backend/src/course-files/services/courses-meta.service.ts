@@ -9,7 +9,7 @@ const courseMeta: CourseMetaDto[] = [
         color: "green",
 
         rootLocation:
-            "/Users/darraghoriordan/Documents/personal-projects/use-miller",
+            "/Users/darraghoriordan/Documents/useral-projects/use-miller",
     },
     {
         key: "nestjs-backend-libs",
@@ -18,7 +18,7 @@ const courseMeta: CourseMetaDto[] = [
         color: "pink",
 
         rootLocation:
-            "/Users/darraghoriordan/Documents/personal-projects/nest-backend-libs",
+            "/Users/darraghoriordan/Documents/useral-projects/nest-backend-libs",
     },
 ];
 

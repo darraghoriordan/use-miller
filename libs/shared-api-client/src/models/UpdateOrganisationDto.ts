@@ -14,10 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    Person,
-    PersonFromJSON,
-    PersonFromJSONTyped,
-    PersonToJSON,
+    User,
+    UserFromJSON,
+    UserFromJSONTyped,
+    UserToJSON,
 } from './';
 
 /**
@@ -28,16 +28,16 @@ import {
 export interface UpdateOrganisationDto {
     /**
      * 
-     * @type {Array<Person>}
+     * @type {Array<User>}
      * @memberof UpdateOrganisationDto
      */
-    members?: Array<Person>;
+    members?: Array<User>;
     /**
      * 
-     * @type {Person}
+     * @type {User}
      * @memberof UpdateOrganisationDto
      */
-    owner?: Person;
+    owner?: User;
     /**
      * 
      * @type {string}
@@ -56,8 +56,8 @@ export function UpdateOrganisationDtoFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'members': !exists(json, 'members') ? undefined : ((json['members'] as Array<any>).map(PersonFromJSON)),
-        'owner': !exists(json, 'owner') ? undefined : PersonFromJSON(json['owner']),
+        'members': !exists(json, 'members') ? undefined : ((json['members'] as Array<any>).map(UserFromJSON)),
+        'owner': !exists(json, 'owner') ? undefined : UserFromJSON(json['owner']),
         'name': !exists(json, 'name') ? undefined : json['name'],
     };
 }
@@ -71,8 +71,8 @@ export function UpdateOrganisationDtoToJSON(value?: UpdateOrganisationDto | null
     }
     return {
         
-        'members': value.members === undefined ? undefined : ((value.members as Array<any>).map(PersonToJSON)),
-        'owner': PersonToJSON(value.owner),
+        'members': value.members === undefined ? undefined : ((value.members as Array<any>).map(UserToJSON)),
+        'owner': UserToJSON(value.owner),
         'name': value.name,
     };
 }

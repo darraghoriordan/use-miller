@@ -9,6 +9,14 @@ const nextConfig = {
     experimental: {
         scrollRestoration: true,
     },
+    webpack: (config) => {
+        config.resolve.extensionAlias = {
+            ".js": [".ts", ".tsx", ".jsx", ".js"],
+            ".jsx": [".ts", ".tsx", ".jsx", ".js"],
+        };
+
+        return config;
+    },
 };
 
 module.exports = nextConfig;

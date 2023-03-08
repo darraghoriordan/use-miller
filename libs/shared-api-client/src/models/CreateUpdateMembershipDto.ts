@@ -24,7 +24,7 @@ export interface CreateUpdateMembershipDto {
      * @type {number}
      * @memberof CreateUpdateMembershipDto
      */
-    personId: number;
+    userId: number;
     /**
      * 
      * @type {Array<string>}
@@ -43,7 +43,7 @@ export function CreateUpdateMembershipDtoFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'personId': json['personId'],
+        'userId': json['userId'],
         'roles': json['roles'],
     };
 }
@@ -57,7 +57,7 @@ export function CreateUpdateMembershipDtoToJSON(value?: CreateUpdateMembershipDt
     }
     return {
         
-        'personId': value.personId,
+        'userId': value.userId,
         'roles': value.roles,
     };
 }

@@ -7,15 +7,15 @@ import {
     OrganisationSubscriptionRecord,
     OrganisationSubscriptionsApi,
     OrganisationSubscriptionsControllerAddSubscriptionRequest,
-    Person,
-    PersonsApi,
+    User,
+    UsersApi,
 } from "@use-miller/shared-api-client";
 import { ApiClientFactory } from "./commonDataModels/ApiClientFactory";
 
 // This follows a user through the first steps when they hit
 // the api for the first time.
 describe("When getting a user the first time", () => {
-    const personApi = ApiClientFactory.getAuthenticatedApiInstance(PersonsApi);
+    const userApi = ApiClientFactory.getAuthenticatedApiInstance(UsersApi);
     const orgApi =
         ApiClientFactory.getAuthenticatedApiInstance(OrganisationsApi);
     const orgMembershipsApi = ApiClientFactory.getAuthenticatedApiInstance(
@@ -31,13 +31,13 @@ describe("When getting a user the first time", () => {
             true
         );
 
-    let foundPerson: Person | undefined;
+    let foundUser: User | undefined;
 
     it("the user is initialised", async () => {
-        foundPerson = await personApi.personControllerFindOne({
+        foundUser = await userApi.userControllerFindOne({
             uuid: "me",
         });
-        expect(foundPerson).toMatchObject({
+        expect(foundUser).toMatchObject({
             auth0UserId: expect.any(String),
             email: "testbasic@testbasic.com",
         });
@@ -45,7 +45,7 @@ describe("When getting a user the first time", () => {
 
     it("any path other than 'me' is treated as an id", async () => {
         await expect(() =>
-            personApi.personControllerFindOne({
+            userApi.userControllerFindOne({
                 uuid: "does_not_exist",
             })
         ).rejects.toMatchObject({ statusText: "Bad Request" });

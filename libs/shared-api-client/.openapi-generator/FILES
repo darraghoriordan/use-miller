@@ -11,7 +11,6 @@ src/apis/OrganisationSubscriptionsApi.ts
 src/apis/OrganisationsApi.ts
 src/apis/PaymentReferencesApi.ts
 src/apis/PaymentsApi.ts
-src/apis/PersonsApi.ts
 src/apis/UsersApi.ts
 src/apis/index.ts
 src/index.ts
@@ -28,8 +27,6 @@ src/models/Organisation.ts
 src/models/OrganisationMembership.ts
 src/models/OrganisationSubscriptionRecord.ts
 src/models/PaymentSessionReference.ts
-src/models/Person.ts
-src/models/PersonDto.ts
 src/models/QueueItemDto.ts
 src/models/SaveOrganisationSubscriptionRecordDto.ts
 src/models/StripeCheckoutEvent.ts
@@ -39,6 +36,8 @@ src/models/StripeCheckoutSessionResponseDto.ts
 src/models/StripeCustomerPortalRequestDto.ts
 src/models/StripeCustomerPortalResponseDto.ts
 src/models/UpdateOrganisationDto.ts
+src/models/User.ts
+src/models/UserDto.ts
 src/models/index.ts
 src/runtime.ts
 tsconfig.json

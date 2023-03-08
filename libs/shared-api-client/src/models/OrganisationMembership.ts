@@ -43,7 +43,7 @@ export interface OrganisationMembership {
      * @type {number}
      * @memberof OrganisationMembership
      */
-    personId: number;
+    userId: number;
     /**
      * 
      * @type {number}
@@ -88,7 +88,7 @@ export function OrganisationMembershipFromJSONTyped(json: any, ignoreDiscriminat
         
         'id': json['id'],
         'uuid': json['uuid'],
-        'personId': json['personId'],
+        'userId': json['userId'],
         'organisationId': json['organisationId'],
         'roles': ((json['roles'] as Array<any>).map(MembershipRoleFromJSON)),
         'createdDate': (new Date(json['createdDate'])),
@@ -108,7 +108,7 @@ export function OrganisationMembershipToJSON(value?: OrganisationMembership | nu
         
         'id': value.id,
         'uuid': value.uuid,
-        'personId': value.personId,
+        'userId': value.userId,
         'organisationId': value.organisationId,
         'roles': ((value.roles as Array<any>).map(MembershipRoleToJSON)),
         'createdDate': (value.createdDate.toISOString()),

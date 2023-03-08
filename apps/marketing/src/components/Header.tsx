@@ -143,7 +143,7 @@ export function Header() {
                     </div>
                     <div className="flex items-center md:gap-x-12">
                         <Link
-                            href="#"
+                            href="/"
                             aria-label="Home"
                             className="text-3xl text-white"
                         >

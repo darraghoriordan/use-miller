@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "Tools for building frontend applications that use the Miller API",
     "author": "Use Miller",
+    "type": "module",
     "main": "./dist/index.js",
     "typings": "./dist/index.d.ts",
     "scripts": {
@@ -11,17 +12,20 @@
     },
     "devDependencies": {
         "@babel/core": "7.21.0",
-        "@types/node": "18.14.4",
+        "@types/node": "18.14.6",
         "@types/react": "18.0.28",
         "eslint": "~8.35.0",
         "typescript": "^4.9.5"
     },
     "dependencies": {
         "@auth0/auth0-react": "2.0.1",
+        "@tailwindcss/forms": "0.5.3",
+        "@tailwindcss/typography": "0.5.9",
         "@use-miller/shared-api-client": "*",
         "clsx": "1.2.1",
         "react": "18.2.0",
         "react-dom": "18.2.0",
-        "react-router-dom": "6.8.2"
+        "react-router-dom": "6.8.2",
+        "tailwindcss": "3.2.7"
     }
 }

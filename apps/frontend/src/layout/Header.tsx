@@ -6,7 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import HeaderContext from "./HeaderContext";
 import { useContext } from "react";
 import logo from "../transp-windmill.png";
-import { PersonDto } from "@use-miller/shared-api-client";
+import { UserDto } from "@use-miller/shared-api-client";
 import { Container } from "./Container";
 
 const MobileNavButton = ({
@@ -186,7 +186,7 @@ export const MobileNavigation = () => {
     );
 };
 
-export const Header = ({ person }: { person?: PersonDto }) => {
+export const Header = ({ user: userDto }: { user?: UserDto }) => {
     const headerContext = useContext(HeaderContext);
     const { logout, loginWithRedirect, user } = useAuth0();
 
@@ -214,7 +214,7 @@ export const Header = ({ person }: { person?: PersonDto }) => {
                                     Account
                                 </StyledNavLink>
 
-                                {person && person.isSuper && (
+                                {user && user.isSuper && (
                                     <StyledNavLink to="/super-admin">
                                         SuperAdmin
                                     </StyledNavLink>

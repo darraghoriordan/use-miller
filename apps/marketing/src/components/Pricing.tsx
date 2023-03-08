@@ -1,4 +1,3 @@
-import { colorVariants } from "@use-miller/shared-frontend-tooling";
 import StyledLink from "./StyledLink";
 import { Container } from "./Container";
 

@@ -15,10 +15,29 @@
 
 import * as runtime from '../runtime';
 import {
+    BooleanResult,
+    BooleanResultFromJSON,
+    BooleanResultToJSON,
     InitUserResponseDto,
     InitUserResponseDtoFromJSON,
     InitUserResponseDtoToJSON,
+    UserDto,
+    UserDtoFromJSON,
+    UserDtoToJSON,
 } from '../models';
+
+export interface UserControllerFindOneRequest {
+    uuid: string;
+}
+
+export interface UserControllerRemoveRequest {
+    uuid: string;
+}
+
+export interface UserControllerUpdateRequest {
+    uuid: string;
+    body: object;
+}
 
 /**
  * UsersApi - interface
@@ -27,6 +46,58 @@ import {
  * @interface UsersApiInterface
  */
 export interface UsersApiInterface {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApiInterface
+     */
+    userControllerFindAllRaw(): Promise<runtime.ApiResponse<Array<UserDto>>>;
+
+    /**
+     */
+    userControllerFindAll(): Promise<Array<UserDto>>;
+
+    /**
+     * 
+     * @param {string} uuid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApiInterface
+     */
+    userControllerFindOneRaw(requestParameters: UserControllerFindOneRequest): Promise<runtime.ApiResponse<UserDto>>;
+
+    /**
+     */
+    userControllerFindOne(requestParameters: UserControllerFindOneRequest): Promise<UserDto>;
+
+    /**
+     * 
+     * @param {string} uuid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApiInterface
+     */
+    userControllerRemoveRaw(requestParameters: UserControllerRemoveRequest): Promise<runtime.ApiResponse<BooleanResult>>;
+
+    /**
+     */
+    userControllerRemove(requestParameters: UserControllerRemoveRequest): Promise<BooleanResult>;
+
+    /**
+     * 
+     * @param {string} uuid 
+     * @param {object} body 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApiInterface
+     */
+    userControllerUpdateRaw(requestParameters: UserControllerUpdateRequest): Promise<runtime.ApiResponse<BooleanResult>>;
+
+    /**
+     */
+    userControllerUpdate(requestParameters: UserControllerUpdateRequest): Promise<BooleanResult>;
+
     /**
      * 
      * @param {*} [options] Override http request option.
@@ -45,6 +116,153 @@ export interface UsersApiInterface {
  * 
  */
 export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
+
+    /**
+     */
+    async userControllerFindAllRaw(): Promise<runtime.ApiResponse<Array<UserDto>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/user`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(UserDtoFromJSON));
+    }
+
+    /**
+     */
+    async userControllerFindAll(): Promise<Array<UserDto>> {
+        const response = await this.userControllerFindAllRaw();
+        return await response.value();
+    }
+
+    /**
+     */
+    async userControllerFindOneRaw(requestParameters: UserControllerFindOneRequest): Promise<runtime.ApiResponse<UserDto>> {
+        if (requestParameters.uuid === null || requestParameters.uuid === undefined) {
+            throw new runtime.RequiredError('uuid','Required parameter requestParameters.uuid was null or undefined when calling userControllerFindOne.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/user/{uuid}`.replace(`{${"uuid"}}`, encodeURIComponent(String(requestParameters.uuid))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async userControllerFindOne(requestParameters: UserControllerFindOneRequest): Promise<UserDto> {
+        const response = await this.userControllerFindOneRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     */
+    async userControllerRemoveRaw(requestParameters: UserControllerRemoveRequest): Promise<runtime.ApiResponse<BooleanResult>> {
+        if (requestParameters.uuid === null || requestParameters.uuid === undefined) {
+            throw new runtime.RequiredError('uuid','Required parameter requestParameters.uuid was null or undefined when calling userControllerRemove.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/user/{uuid}`.replace(`{${"uuid"}}`, encodeURIComponent(String(requestParameters.uuid))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BooleanResultFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async userControllerRemove(requestParameters: UserControllerRemoveRequest): Promise<BooleanResult> {
+        const response = await this.userControllerRemoveRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     */
+    async userControllerUpdateRaw(requestParameters: UserControllerUpdateRequest): Promise<runtime.ApiResponse<BooleanResult>> {
+        if (requestParameters.uuid === null || requestParameters.uuid === undefined) {
+            throw new runtime.RequiredError('uuid','Required parameter requestParameters.uuid was null or undefined when calling userControllerUpdate.');
+        }
+
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling userControllerUpdate.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/user/{uuid}`.replace(`{${"uuid"}}`, encodeURIComponent(String(requestParameters.uuid))),
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters.body as any,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BooleanResultFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async userControllerUpdate(requestParameters: UserControllerUpdateRequest): Promise<BooleanResult> {
+        const response = await this.userControllerUpdateRaw(requestParameters);
+        return await response.value();
+    }
 
     /**
      */

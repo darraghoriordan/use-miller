@@ -3,7 +3,7 @@ import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 import { useContext } from "react";
 import AppGlobalContext from "../layout/AppGlobalContext";
 import { Container } from "../layout/Container";
-import useGetPerson from "./persons/useGetPerson";
+import useGetUser from "./users/useGetUser";
 import StyledButton from "@use-miller/shared-frontend-tooling/src/components/StyledButton";
 import { Subscriptions } from "./Subscriptions";
 import StyledHeader1 from "../components/StyledHeader1";
@@ -15,15 +15,15 @@ const Account = () => {
     const { appContext } = useContext(AppGlobalContext); // the selected organisation
 
     const {
-        data: personData,
-        isError: personIsError,
-        isLoading: personIsLoading,
-    } = useGetPerson("me");
+        data: userData,
+        isError: userIsError,
+        isLoading: userIsLoading,
+    } = useGetUser("me");
 
-    if (personIsError) {
+    if (userIsError) {
         return <Error message={"Error finding your user details"} />;
     }
-    if (personIsLoading) {
+    if (userIsLoading) {
         return <Loading />;
     }
 
@@ -41,7 +41,7 @@ const Account = () => {
                         Any products you have purchased will be listed below.
                         Use the links to manage the billing.
                     </p>
-                    {personData?.memberships.some(
+                    {userData?.memberships.some(
                         (m) =>
                             m.organisationId ===
                                 appContext.currentOrganisation.id &&
@@ -54,10 +54,10 @@ const Account = () => {
                     )}
 
                     <StyledHeader1 className="mt-8">Your account</StyledHeader1>
-                    <p className="mt-4 mb-4">Email: {personData.email}</p>
+                    <p className="mt-4 mb-4">Email: {userData.email}</p>
                     <p className="mt-4 mb-4">
                         Member since:{" "}
-                        {personData.createdDate.toLocaleDateString()}
+                        {userData.createdDate.toLocaleDateString()}
                     </p>
                     <StyledButton className="mb-4" onClick={() => logout()}>
                         Log out of your account

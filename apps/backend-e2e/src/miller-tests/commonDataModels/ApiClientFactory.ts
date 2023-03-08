@@ -2,7 +2,7 @@ import {
     BaseAPI,
     Configuration,
     EmailClientApi,
-    PersonsApi,
+    UsersApi,
     ApplicationSupportApi,
 } from "@use-miller/shared-api-client";
 import { AuthenticationTokenManager } from "./AuthenticationTokenManager";
@@ -15,7 +15,7 @@ export class ApiClientFactory {
 
     public static getAllAuthenticated(elevateToSuperUser = false): {
         applicationSupportApi: ApplicationSupportApi;
-        personApi: PersonsApi;
+        userApi: UsersApi;
         emailClientApi: EmailClientApi;
     } {
         return {
@@ -23,8 +23,8 @@ export class ApiClientFactory {
                 ApplicationSupportApi,
                 elevateToSuperUser
             ),
-            personApi: ApiClientFactory.getAuthenticatedApiInstance(
-                PersonsApi,
+            userApi: ApiClientFactory.getAuthenticatedApiInstance(
+                UsersApi,
                 elevateToSuperUser
             ),
             emailClientApi:

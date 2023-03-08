@@ -13,8 +13,12 @@ import ResizeHandle from "./ResizeHandle";
 import useGetAllCourses from "./api/useGetAllCourses.js";
 import MarkdownWrapper from "./MarkdownWrapper.js";
 import useGetFileContent from "./api/useGetFileContent.js";
-import clsx from "clsx";
-import { colorVariants } from "@use-miller/shared-frontend-tooling";
+import useGetMarkdownContent from "./api/useGetMarkdownContent.js";
+import {
+    LeftMenu,
+    MenuItem,
+    MenuSection,
+} from "@use-miller/shared-frontend-tooling";
 
 type SelectedItem = {
     path: string;
@@ -49,6 +53,11 @@ const Home = () => {
         }
     }, [data]);
 
+    const markdownFile = useGetMarkdownContent(
+        projectKey,
+        fileData?.nearestReadmeLocation || "",
+        fileData?.nearestReadmeLocation !== undefined
+    );
     if (isError) {
         return <Error message={"Error finding the project file list"} />;
     }
@@ -79,65 +88,26 @@ const Home = () => {
             opts.nodeData.isOpen ? opts.closeMe() : opts.openMe();
         }
     };
+    const menuSections: MenuSection[] = [
+        { name: "Get Started", items: [] },
+        {
+            name: "Projects",
+            items: projects.data.map((project) => {
+                return {
+                    name: project.name,
+                    path: `/open/code-doc/${project.key}`,
+                    isCurrent: location.pathname.includes(project.key),
+                } as MenuItem;
+            }),
+        },
+    ];
 
     return (
         <>
-            <Container className="w-full h-full min-w-full mx-auto bg-white pl-2">
+            <Container className="w-full h-full min-w-full pl-2 mx-auto bg-neutral-900">
                 <PanelGroup direction="horizontal">
-                    <Panel defaultSize={15} minSize={5} className="pt-[1em]">
-                        <h1
-                            className={clsx(
-                                `mb-8 font-bold uppercase`,
-                                colorVariants["green"].foreground
-                            )}
-                        >
-                            Docs
-                        </h1>
-                        <h3 className="mt-6 mb-2 font-bold uppercase text-slate-900">
-                            Get Started
-                        </h3>
-                        <h3 className="mb-2 font-bold uppercase text-slate-900">
-                            Code Reference
-                        </h3>
-                        <ul className="mr-4">
-                            {projects.data.map((project) => {
-                                if (location.pathname.endsWith(project.key)) {
-                                    return (
-                                        <li
-                                            key={project.key}
-                                            className={clsx(
-                                                "px-2 py-1 mb-2 ml-1 text-sm rounded-md whitespace-nowrap",
-                                                colorVariants["green"]
-                                                    .backgroundShade
-                                            )}
-                                        >
-                                            <p
-                                                className={clsx(
-                                                    colorVariants["green"]
-                                                        .foreground
-                                                )}
-                                            >
-                                                {project.name}
-                                            </p>
-                                        </li>
-                                    );
-                                }
-
-                                return (
-                                    <li
-                                        key={project.key}
-                                        className="px-2 mb-2 ml-1 text-sm  whitespace-nowrap"
-                                    >
-                                        <a
-                                            href={`/open/code-doc/${project.key}`}
-                                            className="cursor-pointer"
-                                        >
-                                            {project.name}
-                                        </a>
-                                    </li>
-                                );
-                            })}
-                        </ul>
+                    <Panel defaultSize={15} minSize={5}>
+                        <LeftMenu menuSections={menuSections} />
                     </Panel>
                     <ResizeHandle className="bg-dark-shade" />
                     <Panel defaultSize={15} minSize={5}>
@@ -154,11 +124,10 @@ const Home = () => {
                     <ResizeHandle className="bg-dark-shade" />
                     <Panel defaultSize={30} minSize={20}>
                         <MarkdownWrapper
-                            filePath={fileData?.nearestReadmeLocation}
-                            courseKey={projectKey}
-                            enabled={
-                                fileData?.nearestReadmeLocation !== undefined
-                            }
+                            data={markdownFile.data?.contents}
+                            isLoading={markdownFile.isLoading}
+                            isError={markdownFile.isError}
+                            error={markdownFile.error}
                         ></MarkdownWrapper>
                     </Panel>
                 </PanelGroup>

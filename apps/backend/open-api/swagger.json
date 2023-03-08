@@ -210,9 +210,9 @@
         ]
       }
     },
-    "/person/{uuid}": {
+    "/user/{uuid}": {
       "get": {
-        "operationId": "PersonController_findOne",
+        "operationId": "UserController_findOne",
         "parameters": [
           {
             "name": "uuid",
@@ -229,14 +229,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PersonDto"
+                  "$ref": "#/components/schemas/UserDto"
                 }
               }
             }
           }
         },
         "tags": [
-          "Persons"
+          "Users"
         ],
         "security": [
           {
@@ -245,7 +245,7 @@
         ]
       },
       "patch": {
-        "operationId": "PersonController_update",
+        "operationId": "UserController_update",
         "parameters": [
           {
             "name": "uuid",
@@ -261,7 +261,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdatePersonDto"
+                "$ref": "#/components/schemas/UpdateUserDto"
               }
             }
           }
@@ -279,7 +279,7 @@
           }
         },
         "tags": [
-          "Persons"
+          "Users"
         ],
         "security": [
           {
@@ -288,7 +288,7 @@
         ]
       },
       "delete": {
-        "operationId": "PersonController_remove",
+        "operationId": "UserController_remove",
         "parameters": [
           {
             "name": "uuid",
@@ -312,7 +312,7 @@
           }
         },
         "tags": [
-          "Persons"
+          "Users"
         ],
         "security": [
           {
@@ -321,9 +321,9 @@
         ]
       }
     },
-    "/person": {
+    "/user": {
       "get": {
-        "operationId": "PersonController_findAll",
+        "operationId": "UserController_findAll",
         "parameters": [],
         "responses": {
           "200": {
@@ -333,7 +333,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PersonDto"
+                    "$ref": "#/components/schemas/UserDto"
                   }
                 }
               }
@@ -341,7 +341,7 @@
           }
         },
         "tags": [
-          "Persons"
+          "Users"
         ],
         "security": [
           {
@@ -1374,7 +1374,7 @@
           "uuid": {
             "type": "string"
           },
-          "personId": {
+          "userId": {
             "type": "number"
           },
           "organisationId": {
@@ -1402,7 +1402,7 @@
         "required": [
           "id",
           "uuid",
-          "personId",
+          "userId",
           "organisationId",
           "roles",
           "createdDate",
@@ -1410,7 +1410,7 @@
           "deletedDate"
         ]
       },
-      "PersonDto": {
+      "UserDto": {
         "type": "object",
         "properties": {
           "isSuper": {
@@ -1483,7 +1483,7 @@
           "deletedDate"
         ]
       },
-      "UpdatePersonDto": {
+      "UpdateUserDto": {
         "type": "object",
         "properties": {}
       },
@@ -1559,7 +1559,7 @@
           "deletedDate"
         ]
       },
-      "Person": {
+      "User": {
         "type": "object",
         "properties": {
           "id": {
@@ -1634,11 +1634,11 @@
           "members": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Person"
+              "$ref": "#/components/schemas/User"
             }
           },
           "owner": {
-            "$ref": "#/components/schemas/Person"
+            "$ref": "#/components/schemas/User"
           },
           "name": {
             "type": "string"
@@ -1648,7 +1648,7 @@
       "CreateUpdateMembershipDto": {
         "type": "object",
         "properties": {
-          "personId": {
+          "userId": {
             "type": "number"
           },
           "roles": {
@@ -1659,7 +1659,7 @@
           }
         },
         "required": [
-          "personId",
+          "userId",
           "roles"
         ]
       },
