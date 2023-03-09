@@ -1,5 +1,9 @@
 module.exports = {
-    content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
+    content: [
+        "./index.html",
+        "./src/**/*.{vue,js,ts,jsx,tsx}",
+        "node_modules/@use-miller/shared-frontend-tooling/**/*.{js,jsx,ts,tsx}",
+    ],
     variants: {
         animation: ["motion-safe"],
         opacity: ({ after }) => after(["disabled"]),

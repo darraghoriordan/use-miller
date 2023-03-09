@@ -1,4 +1,4 @@
-import wellKnownQueries from "./wellKnownQueries";
+import wellKnownQueries from "@use-miller/shared-frontend-tooling/src/courses/wellKnownQueries";
 import { CourseFilesApi, FileMetaDto } from "@use-miller/shared-api-client";
 import {
     getAnonymousApiInstance,

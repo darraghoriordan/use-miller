@@ -12,20 +12,21 @@ import remarkRehype from "remark-rehype";
 import remarkEmbedImages from "remark-embed-images";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
-import { read } from "to-vfile";
 
 const fileDirectory = path.join(process.cwd(), "src", "docs");
-export type SummaryPost = PostMatter & {
+export type SummaryDoc = PostMatter & {
     slug: string;
 };
 export type PostMatter = {
     title: string;
     date: string;
+    section: string;
+    order: number;
 };
-export type FullPost = SummaryPost & {
+export type FullDoc = SummaryDoc & {
     html: string;
 };
-export function getSortedPostsData(): SummaryPost[] {
+export function getSortedPostsData(): SummaryDoc[] {
     // Get file names under /posts
     const fileNames = fs.readdirSync(fileDirectory);
     const allPostsData = fileNames.map((fileName) => {
@@ -44,7 +45,7 @@ export function getSortedPostsData(): SummaryPost[] {
             slug,
             ...matterResult.data,
         };
-    }) as unknown as SummaryPost[];
+    }) as unknown as SummaryDoc[];
     // Sort posts by date
 
     return allPostsData.sort((a, b) => {
@@ -56,7 +57,7 @@ export function getSortedPostsData(): SummaryPost[] {
     });
 }
 
-export async function getPostData(slug: string): Promise<FullPost> {
+export async function getPostData(slug: string): Promise<FullDoc> {
     const fullPath = path.join(fileDirectory, `${slug}.md`);
     const fileContents = fs.readFileSync(fullPath, "utf8");
 

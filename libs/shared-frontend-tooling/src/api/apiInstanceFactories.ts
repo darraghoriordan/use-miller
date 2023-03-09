@@ -20,10 +20,12 @@ export const getAnonymousApiInstance = <T extends BaseAPI>(
     apiService: {
         new (apiConfig: Configuration): T;
     },
-    apiBase: string
+    apiBase: string,
+    fetchApi?: any
 ): T => {
     const apiConfig = new Configuration({
         basePath: apiBase,
+        fetchApi,
     });
     return new apiService(apiConfig);
 };

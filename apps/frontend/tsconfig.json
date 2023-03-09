@@ -25,6 +25,7 @@
     },
     "include": [
         "src/**/*",
-        "../../libs/shared-frontend-tooling/src/components/StyledButton.tsx"
+        "../../libs/shared-frontend-tooling/src/components/StyledButton.tsx",
+        "../../libs/shared-frontend-tooling/src/courses/wellKnownQueries.ts"
     ]
 }

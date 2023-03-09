@@ -517,26 +517,40 @@ importers:
     specifiers:
       '@auth0/auth0-react': 2.0.1
       '@babel/core': 7.21.0
+      '@darraghor/react-folder-tree': 1.2.0
+      '@monaco-editor/react': 4.4.6
       '@tailwindcss/forms': 0.5.3
       '@tailwindcss/typography': 0.5.9
+      '@tanstack/react-query': 4.26.1
       '@types/node': 18.14.6
       '@types/react': 18.0.28
+      '@types/react-file-icon': 1.0.1
       '@use-miller/shared-api-client': '*'
       clsx: 1.2.1
       eslint: ~8.35.0
+      monaco-editor: 0.36.1
       react: 18.2.0
       react-dom: 18.2.0
+      react-file-icon: 1.3.0
+      react-resizable-panels: 0.0.36
       react-router-dom: 6.8.2
       tailwindcss: 3.2.7
       typescript: ^4.9.5
     dependencies:
       '@auth0/auth0-react': 2.0.1_biqbaboplfbrettd7655fr4n2y
+      '@darraghor/react-folder-tree': 1.2.0_biqbaboplfbrettd7655fr4n2y
+      '@monaco-editor/react': 4.4.6_waewrrayshn643ztij6zbniufy
       '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.7
       '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.7
+      '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
+      '@types/react-file-icon': 1.0.1
       '@use-miller/shared-api-client': link:../shared-api-client
       clsx: 1.2.1
+      monaco-editor: 0.36.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-file-icon: 1.3.0_biqbaboplfbrettd7655fr4n2y
+      react-resizable-panels: 0.0.36_biqbaboplfbrettd7655fr4n2y
       react-router-dom: 6.8.2_biqbaboplfbrettd7655fr4n2y
       tailwindcss: 3.2.7
     devDependencies:
@@ -3471,6 +3485,15 @@ packages:
       state-local: 1.0.7
     dev: false
 
+  /@monaco-editor/loader/1.3.2_monaco-editor@0.36.1:
+    resolution: {integrity: sha512-BTDbpHl3e47r3AAtpfVFTlAi7WXv4UQ/xZmz8atKl4q7epQV5e7+JbigFDViWF71VBi4IIBdcWP57Hj+OWuc9g==}
+    peerDependencies:
+      monaco-editor: '>= 0.21.0 < 1'
+    dependencies:
+      monaco-editor: 0.36.1
+      state-local: 1.0.7
+    dev: false
+
   /@monaco-editor/react/4.4.6_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-Gr3uz3LYf33wlFE3eRnta4RxP5FSNxiIV9ENn2D2/rN8KgGAD8ecvcITRtsbbyuOuNkwbuHYxfeaz2Vr+CtyFA==}
     peerDependencies:
@@ -3479,6 +3502,20 @@ packages:
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       '@monaco-editor/loader': 1.3.2
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@monaco-editor/react/4.4.6_waewrrayshn643ztij6zbniufy:
+    resolution: {integrity: sha512-Gr3uz3LYf33wlFE3eRnta4RxP5FSNxiIV9ENn2D2/rN8KgGAD8ecvcITRtsbbyuOuNkwbuHYxfeaz2Vr+CtyFA==}
+    peerDependencies:
+      monaco-editor: '>= 0.25.0 < 1'
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@monaco-editor/loader': 1.3.2_monaco-editor@0.36.1
+      monaco-editor: 0.36.1
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -5502,7 +5539,6 @@ packages:
 
   /@types/prop-types/15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
-    dev: true
 
   /@types/qs/6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
@@ -5520,7 +5556,6 @@ packages:
     resolution: {integrity: sha512-QTdYCkYXzh/PfKEIwcPxRdaPQkii5R4Ke7fcO+KB++IDPbYAG1jj+ulEcTA7pRf0gZ5jAvjWcTXBJJRtfYHjlw==}
     dependencies:
       '@types/react': 18.0.28
-    dev: true
 
   /@types/react-router-dom/5.3.3:
     resolution: {integrity: sha512-kpqnYK4wcdm5UaWI3fLcELopqLrHgLqNsdpHauzlQktfkHL3npOSwtj1Uz9oKBAzs7lFtVkV8j83voAz2D8fhw==}
@@ -5543,7 +5578,6 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
       csstype: 3.1.1
-    dev: true
 
   /@types/responselike/1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
@@ -5557,7 +5591,6 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
-    dev: true
 
   /@types/semver/7.3.13:
     resolution: {integrity: sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==}
@@ -8282,7 +8315,6 @@ packages:
 
   /csstype/3.1.1:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==}
-    dev: true
 
   /ctype/0.5.3:
     resolution: {integrity: sha512-T6CEkoSV4q50zW3TlTHMbzy1E5+zlnNcY+yb7tWVYlTwPhx9LpnfAkd4wecpWknDyptp4k97LUZeInlf6jdzBg==}
@@ -14613,6 +14645,10 @@ packages:
     resolution: {integrity: sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /monaco-editor/0.36.1:
+    resolution: {integrity: sha512-/CaclMHKQ3A6rnzBzOADfwdSJ25BFoFT0Emxsc4zYVyav5SkK9iA6lEtIeuN/oRYbwPgviJT+t3l+sjFa28jYg==}
+    dev: false
 
   /mri/1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}

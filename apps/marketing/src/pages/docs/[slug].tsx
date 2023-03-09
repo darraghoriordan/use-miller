@@ -1,10 +1,10 @@
 import Layout from "../../components/Layout.jsx";
 import {
-    FullPost,
+    FullDoc,
     getAllPostIds,
     getPostData,
     getSortedPostsData,
-    SummaryPost,
+    SummaryDoc,
 } from "../../lib/docParser.js";
 import {
     LeftMenu,
@@ -44,8 +44,8 @@ export default function Home({
     allArticles,
     mainArticle,
 }: {
-    allArticles: SummaryPost[];
-    mainArticle: FullPost;
+    allArticles: SummaryDoc[];
+    mainArticle: FullDoc;
 }) {
     const menuSections: MenuSection[] = [
         {
