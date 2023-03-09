@@ -22,19 +22,19 @@ export function CodeExplorer({
         data: FileStructureDto;
         isLoading: boolean;
         isError: boolean;
-        error: Error;
+        error: unknown;
     };
     codeFile: {
         data: FileMetaDto;
         isLoading: boolean;
         isError: boolean;
-        error: Error;
+        error: unknown;
     };
     markdownFile: {
         data: FileMetaDto;
         isLoading: boolean;
         isError: boolean;
-        error: Error;
+        error: unknown;
     };
 }) {
     return (
