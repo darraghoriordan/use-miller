@@ -1,6 +1,6 @@
 import Editor, { Monaco } from "@monaco-editor/react";
 import { FileMetaDto } from "@use-miller/shared-api-client";
-import { Loading } from "../Loading.js";
+import Loading from "../Loading.js";
 
 const EditorWrapper = (props: {
     isError: boolean;

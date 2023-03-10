@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import StyledButton from "./StyledButton.js";
 
-export const Error = ({ message }: { message: string }) => {
+const Error = ({ message }: { message: string }) => {
     const { logout } = useAuth0();
 
     return (
@@ -15,3 +15,4 @@ export const Error = ({ message }: { message: string }) => {
         </div>
     );
 };
+export default Error;

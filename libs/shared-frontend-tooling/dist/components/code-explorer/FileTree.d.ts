@@ -1,15 +1,16 @@
 /// <reference types="react" />
-import { NodeData } from "@darraghor/react-folder-tree";
 import { FileStructureDto } from "@use-miller/shared-api-client";
+export type TreeLikeNode = {
+    id: string;
+    title: string;
+    type: string;
+    isOpen?: boolean;
+    fileLocation: string;
+    children?: TreeLikeNode[];
+};
 declare const FileTree: (props: {
-    files?: FileStructureDto | undefined;
-    isError: boolean;
-    isLoading: boolean;
-    handleClick: (opts: {
-        defaultOnClick: () => void;
-        nodeData: NodeData;
-        openMe: () => void;
-        closeMe: () => void;
-    }) => void;
+    files: FileStructureDto;
+    selectedFile: string;
+    setSelectedFile: (file: string) => void;
 }) => JSX.Element;
 export default FileTree;

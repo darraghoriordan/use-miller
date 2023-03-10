@@ -9,7 +9,6 @@ import { useEffect } from "react";
 import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
 import HeaderContextProvider from "./HeaderContextProvider";
-import { useQueries } from "@tanstack/react-query";
 import useGetUser from "../account/users/useGetUser";
 
 const MainLayout: FunctionComponent = ({ children }: PropsWithChildren<{}>) => {
@@ -46,7 +45,9 @@ const MainLayout: FunctionComponent = ({ children }: PropsWithChildren<{}>) => {
         <AppGlobalContext.Provider value={{ appContext, setAppContext }}>
             <HeaderContextProvider>
                 <Header user={user} />
-                <main>{control}</main>
+                <main>
+                    <div className="min-h-screen">{control}</div>
+                </main>
             </HeaderContextProvider>
         </AppGlobalContext.Provider>
     );

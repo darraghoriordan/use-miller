@@ -1,4 +1,4 @@
-import { Loading } from "../Loading.js";
+import Loading from "../Loading.js";
 
 const MarkdownWrapper = (props: {
     error: unknown;

@@ -4,20 +4,16 @@ import { PanelGroup, Panel } from "react-resizable-panels";
 import ResizeHandle from "./ResizeHandle";
 import MarkdownWrapper from "./MarkdownWrapper.js";
 import { FileMetaDto, FileStructureDto } from "@use-miller/shared-api-client";
-import { NodeData } from "@darraghor/react-folder-tree";
 
 export default function CodeExplorer({
     markdownFile,
     codeFile,
     fileList,
-    handleFileClick,
+    selectedFile,
+    setSelectedFile,
 }: {
-    handleFileClick: (opts: {
-        defaultOnClick: () => void;
-        nodeData: NodeData;
-        openMe: () => void;
-        closeMe: () => void;
-    }) => void;
+    selectedFile: string;
+    setSelectedFile: (file: string) => void;
     fileList: {
         data?: FileStructureDto;
         isLoading: boolean;
@@ -40,12 +36,13 @@ export default function CodeExplorer({
     return (
         <PanelGroup direction="horizontal">
             <Panel defaultSize={15} minSize={5}>
-                <FileTree
-                    files={fileList.data}
-                    isError={fileList.isError}
-                    isLoading={fileList.isLoading}
-                    handleClick={handleFileClick}
-                />
+                {fileList.data && (
+                    <FileTree
+                        files={fileList.data}
+                        selectedFile={selectedFile}
+                        setSelectedFile={setSelectedFile}
+                    />
+                )}
             </Panel>
             <ResizeHandle className="bg-dark-shade" />
             <Panel minSize={40}>

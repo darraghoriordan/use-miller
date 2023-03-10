@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { NodeData } from "@darraghor/react-folder-tree";
 import { Container } from "../layout/Container";
 import useGetFiles from "./api/useGetFiles";
 import { useParams, useLocation } from "react-router";
@@ -12,11 +11,7 @@ import {
     MenuSection,
     useGetAllCourses,
 } from "@use-miller/shared-frontend-tooling";
-import FileTree from "./FileTree.js";
 
-type SelectedItem = {
-    path: string;
-};
 const Home = () => {
     const params = useParams();
     const location = useLocation();
@@ -27,24 +22,18 @@ const Home = () => {
     const projects = useGetAllCourses({
         apiBase: import.meta.env.VITE_API_BASE,
     });
-
-    const [selectedItem, setSelectedItemPath] = useState<
-        SelectedItem | undefined
-    >(filePath ? { path: filePath } : undefined);
-
+    const [selectedFile, setSelectedFile] = useState(filePath || "");
     const codeFile = useGetFileContent(
         projectKey,
-        selectedItem?.path || "",
-        selectedItem?.path !== undefined
+        selectedFile || "",
+        selectedFile !== undefined
     );
     // set the first file on first load
     useEffect(() => {
-        if (!selectedItem) {
-            setSelectedItemPath({
-                path: btoa("README.md"),
-            });
+        if (!selectedFile) {
+            setSelectedFile(filePath || btoa("/README.md"));
         }
-    }, [fileList.data]);
+    }, [fileList.data, selectedFile, filePath]);
 
     const markdownFile = useGetMarkdownContent(
         projectKey,
@@ -52,29 +41,16 @@ const Home = () => {
         codeFile.data?.nearestReadmeLocation !== undefined
     );
 
-    const handleClick = (opts: {
-        defaultOnClick: () => void;
-        openMe: () => void;
-        closeMe: () => void;
-        nodeData: NodeData;
-    }) => {
-        if (opts.nodeData.type === "file") {
+    useEffect(() => {
+        if (selectedFile) {
             window.history.replaceState(
                 null,
                 `${projectKey} File`,
-                `/open/code-doc/${projectKey}/${codeFile.data?.fileLocation}`
+                `/open/code-doc/${projectKey}/${selectedFile}`
             );
-
-            setSelectedItemPath({
-                path: opts.nodeData.fileLocation,
-            });
         }
-        if (opts.nodeData.type === "folder") {
-            opts.defaultOnClick();
+    }, [selectedFile]);
 
-            opts.nodeData.isOpen ? opts.closeMe() : opts.openMe();
-        }
-    };
     const menuSections: MenuSection[] = [
         { name: "Get Started", items: [] },
         {
@@ -89,36 +65,21 @@ const Home = () => {
                 }) || [],
         },
     ];
-    const treeState = {
-        name: "root [half checked and opened]",
-        isOpen: true, // this folder is opened, we can see it's children
-        children: [
-            { name: "children 1 [not checked]" },
-            {
-                name: "children 2 [half checked and not opened]",
-
-                isOpen: false,
-                children: [
-                    { name: "children 2-1 [not checked]" },
-                    { name: "children 2-2 [checked]" },
-                ],
-            },
-        ],
-    };
-
+    if (!fileList.data && codeFile.data && markdownFile.data) {
+        console.log("waiting...");
+        return <div>Waiting...</div>;
+    }
     return (
-        <Container className="w-full h-full min-w-full mx-auto bg-neutral-900">
+        <Container className="w-full  min-w-full mx-auto bg-neutral-900">
             <div className="flex items-stretch">
                 <LeftMenu menuSections={menuSections} />
-                <FileTree
-                    files={{ data: treeState } as any}
-                    handleClick={handleClick}
-                />
+
                 <CodeExplorer
                     markdownFile={markdownFile}
                     codeFile={codeFile}
                     fileList={fileList}
-                    handleFileClick={handleClick}
+                    selectedFile={selectedFile}
+                    setSelectedFile={setSelectedFile}
                 />
             </div>
         </Container>
