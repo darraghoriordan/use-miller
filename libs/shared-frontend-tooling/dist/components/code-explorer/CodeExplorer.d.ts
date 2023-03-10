@@ -1,7 +1,7 @@
 /// <reference types="react" />
 import { FileMetaDto, FileStructureDto } from "@use-miller/shared-api-client";
 import { NodeData } from "@darraghor/react-folder-tree";
-export declare function CodeExplorer({ markdownFile, codeFile, fileList, handleFileClick, }: {
+export default function CodeExplorer({ markdownFile, codeFile, fileList, handleFileClick, }: {
     handleFileClick: (opts: {
         defaultOnClick: () => void;
         nodeData: NodeData;
@@ -9,21 +9,21 @@ export declare function CodeExplorer({ markdownFile, codeFile, fileList, handleF
         closeMe: () => void;
     }) => void;
     fileList: {
-        data: FileStructureDto;
+        data?: FileStructureDto;
         isLoading: boolean;
         isError: boolean;
-        error: Error;
+        error: unknown;
     };
     codeFile: {
-        data: FileMetaDto;
+        data?: FileMetaDto;
         isLoading: boolean;
         isError: boolean;
-        error: Error;
+        error: unknown;
     };
     markdownFile: {
-        data: FileMetaDto;
+        data?: FileMetaDto;
         isLoading: boolean;
         isError: boolean;
-        error: Error;
+        error: unknown;
     };
 }): JSX.Element;

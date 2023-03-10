@@ -6,7 +6,7 @@ import { Loading } from "../Loading.js";
 import { Error } from "../Error.js";
 
 const FileTree = (props: {
-    files: FileStructureDto;
+    files?: FileStructureDto;
     isError: boolean;
     isLoading: boolean;
     handleClick: (opts: {
@@ -55,10 +55,9 @@ const FileTree = (props: {
 
     return (
         <div className="h-full bg-dark-mid">
-            {/* // css here is in the css file because // the classes are specific
+            {/* // css here must be overridden in the css file because // the classes are specific
             to the folder tree library */}
             <FolderTree
-                showCheckbox={false}
                 data={data}
                 onNameClick={props.handleClick as any}
                 initOpenStatus={"custom"}

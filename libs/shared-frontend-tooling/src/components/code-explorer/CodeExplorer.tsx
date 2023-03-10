@@ -1,12 +1,12 @@
-import EditorWrapper from "./EditorWrapper";
-import FileTree from "./FileTree";
+import EditorWrapper from "./EditorWrapper.js";
+import FileTree from "./FileTree.js";
 import { PanelGroup, Panel } from "react-resizable-panels";
 import ResizeHandle from "./ResizeHandle";
 import MarkdownWrapper from "./MarkdownWrapper.js";
 import { FileMetaDto, FileStructureDto } from "@use-miller/shared-api-client";
 import { NodeData } from "@darraghor/react-folder-tree";
 
-export function CodeExplorer({
+export default function CodeExplorer({
     markdownFile,
     codeFile,
     fileList,
@@ -19,19 +19,19 @@ export function CodeExplorer({
         closeMe: () => void;
     }) => void;
     fileList: {
-        data: FileStructureDto;
+        data?: FileStructureDto;
         isLoading: boolean;
         isError: boolean;
         error: unknown;
     };
     codeFile: {
-        data: FileMetaDto;
+        data?: FileMetaDto;
         isLoading: boolean;
         isError: boolean;
         error: unknown;
     };
     markdownFile: {
-        data: FileMetaDto;
+        data?: FileMetaDto;
         isLoading: boolean;
         isError: boolean;
         error: unknown;

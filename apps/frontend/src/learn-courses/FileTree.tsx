@@ -13,6 +13,9 @@ const FileTree = (props: {
     }) => void;
 }) => {
     let [data, setData] = useState(props.files);
+    useLayoutEffect(() => {
+        setData(props.files);
+    }, [props.files]);
 
     const CustomFileIcon = ({
         onClick,
@@ -37,18 +40,9 @@ const FileTree = (props: {
         return <FileIcon />;
     };
 
-    useLayoutEffect(() => {
-        try {
-            let savedData = localStorage.getItem("folderTree");
-            if (savedData) {
-                let savedStructure = JSON.parse(savedData);
-                setData(savedStructure);
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    }, []);
-
+    if (!data) {
+        return <div>loading</div>;
+    }
     return (
         <div className="h-full bg-dark-mid">
             {/* // css here is in the css file because // the classes are specific

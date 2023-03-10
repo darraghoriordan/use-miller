@@ -41,7 +41,7 @@
         "@nrwl/node": "15.8.5",
         "@types/figlet": "1.5.5",
         "@types/jest": "29.4.0",
-        "@types/node": "18.14.6",
+        "@types/node": "18.15.0",
         "@typescript-eslint/eslint-plugin": "5.54.1",
         "@typescript-eslint/parser": "5.54.1",
         "chalk": "5.2.0",

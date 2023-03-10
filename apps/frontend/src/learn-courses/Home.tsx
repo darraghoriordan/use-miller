@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { NodeData } from "@darraghor/react-folder-tree";
 import { Container } from "../layout/Container";
 import useGetFiles from "./api/useGetFiles";
@@ -13,6 +12,7 @@ import {
     MenuSection,
     useGetAllCourses,
 } from "@use-miller/shared-frontend-tooling";
+import FileTree from "./FileTree.js";
 
 type SelectedItem = {
     path: string;
@@ -89,11 +89,31 @@ const Home = () => {
                 }) || [],
         },
     ];
+    const treeState = {
+        name: "root [half checked and opened]",
+        isOpen: true, // this folder is opened, we can see it's children
+        children: [
+            { name: "children 1 [not checked]" },
+            {
+                name: "children 2 [half checked and not opened]",
+
+                isOpen: false,
+                children: [
+                    { name: "children 2-1 [not checked]" },
+                    { name: "children 2-2 [checked]" },
+                ],
+            },
+        ],
+    };
 
     return (
         <Container className="w-full h-full min-w-full mx-auto bg-neutral-900">
             <div className="flex items-stretch">
                 <LeftMenu menuSections={menuSections} />
+                <FileTree
+                    files={{ data: treeState } as any}
+                    handleClick={handleClick}
+                />
                 <CodeExplorer
                     markdownFile={markdownFile}
                     codeFile={codeFile}
