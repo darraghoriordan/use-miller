@@ -27,6 +27,8 @@ export type Auth0DevTerraformOutputVariables = {
     test_user_password: { value: string };
     test_user_basic_username: { value: string };
     test_user_basic_password: { value: string };
+    test_user_no_email_verified_username: { value: string };
+    test_user_no_email_verified_password: { value: string };
 };
 
 export type StripeTerraformInputVariables = {
@@ -351,6 +353,12 @@ swapEnvVars({
             auth0DevTerraformOutputVariables.test_user_basic_username.value,
         AUTH0_TEST_ACCOUNT_BASIC_PASSWORD:
             auth0DevTerraformOutputVariables.test_user_basic_password.value,
+        AUTH0_TEST_ACCOUNT_NO_EMAILV_USERNAME:
+            auth0DevTerraformOutputVariables
+                .test_user_no_email_verified_username.value,
+        AUTH0_TEST_ACCOUNT_NO_EMAILV_PASSWORD:
+            auth0DevTerraformOutputVariables
+                .test_user_no_email_verified_password.value,
     },
 });
 
