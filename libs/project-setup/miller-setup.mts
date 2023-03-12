@@ -53,9 +53,9 @@ console.log(`Hi and welcome to the Miller / Web project setup!`);
 // try to read the default projectName from a file /project-setup/project-name.txt
 let defaultProjectName = "Miller App";
 
-if (fs.existsSync("./project-setup/project-name.txt")) {
+if (fs.existsSync("./libs/project-setup/project-name.txt")) {
     defaultProjectName = fs.readFileSync(
-        "./project-setup/project-name.txt",
+        "./libs/project-setup/project-name.txt",
         "utf8"
     );
 }
@@ -76,7 +76,7 @@ const answers = await inquirer.default.prompt([
 ]);
 
 // write the project name to a file so it can be read by other scripts
-fs.writeFileSync("./project-setup/project-name.txt", answers.projectName);
+fs.writeFileSync("./libs/project-setup/project-name.txt", answers.projectName);
 const snakeCaseName = answers.projectName.toLowerCase().replace(" ", "-");
 const underscoreCaseName = answers.projectName.toLowerCase().replace(" ", "_");
 
@@ -363,8 +363,7 @@ swapEnvVars({
 });
 
 // execute the command "pnpm install" in the root of the project
-console.log("re-installing dependencies with new names");
-await runPnpmInstall("./");
+await runPnpmInstall("./", ["-recursive"]);
 
 console.log(
     `${os.EOL}Setup complete. You have a configured auth0 instance for dev, the application has been configured with your auth0 details`

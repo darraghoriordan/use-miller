@@ -1,3 +1,4 @@
+
 resource "stripe_product" "regular_product" {
   name        = "A Regular product"
   description = "Web product kit with 1 year of updates"
@@ -43,6 +44,7 @@ resource "stripe_portal_configuration" "portal_configuration" {
     headline             = var.app_stripe_customer_portal_header
     privacy_policy_url   = var.app_stripe_customer_portal_privacy_url
     terms_of_service_url = var.app_stripe_customer_portal_terms_conditions_url
+
   }
   default_return_url = var.app_stripe_customer_portal_return_url
   features {

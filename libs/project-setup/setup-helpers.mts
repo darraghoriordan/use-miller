@@ -41,9 +41,14 @@ const runTerraform = async (projectPath: string, commands: string[]) => {
     return tfResult;
 };
 
-const runPnpmInstall = async (projectPath: string, commands?: string[]) => {
-    const tfResult = await execPromise(`pnpm install ${commands?.join(" ")}`, {
-        cwd: projectPath,
+const runPnpmInstall = async (projectRootPath: string, commands?: string[]) => {
+    const command = `pnpm install ${commands?.join(" ")}`;
+    console.log("re-installing dependencies with new names", {
+        command,
+        cwd: projectRootPath,
+    });
+    const tfResult = await execPromise(command, {
+        cwd: projectRootPath,
     });
 
     return tfResult;
@@ -75,7 +80,7 @@ const searchFilesForTextAndReplace = async (
         ignore: [
             "node_modules/**/*",
             "dist/**/*",
-            "project-setup/**/*",
+            "libs/project-setup/**/*",
             "yarn.lock",
         ],
     });
