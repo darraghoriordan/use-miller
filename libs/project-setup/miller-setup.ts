@@ -7,10 +7,10 @@ import {
     runPnpmInstall,
     searchFilesForTextAndReplace,
     swapEnvVars,
-} from "./setup-helpers.mjs";
+} from "./setup-helpers.js";
 import runTfEnvVarMapping, {
     TerraformVariablesMapperParams,
-} from "./setup-terraform-project.mjs";
+} from "./setup-terraform-project.js";
 
 export type Auth0DevTerraformInputVariables = {
     app_auth0_dev_domain: { value: string };

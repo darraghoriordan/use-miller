@@ -1,10 +1,10 @@
 import chalk from "chalk";
-import fs from "fs";
-import dotenv from "dotenv";
+import * as fs from "fs";
+import * as dotenv from "dotenv";
 import { promisify } from "util";
 import { exec } from "child_process";
 import * as globby from "globby";
-import os from "os";
+import * as os from "os";
 
 const execPromise = promisify(exec);
 
@@ -18,16 +18,16 @@ const swapEnvVars = (params: {
             `Setting envvars for ${params.to} from ${params.from}`
         )
     );
-    const newEnvVars = readEnvVars(params.to, params.from);
+    const newEnvVars = initialiseAndReadEnvVars(params.to, params.from);
 
     for (const [key, value] of Object.entries(params.replacementValues)) {
         newEnvVars[key] = value;
     }
     writeEnvVars(newEnvVars, params.to);
 };
-const readEnvVars = (envPath: string, envTemplatePath: string) => {
+const initialiseAndReadEnvVars = (envPath: string, envTemplatePath: string) => {
+    // copy .env.template to .env if it doesn't exist
     if (!fs.existsSync(envPath)) {
-        // copy .env.template to .env
         fs.copyFileSync(envTemplatePath, envPath);
     }
     const envVars = dotenv.parse(fs.readFileSync(envPath));
@@ -111,7 +111,7 @@ const writeEnvVars = (envVars: { [key: string]: string }, envPath: string) => {
 };
 
 export {
-    readEnvVars,
+    initialiseAndReadEnvVars as readEnvVars,
     runTerraform,
     searchFilesForTextAndReplace,
     swapEnvVars,

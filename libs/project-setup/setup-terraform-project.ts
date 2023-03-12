@@ -1,8 +1,8 @@
-import fs from "fs";
+import * as fs from "fs";
 import chalk from "chalk";
 import * as inquirer from "inquirer";
 
-import { writeTerraformVariables, runTerraform } from "./setup-helpers.mjs";
+import { writeTerraformVariables, runTerraform } from "./setup-helpers.js";
 export type TerraformVariablesMapperParams<T> = {
     terraformVariablesPath: string;
     terraformProjectPath: string;
@@ -58,7 +58,7 @@ const runTfEnvVarMapping = async <T,U,>(
         existingVariableValues = newInitVars;
     }
 
-    const cliInputAnswers = await inquirer.default.prompt(
+    const cliInputAnswers:T = await inquirer.default.prompt(
         params.variables.map((variable) => {
             if (!existingVariableValues[variable.name]?.value){
                 console.log(chalk.yellowBright(`Variable ${String(variable.name)} not found. Using default value: ${variable.default}`))
@@ -70,7 +70,8 @@ const runTfEnvVarMapping = async <T,U,>(
         }})
     );
 
-    writeTerraformVariables(params.terraformVariablesPath, cliInputAnswers);
+    // the as here is a bit of a hack but the object is so generic it's not a big deal
+    writeTerraformVariables(params.terraformVariablesPath, cliInputAnswers as { [key: string]: string; });
     // apply the new infrastructure
     const result = await runTerraform(params.terraformProjectPath, [
         "apply",
