@@ -8,13 +8,15 @@ import MarkdownToHtmlService from "./markdownToHtml.service.js";
 import { CoursesMetaService } from "./courses-meta.service.js";
 import PathMapperService from "./pathMapper.service.js";
 import { CourseMetaDto } from "../dtos/CourseMetaDto.js";
-
+import { minimatch } from "minimatch";
+import { CoreConfigurationService } from "@darraghor/nest-backend-libs";
 @Injectable()
 export class CourseFilesService {
     constructor(
         private readonly markdownToHtmlService: MarkdownToHtmlService,
         private readonly coursesMetaService: CoursesMetaService,
-        private readonly pathMapperService: PathMapperService
+        private readonly pathMapperService: PathMapperService,
+        private readonly coreConfig: CoreConfigurationService
     ) {}
 
     private readonly logger = new Logger(CourseFilesService.name);
@@ -218,17 +220,14 @@ export class CourseFilesService {
             const file = path.join(directory, filename);
 
             try {
-                // Get the stat for the path, and if this doesn't throw, make sure it's a file
                 if (fs.statSync(file).isFile()) return file;
-                // stat existed, but isFile() returned false
+
                 return nextLevelUp();
             } catch {
-                // stat did not exist
                 return nextLevelUp();
             }
 
             function nextLevelUp() {
-                // Don't proceed to the next directory when already at the fs root
                 if (directory === path.resolve("/")) return;
                 return findFile(path.dirname(directory), filename);
             }
@@ -237,6 +236,17 @@ export class CourseFilesService {
         return findFile(root, filename);
     };
 
+    shouldShowFullFile = (fileLocation: string): boolean => {
+        const globs = [
+            "*.md",
+            "*.html",
+            "*.css",
+            "**/src/stripe-client/services/**",
+        ];
+        // eslint-disable-next-line sonarjs/prefer-immediate-return
+        const isMatch = globs.some((g) => minimatch(fileLocation, g));
+        return isMatch;
+    };
     getPartialFileContents = async (
         b64Path: string,
         courseName: string
@@ -247,25 +257,24 @@ export class CourseFilesService {
             courseMeta.rootLocation
         );
 
-        const fullFileExtensionFilter = [".md"]; // we can still show off some full files
         const contents = await fs.promises.readFile(fileLocation, {
             encoding: "utf8",
             flag: "r",
         });
-
-        if (fullFileExtensionFilter.includes(path.extname(fileLocation))) {
-            const nearestReadme =
-                this.findNearestReadme(fileLocation) || "README.md";
-            this.logger.log({ nearestReadme, courseMeta }, "nearest readme");
+        const nearestReadme =
+            this.findNearestReadme(fileLocation) || "README.md";
+        const fileName = path.basename(fileLocation);
+        const nearestReadmeLocation =
+            this.pathMapperService.mapPathToRelativeBase64(
+                nearestReadme,
+                courseMeta.rootLocation
+            );
+        if (this.shouldShowFullFile(fileLocation)) {
             return {
                 contents,
                 fileLocation: b64Path,
-                fileName: path.basename(fileLocation),
-                nearestReadmeLocation:
-                    this.pathMapperService.mapPathToRelativeBase64(
-                        nearestReadme,
-                        courseMeta.rootLocation
-                    ),
+                fileName,
+                nearestReadmeLocation,
             };
         }
 
@@ -275,22 +284,22 @@ export class CourseFilesService {
             demoText =
                 contents.slice(0, 200) +
                 "\r" +
-                "\r// Unlicensed file viewing is clipped @ 200 characters //" +
+                "\r// File viewing is clipped unless you have purchased //" +
                 "\r" +
-                "// To see the full contents of each file please support development by purchasing! //";
+                "// To see the full contents of each file please support development by purchasing //" +
+                "\r" +
+                "// As an example, the full contents of Stripe services are available at the following path //" +
+                "\r" +
+                "// (ctrl+click or cmd+click to open in new window) //" +
+                "\r" +
+                `// ${this.coreConfig.frontEndAppUrl}/open/code-doc/nestjs-backend-libs/L3NyYy9zdHJpcGUtY2xpZW50L3NlcnZpY2VzL3F1ZXVlZC1wYXltZW50LWV2ZW50LmhhbmRsZXIudHM= //`;
         }
-        const nearestReadme =
-            this.findNearestReadme(fileLocation) || "README.md";
-        this.logger.log({ nearestReadme, courseMeta }, "nearest readme");
+
         return {
             contents: demoText,
-            fileName: path.basename(fileLocation),
+            fileName,
             fileLocation: b64Path,
-            nearestReadmeLocation:
-                this.pathMapperService.mapPathToRelativeBase64(
-                    nearestReadme,
-                    courseMeta.rootLocation
-                ),
+            nearestReadmeLocation,
         };
     };
 }

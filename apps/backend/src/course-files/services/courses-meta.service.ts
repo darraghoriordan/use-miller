@@ -5,12 +5,13 @@ const courseMeta: CourseMetaDto[] = [
     {
         key: "miller",
         rootNodeName: "USE-MILLER",
-        name: "Use Miller",
+        name: "Miller Web",
         color: "green",
 
         rootLocation:
             "/Users/darraghoriordan/Documents/personal-projects/use-miller",
     },
+
     {
         key: "nestjs-backend-libs",
         rootNodeName: "NEST-BACKEND-LIBS",
@@ -19,6 +20,15 @@ const courseMeta: CourseMetaDto[] = [
 
         rootLocation:
             "/Users/darraghoriordan/Documents/personal-projects/nest-backend-libs",
+    },
+    {
+        key: "miller-desktop",
+        rootNodeName: "MILLER-ELECTRON",
+        name: "Miller Desktop App",
+        color: "pink",
+
+        rootLocation:
+            "/Users/darraghoriordan/Documents/personal-projects/ssh-tool-new-electron",
     },
 ];
 

@@ -1475,8 +1475,6 @@
           "uuid",
           "emailVerified",
           "blocked",
-          "picture",
-          "auth0UserId",
           "memberships",
           "createdDate",
           "updateDate",
@@ -1559,6 +1557,44 @@
           "deletedDate"
         ]
       },
+      "UserApiKey": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "apiKey": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "apiKey",
+          "description",
+          "createdDate",
+          "updateDate",
+          "deletedDate"
+        ]
+      },
       "User": {
         "type": "object",
         "properties": {
@@ -1601,6 +1637,12 @@
               "$ref": "#/components/schemas/OrganisationMembership"
             }
           },
+          "apiKeys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserApiKey"
+            }
+          },
           "createdDate": {
             "format": "date-time",
             "type": "string"
@@ -1620,9 +1662,8 @@
           "uuid",
           "emailVerified",
           "blocked",
-          "picture",
-          "auth0UserId",
           "memberships",
+          "apiKeys",
           "createdDate",
           "updateDate",
           "deletedDate"

@@ -30,6 +30,9 @@ export class UserOnboardingController {
     async initUser(
         @Request() request: RequestWithUser
     ): Promise<InitUserResponseDto> {
+        if (!request.user.auth0UserId) {
+            throw new Error("No user found on request");
+        }
         this.logger.log("Initializing user: " + request.user.auth0UserId);
         const isUerInitialised = await this.onboardingService.initUser(
             request.user.auth0UserId
