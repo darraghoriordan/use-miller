@@ -37,6 +37,7 @@ src/models/StripeCustomerPortalRequestDto.ts
 src/models/StripeCustomerPortalResponseDto.ts
 src/models/UpdateOrganisationDto.ts
 src/models/User.ts
+src/models/UserApiKey.ts
 src/models/UserDto.ts
 src/models/index.ts
 src/runtime.ts

@@ -102,7 +102,15 @@ resource "auth0_user" "dev_test_basic_user" {
   email           = "testbasic@testbasic.com"
   password        = "apasspass$12$12"
   nickname        = "testbasic"
+  email_verified  = true
+}
 
+resource "auth0_user" "dev_test_no_email_verified_user" {
+  connection_name = "Username-Password-Authentication"
+  email           = "testbasic@testnoemailverified.com"
+  password        = "apasspass$12$12"
+  nickname        = "testbasic"
+  email_verified  = false
 }
 
 resource "auth0_user" "dev_test_user" {
@@ -110,6 +118,7 @@ resource "auth0_user" "dev_test_user" {
   email           = "test@test.com"
   password        = "apasspass$12$12"
   nickname        = "testnick"
+  email_verified  = true
   roles           = [auth0_role.super_user_role.id]
 }
 
@@ -142,5 +151,12 @@ output "test_user_basic_username" {
 }
 output "test_user_basic_password" {
   value     = auth0_user.dev_test_basic_user.password
+  sensitive = true
+}
+output "test_user_no_email_verified_username" {
+  value = auth0_user.dev_test_no_email_verified_user.email
+}
+output "test_user_no_email_verified_password" {
+  value     = auth0_user.dev_test_no_email_verified_user.password
   sensitive = true
 }

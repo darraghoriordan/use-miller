@@ -21,4 +21,5 @@ export * from './StripeCustomerPortalRequestDto';
 export * from './StripeCustomerPortalResponseDto';
 export * from './UpdateOrganisationDto';
 export * from './User';
+export * from './UserApiKey';
 export * from './UserDto';

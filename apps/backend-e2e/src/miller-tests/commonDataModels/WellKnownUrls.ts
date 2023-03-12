@@ -1,5 +1,5 @@
 export const WellKnownUrls = {
     knownUnauthorized: () => `/`,
-    knownAuthorized: () => `/authorise`,
+    knownAuthorized: () => `/is-authorised`,
     initUser: () => "/init-user",
 };

@@ -113,7 +113,7 @@ export class ApplicationSupportApi extends runtime.BaseAPI implements Applicatio
             }
         }
         const response = await this.request({
-            path: `/authorise`,
+            path: `/is-authorised`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

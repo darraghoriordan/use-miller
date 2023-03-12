@@ -22,7 +22,7 @@
         ]
       }
     },
-    "/authorise": {
+    "/is-authorised": {
       "get": {
         "operationId": "AppController_getHelloAuthorized",
         "parameters": [],

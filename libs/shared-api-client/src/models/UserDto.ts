@@ -85,13 +85,13 @@ export interface UserDto {
      * @type {string}
      * @memberof UserDto
      */
-    picture: string;
+    picture?: string;
     /**
      * 
      * @type {string}
      * @memberof UserDto
      */
-    auth0UserId: string;
+    auth0UserId?: string;
     /**
      * 
      * @type {string}
@@ -143,8 +143,8 @@ export function UserDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): U
         'name': !exists(json, 'name') ? undefined : json['name'],
         'familyName': !exists(json, 'familyName') ? undefined : json['familyName'],
         'givenName': !exists(json, 'givenName') ? undefined : json['givenName'],
-        'picture': json['picture'],
-        'auth0UserId': json['auth0UserId'],
+        'picture': !exists(json, 'picture') ? undefined : json['picture'],
+        'auth0UserId': !exists(json, 'auth0UserId') ? undefined : json['auth0UserId'],
         'username': !exists(json, 'username') ? undefined : json['username'],
         'memberships': ((json['memberships'] as Array<any>).map(OrganisationMembershipFromJSON)),
         'createdDate': (new Date(json['createdDate'])),
