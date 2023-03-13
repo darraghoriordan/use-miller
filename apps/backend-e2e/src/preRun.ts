@@ -1,5 +1,8 @@
 import dotenv from "dotenv";
-import { AuthenticationTokenManager } from "./miller-tests/commonDataModels/AuthenticationTokenManager";
+import {
+    AuthenticationTokenManager,
+    TestUserAccounts,
+} from "./miller-tests/commonDataModels/AuthenticationTokenManager";
 dotenv.config();
 // This is a hack for tests
 import { TextEncoder, TextDecoder } from "util";
@@ -11,12 +14,14 @@ global.TextDecoder = TextDecoder as any;
 
 // loads our auth token once into the static class we use to build requests
 await AuthenticationTokenManager.init();
-console.log(
-    "Using basic token",
-    AuthenticationTokenManager.validBasicUserToken
-);
-console.log(
-    "Using super token",
-    AuthenticationTokenManager.validSuperUserToken
-);
+
+for (const key of Object.keys(TestUserAccounts)) {
+    console.log(
+        `Using ${key} token: \r%s\r\r`,
+        AuthenticationTokenManager.getAccessToken(
+            TestUserAccounts[key as keyof typeof TestUserAccounts]
+        )
+    );
+}
+
 export {};

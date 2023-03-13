@@ -18,6 +18,10 @@ import {
     OrganisationMembershipFromJSON,
     OrganisationMembershipFromJSONTyped,
     OrganisationMembershipToJSON,
+    UserApiKey,
+    UserApiKeyFromJSON,
+    UserApiKeyFromJSONTyped,
+    UserApiKeyToJSON,
 } from './';
 
 /**
@@ -106,6 +110,12 @@ export interface UserDto {
     memberships: Array<OrganisationMembership>;
     /**
      * 
+     * @type {Array<UserApiKey>}
+     * @memberof UserDto
+     */
+    apiKeys: Array<UserApiKey>;
+    /**
+     * 
      * @type {Date}
      * @memberof UserDto
      */
@@ -147,6 +157,7 @@ export function UserDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): U
         'auth0UserId': !exists(json, 'auth0UserId') ? undefined : json['auth0UserId'],
         'username': !exists(json, 'username') ? undefined : json['username'],
         'memberships': ((json['memberships'] as Array<any>).map(OrganisationMembershipFromJSON)),
+        'apiKeys': ((json['apiKeys'] as Array<any>).map(UserApiKeyFromJSON)),
         'createdDate': (new Date(json['createdDate'])),
         'updateDate': (new Date(json['updateDate'])),
         'deletedDate': (new Date(json['deletedDate'])),
@@ -175,6 +186,7 @@ export function UserDtoToJSON(value?: UserDto | null): any {
         'auth0UserId': value.auth0UserId,
         'username': value.username,
         'memberships': ((value.memberships as Array<any>).map(OrganisationMembershipToJSON)),
+        'apiKeys': ((value.apiKeys as Array<any>).map(UserApiKeyToJSON)),
         'createdDate': (value.createdDate.toISOString()),
         'updateDate': (value.updateDate.toISOString()),
         'deletedDate': (value.deletedDate.toISOString()),

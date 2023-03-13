@@ -60,11 +60,35 @@ export interface ApplicationSupportApiInterface {
      * @throws {RequiredError}
      * @memberof ApplicationSupportApiInterface
      */
+    appControllerGetHelloSuperAdminRaw(): Promise<runtime.ApiResponse<string>>;
+
+    /**
+     */
+    appControllerGetHelloSuperAdmin(): Promise<string>;
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApplicationSupportApiInterface
+     */
     healthControllerCheckRaw(): Promise<runtime.ApiResponse<InlineResponse200>>;
 
     /**
      */
     healthControllerCheck(): Promise<InlineResponse200>;
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApplicationSupportApiInterface
+     */
+    superPowersControllerResetDatabaseRaw(): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     */
+    superPowersControllerResetDatabase(): Promise<void>;
 
 }
 
@@ -131,6 +155,38 @@ export class ApplicationSupportApi extends runtime.BaseAPI implements Applicatio
 
     /**
      */
+    async appControllerGetHelloSuperAdminRaw(): Promise<runtime.ApiResponse<string>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/is-super-admin`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.TextApiResponse(response) as any;
+    }
+
+    /**
+     */
+    async appControllerGetHelloSuperAdmin(): Promise<string> {
+        const response = await this.appControllerGetHelloSuperAdminRaw();
+        return await response.value();
+    }
+
+    /**
+     */
     async healthControllerCheckRaw(): Promise<runtime.ApiResponse<InlineResponse200>> {
         const queryParameters: any = {};
 
@@ -151,6 +207,37 @@ export class ApplicationSupportApi extends runtime.BaseAPI implements Applicatio
     async healthControllerCheck(): Promise<InlineResponse200> {
         const response = await this.healthControllerCheckRaw();
         return await response.value();
+    }
+
+    /**
+     */
+    async superPowersControllerResetDatabaseRaw(): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/super-powers/reset-database`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async superPowersControllerResetDatabase(): Promise<void> {
+        await this.superPowersControllerResetDatabaseRaw();
     }
 
 }

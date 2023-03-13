@@ -6,6 +6,7 @@ import {
     OrganisationModule,
     UserInternalModule,
     SmtpEmailClientModule,
+    SuperPowersModule,
 } from "@darraghor/nest-backend-libs";
 import { UserOnboardingModule } from "./user-onboarding/user-onboarding.module.js";
 import { PaymentsModule } from "./payments/payments.module.js";
@@ -22,6 +23,7 @@ import { CourseFilesModule } from "./course-files/course-files.module.js";
         UserOnboardingModule,
         PaymentsModule,
         CourseFilesModule,
+        SuperPowersModule,
     ],
     controllers: [],
     providers: [],

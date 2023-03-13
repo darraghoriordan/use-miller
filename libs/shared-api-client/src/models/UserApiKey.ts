@@ -45,6 +45,12 @@ export interface UserApiKey {
     description: string;
     /**
      * 
+     * @type {number}
+     * @memberof UserApiKey
+     */
+    userId: number;
+    /**
+     * 
      * @type {Date}
      * @memberof UserApiKey
      */
@@ -77,6 +83,7 @@ export function UserApiKeyFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'uuid': json['uuid'],
         'apiKey': json['apiKey'],
         'description': json['description'],
+        'userId': json['userId'],
         'createdDate': (new Date(json['createdDate'])),
         'updateDate': (new Date(json['updateDate'])),
         'deletedDate': (new Date(json['deletedDate'])),
@@ -96,6 +103,7 @@ export function UserApiKeyToJSON(value?: UserApiKey | null): any {
         'uuid': value.uuid,
         'apiKey': value.apiKey,
         'description': value.description,
+        'userId': value.userId,
         'createdDate': (value.createdDate.toISOString()),
         'updateDate': (value.updateDate.toISOString()),
         'deletedDate': (value.deletedDate.toISOString()),

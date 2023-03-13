@@ -13,7 +13,7 @@ export default class LocalApiTestToken {
     public token_type: string;
     public date_received: Date;
 
-    public needNewToken(): boolean {
+    public mustRefreshToken(): boolean {
         const noExistingAccessToken = this.access_token === undefined;
         // now - date received / 1000 > expires in
         const yesterday = new Date(Date.now() - 24 * 3600 * 1000);

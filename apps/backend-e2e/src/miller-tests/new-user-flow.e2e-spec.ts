@@ -11,6 +11,7 @@ import {
     UsersApi,
 } from "@use-miller/shared-api-client";
 import { ApiClientFactory } from "./commonDataModels/ApiClientFactory";
+import { TestUserAccounts } from "./commonDataModels/AuthenticationTokenManager.js";
 
 // This follows a user through the first steps when they hit
 // the api for the first time.
@@ -28,7 +29,7 @@ describe("When getting a user the first time", () => {
     const superUserSubscriptionsApi =
         ApiClientFactory.getAuthenticatedApiInstance(
             OrganisationSubscriptionsApi,
-            true
+            TestUserAccounts.SUPER_USER
         );
 
     let foundUser: User | undefined;

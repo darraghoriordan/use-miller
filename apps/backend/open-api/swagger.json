@@ -48,6 +48,32 @@
         ]
       }
     },
+    "/is-super-admin": {
+      "get": {
+        "operationId": "AppController_getHelloSuperAdmin",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Application Support"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/health": {
       "get": {
         "operationId": "HealthController_check",
@@ -1312,6 +1338,25 @@
           "Course Meta"
         ]
       }
+    },
+    "/super-powers/reset-database": {
+      "post": {
+        "operationId": "SuperPowersController_resetDatabase",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Application Support"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
     }
   },
   "info": {
@@ -1380,6 +1425,9 @@
           "organisationId": {
             "type": "number"
           },
+          "invitationId": {
+            "type": "number"
+          },
           "roles": {
             "type": "array",
             "items": {
@@ -1404,7 +1452,50 @@
           "uuid",
           "userId",
           "organisationId",
+          "invitationId",
           "roles",
+          "createdDate",
+          "updateDate",
+          "deletedDate"
+        ]
+      },
+      "UserApiKey": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "apiKey": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "number"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "apiKey",
+          "description",
+          "userId",
           "createdDate",
           "updateDate",
           "deletedDate"
@@ -1455,6 +1546,12 @@
               "$ref": "#/components/schemas/OrganisationMembership"
             }
           },
+          "apiKeys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserApiKey"
+            }
+          },
           "createdDate": {
             "format": "date-time",
             "type": "string"
@@ -1476,6 +1573,7 @@
           "emailVerified",
           "blocked",
           "memberships",
+          "apiKeys",
           "createdDate",
           "updateDate",
           "deletedDate"
@@ -1552,44 +1650,6 @@
           "id",
           "uuid",
           "name",
-          "createdDate",
-          "updateDate",
-          "deletedDate"
-        ]
-      },
-      "UserApiKey": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "uuid": {
-            "type": "string"
-          },
-          "apiKey": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "createdDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "updateDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "deletedDate": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "uuid",
-          "apiKey",
-          "description",
           "createdDate",
           "updateDate",
           "deletedDate"

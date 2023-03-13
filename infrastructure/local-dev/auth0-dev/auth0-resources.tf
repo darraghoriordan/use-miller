@@ -103,6 +103,8 @@ resource "auth0_user" "dev_test_basic_user" {
   password        = "apasspass$12$12"
   nickname        = "testbasic"
   email_verified  = true
+  given_name      = "Basic"
+  family_name     = "User"
 }
 
 resource "auth0_user" "dev_test_no_email_verified_user" {
@@ -111,6 +113,8 @@ resource "auth0_user" "dev_test_no_email_verified_user" {
   password        = "apasspass$12$12"
   nickname        = "testbasic"
   email_verified  = false
+  given_name      = "NoEmail"
+  family_name     = "Verified"
 }
 
 resource "auth0_user" "dev_test_user" {
@@ -118,6 +122,8 @@ resource "auth0_user" "dev_test_user" {
   email           = "test@test.com"
   password        = "apasspass$12$12"
   nickname        = "testnick"
+  given_name      = "Super"
+  family_name     = "User"
   email_verified  = true
   roles           = [auth0_role.super_user_role.id]
 }

@@ -18,8 +18,9 @@ module.exports = {
     settings: {
         ["import/parsers"]: { "@typescript-eslint/parser": [".ts", ".tsx"] },
         ["import/resolver"]: {
+            typescript: {},
             node: {
-                extensions: [".ts", ".tsx"],
+                extensions: [".ts", ".tsx", ".js"],
             },
         },
     },
@@ -28,9 +29,6 @@ module.exports = {
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:unicorn/recommended",
-        "plugin:import/errors",
-        "plugin:import/warnings",
-        "plugin:import/typescript",
         "plugin:unicorn/recommended",
         "plugin:eslint-comments/recommended",
         "plugin:sonarjs/recommended",
@@ -38,6 +36,9 @@ module.exports = {
         "plugin:promise/recommended",
         "plugin:jest/recommended",
         "plugin:@darraghor/nestjs-typed/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript",
     ],
     // tsconfigRootDir: __dirname,
     root: true,

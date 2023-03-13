@@ -4,48 +4,63 @@ import LocalApiTestToken from "./LocalApiTestToken";
 import fs from "fs";
 import axios from "axios";
 
+export enum TestUserAccounts {
+    SUPER_USER = "SuperUser",
+    BASIC_USER = "BasicUser",
+    EMAIL_NOT_VERIFIED_USER = "EmailNotVerifiedUser",
+}
+export type TestUserConfiguration = {
+    tokenPath: string;
+    username: string;
+    password: string;
+    accountType: TestUserAccounts;
+    token: string;
+};
 export class AuthenticationTokenManager {
-    static validSuperUserToken = "";
-    static validBasicUserToken = "";
+    static getAccessToken(userType: TestUserAccounts): string {
+        return this.userConfiguration.find((x) => x.accountType === userType)!
+            .token;
+    }
 
-    public static async init(): Promise<void> {
-        const basicUserTokenParameters = {
-            tokenPath: "./basic-user-api-test-token.json",
-            username: process.env.AUTH0_TEST_ACCOUNT_BASIC_USERNAME!,
-            password: process.env.AUTH0_TEST_ACCOUNT_BASIC_PASSWORD!,
-        };
-
-        const superUserTokenParameters = {
-            tokenPath: "./local-api-test-token.json",
+    private static userConfiguration = [
+        {
+            accountType: TestUserAccounts.SUPER_USER,
+            tokenPath: "./tmp-tokens/super-user-local-api-test-token.json",
             username: process.env.AUTH0_TEST_ACCOUNT_USERNAME!,
             password: process.env.AUTH0_TEST_ACCOUNT_PASSWORD!,
-        };
-        if (
-            AuthenticationTokenManager.validSuperUserToken === undefined ||
-            AuthenticationTokenManager.validSuperUserToken === ""
-        ) {
-            AuthenticationTokenManager.validSuperUserToken =
-                await AuthenticationTokenManager.initSingleToken(
-                    superUserTokenParameters
-                );
-        }
+            token: "",
+        },
+        {
+            accountType: TestUserAccounts.BASIC_USER,
+            tokenPath: "./tmp-tokens/basic-user-api-test-token.json",
+            username: process.env.AUTH0_TEST_ACCOUNT_BASIC_USERNAME!,
+            password: process.env.AUTH0_TEST_ACCOUNT_BASIC_PASSWORD!,
+            token: "",
+        },
+        {
+            accountType: TestUserAccounts.EMAIL_NOT_VERIFIED_USER,
+            tokenPath:
+                "./tmp-tokens/email-not-verified-user-api-test-token.json",
+            username: process.env.AUTH0_TEST_ACCOUNT_NO_EMAILV_USERNAME!,
+            password: process.env.AUTH0_TEST_ACCOUNT_NO_EMAILV_PASSWORD!,
+            token: "",
+        },
+    ];
 
-        if (
-            AuthenticationTokenManager.validBasicUserToken === undefined ||
-            AuthenticationTokenManager.validBasicUserToken === ""
-        ) {
-            AuthenticationTokenManager.validBasicUserToken =
-                await AuthenticationTokenManager.initSingleToken(
-                    basicUserTokenParameters
-                );
+    public static async init(): Promise<void> {
+        for (const userConfig of AuthenticationTokenManager.userConfiguration) {
+            if (userConfig.token === "") {
+                userConfig.token =
+                    await AuthenticationTokenManager.initSingleToken(
+                        userConfig
+                    );
+            }
         }
     }
 
-    private static async initSingleToken(parameters: {
-        tokenPath: string;
-        username: string;
-        password: string;
-    }): Promise<string> {
+    private static async initSingleToken(
+        parameters: TestUserConfiguration
+    ): Promise<string> {
         try {
             console.log("Getting new token", parameters);
             if (!parameters.username) {
@@ -54,6 +69,9 @@ export class AuthenticationTokenManager {
 
             let localToken: LocalApiTestToken;
 
+            if (!fs.existsSync("./tmp-tokens")) {
+                fs.mkdirSync("./tmp-tokens");
+            }
             // eslint-disable-next-line prefer-const
             localToken = fs.existsSync(parameters.tokenPath)
                 ? new LocalApiTestToken(
@@ -64,7 +82,7 @@ export class AuthenticationTokenManager {
                   )
                 : new LocalApiTestToken();
 
-            if (localToken.needNewToken()) {
+            if (localToken.mustRefreshToken()) {
                 console.log("Getting new token...");
                 const options = {
                     method: "POST",
@@ -115,7 +133,7 @@ export class AuthenticationTokenManager {
                     JSON.stringify(localToken)
                 );
 
-                console.log("New token written to ./local-api-test-token.json");
+                console.log(`New token written to ${parameters.tokenPath}`);
             }
 
             return localToken.access_token!;

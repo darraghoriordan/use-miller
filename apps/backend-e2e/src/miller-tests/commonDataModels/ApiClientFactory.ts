@@ -5,32 +5,29 @@ import {
     UsersApi,
     ApplicationSupportApi,
 } from "@use-miller/shared-api-client";
-import { AuthenticationTokenManager } from "./AuthenticationTokenManager";
+import {
+    AuthenticationTokenManager,
+    TestUserAccounts,
+} from "./AuthenticationTokenManager";
 import fetch from "node-fetch";
 
 export class ApiClientFactory {
     static contentType = "content-type";
     static jsonType = "application/json";
-    static validToken = "";
 
-    public static getAllAuthenticated(elevateToSuperUser = false): {
+    public static getAllAuthenticated(): {
         applicationSupportApi: ApplicationSupportApi;
         userApi: UsersApi;
         emailClientApi: EmailClientApi;
     } {
         return {
             applicationSupportApi: ApiClientFactory.getAuthenticatedApiInstance(
-                ApplicationSupportApi,
-                elevateToSuperUser
+                ApplicationSupportApi
             ),
-            userApi: ApiClientFactory.getAuthenticatedApiInstance(
-                UsersApi,
-                elevateToSuperUser
-            ),
+            userApi: ApiClientFactory.getAuthenticatedApiInstance(UsersApi),
             emailClientApi:
                 ApiClientFactory.getAuthenticatedApiInstance<EmailClientApi>(
-                    EmailClientApi,
-                    elevateToSuperUser
+                    EmailClientApi
                 ),
         };
     }
@@ -38,13 +35,11 @@ export class ApiClientFactory {
         apiService: {
             new (apiConfig: Configuration): T;
         },
-        elevateToSuperUser = false
+        userType: TestUserAccounts = TestUserAccounts.BASIC_USER
     ) {
         const apiConfig = new Configuration({
             basePath: process.env.TEST_API_URL,
-            accessToken: elevateToSuperUser
-                ? AuthenticationTokenManager.validSuperUserToken
-                : AuthenticationTokenManager.validBasicUserToken,
+            accessToken: AuthenticationTokenManager.getAccessToken(userType),
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             fetchApi: fetch as any,
         });
