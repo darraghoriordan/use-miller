@@ -2,6 +2,7 @@ export * from './ApplicationSupportApi';
 export * from './CourseFilesApi';
 export * from './CourseMetaApi';
 export * from './EmailClientApi';
+export * from './InvitationsApi';
 export * from './OrganisationMembershipsApi';
 export * from './OrganisationSubscriptionsApi';
 export * from './OrganisationsApi';

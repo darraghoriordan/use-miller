@@ -6,6 +6,7 @@ src/apis/ApplicationSupportApi.ts
 src/apis/CourseFilesApi.ts
 src/apis/CourseMetaApi.ts
 src/apis/EmailClientApi.ts
+src/apis/InvitationsApi.ts
 src/apis/OrganisationMembershipsApi.ts
 src/apis/OrganisationSubscriptionsApi.ts
 src/apis/OrganisationsApi.ts
@@ -16,12 +17,14 @@ src/apis/index.ts
 src/index.ts
 src/models/BooleanResult.ts
 src/models/CourseMetaDto.ts
+src/models/CreateInvitationDto.ts
 src/models/CreateUpdateMembershipDto.ts
 src/models/FileMetaDto.ts
 src/models/FileStructureDto.ts
 src/models/InitUserResponseDto.ts
 src/models/InlineResponse200.ts
 src/models/InlineResponse503.ts
+src/models/Invitation.ts
 src/models/MembershipRole.ts
 src/models/Organisation.ts
 src/models/OrganisationMembership.ts

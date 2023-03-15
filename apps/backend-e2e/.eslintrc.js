@@ -120,9 +120,14 @@ module.exports = {
                 format: ["camelCase"],
                 leadingUnderscore: "forbid",
             },
+
             {
                 selector: "typeLike",
                 format: ["PascalCase"],
+                filter: {
+                    regex: "d{10}$",
+                    match: false,
+                },
             },
             {
                 selector: "property",

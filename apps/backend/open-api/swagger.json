@@ -1357,6 +1357,143 @@
           }
         ]
       }
+    },
+    "/invitations/accept": {
+      "post": {
+        "operationId": "InvitationController_accept",
+        "parameters": [
+          {
+            "name": "invitationId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Invitations"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/invitations/{orgId}": {
+      "get": {
+        "operationId": "InvitationController_getAllForOrg",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Invitation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Invitations"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/invitations": {
+      "post": {
+        "operationId": "InvitationController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateInvitationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invitation"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Invitations"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/invitations/{uuid}": {
+      "delete": {
+        "operationId": "InvitationController_remove",
+        "parameters": [
+          {
+            "name": "uuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Invitations"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
     }
   },
   "info": {
@@ -1395,10 +1532,6 @@
           "updateDate": {
             "format": "date-time",
             "type": "string"
-          },
-          "deletedDate": {
-            "format": "date-time",
-            "type": "string"
           }
         },
         "required": [
@@ -1406,8 +1539,7 @@
           "membershipId",
           "name",
           "createdDate",
-          "updateDate",
-          "deletedDate"
+          "updateDate"
         ]
       },
       "OrganisationMembership": {
@@ -1423,9 +1555,6 @@
             "type": "number"
           },
           "organisationId": {
-            "type": "number"
-          },
-          "invitationId": {
             "type": "number"
           },
           "roles": {
@@ -1452,8 +1581,6 @@
           "uuid",
           "userId",
           "organisationId",
-          "invitationId",
-          "roles",
           "createdDate",
           "updateDate",
           "deletedDate"
@@ -1722,8 +1849,6 @@
           "uuid",
           "emailVerified",
           "blocked",
-          "memberships",
-          "apiKeys",
           "createdDate",
           "updateDate",
           "deletedDate"
@@ -2101,6 +2226,79 @@
           "rootLocation",
           "name",
           "color"
+        ]
+      },
+      "Invitation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "givenName": {
+            "type": "string"
+          },
+          "emailAddress": {
+            "type": "string"
+          },
+          "notificationSent": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "expiresOn": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "acceptedOn": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "organisationMembership": {
+            "$ref": "#/components/schemas/OrganisationMembership"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "givenName",
+          "emailAddress",
+          "expiresOn",
+          "organisationMembership",
+          "createdDate",
+          "updateDate"
+        ]
+      },
+      "CreateInvitationDto": {
+        "type": "object",
+        "properties": {
+          "givenName": {
+            "type": "string"
+          },
+          "emailAddress": {
+            "type": "string"
+          },
+          "organisationId": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "givenName",
+          "emailAddress",
+          "organisationId"
         ]
       }
     }

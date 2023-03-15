@@ -110,6 +110,11 @@ module.exports = {
             {
                 selector: "typeLike",
                 format: ["PascalCase"],
+                filter: {
+                    //prettier-ignore
+                    regex: "\\d{10}$",
+                    match: false,
+                },
             },
             {
                 selector: "property",
