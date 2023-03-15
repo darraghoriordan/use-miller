@@ -62,7 +62,6 @@ export class AuthenticationTokenManager {
         parameters: TestUserConfiguration
     ): Promise<string> {
         try {
-            console.log("Getting new token", parameters);
             if (!parameters.username) {
                 throw new Error("No user username provided");
             }

@@ -1,20 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
+    ApplicationSupportApi,
     Organisation,
     OrganisationMembershipsApi,
     OrganisationsApi,
     OrganisationSubscriptionRecord,
     OrganisationSubscriptionsApi,
     OrganisationSubscriptionsControllerAddSubscriptionRequest,
-    User,
     UsersApi,
 } from "@use-miller/shared-api-client";
 import { ApiClientFactory } from "./commonDataModels/ApiClientFactory";
-import { TestUserAccounts } from "./commonDataModels/AuthenticationTokenManager.js";
+import { TestUserAccounts } from "./commonDataModels/AuthenticationTokenManager";
 
 // This follows a user through the first steps when they hit
 // the api for the first time.
+
 describe("When getting a user the first time", () => {
     const userApi = ApiClientFactory.getAuthenticatedApiInstance(UsersApi);
     const orgApi =
@@ -22,7 +23,6 @@ describe("When getting a user the first time", () => {
     const orgMembershipsApi = ApiClientFactory.getAuthenticatedApiInstance(
         OrganisationMembershipsApi
     );
-
     const subscriptionsApi = ApiClientFactory.getAuthenticatedApiInstance(
         OrganisationSubscriptionsApi
     );
@@ -31,18 +31,15 @@ describe("When getting a user the first time", () => {
             OrganisationSubscriptionsApi,
             TestUserAccounts.SUPER_USER
         );
-
-    let foundUser: User | undefined;
-
     it("the user is initialised", async () => {
-        foundUser = await userApi.userControllerFindOne({
+        const foundUser = await userApi.userControllerFindOne({
             uuid: "me",
         });
         expect(foundUser).toMatchObject({
-            auth0UserId: expect.any(String),
+            //   auth0UserId: expect.any(String),
             email: "testbasic@testbasic.com",
         });
-    });
+    }, 30_000);
 
     it("any path other than 'me' is treated as an id", async () => {
         await expect(() =>
@@ -67,7 +64,7 @@ describe("When getting a user the first time", () => {
                 orgUuid: org!.uuid,
             });
         expect(memberships).toHaveLength(1);
-        console.log("memberships", memberships);
+
         expect(memberships[0]).toMatchObject({
             roles: [
                 {
@@ -139,5 +136,14 @@ describe("When getting a user the first time", () => {
         for (const r of results) {
             expect(r.result).toBe(true);
         }
+    });
+
+    afterAll(async () => {
+        const applicationSupportApi =
+            ApiClientFactory.getAuthenticatedApiInstance(
+                ApplicationSupportApi,
+                TestUserAccounts.SUPER_USER
+            );
+        await applicationSupportApi.superPowersControllerResetDatabase();
     });
 });

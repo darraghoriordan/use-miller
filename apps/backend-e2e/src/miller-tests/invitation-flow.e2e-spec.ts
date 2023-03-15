@@ -167,6 +167,11 @@ describe("When inviting users", () => {
     });
 
     afterAll(async () => {
+        const applicationSupportApi =
+            ApiClientFactory.getAuthenticatedApiInstance(
+                ApplicationSupportApi,
+                TestUserAccounts.SUPER_USER
+            );
         await applicationSupportApi.superPowersControllerResetDatabase();
     });
 });
