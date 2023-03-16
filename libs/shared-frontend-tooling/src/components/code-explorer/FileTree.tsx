@@ -57,7 +57,6 @@ const FileTree = (props: {
 
             tree.handlers.setSelected(node, true);
 
-            console.log("node", node.data);
             // open all parents of the node
             let parent = node.getParent();
 
@@ -133,7 +132,7 @@ const FileTree = (props: {
     // }
 
     return (
-        <div className="h-full px-2 pt-2 bg-dark-mid">
+        <div className="h-full px-2 pt-2 bg-dark-mid whitespace-nowrap">
             <Tree
                 {...required}
                 {...handlers}

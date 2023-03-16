@@ -10,8 +10,8 @@ export function Footer() {
                     <p className="text-center text-3xl text-white">Miller</p>
                     <nav className="mt-10 text-sm" aria-label="quick links">
                         <div className="-my-1 flex justify-center gap-x-6">
-                            <NavLink href="#features">Features</NavLink>
-                            <NavLink href="#pricing">Pricing</NavLink>
+                            <NavLink href="/#features">Features</NavLink>
+                            <NavLink href="/#pricing">Pricing</NavLink>
                             <NavLink href="/get-started">Get Started</NavLink>
                         </div>
                     </nav>

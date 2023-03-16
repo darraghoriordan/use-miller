@@ -60,9 +60,6 @@ const Home = () => {
                     return {
                         name: project.name,
                         path: `/open/code-doc/${project.key}`,
-                        isCurrent:
-                            location.pathname.includes(`/${project.key}/`) ||
-                            location.pathname.endsWith(project.key),
                     } as MenuItem;
                 }) || [],
         },

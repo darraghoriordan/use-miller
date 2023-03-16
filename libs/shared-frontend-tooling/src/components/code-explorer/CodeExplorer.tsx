@@ -35,7 +35,7 @@ export default function CodeExplorer({
 }) {
     return (
         <PanelGroup direction="horizontal">
-            <Panel defaultSize={15} minSize={5}>
+            <Panel defaultSize={20} minSize={5}>
                 {fileList.data && (
                     <FileTree
                         files={fileList.data}
@@ -53,7 +53,7 @@ export default function CodeExplorer({
                 />
             </Panel>
             <ResizeHandle className="bg-dark-shade" />
-            <Panel defaultSize={30} minSize={20}>
+            <Panel defaultSize={40} minSize={20}>
                 <MarkdownWrapper
                     data={markdownFile.data?.contents}
                     isLoading={markdownFile.isLoading}

@@ -30,7 +30,8 @@
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        "apps/marketing/types/envVars.d.ts"
+        "apps/marketing/types/envVars.d.ts",
+        "src/pages/docs/index.tsxnot"
     ],
     "exclude": [
         "node_modules"

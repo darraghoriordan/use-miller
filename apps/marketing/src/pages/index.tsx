@@ -1,6 +1,6 @@
-import { Hero } from "../components/Hero";
+import { Hero } from "../home-cta/Hero";
 import Layout from "../components/Layout.jsx";
-import { Pricing } from "../components/Pricing";
+import { Pricing } from "../home-cta/Pricing";
 
 export default function Home() {
     return (

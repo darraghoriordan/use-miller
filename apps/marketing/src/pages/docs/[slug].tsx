@@ -1,95 +1,47 @@
 import Layout from "../../components/Layout.jsx";
 import {
     FullDoc,
-    getAllPostIds,
-    getPostData,
-    getSortedPostsData,
-    SummaryDoc,
-} from "../../lib/docParser.js";
-import {
-    LeftMenu,
-    MenuItem,
-    MenuSection,
-} from "@use-miller/shared-frontend-tooling";
+    getStaticDocsPageSlugs,
+    getSinglePost,
+} from "../../docs/docParser.js";
 import { Container } from "../../components/Container.jsx";
+import { GetStaticPaths } from "next";
+import { createMenu } from "../../docs/leftMenu.js";
+import { DocArticle } from "../../docs/components/DocArticle.jsx";
+import { LeftMenu, MenuSection } from "../../docs/components/LeftMenu.jsx";
 
 export async function getStaticProps({
     params,
 }: {
     params: { slug?: string };
 }) {
-    const allArticles = getSortedPostsData();
-    if (!params.slug) {
-        params.slug = allArticles[0].slug;
-    }
-    const mainArticle = await getPostData(params.slug);
-
+    const article = await getSinglePost(params.slug);
+    const menuSections = await createMenu();
     return {
         props: {
-            allArticles,
-            mainArticle,
+            menuSections,
+            article,
         },
     };
 }
 
-export async function getStaticPaths() {
-    const paths = getAllPostIds();
-    return {
-        paths,
-        fallback: false,
-    };
-}
+export const getStaticPaths: GetStaticPaths = async () => {
+    return getStaticDocsPageSlugs();
+};
 
 export default function Home({
-    allArticles,
-    mainArticle,
+    menuSections,
+    article,
 }: {
-    allArticles: SummaryDoc[];
-    mainArticle: FullDoc;
+    menuSections: MenuSection[];
+    article: FullDoc;
 }) {
-    const menuSections: MenuSection[] = [
-        {
-            name: "Get Started",
-            items: allArticles.map((post) => {
-                return {
-                    name: post.title,
-                    path: `/docs/${post.slug}`,
-                    isCurrent: false,
-                } as MenuItem;
-            }),
-        },
-        {
-            name: "Projects",
-            items: [],
-            // items: projects.data.map((project) => {
-            //     return {
-            //         name: project.name,
-            //         path: `/open/code-doc/${project.key}`,
-            //         isCurrent: location.pathname.includes(project.key),
-            //     } as MenuItem;
-            // }),
-        },
-    ];
-
     return (
         <Layout>
             <Container className="w-full min-w-full mx-auto bg-neutral-900 mb-16">
                 <div className="flex items-stretch">
                     <LeftMenu menuSections={menuSections} />
-                    <div className="ml-24 mt-16 mr-4">
-                        <div>
-                            <h1 className="text-white font-medium text-4xl mb-8">
-                                {mainArticle?.title}
-                            </h1>
-
-                            <article
-                                className="mb-4 prose prose-lg prose-invert"
-                                dangerouslySetInnerHTML={{
-                                    __html: mainArticle?.html,
-                                }}
-                            ></article>
-                        </div>
-                    </div>
+                    <DocArticle article={article} />
                 </div>
             </Container>
         </Layout>

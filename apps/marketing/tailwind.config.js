@@ -27,6 +27,7 @@ module.exports = {
 
         "hover:shadow-green-500/30",
         "focus:ring-green-400",
+        "bg-green-500/30",
         "text-green-500",
         "bg-green-500",
         "hover:text-green-500",
@@ -70,6 +71,14 @@ module.exports = {
             "9xl": ["8rem", { lineHeight: "1" }],
         },
         extend: {
+            colors: {
+                "light-shade": "#F8FAF4", // ivory white
+                "light-accent": "#C5C5C5", // darkish-green-(text)
+                "main-brand": "#21CD9C", // bright-green
+                "dark-accent": "#282828", // vs code highlight
+                "dark-mid": "#212122", // vs code explorer
+                "dark-shade": "#1E1E1E", // vscode editor dark
+            },
             animation: {
                 fadeIn: "fadeIn 2s ease-in forwards",
             },

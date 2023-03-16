@@ -1,5 +1,5 @@
-import StyledLink from "./StyledLink";
-import { Container } from "./Container";
+import StyledLink from "../components/StyledLink";
+import { Container } from "../components/Container";
 import codeImage from "../intro-media/code.png";
 import adminImage from "../intro-media/admin.png";
 import productImage from "../intro-media/product.png";
@@ -78,14 +78,18 @@ export function Hero() {
                                 Buy now
                             </StyledLink>
                             <StyledLink
-                                href={
-                                    process.env.NEXT_PUBLIC_APP_BASE_PATH +
-                                    "/open/code-doc/miller"
-                                }
+                                href={"docs/reference/miller"}
                                 color="violet"
                                 className=" rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
                             >
                                 View the code
+                            </StyledLink>
+                            <StyledLink
+                                href={"docs"}
+                                color="violet"
+                                className=" rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
+                            >
+                                View the docs
                             </StyledLink>
                         </div>
                     </div>

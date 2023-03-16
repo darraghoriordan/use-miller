@@ -9,6 +9,25 @@
 .intro-image-rotation {
     transform: perspective(1260px) rotateY(-20.2deg) rotateX(10.6deg) scale(1);
 }
+
 .intro-image {
     box-shadow: 0 2px 50px 0 rgb(68 125 232 / 50%);
+}
+
+
+.selected-node-wrapper {
+    @apply bg-zinc-700 rounded-md text-white !important;
+
+}
+
+.selected-node-wrapper:focus-within {
+    @apply bg-zinc-700 rounded-md text-white
+}
+
+:not(.selected-node-wrapper).node-wrapper:hover {
+    @apply bg-zinc-700 rounded-md text-white
+}
+
+.node-wrapper {
+    @apply pr-2 select-none cursor-pointer
 }

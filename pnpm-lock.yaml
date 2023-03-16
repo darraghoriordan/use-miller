@@ -426,6 +426,7 @@ importers:
       '@nrwl/node': 15.8.6
       '@tailwindcss/forms': 0.5.3
       '@tailwindcss/typography': 0.5.9
+      '@tanstack/react-query': 4.26.1
       '@types/node': 18.15.1
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
@@ -470,6 +471,7 @@ importers:
       '@mapbox/rehype-prism': 0.8.0
       '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.7
       '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.7
+      '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
       '@use-miller/shared-api-client': link:../../libs/shared-api-client
       '@use-miller/shared-frontend-tooling': link:../../libs/shared-frontend-tooling
       autoprefixer: 10.4.14

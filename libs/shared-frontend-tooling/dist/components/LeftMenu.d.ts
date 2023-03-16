@@ -2,12 +2,12 @@
 export type MenuItem = {
     name: string;
     path: string;
-    isCurrent: boolean;
 };
 export type MenuSection = {
     name: string;
     items: MenuItem[];
 };
-export declare function LeftMenu({ menuSections }: {
+export declare function LeftMenu({ menuSections, currentPath, }: {
     menuSections: MenuSection[];
+    currentPath?: string;
 }): JSX.Element;

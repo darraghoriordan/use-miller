@@ -1,5 +1,5 @@
-import StyledLink from "./StyledLink";
-import { Container } from "./Container";
+import StyledLink from "../components/StyledLink";
+import { Container } from "../components/Container";
 
 export function Pricing() {
     return (

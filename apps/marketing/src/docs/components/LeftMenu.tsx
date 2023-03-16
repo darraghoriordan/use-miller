@@ -1,6 +1,6 @@
+import { colorVariants } from "@use-miller/shared-frontend-tooling";
 import clsx from "clsx";
-import { useEffect, useState } from "react";
-import { colorVariants } from "../themeColors.js";
+import { useRouter } from "next/router.js";
 import { LeftMenuItem } from "./LeftMenuItem.js";
 
 export type MenuItem = {
@@ -11,21 +11,17 @@ export type MenuSection = {
     name: string;
     items: MenuItem[];
 };
-export function LeftMenu({
-    menuSections,
-    currentPath,
-}: {
-    menuSections: MenuSection[];
-    currentPath?: string;
-}) {
-    const [currentPathMatcher, setCurrentPathMatcher] = useState(
-        currentPath || ""
-    );
-    useEffect(() => {
-        if (currentPathMatcher === "") {
-            setCurrentPathMatcher(window?.location?.pathname);
-        }
-    }, []);
+
+const isCurrentMenuItem = (path: string, item: MenuItem) => {
+    // special case for the docs route
+    if (path === "/docs" && item.path === "/docs/get-started-installation")
+        return true;
+
+    return item.path === path;
+};
+
+export function LeftMenu({ menuSections }: { menuSections: MenuSection[] }) {
+    const path = useRouter();
 
     return (
         <div className="flex">
@@ -48,7 +44,10 @@ export function LeftMenu({
                                 <LeftMenuItem
                                     key={item.path}
                                     item={item}
-                                    isCurrent={item.path === currentPathMatcher}
+                                    isCurrent={isCurrentMenuItem(
+                                        path.asPath,
+                                        item
+                                    )}
                                 />
                             ))}
                         </ul>
