@@ -11,7 +11,7 @@ const MarkdownWrapper = (props: {
 
     if (isError) {
         return (
-            <div className="inset-0 z-10 overflow-y-auto">
+            <div className="inset-0 z-10 overflow-hidden">
                 <div className="flex flex-col items-center justify-center min-h-full p-8 mt-8 text-center space-y-8">
                     <div className="max-w-lg text-lg text-white">
                         {`Error loading file content ${error}`}
@@ -31,12 +31,14 @@ const MarkdownWrapper = (props: {
                     Notes for section
                 </div>
             </div>
-            <article
-                className="mx-4 mt-2 mb-4 prose prose-sm prose-invert"
-                dangerouslySetInnerHTML={{
-                    __html: data || firstContents,
-                }}
-            ></article>
+            <div className="overflow-x-hidden overflow-y-scroll flex flex-auto code-scroll">
+                <article
+                    className="mx-4 mt-2 mb-4 prose prose-sm prose-invert max-w-none"
+                    dangerouslySetInnerHTML={{
+                        __html: data || firstContents,
+                    }}
+                ></article>
+            </div>
         </>
     );
 };

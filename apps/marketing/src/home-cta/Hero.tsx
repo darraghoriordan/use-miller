@@ -78,16 +78,18 @@ export function Hero() {
                                 Buy now
                             </StyledLink>
                             <StyledLink
-                                href={"docs/reference/miller"}
+                                href={`docs/reference/miller/${btoa(
+                                    "/README.md"
+                                )}`}
                                 color="violet"
-                                className=" rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
+                                className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
                             >
                                 View the code
                             </StyledLink>
                             <StyledLink
                                 href={"docs"}
                                 color="violet"
-                                className=" rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
+                                className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
                             >
                                 View the docs
                             </StyledLink>

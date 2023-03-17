@@ -34,7 +34,7 @@ const EditorWrapper = (props: {
 
     if (isError) {
         return (
-            <div className="inset-0 z-10 overflow-y-auto">
+            <div className="inset-0 z-10 overflow-hidden">
                 <div className="flex flex-col items-center justify-center min-h-full p-8 mt-8 text-center space-y-8">
                     <div className="max-w-lg text-lg text-white">
                         {`Error loading file content`}
@@ -48,22 +48,23 @@ const EditorWrapper = (props: {
     }
 
     return (
-        <div className="h-full bg-dark-shade">
-            <div className="flex bg-dark-mid ">
+        <>
+            <div className="flex bg-dark-mid">
                 <div className="inline-block px-4 py-2 text-sm text-orange-300 border-b border-orange-300 bg-dark-shade">
                     {data ? data.fileName : "Welcome.txt"}
                 </div>
             </div>
-            <Editor
-                theme="vs-dark"
-                height="90vh"
-                path={data?.fileName}
-                beforeMount={handleEditorWillMount}
-                onMount={handleEditorOnMount}
-                defaultValue={firstContents}
-                value={data?.contents}
-            />
-        </div>
+            <div className="flex flex-auto">
+                <Editor
+                    theme="vs-dark"
+                    path={data?.fileName}
+                    beforeMount={handleEditorWillMount}
+                    onMount={handleEditorOnMount}
+                    defaultValue={firstContents}
+                    value={data?.contents}
+                />
+            </div>
+        </>
     );
 };
 

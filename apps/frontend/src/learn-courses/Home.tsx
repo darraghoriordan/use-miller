@@ -65,7 +65,6 @@ const Home = () => {
         },
     ];
     if (!fileList.data && codeFile.data && markdownFile.data) {
-        console.log("waiting...");
         return <div>Waiting...</div>;
     }
     return (
@@ -74,6 +73,7 @@ const Home = () => {
                 <LeftMenu menuSections={menuSections} />
 
                 <CodeExplorer
+                    projectKey={projectKey}
                     markdownFile={markdownFile}
                     codeFile={codeFile}
                     fileList={fileList}

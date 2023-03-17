@@ -11,9 +11,10 @@ export default function CodeExplorer({
     fileList,
     selectedFile,
     setSelectedFile,
+    projectKey,
 }: {
     selectedFile: string;
-    setSelectedFile: (file: string) => void;
+    setSelectedFile: (file: string, projectKey: string) => void;
     fileList: {
         data?: FileStructureDto;
         isLoading: boolean;
@@ -32,20 +33,32 @@ export default function CodeExplorer({
         isError: boolean;
         error: unknown;
     };
+    projectKey: string;
 }) {
     return (
-        <PanelGroup direction="horizontal">
-            <Panel defaultSize={20} minSize={5}>
+        <PanelGroup direction="horizontal" className="overflow-scroll">
+            <Panel defaultSize={20} minSize={5} style={{ display: "flex" }}>
                 {fileList.data && (
                     <FileTree
                         files={fileList.data}
                         selectedFile={selectedFile}
-                        setSelectedFile={setSelectedFile}
+                        projectKey={projectKey}
+                        setSelectedFile={(fileName: string) => {
+                            setSelectedFile(fileName, projectKey);
+                        }}
                     />
                 )}
             </Panel>
             <ResizeHandle className="bg-dark-shade" />
-            <Panel minSize={40}>
+            <Panel
+                defaultSize={40}
+                minSize={40}
+                style={{
+                    display: "flex",
+                    //alignItems: "stretch",
+                    flexDirection: "column",
+                }}
+            >
                 <EditorWrapper
                     data={codeFile.data}
                     isLoading={codeFile.isLoading}
@@ -53,7 +66,11 @@ export default function CodeExplorer({
                 />
             </Panel>
             <ResizeHandle className="bg-dark-shade" />
-            <Panel defaultSize={40} minSize={20}>
+            <Panel
+                defaultSize={40}
+                minSize={20}
+                style={{ display: "flex", flexDirection: "column" }}
+            >
                 <MarkdownWrapper
                     data={markdownFile.data?.contents}
                     isLoading={markdownFile.isLoading}

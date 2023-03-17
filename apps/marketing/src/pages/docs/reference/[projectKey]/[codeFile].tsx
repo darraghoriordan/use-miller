@@ -1,6 +1,6 @@
 import Layout from "../../../../components/Layout.jsx";
 import { Container } from "../../../../components/Container.jsx";
-import { GetStaticPaths } from "next";
+import { GetServerSidePropsContext } from "next";
 import { createMenu } from "../../../../docs/leftMenu.js";
 import {
     LeftMenu,
@@ -9,38 +9,45 @@ import {
 import {
     CodeExplorerData,
     getCodeExplorerData,
-    getStaticReferenceDocsPageSlugs,
 } from "../../../../docs/referenceDocs.js";
 import dynamic from "next/dynamic";
-import {
-    useGetFileContent,
-    useGetFiles,
-    useGetMarkdownContent,
-} from "@use-miller/shared-frontend-tooling";
-import { useRouter } from "next/router.js";
-import { useEffect, useState } from "react";
 
-export async function getStaticProps({
-    params,
-}: {
-    params: { projectKey: string; codeFile: string };
-}) {
+import { useRouter } from "next/router.js";
+import { getAccessToken, getSession } from "@auth0/nextjs-auth0";
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const projectKey = context.params?.projectKey as string,
+        codeFile = context.params?.codeFile as string;
+    const session = await getSession(context.req, context.res);
+    let accessToken = null;
+    if (session) {
+        console.log("session", { session });
+        const atResponse = await getAccessToken(context.req, context.res, {
+            scopes: ["openid", "email", "profile", "offline_access"],
+        });
+        accessToken = atResponse.accessToken;
+        console.log("access token", { accessToken });
+    }
+    if (!projectKey || !codeFile) {
+        throw new Error(
+            "Missing projectKey or codeFile - params strike again!"
+        );
+    }
+
     const initialData = await getCodeExplorerData(
-        params.projectKey,
-        params.codeFile
+        projectKey,
+        codeFile,
+        accessToken
     );
     const menuSections = await createMenu();
+
     return {
         props: {
             menuSections,
             codeExplorerData: initialData,
-        },
+        }, // will be passed to the page component as props
     };
 }
-
-export const getStaticPaths: GetStaticPaths = async () => {
-    return getStaticReferenceDocsPageSlugs();
-};
 
 const DynamicCodeExplorer = dynamic(
     () =>
@@ -62,57 +69,24 @@ export default function CodeFileHome({
 }) {
     const router = useRouter();
 
-    const { projectKey, codeFile } = router.query;
-
-    // const projectKey = rawPk ? (rawPk as string) : "miller";
-    // const codeFile = rawCf ? (rawCf as string) : btoa("/README.md");
-
-    const apiOptions = {
-        apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH,
+    const setSelectedFile = (fileParam: string, projectKeyParam: string) => {
+        router.push("/docs/reference/" + projectKeyParam + "/" + fileParam);
     };
 
-    const [selectedFile, setSelectedFile] = useState(codeFile as string);
-    useEffect(() => {
-        if (codeFile) {
-            setSelectedFile(codeFile as string);
-        }
-    }, [codeFile]);
-
-    const codeFileData = useGetFileContent(
-        projectKey as string,
-        selectedFile,
-        selectedFile !== undefined && projectKey !== undefined,
-        apiOptions
-    );
-    const clientFileList = useGetFiles(
-        projectKey as string,
-        projectKey !== undefined,
-        apiOptions
-    );
-    const fileList = codeExplorerData?.fileList || clientFileList;
-
-    const markdownFile = useGetMarkdownContent(
-        projectKey as string,
-        codeFileData.data?.nearestReadmeLocation || "",
-        codeFileData.data?.nearestReadmeLocation !== undefined,
-        apiOptions
-    );
-
-    useEffect(() => {
-        if (selectedFile) {
-            window.history.replaceState(
-                null,
-                `${projectKey} File`,
-                `/docs/reference/${projectKey}/${selectedFile}`
-            );
-        }
-    }, [selectedFile]);
+    const {
+        fileList,
+        initialMarkdownFile: markdownFile,
+        initialCodeFile: codeFileData,
+        selectedFile: selectedFileX,
+        slug: projectKeyX,
+    } = codeExplorerData;
 
     let codeComp = (
         <DynamicCodeExplorer
+            projectKey={projectKeyX}
             fileList={fileList}
             setSelectedFile={setSelectedFile}
-            selectedFile={selectedFile}
+            selectedFile={selectedFileX}
             codeFile={codeFileData}
             markdownFile={markdownFile}
         />
@@ -133,7 +107,9 @@ export default function CodeFileHome({
             <Container className="w-full min-w-full mx-auto bg-neutral-900 mb-16">
                 <div className="flex items-stretch">
                     <LeftMenu menuSections={menuSections} />
-                    {codeComp}
+                    <div className="max-h-[calc(100vh-106px)] flex flex-row w-full overflow-hidden">
+                        {codeComp}
+                    </div>
                 </div>
             </Container>
         </Layout>

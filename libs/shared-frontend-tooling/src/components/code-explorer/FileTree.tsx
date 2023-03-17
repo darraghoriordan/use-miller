@@ -38,7 +38,8 @@ function mapFileStructureToTreeNode(
 const FileTree = (props: {
     files: FileStructureDto;
     selectedFile: string;
-    setSelectedFile: (file: string) => void;
+    projectKey: string;
+    setSelectedFile: (file: string, projectKey: string) => void;
 }) => {
     const { required, handlers } = useTreeState({
         id: "fileTree",
@@ -66,10 +67,10 @@ const FileTree = (props: {
                 parent = parent.getParent();
             }
         } else {
-            console.log("node not found");
+            console.debug("warning: file node not found in tree");
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.selectedFile, tree.instance.enhancedData]);
+    }, [props.selectedFile, props.projectKey, tree.instance.enhancedData]);
 
     const renderNode = useCallback(
         ({ node, onToggle, onSelect }: DefaultNodeProps) => {
@@ -81,7 +82,10 @@ const FileTree = (props: {
                     onClick={(evt) => {
                         onToggle(evt);
                         if (node.children?.length === 0) {
-                            props.setSelectedFile(nodeData.fileLocation);
+                            props.setSelectedFile(
+                                nodeData.fileLocation,
+                                props.projectKey
+                            );
                         }
                         tree.handlers.setSelected(node, true);
                     }}
@@ -95,7 +99,7 @@ const FileTree = (props: {
                 </div>
             );
         },
-        []
+        [props.projectKey, props.setSelectedFile]
     );
 
     const CustomFileIcon = ({ nodeProps }: { nodeProps: DefaultNodeProps }) => {
@@ -132,7 +136,7 @@ const FileTree = (props: {
     // }
 
     return (
-        <div className="h-full px-2 pt-2 bg-dark-mid whitespace-nowrap">
+        <div className="px-2 pt-2 bg-dark-mid whitespace-nowrap overflow-x-hidden overflow-y-scroll flex flex-auto code-scroll">
             <Tree
                 {...required}
                 {...handlers}

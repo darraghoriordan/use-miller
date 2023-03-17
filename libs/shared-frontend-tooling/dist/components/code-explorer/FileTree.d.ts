@@ -11,6 +11,7 @@ export type TreeLikeNode = {
 declare const FileTree: (props: {
     files: FileStructureDto;
     selectedFile: string;
-    setSelectedFile: (file: string) => void;
+    projectKey: string;
+    setSelectedFile: (file: string, projectKey: string) => void;
 }) => JSX.Element;
 export default FileTree;

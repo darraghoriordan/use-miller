@@ -238,9 +238,9 @@ export class CourseFilesService {
 
     shouldShowFullFile = (fileLocation: string): boolean => {
         const globs = [
-            "*.md",
-            "*.html",
-            "*.css",
+            "**/*.md",
+            "**/*.html",
+            "**/*.css",
             "**/src/stripe-client/services/**",
         ];
         // eslint-disable-next-line sonarjs/prefer-immediate-return

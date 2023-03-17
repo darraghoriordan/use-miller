@@ -449,6 +449,7 @@ importers:
       focus-visible: 5.2.0
       gray-matter: 4.0.3
       next: 13.2.4
+      next-progress: 2.2.0
       nx: 15.8.6
       postcss-focus-visible: 8.0.2
       prettier: 2.8.4
@@ -479,6 +480,7 @@ importers:
       focus-visible: 5.2.0
       gray-matter: 4.0.3
       next: 13.2.4_biqbaboplfbrettd7655fr4n2y
+      next-progress: 2.2.0_next@13.2.4+react@18.2.0
       postcss-focus-visible: 8.0.2
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -14702,6 +14704,17 @@ packages:
   /neo-async/2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
+  /next-progress/2.2.0_next@13.2.4+react@18.2.0:
+    resolution: {integrity: sha512-g6VBoaj2SfUhKiBSJW/7ju06Ks3r3mUK79HdrLJ7fmvnjeyHPViAKLQDsMN1QIoBcTqN1hR7A8sISiMfm01qmQ==}
+    peerDependencies:
+      next: '>=6.0.0'
+      react: '>=16.0.0'
+    dependencies:
+      next: 13.2.4_biqbaboplfbrettd7655fr4n2y
+      nprogress: 0.2.0
+      react: 18.2.0
+    dev: false
+
   /next/13.2.4_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-g1I30317cThkEpvzfXujf0O4wtaQHtDCLhlivwlTJ885Ld+eOgcz7r3TGQzeU+cSRoNHtD8tsJgzxVdYojFssw==}
     engines: {node: '>=14.6.0'}
@@ -15040,6 +15053,10 @@ packages:
       gauge: 4.0.4
       set-blocking: 2.0.0
     dev: true
+
+  /nprogress/0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
+    dev: false
 
   /nth-check/2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}

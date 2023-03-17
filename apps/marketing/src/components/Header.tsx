@@ -167,11 +167,7 @@ export function Header() {
                         </div>
                         <div className="hidden md:block">
                             {(isLoading || !user) && (
-                                <NavLink
-                                    href={process.env.NEXT_PUBLIC_APP_BASE_PATH}
-                                >
-                                    Sign in
-                                </NavLink>
+                                <a href="/api/auth/login">Sign In</a>
                             )}
                             {user && (
                                 <NavLink

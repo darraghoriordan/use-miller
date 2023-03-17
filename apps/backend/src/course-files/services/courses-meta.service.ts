@@ -21,15 +21,16 @@ const courseMeta: CourseMetaDto[] = [
         rootLocation:
             "/Users/darraghoriordan/Documents/personal-projects/nest-backend-libs",
     },
-    {
-        key: "miller-desktop",
-        rootNodeName: "MILLER-ELECTRON",
-        name: "Miller Desktop App",
-        color: "pink",
+    // leave this one for now
+    // {
+    //     key: "miller-desktop",
+    //     rootNodeName: "MILLER-ELECTRON",
+    //     name: "Miller Desktop App",
+    //     color: "pink",
 
-        rootLocation:
-            "/Users/darraghoriordan/Documents/personal-projects/ssh-tool-new-electron",
-    },
+    //     rootLocation:
+    //         "/Users/darraghoriordan/Documents/personal-projects/ssh-tool-new-electron",
+    // },
 ];
 
 @Injectable()

@@ -5,13 +5,13 @@ export const getAuthenticatedApiInstance = async <T extends BaseAPI>(
         new (apiConfig: Configuration): T;
     },
     apiBase: string,
-    getAccessTokenSilently: () => Promise<string>
+    authToken: string,
+    fetchApi?: any
 ) => {
-    const authToken = await getAccessTokenSilently();
-
     const apiConfig = new Configuration({
         basePath: apiBase,
         accessToken: authToken,
+        fetchApi,
     });
     return new apiService(apiConfig);
 };

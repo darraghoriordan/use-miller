@@ -7,6 +7,7 @@ const Auth0ProviderWithHistory = ({ children }: PropsWithChildren) => {
     const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID as string;
     const audience = import.meta.env.VITE_AUTH0_API_AUDIENCE as string;
     const apiScopes = import.meta.env.VITE_AUTH0_API_SCOPE as string;
+    const cookieDomain = import.meta.env.VITE_AUTH0_COOKIE_DOMAIN as string;
     const navigate = useNavigate();
 
     const onRedirectCallback = (appState: any) => {
@@ -22,6 +23,7 @@ const Auth0ProviderWithHistory = ({ children }: PropsWithChildren) => {
                 audience: audience,
                 scope: apiScopes,
             }}
+            cookieDomain={cookieDomain}
             onRedirectCallback={onRedirectCallback}
         >
             {children}

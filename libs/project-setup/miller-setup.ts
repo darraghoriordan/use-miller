@@ -29,6 +29,7 @@ export type Auth0DevTerraformOutputVariables = {
     test_user_basic_password: { value: string };
     test_user_no_email_verified_username: { value: string };
     test_user_no_email_verified_password: { value: string };
+    next_app_auth0_secret: { value: string };
 };
 
 export type StripeTerraformInputVariables = {
@@ -305,6 +306,14 @@ swapEnvVars({
             auth0DevTerraformOutputVariables.auth0_client_id.value,
         NEXT_PUBLIC_STRIPE_REGULAR_PRICE_ID:
             stripeTerraformOutputVariables.regular_price_id.value,
+
+        AUTH0_SECRET:
+            auth0DevTerraformOutputVariables.next_app_auth0_secret.value,
+        AUTH0_ISSUER_BASE_URL: `https://${auth0DevTerraformOutputVariables.app_auth0_dev_domain.value}`,
+
+        AUTH0_CLIENT_ID: auth0DevTerraformOutputVariables.auth0_client_id.value,
+        AUTH0_CLIENT_SECRET:
+            auth0DevTerraformOutputVariables.auth0_client_secret.value,
     },
 });
 const redisPort = `63${Math.floor(Math.random() * 10)}${Math.floor(

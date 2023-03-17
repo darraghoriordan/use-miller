@@ -7,7 +7,7 @@ resource "auth0_client" "frontend_spa_app" {
   name                       = "Frontend App"
   description                = "The frontend client application"
   app_type                   = "spa"
-  callbacks                  = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
+  callbacks                  = ["http://localhost:3000", "http://localhost:3001", "http://localhost", "http://localhost:3000/api/auth/callback"]
   oidc_conformant            = true
   allowed_origins            = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
   allowed_logout_urls        = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
@@ -126,6 +126,18 @@ resource "auth0_user" "dev_test_user" {
   family_name     = "User"
   email_verified  = true
   roles           = [auth0_role.super_user_role.id]
+}
+
+resource "random_string" "next_app_auth0_secret" {
+  length  = 32
+  upper   = false
+  numeric = true
+  special = false
+}
+
+output "next_app_auth0_secret" {
+  value     = random_string.next_app_auth0_secret.result
+  sensitive = true
 }
 
 output "auth0_client_id" {
