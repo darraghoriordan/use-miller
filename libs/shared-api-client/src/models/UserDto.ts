@@ -131,7 +131,7 @@ export interface UserDto {
      * @type {Date}
      * @memberof UserDto
      */
-    deletedDate: Date;
+    deletedDate?: Date;
 }
 
 export function UserDtoFromJSON(json: any): UserDto {
@@ -160,7 +160,7 @@ export function UserDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): U
         'apiKeys': ((json['apiKeys'] as Array<any>).map(UserApiKeyFromJSON)),
         'createdDate': (new Date(json['createdDate'])),
         'updateDate': (new Date(json['updateDate'])),
-        'deletedDate': (new Date(json['deletedDate'])),
+        'deletedDate': !exists(json, 'deletedDate') ? undefined : (new Date(json['deletedDate'])),
     };
 }
 
@@ -189,7 +189,7 @@ export function UserDtoToJSON(value?: UserDto | null): any {
         'apiKeys': ((value.apiKeys as Array<any>).map(UserApiKeyToJSON)),
         'createdDate': (value.createdDate.toISOString()),
         'updateDate': (value.updateDate.toISOString()),
-        'deletedDate': (value.deletedDate.toISOString()),
+        'deletedDate': value.deletedDate === undefined ? undefined : (value.deletedDate.toISOString()),
     };
 }
 

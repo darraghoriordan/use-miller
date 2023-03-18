@@ -52,16 +52,19 @@ export function Hero() {
                             <div className="intro-image-rotation md:relative w-1/2 md:w-full mt-20 mb-32 md:mt-0 md:mb-0">
                                 <div>
                                     <Image
+                                        priority
                                         alt="admin image"
                                         src={adminImage}
                                         className="intro-image absolute md:-translate-y-16 md:translate-x-14 -translate-y-4 translate-x-2"
                                     />
                                     <Image
+                                        priority
                                         alt="product image"
                                         src={productImage}
                                         className="intro-image absolute md:-translate-x-7 translate-x-7"
                                     />
                                     <Image
+                                        priority
                                         alt="code image"
                                         src={codeImage}
                                         className="intro-image md:translate-x-8 md:translate-y-32 translate-y-8"

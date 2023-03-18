@@ -54,7 +54,7 @@ export interface Organisation {
      * @type {Date}
      * @memberof Organisation
      */
-    deletedDate: Date;
+    deletedDate?: Date;
 }
 
 export function OrganisationFromJSON(json: any): Organisation {
@@ -72,7 +72,7 @@ export function OrganisationFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'name': json['name'],
         'createdDate': (new Date(json['createdDate'])),
         'updateDate': (new Date(json['updateDate'])),
-        'deletedDate': (new Date(json['deletedDate'])),
+        'deletedDate': !exists(json, 'deletedDate') ? undefined : (new Date(json['deletedDate'])),
     };
 }
 
@@ -90,7 +90,7 @@ export function OrganisationToJSON(value?: Organisation | null): any {
         'name': value.name,
         'createdDate': (value.createdDate.toISOString()),
         'updateDate': (value.updateDate.toISOString()),
-        'deletedDate': (value.deletedDate.toISOString()),
+        'deletedDate': value.deletedDate === undefined ? undefined : (value.deletedDate.toISOString()),
     };
 }
 

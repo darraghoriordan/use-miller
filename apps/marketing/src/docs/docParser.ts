@@ -12,10 +12,18 @@ import remarkRehype from "remark-rehype";
 import remarkEmbedImages from "remark-embed-images";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
-import { getAllCourses } from "@use-miller/shared-frontend-tooling";
-import { GetStaticPaths } from "next";
 
-const fileDirectory = path.join(process.cwd(), "src", "docs", "page-content");
+const docContentDirectory = path.join(
+    process.cwd(),
+    "src",
+    "docs",
+    "page-content"
+);
+export type Section = {
+    sectionDisplayName: string;
+    sectionSlug: string;
+    pages: SummaryDoc[];
+};
 export type SummaryDoc = PostMatter & {
     slug: string;
 };
@@ -28,47 +36,103 @@ export type PostMatter = {
 export type FullDoc = SummaryDoc & {
     html: string;
 };
-export const defaultArticleSlug = "get-started-installation";
-export function getSortedPostsData(): SummaryDoc[] {
-    // Get file names under /posts
-    const fileNames = fs.readdirSync(fileDirectory, { withFileTypes: true });
-    const allPostsData = fileNames
-        .filter((dirEntry) => dirEntry.isFile())
-        .map((fileName) => {
-            // Remove ".md" from file name to get slug
-            const slug = fileName.name.replace(/\.md$/, "");
 
-            // Read markdown file as string
-            const fullPath = path.join(fileDirectory, fileName.name);
-
-            const fileContents = fs.readFileSync(fullPath, "utf8");
-
-            // Use gray-matter to parse the post metadata section
-            const matterResult = matter(fileContents);
-
-            return {
-                slug,
-                ...matterResult.data,
-            };
-        }) as unknown as SummaryDoc[];
-    // Sort posts by date
-
-    return allPostsData.sort((a, b) => {
-        if (a.section < b.section) {
-            return 1;
-        } else {
-            return -1;
-        }
+export function toCapitalCase(str: string): string {
+    return str
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+}
+export function sortByOrder(a: SummaryDoc, b: SummaryDoc): number {
+    return a.order - b.order;
+}
+export function getSortedPostsData(): Section[] {
+    // Get file names for the sections
+    // expectation here is a structure like
+    // /my-section
+    //   /my-page.md
+    //   /my-other-page.md
+    //   /folders-are-ignored-here
+    // /my-other-section
+    // ...
+    const sectionLevelDirItems = fs.readdirSync(docContentDirectory, {
+        withFileTypes: true,
     });
+    // get a list of the directories at the top level
+    const sectionDirectories = sectionLevelDirItems.filter((dirEntry) =>
+        dirEntry.isDirectory()
+    );
+    const allPostSections = sectionDirectories.map((sectionDirectory) => {
+        // section path
+        const sectionPath = path.join(
+            docContentDirectory,
+            sectionDirectory.name
+        );
+        const sectionFiles = fs
+            .readdirSync(sectionPath, {
+                withFileTypes: true,
+            })
+            .filter((dirEntry) => dirEntry.isFile());
+        return {
+            sectionDisplayName: toCapitalCase(
+                sectionDirectory.name.replace(/-/g, " ")
+            ),
+            sectionSlug: sectionDirectory.name,
+            pages: sectionFiles
+                .map((fileName) => {
+                    // Remove ".md" from file name to get slug
+                    const slug = fileName.name.replace(/\.md$/, "");
+
+                    // Read markdown file as string
+                    const contentDocumentPath = path.join(
+                        sectionPath,
+                        fileName.name
+                    );
+
+                    const fileContents = fs.readFileSync(
+                        contentDocumentPath,
+                        "utf8"
+                    );
+
+                    // Use gray-matter to parse the post metadata section
+                    const matterResult = matter(fileContents);
+
+                    return {
+                        slug,
+                        ...matterResult.data,
+                    } as SummaryDoc;
+                })
+                .sort(sortByOrder),
+        };
+    });
+    console.log(allPostSections);
+    return allPostSections;
 }
 
-export async function getSinglePost(slug?: string): Promise<FullDoc> {
-    let renderSlug = slug;
+export async function getSinglePost({
+    slug,
+    sectionSlug,
+}: {
+    slug?: string;
+    sectionSlug?: string;
+}): Promise<FullDoc> {
+    // if people are messing about with urls, just send them to the getting started page
+    // can improve this later
+    if (
+        !sectionSlug ||
+        sectionSlug === "index" ||
+        sectionSlug === "" ||
+        sectionSlug === "/"
+    ) {
+        sectionSlug = "get-started";
+        slug = "quick-start";
+    }
     if (!slug || slug === "index" || slug === "" || slug === "/") {
-        renderSlug = defaultArticleSlug;
+        sectionSlug = "get-started";
+        slug = "quick-start";
     }
 
-    const fullPath = path.join(fileDirectory, `${renderSlug}.md`);
+    const fullPath = path.join(docContentDirectory, sectionSlug, `${slug}.md`);
     const fileContents = fs.readFileSync(fullPath, "utf8");
 
     // Use gray-matter to parse the post metadata section
@@ -80,7 +144,7 @@ export async function getSinglePost(slug?: string): Promise<FullDoc> {
     const markdownResult = await markdownToHtml(matterResult.content);
     // Combine the data with the id
     return {
-        slug: renderSlug!,
+        slug: slug!,
         html: markdownResult,
         ...matterResult.data,
     };
@@ -104,21 +168,28 @@ export async function getStaticDocsPageSlugs(): Promise<{
     paths: {
         params: {
             slug: string;
+            section: string;
         };
     }[];
     fallback: boolean;
 }> {
-    const allPosts = getSortedPostsData();
+    const allPostSections = getSortedPostsData();
 
-    const paths = [
-        ...allPosts.map((post) => {
-            return {
+    const paths = [];
+    for (const section of allPostSections) {
+        // skip reference section
+        if (section.sectionSlug === "reference") {
+            continue;
+        }
+        for (const page of section.pages) {
+            paths.push({
                 params: {
-                    slug: post.slug,
+                    section: section.sectionSlug,
+                    slug: page.slug,
                 },
-            };
-        }),
-    ];
+            });
+        }
+    }
 
     return {
         paths,

@@ -102,7 +102,7 @@ export interface OrganisationSubscriptionRecord {
      * @type {Date}
      * @memberof OrganisationSubscriptionRecord
      */
-    deletedDate: Date;
+    deletedDate?: Date;
 }
 
 export function OrganisationSubscriptionRecordFromJSON(json: any): OrganisationSubscriptionRecord {
@@ -128,7 +128,7 @@ export function OrganisationSubscriptionRecordFromJSONTyped(json: any, ignoreDis
         'organisationId': json['organisationId'],
         'createdDate': (new Date(json['createdDate'])),
         'updatedDate': (new Date(json['updatedDate'])),
-        'deletedDate': (new Date(json['deletedDate'])),
+        'deletedDate': !exists(json, 'deletedDate') ? undefined : (new Date(json['deletedDate'])),
     };
 }
 
@@ -154,7 +154,7 @@ export function OrganisationSubscriptionRecordToJSON(value?: OrganisationSubscri
         'organisationId': value.organisationId,
         'createdDate': (value.createdDate.toISOString()),
         'updatedDate': (value.updatedDate.toISOString()),
-        'deletedDate': (value.deletedDate.toISOString()),
+        'deletedDate': value.deletedDate === undefined ? undefined : (value.deletedDate.toISOString()),
     };
 }
 

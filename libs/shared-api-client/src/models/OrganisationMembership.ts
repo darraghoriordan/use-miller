@@ -55,7 +55,7 @@ export interface OrganisationMembership {
      * @type {Array<MembershipRole>}
      * @memberof OrganisationMembership
      */
-    roles: Array<MembershipRole>;
+    roles?: Array<MembershipRole>;
     /**
      * 
      * @type {Date}
@@ -73,7 +73,7 @@ export interface OrganisationMembership {
      * @type {Date}
      * @memberof OrganisationMembership
      */
-    deletedDate: Date;
+    deletedDate?: Date;
 }
 
 export function OrganisationMembershipFromJSON(json: any): OrganisationMembership {
@@ -90,10 +90,10 @@ export function OrganisationMembershipFromJSONTyped(json: any, ignoreDiscriminat
         'uuid': json['uuid'],
         'userId': json['userId'],
         'organisationId': json['organisationId'],
-        'roles': ((json['roles'] as Array<any>).map(MembershipRoleFromJSON)),
+        'roles': !exists(json, 'roles') ? undefined : ((json['roles'] as Array<any>).map(MembershipRoleFromJSON)),
         'createdDate': (new Date(json['createdDate'])),
         'updateDate': (new Date(json['updateDate'])),
-        'deletedDate': (new Date(json['deletedDate'])),
+        'deletedDate': !exists(json, 'deletedDate') ? undefined : (new Date(json['deletedDate'])),
     };
 }
 
@@ -110,10 +110,10 @@ export function OrganisationMembershipToJSON(value?: OrganisationMembership | nu
         'uuid': value.uuid,
         'userId': value.userId,
         'organisationId': value.organisationId,
-        'roles': ((value.roles as Array<any>).map(MembershipRoleToJSON)),
+        'roles': value.roles === undefined ? undefined : ((value.roles as Array<any>).map(MembershipRoleToJSON)),
         'createdDate': (value.createdDate.toISOString()),
         'updateDate': (value.updateDate.toISOString()),
-        'deletedDate': (value.deletedDate.toISOString()),
+        'deletedDate': value.deletedDate === undefined ? undefined : (value.deletedDate.toISOString()),
     };
 }
 

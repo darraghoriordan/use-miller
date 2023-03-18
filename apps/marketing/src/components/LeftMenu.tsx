@@ -1,5 +1,6 @@
 import { colorVariants } from "@use-miller/shared-frontend-tooling";
 import clsx from "clsx";
+import Link from "next/link.js";
 import { useRouter } from "next/router.js";
 import { LeftMenuItem } from "./LeftMenuItem.js";
 
@@ -24,23 +25,36 @@ const isCurrentMenuItem = (path: string, item: MenuItem) => {
     return item.path === path;
 };
 
-export function LeftMenu({ menuSections }: { menuSections: MenuSection[] }) {
+export function LeftMenu({
+    menuSections,
+    header,
+    headerHref,
+}: {
+    menuSections: MenuSection[];
+    header: string;
+    headerHref?: string;
+}) {
     const path = useRouter();
 
     return (
         <div className="flex">
-            <div className="flex flex-col flex-grow ml-4 pt-[1em]">
+            <div className="flex flex-col flex-grow ml-4">
                 <h1
                     className={clsx(
                         `mb-8 font-bold uppercase`,
                         colorVariants["green"].foreground
                     )}
                 >
-                    Docs
+                    <Link
+                        className="hover:cursor-pointer"
+                        href={headerHref || "#"}
+                    >
+                        {header}
+                    </Link>
                 </h1>
                 {menuSections?.map((section) => (
                     <div key={section.name}>
-                        <h3 className="mb-2 font-bold text-white uppercase">
+                        <h3 className="mb-2 mt-4 font-bold text-white uppercase ">
                             {section.name}
                         </h3>
                         <ul className="mr-4">

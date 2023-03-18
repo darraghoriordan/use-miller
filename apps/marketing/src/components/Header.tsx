@@ -96,10 +96,9 @@ export const MobileNavigation = () => {
                             Features
                         </MobileNavLink>
                         <MobileNavLink href="/#pricing">Pricing</MobileNavLink>
+                        <MobileNavLink href="/docs/">Features</MobileNavLink>
                         {user && (
-                            <MobileNavLink
-                                href={process.env.NEXT_PUBLIC_APP_BASE_PATH}
-                            >
+                            <MobileNavLink href={"/dashboard"}>
                                 Dashboard
                             </MobileNavLink>
                         )}
@@ -170,11 +169,7 @@ export function Header() {
                                 <a href="/api/auth/login">Sign In</a>
                             )}
                             {user && (
-                                <NavLink
-                                    href={process.env.NEXT_PUBLIC_APP_BASE_PATH}
-                                >
-                                    Dashboard
-                                </NavLink>
+                                <NavLink href={"/dashboard"}>Dashboard</NavLink>
                             )}
                         </div>
 

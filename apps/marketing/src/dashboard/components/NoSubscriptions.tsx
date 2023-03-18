@@ -1,6 +1,9 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import useGetPaymentLink from "./payments/useGetPaymentLink";
-import { StyledButton } from "@use-miller/shared-frontend-tooling";
+import {
+    colorVariants,
+    StyledButton,
+} from "@use-miller/shared-frontend-tooling";
+import { useGetPaymentLink } from "../../hooks/useGetPaymentLink.js";
 
 export default function NoSubscriptions({
     organisationUuid,
@@ -11,12 +14,11 @@ export default function NoSubscriptions({
 
     const onClick = async () => {
         const link = await mutateAsync({
-            successFrontendPath: "/account",
-            cancelFrontendPath: "/account",
+            successFrontendPath: "/dashboard",
+            cancelFrontendPath: "/dashboard",
             lineItems: [
                 {
-                    price: import.meta.env
-                        .VITE_STRIPE_REGULAR_PRICE_ID as string,
+                    price: process.env.NEXT_PUBLIC_STRIPE_REGULAR_PRICE_ID,
                     quantity: 1,
                 },
             ],
@@ -26,9 +28,11 @@ export default function NoSubscriptions({
 
         window.location.href = link.stripeSessionUrl;
     };
-
+    const colorVariant = "green";
     return (
-        <div className="p-8 bg-dark-accent rounded-md">
+        <div
+            className={`p-8 overflow-hidden rounded-md text-gray-500 bg-dark-accent hover:shadow-lg ${colorVariants[colorVariant].hoverShadow} ${colorVariants[colorVariant].hoverForeground}`}
+        >
             <h3 className="text-lg font-medium text-white">
                 You have no subscriptions.
             </h3>

@@ -49,12 +49,6 @@ export interface MembershipRole {
      * @memberof MembershipRole
      */
     updateDate: Date;
-    /**
-     * 
-     * @type {Date}
-     * @memberof MembershipRole
-     */
-    deletedDate: Date;
 }
 
 export function MembershipRoleFromJSON(json: any): MembershipRole {
@@ -72,7 +66,6 @@ export function MembershipRoleFromJSONTyped(json: any, ignoreDiscriminator: bool
         'name': json['name'],
         'createdDate': (new Date(json['createdDate'])),
         'updateDate': (new Date(json['updateDate'])),
-        'deletedDate': (new Date(json['deletedDate'])),
     };
 }
 
@@ -90,7 +83,6 @@ export function MembershipRoleToJSON(value?: MembershipRole | null): any {
         'name': value.name,
         'createdDate': (value.createdDate.toISOString()),
         'updateDate': (value.updateDate.toISOString()),
-        'deletedDate': (value.deletedDate.toISOString()),
     };
 }
 

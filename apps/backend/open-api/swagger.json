@@ -1582,8 +1582,7 @@
           "userId",
           "organisationId",
           "createdDate",
-          "updateDate",
-          "deletedDate"
+          "updateDate"
         ]
       },
       "UserApiKey": {
@@ -1624,8 +1623,7 @@
           "description",
           "userId",
           "createdDate",
-          "updateDate",
-          "deletedDate"
+          "updateDate"
         ]
       },
       "UserDto": {
@@ -1702,8 +1700,7 @@
           "memberships",
           "apiKeys",
           "createdDate",
-          "updateDate",
-          "deletedDate"
+          "updateDate"
         ]
       },
       "UpdateUserDto": {
@@ -1778,8 +1775,7 @@
           "uuid",
           "name",
           "createdDate",
-          "updateDate",
-          "deletedDate"
+          "updateDate"
         ]
       },
       "User": {
@@ -1850,8 +1846,7 @@
           "emailVerified",
           "blocked",
           "createdDate",
-          "updateDate",
-          "deletedDate"
+          "updateDate"
         ]
       },
       "UpdateOrganisationDto": {
@@ -2080,8 +2075,7 @@
           "validUntil",
           "organisationId",
           "createdDate",
-          "updatedDate",
-          "deletedDate"
+          "updatedDate"
         ]
       },
       "SaveOrganisationSubscriptionRecordDto": {

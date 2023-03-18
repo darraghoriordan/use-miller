@@ -8,6 +8,9 @@ import {
     FileMetaDto,
     FileStructureDto,
 } from "@use-miller/shared-api-client";
+import { GetServerSidePropsContext } from "next";
+import { getAccessToken, getSession } from "@auth0/nextjs-auth0";
+import { createMenu } from "./leftMenuGeneration.js";
 
 export type CodeExplorerData = {
     slug: string;
@@ -120,7 +123,41 @@ export async function getCodeExplorerData(
         selectedFile: codeFile,
     };
 }
+export async function getCodeFileServerSideProps(
+    context: GetServerSidePropsContext
+) {
+    const projectKey = context.params?.projectKey as string,
+        codeFile = context.params?.codeFile as string;
+    const session = await getSession(context.req, context.res);
+    let accessToken = null;
+    if (session) {
+        console.log("session", { session });
+        const atResponse = await getAccessToken(context.req, context.res, {
+            scopes: ["openid", "email", "profile", "offline_access"],
+        });
+        accessToken = atResponse.accessToken;
+        console.log("access token", { accessToken });
+    }
+    if (!projectKey || !codeFile) {
+        throw new Error(
+            "Missing projectKey or codeFile - params strike again!"
+        );
+    }
 
+    const codeExplorerData = await getCodeExplorerData(
+        projectKey,
+        codeFile,
+        accessToken
+    );
+    const menuSections = await createMenu();
+
+    return {
+        props: {
+            menuSections,
+            codeExplorerData,
+        }, // will be passed to the page component as props
+    };
+}
 export async function getStaticReferenceDocsPageSlugs(): Promise<{
     paths: {
         params: {

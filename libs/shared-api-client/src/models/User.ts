@@ -101,13 +101,13 @@ export interface User {
      * @type {Array<OrganisationMembership>}
      * @memberof User
      */
-    memberships: Array<OrganisationMembership>;
+    memberships?: Array<OrganisationMembership>;
     /**
      * 
      * @type {Array<UserApiKey>}
      * @memberof User
      */
-    apiKeys: Array<UserApiKey>;
+    apiKeys?: Array<UserApiKey>;
     /**
      * 
      * @type {Date}
@@ -125,7 +125,7 @@ export interface User {
      * @type {Date}
      * @memberof User
      */
-    deletedDate: Date;
+    deletedDate?: Date;
 }
 
 export function UserFromJSON(json: any): User {
@@ -149,11 +149,11 @@ export function UserFromJSONTyped(json: any, ignoreDiscriminator: boolean): User
         'picture': !exists(json, 'picture') ? undefined : json['picture'],
         'auth0UserId': !exists(json, 'auth0UserId') ? undefined : json['auth0UserId'],
         'username': !exists(json, 'username') ? undefined : json['username'],
-        'memberships': ((json['memberships'] as Array<any>).map(OrganisationMembershipFromJSON)),
-        'apiKeys': ((json['apiKeys'] as Array<any>).map(UserApiKeyFromJSON)),
+        'memberships': !exists(json, 'memberships') ? undefined : ((json['memberships'] as Array<any>).map(OrganisationMembershipFromJSON)),
+        'apiKeys': !exists(json, 'apiKeys') ? undefined : ((json['apiKeys'] as Array<any>).map(UserApiKeyFromJSON)),
         'createdDate': (new Date(json['createdDate'])),
         'updateDate': (new Date(json['updateDate'])),
-        'deletedDate': (new Date(json['deletedDate'])),
+        'deletedDate': !exists(json, 'deletedDate') ? undefined : (new Date(json['deletedDate'])),
     };
 }
 
@@ -177,11 +177,11 @@ export function UserToJSON(value?: User | null): any {
         'picture': value.picture,
         'auth0UserId': value.auth0UserId,
         'username': value.username,
-        'memberships': ((value.memberships as Array<any>).map(OrganisationMembershipToJSON)),
-        'apiKeys': ((value.apiKeys as Array<any>).map(UserApiKeyToJSON)),
+        'memberships': value.memberships === undefined ? undefined : ((value.memberships as Array<any>).map(OrganisationMembershipToJSON)),
+        'apiKeys': value.apiKeys === undefined ? undefined : ((value.apiKeys as Array<any>).map(UserApiKeyToJSON)),
         'createdDate': (value.createdDate.toISOString()),
         'updateDate': (value.updateDate.toISOString()),
-        'deletedDate': (value.deletedDate.toISOString()),
+        'deletedDate': value.deletedDate === undefined ? undefined : (value.deletedDate.toISOString()),
     };
 }
 

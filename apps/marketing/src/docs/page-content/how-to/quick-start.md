@@ -1,7 +1,6 @@
 ---
-title: "Installation"
+title: "Quick Start"
 date: "2020-01-01"
-section: "Get Started"
 order: 1
 ---
 
