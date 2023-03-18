@@ -22,10 +22,6 @@
         {
             "directory": "./apps/backend-e2e",
             "changeProcessCWD": true
-        },
-        {
-            "directory": "./apps/marketing",
-            "changeProcessCWD": true
-        },
+        }
     ],
 }

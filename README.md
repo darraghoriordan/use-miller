@@ -162,9 +162,8 @@ The setup will configure the apps to use these subdomains by default.
 
 ```
 Backend: api.yourdomain.com
-Frontend App: app.yourdomain.com
-Marketing Site: www.yourdomain.com
-Marketing Site: your.domain.com
+Frontend App: www.yourdomain.com
+
 ```
 
 You will have to configure your own domain host.

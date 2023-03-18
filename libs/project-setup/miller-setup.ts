@@ -250,7 +250,7 @@ const stripeTfRunParams: TerraformVariablesMapperParams<StripeTerraformInputVari
 
             {
                 name: "app_stripe_customer_portal_terms_conditions_url",
-                default: "http://localhost:3000/termsconditions",
+                default: "http://localhost:3000/terms",
                 validate: (input) => {
                     console.log(input);
                     if (input.length < 1) {
@@ -264,7 +264,7 @@ const stripeTfRunParams: TerraformVariablesMapperParams<StripeTerraformInputVari
             },
             {
                 name: "app_stripe_customer_portal_return_url",
-                default: "http://localhost:3001/profile",
+                default: "http://localhost:3000/dashboard",
                 validate: (input) => {
                     console.log(input);
                     if (input.length < 1) {
@@ -285,20 +285,8 @@ const stripeTerraformOutputVariables = await runTfEnvVarMapping<
 
 // --------------------
 swapEnvVars({
-    from: "apps/frontend/.env.template",
-    to: "apps/frontend/.env",
-    replacementValues: {
-        VITE_AUTH0_DOMAIN:
-            auth0DevTerraformOutputVariables.app_auth0_dev_domain.value,
-        VITE_AUTH0_CLIENT_ID:
-            auth0DevTerraformOutputVariables.auth0_client_id.value,
-        VITE_STRIPE_REGULAR_PRICE_ID:
-            stripeTerraformOutputVariables.regular_price_id.value,
-    },
-});
-swapEnvVars({
-    from: "apps/marketing/.env.local.template",
-    to: "apps/marketing/.env.local",
+    from: "apps/frontend/.env.local.template",
+    to: "apps/frontend/.env.local",
     replacementValues: {
         NEXT_PUBLIC_AUTH0_DOMAIN:
             auth0DevTerraformOutputVariables.app_auth0_dev_domain.value,

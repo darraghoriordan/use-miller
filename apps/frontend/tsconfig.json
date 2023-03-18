@@ -1,31 +1,40 @@
 {
     "compilerOptions": {
-        "target": "ESNext",
         "lib": [
             "dom",
             "dom.iterable",
             "esnext"
         ],
-        "types": [
-            "vite/client"
-        ],
-        "allowJs": false,
-        "skipLibCheck": false,
-        "esModuleInterop": false,
-        "allowSyntheticDefaultImports": true,
+        "allowJs": true,
+        "skipLibCheck": true,
         "strict": true,
-        "forceConsistentCasingInFileNames": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "noUnusedLocals": true,
+        "alwaysStrict": true,
+        "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true,
+        "noEmit": true,
+        "incremental": true,
+        "esModuleInterop": true,
         "module": "esnext",
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "noEmit": true,
-        "jsx": "react-jsx"
+        "jsx": "preserve"
     },
     "include": [
-        "src/**/*",
-        "../../libs/shared-frontend-tooling/src/components/StyledButton.tsx",
-        "../../libs/shared-frontend-tooling/src/courses/wellKnownQueries.ts"
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        "apps/marketing/types/envVars.d.ts",
+        "src/pages/docs/index.tsxnot",
+        "src/docs/courses/useGetAllCourses.ts.old"
+    ],
+    "exclude": [
+        "node_modules"
     ]
 }

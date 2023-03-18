@@ -20,7 +20,7 @@
         "build": "pnpm run -r --parallel --filter=!*{backend-e2e,frontend}* build",
         "test": "pnpm run -r --parallel --filter=!*{backend-e2e,frontend}* test",
         "lint": "pnpm run -r --parallel --filter=!*{backend-e2e,frontend}* lint",
-        "mill:dev": "cd apps/backend && npm run up -d && cd ../.. && concurrently \"cd apps/frontend && npm run start\" \"cd apps/marketing && npm run start\" \"cd apps/backend && npm run start\"",
+        "mill:dev": "cd apps/backend && npm run up -d && cd ../.. && concurrently \"cd apps/frontend && npm run start\" \"cd apps/backend && npm run start\"",
         "start:be:prod": "cd apps/backend && npm run start:prod",
         "prettier": "prettier --write src/*",
         "prepare": "husky install && chmod ug+x .husky/*",
