@@ -25,6 +25,7 @@ export type Auth0DevTerraformOutputVariables = {
     auth0_client_secret: { value: string };
     test_user_username: { value: string };
     test_user_password: { value: string };
+    test_user_auth0_user_id: { value: string };
     test_user_basic_username: { value: string };
     test_user_basic_password: { value: string };
     test_user_no_email_verified_username: { value: string };
@@ -331,6 +332,7 @@ swapEnvVars({
         STRIPE_WEBHOOK_VERIFICATION_KEY:
             stripeTerraformOutputVariables.app_stripe_webhook_verification_key
                 .value,
+        SUPER_USER_IDS: `"${auth0DevTerraformOutputVariables.test_user_auth0_user_id.value}"`,
     },
 });
 swapEnvVars({

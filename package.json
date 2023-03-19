@@ -24,7 +24,7 @@
         "start:be:prod": "cd apps/backend && npm run start:prod",
         "prettier": "prettier --write src/*",
         "prepare": "husky install && chmod ug+x .husky/*",
-        "mill:init": "pnpm install && node --experimental-modules libs/project-setup/dist/miller-setup.js",
+        "mill:init": "pnpm install -r && pnpm run --filter \"*project-setup\" build && node --experimental-modules libs/project-setup/dist/miller-setup.js",
         "release": "npx semantic-release",
         "semantic-release": "semantic-release",
         "knip": "knip"

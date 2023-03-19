@@ -1,25 +1,26 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { Injectable, Logger, NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import path from "path";
 import fs from "fs";
 import { FileStructureDto } from "../dtos/FileStructureDto.js";
 import { FileMetaDto } from "../dtos/FileMetaDto.js";
-import MarkdownToHtmlService from "./markdownToHtml.service.js";
 import { CoursesMetaService } from "./courses-meta.service.js";
 import PathMapperService from "./pathMapper.service.js";
 import { CourseMetaDto } from "../dtos/CourseMetaDto.js";
-import { minimatch } from "minimatch";
-import { CoreConfigurationService } from "@darraghor/nest-backend-libs";
+import { MarkdownFileService } from "./markdown-files.service.js";
+import { FileVisibilityControlGuard } from "./file-visibility-guard.service.js";
+import { RequestUser } from "@darraghor/nest-backend-libs/dist/authorization/models/RequestWithUser.js";
+
 @Injectable()
-export class CourseFilesService {
+export class CodeFilesService {
     constructor(
-        private readonly markdownToHtmlService: MarkdownToHtmlService,
+        private readonly markdownFileService: MarkdownFileService,
         private readonly coursesMetaService: CoursesMetaService,
         private readonly pathMapperService: PathMapperService,
-        private readonly coreConfig: CoreConfigurationService
+        private readonly fileVisibilityGuard: FileVisibilityControlGuard
     ) {}
 
-    private readonly logger = new Logger(CourseFilesService.name);
+    //private readonly logger = new Logger(CourseFilesService.name);
 
     async walk(
         root: FileStructureDto,
@@ -100,106 +101,66 @@ export class CourseFilesService {
         return awaitedDirectories;
     };
 
-    mapFiles = async (courseName: string): Promise<FileStructureDto> => {
-        const courseMeta = this.coursesMetaService.getOne(courseName);
+    mapFiles = async (
+        productKey: string,
+        projectKey: string
+    ): Promise<FileStructureDto> => {
+        const projectMeta = this.coursesMetaService.getOne(
+            productKey,
+            projectKey
+        );
 
         const rootDirectory: FileStructureDto = {
-            name: courseMeta.rootNodeName,
+            name: projectMeta.rootNodeName,
             type: "folder",
             isOpen: true,
             // eslint-disable-next-line unicorn/prefer-module
             fileLocation: "", // this is the root of the course
             children: [],
         };
-        return await this.walk(rootDirectory, courseMeta);
+        return await this.walk(rootDirectory, projectMeta);
     };
 
     getNearestHtmlReadmeForFile = async (
         b64Path: string,
-        courseName: string
+        productKey: string,
+        projectKey: string
     ): Promise<FileMetaDto> => {
-        const courseMeta = this.coursesMetaService.getOne(courseName);
+        const projectMeta = this.coursesMetaService.getOne(
+            productKey,
+            projectKey
+        );
         const fileLocation = this.pathMapperService.mapBase64ToAbsolutePath(
             b64Path,
-            courseMeta.rootLocation
+            projectMeta.rootLocation
         );
 
         const readmePath = this.findNearestReadme(fileLocation);
         if (!readmePath) {
             throw new NotFoundException("No readme found for this file");
         }
-
-        const htmlData = await this.markdownToHtmlService.markdownToHtml(
-            readmePath
+        return this.markdownFileService.getMdFileAsHtml(
+            readmePath,
+            productKey,
+            projectKey
         );
-        return {
-            contents: htmlData,
-            fileName: path.basename(fileLocation),
-            fileLocation: b64Path,
-            nearestReadmeLocation: b64Path,
-        };
     };
+
     getNearestReadMePathForFile = (
         b64Path: string,
-        courseName: string
+        productKey: string,
+        projectKey: string
     ): string | undefined => {
-        const courseMeta = this.coursesMetaService.getOne(courseName);
+        const projectMeta = this.coursesMetaService.getOne(
+            productKey,
+            projectKey
+        );
         const fileLocation = this.pathMapperService.mapBase64ToAbsolutePath(
             b64Path,
-            courseMeta.rootLocation
+            projectMeta.rootLocation
         );
 
         return this.findNearestReadme(fileLocation);
-    };
-
-    getFileAsMarkdown = async (
-        b64Path: string,
-        courseName: string
-    ): Promise<FileMetaDto> => {
-        const courseMeta = this.coursesMetaService.getOne(courseName);
-        const fileLocation = this.pathMapperService.mapBase64ToAbsolutePath(
-            b64Path,
-            courseMeta.rootLocation
-        );
-
-        if (!fileLocation) {
-            throw new NotFoundException("No file found");
-        }
-
-        const htmlData = await this.markdownToHtmlService.markdownToHtml(
-            fileLocation
-        );
-        this.logger.log({ b64Path, courseMeta }, "nearest readme");
-        return {
-            contents: htmlData,
-            fileName: path.basename(fileLocation),
-            fileLocation: b64Path,
-            nearestReadmeLocation: b64Path,
-        };
-    };
-
-    getCourseFileContents = async (
-        b64Path: string,
-        courseName: string
-    ): Promise<FileMetaDto> => {
-        const courseMeta = this.coursesMetaService.getOne(courseName);
-        const fileLocation = this.pathMapperService.mapBase64ToAbsolutePath(
-            b64Path,
-            courseMeta.rootLocation
-        );
-        const nearestReadme =
-            this.findNearestReadme(fileLocation) || "README.md";
-        this.logger.log({ nearestReadme, courseMeta }, "nearest readme");
-        return {
-            contents: await this.getFileContents(fileLocation),
-            fileLocation: b64Path,
-            fileName: path.basename(fileLocation),
-            nearestReadmeLocation:
-                this.pathMapperService.mapPathToRelativeBase64(
-                    nearestReadme,
-                    courseMeta.rootLocation
-                ),
-        };
     };
 
     getFileContents = async (fileLocation: string): Promise<string> => {
@@ -236,70 +197,80 @@ export class CourseFilesService {
         return findFile(root, filename);
     };
 
-    shouldShowFullFile = (fileLocation: string): boolean => {
-        const globs = [
-            "**/*.md",
-            "**/*.html",
-            "**/*.css",
-            "**/src/stripe-client/services/**",
-        ];
-        // eslint-disable-next-line sonarjs/prefer-immediate-return
-        const isMatch = globs.some((g) => minimatch(fileLocation, g));
-        return isMatch;
-    };
-    getPartialFileContents = async (
+    getCodeFileContents = async (
         b64Path: string,
-        courseName: string
+        productKey: string,
+        projectKey: string,
+        user?: RequestUser
     ): Promise<FileMetaDto> => {
-        const courseMeta = this.coursesMetaService.getOne(courseName);
+        const projectMeta = this.coursesMetaService.getOne(
+            productKey,
+            projectKey
+        );
         const fileLocation = this.pathMapperService.mapBase64ToAbsolutePath(
             b64Path,
-            courseMeta.rootLocation
+            projectMeta.rootLocation
         );
-
-        const contents = await fs.promises.readFile(fileLocation, {
-            encoding: "utf8",
-            flag: "r",
-        });
         const nearestReadme =
             this.findNearestReadme(fileLocation) || "README.md";
+
+        const fileContents = await this.getFileContents(fileLocation);
         const fileName = path.basename(fileLocation);
         const nearestReadmeLocation =
             this.pathMapperService.mapPathToRelativeBase64(
                 nearestReadme,
-                courseMeta.rootLocation
+                projectMeta.rootLocation
             );
-        if (this.shouldShowFullFile(fileLocation)) {
+        if (
+            this.fileVisibilityGuard.shouldShowFullFile(
+                fileLocation,
+                projectMeta.demoPaths,
+                productKey,
+                user
+            )
+        ) {
             return {
-                contents,
+                contents: fileContents,
                 fileLocation: b64Path,
                 fileName,
                 nearestReadmeLocation,
             };
         }
-
-        // take the first 3 lines of text
-        let demoText = contents;
-        if (contents.length > 200) {
-            demoText =
-                contents.slice(0, 200) +
-                "\r" +
-                "\r// File viewing is clipped unless you have purchased //" +
-                "\r" +
-                "// To see the full contents of each file please support development by purchasing //" +
-                "\r" +
-                "// As an example, the full contents of Stripe services are available at the following path //" +
-                "\r" +
-                "// (ctrl+click or cmd+click to open in new window) //" +
-                "\r" +
-                `// ${this.coreConfig.frontEndAppUrl}/open/code-doc/nestjs-backend-libs/L3NyYy9zdHJpcGUtY2xpZW50L3NlcnZpY2VzL3F1ZXVlZC1wYXltZW50LWV2ZW50LmhhbmRsZXIudHM= //`;
-        }
-
+        // otherwise return the trimmed file(s)
         return {
-            contents: demoText,
-            fileName,
+            contents: this.trimCodeFile(
+                fileContents,
+                projectMeta.demoFileLinkHref
+            ),
             fileLocation: b64Path,
+            fileName,
             nearestReadmeLocation,
         };
+    };
+
+    trimCodeFile = (contents: string, demoUrl: string): string => {
+        // if the file is less than 200 lines, return the whole thing
+        if (contents.length < 200) {
+            return contents;
+        }
+        const lines = contents.split("\n");
+        const firstQuarter = lines.slice(
+            0,
+            Math.min(Math.floor(lines.length / 4), 20)
+        );
+
+        return (
+            firstQuarter.join("\n") +
+            "\n" +
+            "\n// File viewing is clipped unless you have purchased //" +
+            "\n" +
+            "// To see the full contents of each file and get the full source code" +
+            "\n" +
+            "// please support development by purchasing. //" +
+            "\n" +
+            "// As an example, the full file contents are available at the following path //" +
+            "\n" +
+            `// ${demoUrl}//`
+        );
     };
 }

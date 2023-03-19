@@ -82,56 +82,56 @@ const OrgSubsSuperAdmin = ({
                                 <tr>
                                     <th
                                         scope="col"
-                                        className="pl-6 pr-3 text-sm font-semibold text-left text-gray-900 py-3.5 sm:pl-0"
+                                        className="pl-6 pr-3 text-sm font-semibold text-left text-white py-3.5 sm:pl-0"
                                     >
                                         Created
                                     </th>
                                     <th
                                         scope="col"
-                                        className="pl-6 pr-3 text-sm font-semibold text-left text-gray-900 py-3.5 sm:pl-0"
+                                        className="pl-6 pr-3 text-sm font-semibold text-left text-white py-3.5 sm:pl-0"
                                     >
                                         Valid Until
                                     </th>
 
                                     <th
                                         scope="col"
-                                        className="px-3 text-sm font-semibold text-left text-gray-900 py-3.5"
+                                        className="px-3 text-sm font-semibold text-left text-white py-3.5"
                                     >
                                         Product Name
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-3 text-sm font-semibold text-left text-gray-900 py-3.5"
+                                        className="px-3 text-sm font-semibold text-left text-white py-3.5"
                                     >
                                         Email
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-3 text-sm font-semibold text-left text-gray-900 py-3.5"
+                                        className="px-3 text-sm font-semibold text-left text-white py-3.5"
                                     >
                                         Customer Id
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-3 text-sm font-semibold text-left text-gray-900 py-3.5"
+                                        className="px-3 text-sm font-semibold text-left text-white py-3.5"
                                     >
                                         Type
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-3 text-sm font-semibold text-left text-gray-900 py-3.5"
+                                        className="px-3 text-sm font-semibold text-left text-white py-3.5"
                                     >
                                         Provider
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-3 text-sm font-semibold text-left text-gray-900 py-3.5"
+                                        className="px-3 text-sm font-semibold text-left text-white py-3.5"
                                     >
                                         Product Id
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-3 text-sm font-semibold text-left text-gray-900 py-3.5"
+                                        className="px-3 text-sm font-semibold text-left text-white py-3.5"
                                     >
                                         Transaction Id
                                     </th>
@@ -148,33 +148,33 @@ const OrgSubsSuperAdmin = ({
                                         );
                                         return (
                                             <tr key={sp.id}>
-                                                <td className="py-4 pl-6 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-0">
+                                                <td className="py-4 pl-6 pr-3 text-sm font-medium text-white whitespace-nowrap sm:pl-0">
                                                     {createdDate}
                                                 </td>
-                                                <td className="py-4 pl-6 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-0">
+                                                <td className="py-4 pl-6 pr-3 text-sm font-medium text-white whitespace-nowrap sm:pl-0">
                                                     {validUntil}
                                                 </td>
-                                                <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
                                                     {sp.productDisplayName}
                                                 </td>
-                                                <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
                                                     {
                                                         sp.paymentSystemCustomerEmail
                                                     }
                                                 </td>
-                                                <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
                                                     <CustomerLink sp={sp} />
                                                 </td>
-                                                <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
                                                     {sp.paymentSystemMode}
                                                 </td>
-                                                <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
                                                     {sp.paymentSystemName}
                                                 </td>
-                                                <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
                                                     <ProductLink sp={sp} />
                                                 </td>
-                                                <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
                                                     <TransactionLink sp={sp} />
                                                 </td>
                                             </tr>

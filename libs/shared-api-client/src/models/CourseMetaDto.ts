@@ -33,10 +33,28 @@ export interface CourseMetaDto {
     rootNodeName: string;
     /**
      * 
+     * @type {Array<string>}
+     * @memberof CourseMetaDto
+     */
+    demoPaths: Array<string>;
+    /**
+     * 
      * @type {string}
      * @memberof CourseMetaDto
      */
     rootLocation: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CourseMetaDto
+     */
+    demoFileLinkHref: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CourseMetaDto
+     */
+    demoFileLinkText: string;
     /**
      * 
      * @type {string}
@@ -63,7 +81,10 @@ export function CourseMetaDtoFromJSONTyped(json: any, ignoreDiscriminator: boole
         
         'key': json['key'],
         'rootNodeName': json['rootNodeName'],
+        'demoPaths': json['demoPaths'],
         'rootLocation': json['rootLocation'],
+        'demoFileLinkHref': json['demoFileLinkHref'],
+        'demoFileLinkText': json['demoFileLinkText'],
         'name': json['name'],
         'color': json['color'],
     };
@@ -80,7 +101,10 @@ export function CourseMetaDtoToJSON(value?: CourseMetaDto | null): any {
         
         'key': value.key,
         'rootNodeName': value.rootNodeName,
+        'demoPaths': value.demoPaths,
         'rootLocation': value.rootLocation,
+        'demoFileLinkHref': value.demoFileLinkHref,
+        'demoFileLinkText': value.demoFileLinkText,
         'name': value.name,
         'color': value.color,
     };

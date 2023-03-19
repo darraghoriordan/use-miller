@@ -350,6 +350,10 @@
     "/user": {
       "get": {
         "operationId": "UserController_findAll",
+        "summary": "Get all users in the system. Limited to Super Admin role.",
+        "tags": [
+          "Users"
+        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -359,16 +363,13 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/UserDto"
+                    "$ref": "#/components/schemas/User"
                   }
                 }
               }
             }
           }
         },
-        "tags": [
-          "Users"
-        ],
         "security": [
           {
             "bearer": []
@@ -1128,12 +1129,20 @@
         ]
       }
     },
-    "/course-files/{courseName}": {
+    "/project-files/{productKey}/{projectKey}": {
       "get": {
-        "operationId": "CourseFilesController_listCourseFiles",
+        "operationId": "CourseFilesController_listProjectFiles",
         "parameters": [
           {
-            "name": "courseName",
+            "name": "projectKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productKey",
             "required": true,
             "in": "path",
             "schema": {
@@ -1154,16 +1163,24 @@
           }
         },
         "tags": [
-          "Course Files"
+          "Project Files"
         ]
       }
     },
-    "/course-files/{courseName}/contents/{b64Path}": {
+    "/project-files/{productKey}/{projectKey}/contents/{b64Path}": {
       "get": {
         "operationId": "CourseFilesController_getFile",
         "parameters": [
           {
-            "name": "courseName",
+            "name": "projectKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productKey",
             "required": true,
             "in": "path",
             "schema": {
@@ -1192,7 +1209,7 @@
           }
         },
         "tags": [
-          "Course Files"
+          "Project Files"
         ],
         "security": [
           {
@@ -1201,12 +1218,12 @@
         ]
       }
     },
-    "/course-files/open/{courseName}/contents/{b64Path}": {
+    "/project-files/{productKey}/{projectKey}/contents-markdown/{markdownB64Path}": {
       "get": {
-        "operationId": "OpenCourseFilesController_getFile",
+        "operationId": "CourseFilesController_getMarkdownFileAsHtml",
         "parameters": [
           {
-            "name": "courseName",
+            "name": "projectKey",
             "required": true,
             "in": "path",
             "schema": {
@@ -1214,37 +1231,7 @@
             }
           },
           {
-            "name": "b64Path",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FileMetaDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Course Files"
-        ]
-      }
-    },
-    "/course-files/open/{courseName}/contents-markdown/{markdownB64Path}": {
-      "get": {
-        "operationId": "OpenCourseFilesController_getMarkdownFileAsHtml",
-        "parameters": [
-          {
-            "name": "courseName",
+            "name": "productKey",
             "required": true,
             "in": "path",
             "schema": {
@@ -1273,16 +1260,21 @@
           }
         },
         "tags": [
-          "Course Files"
+          "Project Files"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
         ]
       }
     },
-    "/course-files/open/{courseName}/nearest-readme/{b64Path}": {
+    "/project-files/{productKey}/open/{projectKey}/contents/{b64Path}": {
       "get": {
-        "operationId": "OpenCourseFilesController_getNearestHtmlReadmeForFile",
+        "operationId": "OpenCourseFilesController_getFile",
         "parameters": [
           {
-            "name": "courseName",
+            "name": "projectKey",
             "required": true,
             "in": "path",
             "schema": {
@@ -1291,6 +1283,14 @@
           },
           {
             "name": "b64Path",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productKey",
             "required": true,
             "in": "path",
             "schema": {
@@ -1311,14 +1311,115 @@
           }
         },
         "tags": [
-          "Course Files"
+          "Project Files"
         ]
       }
     },
-    "/course-meta": {
+    "/project-files/{productKey}/open/{projectKey}/contents-markdown/{markdownB64Path}": {
       "get": {
-        "operationId": "CourseMetaController_listAllCourses",
-        "parameters": [],
+        "operationId": "OpenCourseFilesController_getMarkdownFileAsHtml",
+        "parameters": [
+          {
+            "name": "projectKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "markdownB64Path",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileMetaDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Project Files"
+        ]
+      }
+    },
+    "/project-files/{productKey}/open/{projectKey}/nearest-readme/{b64Path}": {
+      "get": {
+        "operationId": "OpenCourseFilesController_getNearestHtmlReadmeForFile",
+        "parameters": [
+          {
+            "name": "projectKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "b64Path",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileMetaDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Project Files"
+        ]
+      }
+    },
+    "/project-meta/{productKey}": {
+      "get": {
+        "operationId": "CourseMetaController_listAllProjects",
+        "parameters": [
+          {
+            "name": "productKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -1335,7 +1436,7 @@
           }
         },
         "tags": [
-          "Course Meta"
+          "Project Meta"
         ]
       }
     },
@@ -1630,7 +1731,8 @@
         "type": "object",
         "properties": {
           "isSuper": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Is the user a super user. Only set if the user is the current user. Will not be set for list responses."
           },
           "id": {
             "type": "number"
@@ -1691,7 +1793,6 @@
           }
         },
         "required": [
-          "isSuper",
           "id",
           "email",
           "uuid",
@@ -1699,6 +1800,77 @@
           "blocked",
           "memberships",
           "apiKeys",
+          "createdDate",
+          "updateDate"
+        ]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "email": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "emailVerified": {
+            "type": "boolean"
+          },
+          "blocked": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "familyName": {
+            "type": "string"
+          },
+          "givenName": {
+            "type": "string"
+          },
+          "picture": {
+            "type": "string"
+          },
+          "auth0UserId": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "memberships": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrganisationMembership"
+            }
+          },
+          "apiKeys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserApiKey"
+            }
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "uuid",
+          "emailVerified",
+          "blocked",
           "createdDate",
           "updateDate"
         ]
@@ -1774,77 +1946,6 @@
           "id",
           "uuid",
           "name",
-          "createdDate",
-          "updateDate"
-        ]
-      },
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "email": {
-            "type": "string"
-          },
-          "uuid": {
-            "type": "string"
-          },
-          "emailVerified": {
-            "type": "boolean"
-          },
-          "blocked": {
-            "type": "boolean"
-          },
-          "name": {
-            "type": "string"
-          },
-          "familyName": {
-            "type": "string"
-          },
-          "givenName": {
-            "type": "string"
-          },
-          "picture": {
-            "type": "string"
-          },
-          "auth0UserId": {
-            "type": "string"
-          },
-          "username": {
-            "type": "string"
-          },
-          "memberships": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OrganisationMembership"
-            }
-          },
-          "apiKeys": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/UserApiKey"
-            }
-          },
-          "createdDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "updateDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "deletedDate": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "email",
-          "uuid",
-          "emailVerified",
-          "blocked",
           "createdDate",
           "updateDate"
         ]
@@ -2204,7 +2305,19 @@
           "rootNodeName": {
             "type": "string"
           },
+          "demoPaths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "rootLocation": {
+            "type": "string"
+          },
+          "demoFileLinkHref": {
+            "type": "string"
+          },
+          "demoFileLinkText": {
             "type": "string"
           },
           "name": {
@@ -2217,7 +2330,10 @@
         "required": [
           "key",
           "rootNodeName",
+          "demoPaths",
           "rootLocation",
+          "demoFileLinkHref",
+          "demoFileLinkText",
           "name",
           "color"
         ]

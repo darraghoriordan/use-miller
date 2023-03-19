@@ -4,4 +4,4 @@ export const signUpUri = `https://${
     process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID
 }&screen_hint=signup&redirect_uri=${
     process.env.NEXT_PUBLIC_APP_BASE_PATH
-}&scope=${encodeURIComponent("openid email profile read:own offline_access")}`;
+}&scope=${encodeURIComponent("openid email profile offline_access")}`;

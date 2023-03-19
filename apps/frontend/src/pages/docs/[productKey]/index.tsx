@@ -1,10 +1,4 @@
-import {
-    FullDoc,
-    getStaticDocsPageSlugs,
-    getSinglePost,
-} from "../../../docs/docParser.js";
-
-import { GetStaticPaths } from "next";
+import { FullDoc, getSinglePost } from "../../../docs/docParser.js";
 import { createMenu } from "../../../docs/leftMenuGeneration.js";
 import { DocArticle } from "../../../docs/components/DocArticle.jsx";
 import { MenuSection } from "../../../components/LeftMenu.jsx";
@@ -13,37 +7,50 @@ import { LeftMenuWrappedContent } from "../../../components/LeftMenuWrappedConte
 export async function getStaticProps({
     params,
 }: {
-    params: { slug?: string; section?: string };
+    params: { productKey: string };
 }) {
     const article = await getSinglePost({
-        slug: params.slug,
-        sectionSlug: params.section,
+        productKey: params.productKey,
+        slug: "",
+        sectionSlug: "",
     });
-    const menuSections = await createMenu();
+    const menuSections = await createMenu(params.productKey);
     return {
         props: {
+            productKey: params.productKey,
             menuSections,
             article,
         },
     };
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-    return getStaticDocsPageSlugs();
-};
+export async function getStaticPaths() {
+    return {
+        paths: [
+            {
+                params: {
+                    productKey: "miller-start",
+                },
+            },
+        ],
+        fallback: false,
+    };
+}
 
 export default function Home({
     menuSections,
     article,
+    productKey,
 }: {
     menuSections: MenuSection[];
     article: FullDoc;
+    productKey: string;
 }) {
     return (
         <LeftMenuWrappedContent
             menuSections={menuSections}
             menuHeaderTitle={"Docs"}
-            menuHeaderHref={"/docs"}
+            menuHeaderHref={`/docs/${productKey}`}
         >
             <DocArticle article={article} />
         </LeftMenuWrappedContent>

@@ -31,11 +31,11 @@ import {
  */
 export interface UserDto {
     /**
-     * 
+     * Is the user a super user. Only set if the user is the current user. Will not be set for list responses.
      * @type {boolean}
      * @memberof UserDto
      */
-    isSuper: boolean;
+    isSuper?: boolean;
     /**
      * 
      * @type {number}
@@ -144,7 +144,7 @@ export function UserDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): U
     }
     return {
         
-        'isSuper': json['isSuper'],
+        'isSuper': !exists(json, 'isSuper') ? undefined : json['isSuper'],
         'id': json['id'],
         'email': json['email'],
         'uuid': json['uuid'],

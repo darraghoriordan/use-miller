@@ -23,7 +23,10 @@ export default function Home({
             menuHeaderHref="/super-admin"
             menuSections={menuSections}
         >
-            <PaymentEventsSuperAdmin allData={allData} title={"Users"} />
+            <PaymentEventsSuperAdmin
+                allData={allData}
+                title={"Latest Payment Events"}
+            />
         </LeftMenuWrappedContent>
     );
 }

@@ -52,7 +52,7 @@ describe("When inviting users", () => {
             expect(createInvResponse.expiresOn).toBeDefined();
             expect(createInvResponse.organisationMembership).toBeDefined();
             expect(
-                createInvResponse.organisationMembership.roles[0]
+                createInvResponse.organisationMembership.roles?.[0]
             ).toMatchObject({
                 name: "invited",
             });

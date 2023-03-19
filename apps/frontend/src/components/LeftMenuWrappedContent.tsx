@@ -10,7 +10,6 @@ export const LeftMenuWrappedContent = ({
     children,
 }: {
     menuSections: MenuSection[];
-
     menuHeaderTitle: string;
     menuHeaderHref: string;
 } & PropsWithChildren) => {

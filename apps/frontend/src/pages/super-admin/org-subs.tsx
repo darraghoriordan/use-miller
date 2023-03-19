@@ -23,7 +23,7 @@ export default function Home({
             menuHeaderHref="/super-admin"
             menuSections={menuSections}
         >
-            <OrgSubsSuperAdmin allSubs={allSubs} title={"Users"} />
+            <OrgSubsSuperAdmin allSubs={allSubs} title={"Org Subscriptions"} />
         </LeftMenuWrappedContent>
     );
 }

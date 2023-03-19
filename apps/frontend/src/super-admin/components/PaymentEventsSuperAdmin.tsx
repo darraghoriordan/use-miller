@@ -12,7 +12,7 @@ const PaymentEventsSuperAdmin = ({
     return (
         <div className="ml-16">
             <h1 className="text-4xl font-bold text-white">{title}</h1>
-            <p className="my-4">
+            <p className="my-4 text-white max-w-5xl">
                 Payment events are the webhooks that have been processed by your
                 app. You can use these for quick debugging and to see what is
                 happening. For more details log into your database or check the
@@ -30,28 +30,27 @@ const PaymentEventsSuperAdmin = ({
                                     <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                                         <>
                                             <div className="">
-                                                <dt className="font-medium text-gray-500 text-md">
+                                                <dt className="font-medium text-gray-300 text-md">
                                                     Created At
                                                 </dt>
-                                                <dd className="mt-1 text-sm text-gray-900">
+                                                <dd className="mt-1 text-sm text-white">
                                                     {createdDate}
                                                 </dd>
                                             </div>
                                             <div className="">
-                                                <dt className="font-medium text-gray-500 text-md">
+                                                <dt className="font-medium text-gray-300 text-md">
                                                     Client Reference
                                                 </dt>
-                                                <dd className="mt-1 text-sm text-gray-900">
+                                                <dd className="mt-1 text-sm text-white">
                                                     {sp.clientReferenceId}
                                                 </dd>
                                             </div>
 
                                             <div className="col-span-1">
-                                                <dt className="text-sm font-medium text-gray-500">
+                                                <dt className="text-sm font-medium text-gray-300">
                                                     Event Data
                                                 </dt>
-                                                <dd className="mt-1 text-sm text-gray-900">
-                                                    {" "}
+                                                <dd className="mt-1 text-sm text-white">
                                                     <pre>
                                                         <code>
                                                             {

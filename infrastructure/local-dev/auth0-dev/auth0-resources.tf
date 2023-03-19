@@ -164,6 +164,9 @@ output "test_user_password" {
   value     = auth0_user.dev_test_user.password
   sensitive = true
 }
+output "test_user_auth0_user_id" {
+  value = auth0_user.dev_test_user.user_id
+}
 output "test_user_basic_username" {
   value = auth0_user.dev_test_basic_user.email
 }

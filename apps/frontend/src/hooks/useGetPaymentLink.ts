@@ -12,7 +12,6 @@ export async function getStripeCheckoutLink(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    console.log("called BE next api");
     try {
         const requestBody = req.body as StripeCheckoutSessionRequestDto;
         const atResponse = await getAccessToken(req, res, {
@@ -24,7 +23,7 @@ export async function getStripeCheckoutLink(
             atResponse.accessToken!,
             fetch
         );
-        console.log("calling BE BE api!");
+
         const data =
             await apiClient.stripeCheckoutControllerCreateCheckoutSession({
                 stripeCheckoutSessionRequestDto: requestBody,

@@ -1,20 +1,20 @@
 import { GetServerSidePropsContext } from "next";
-import { MenuSection } from "../../../../components/LeftMenu.jsx";
+import { MenuSection } from "../../../../../components/LeftMenu.jsx";
 import {
     CodeExplorerData,
     getCodeFileServerSideProps,
-} from "../../../../docs/codeReferenceService.js";
+} from "../../../../../docs/codeReferenceService.js";
 import dynamic from "next/dynamic";
 
 import { useRouter } from "next/router.js";
-import { LeftMenuWrappedContent } from "../../../../components/LeftMenuWrappedContent.jsx";
+import { LeftMenuWrappedContent } from "../../../../../components/LeftMenuWrappedContent.jsx";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     return getCodeFileServerSideProps(context);
 }
 
 const DynamicCodeExplorer = dynamic(
-    () => import("../../../../docs/components/code-explorer/CodeExplorer"),
+    () => import("../../../../../docs/components/code-explorer/CodeExplorer"),
     {
         loading: () => <p>Loading Code...</p>,
         ssr: false,
@@ -24,30 +24,34 @@ const DynamicCodeExplorer = dynamic(
 export default function CodeFileHome({
     menuSections,
     codeExplorerData,
+    productKey,
 }: {
     menuSections: MenuSection[];
     codeExplorerData: CodeExplorerData;
+    productKey: string;
 }) {
     const router = useRouter();
 
     const setSelectedFile = (fileParam: string, projectKeyParam: string) => {
-        router.push("/docs/reference/" + projectKeyParam + "/" + fileParam);
+        router.push(
+            `/docs/${productKey}/reference/${projectKeyParam}/${fileParam}`
+        );
     };
 
     const {
         fileList,
         initialMarkdownFile: markdownFile,
         initialCodeFile: codeFileData,
-        selectedFile: selectedFileX,
-        slug: projectKeyX,
+        selectedFile,
+        slug: projectKey,
     } = codeExplorerData;
 
     let codeComponent = (
         <DynamicCodeExplorer
-            projectKey={projectKeyX}
+            projectKey={projectKey}
             fileList={fileList}
             setSelectedFile={setSelectedFile}
-            selectedFile={selectedFileX}
+            selectedFile={selectedFile}
             codeFile={codeFileData}
             markdownFile={markdownFile}
         />
@@ -67,9 +71,9 @@ export default function CodeFileHome({
         <LeftMenuWrappedContent
             menuSections={menuSections}
             menuHeaderTitle={"Docs"}
-            menuHeaderHref={"/docs"}
+            menuHeaderHref={`/docs/${productKey}`}
         >
-            <div className="max-h-[calc(100vh-106px)] flex flex-row w-full overflow-hidden">
+            <div className="max-h-[calc(100vh-106px)] min-h-[calc(100vh-300px)] flex flex-row w-full overflow-hidden">
                 {codeComponent}
             </div>
         </LeftMenuWrappedContent>

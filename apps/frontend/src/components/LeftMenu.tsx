@@ -16,12 +16,16 @@ export type MenuSection = {
 
 const isCurrentMenuItem = (path: string, item: MenuItem) => {
     // special case for the root of docs
-    if (path === "/docs" && item.path === "/docs/get-started-installation")
+
+    if (
+        /\/.*\/docs/.test(path) &&
+        /\/.*\/docs\/get-started-installation/.test(item.path)
+    )
         return true;
-    // special case for the reference docs route
-    if (path.includes("/docs/reference")) {
-        return path.includes(item.path.replace("/L1JFQURNRS5tZA==", ""));
-    }
+    // special case for the reference docs root route
+    // if (path.includes(`/docs/reference`)) {
+    //     return path.includes(item.path.replace("/L1JFQURNRS5tZA==", ""));
+    // }
 
     return item.path === path;
 };

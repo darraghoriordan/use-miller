@@ -30,9 +30,6 @@
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        "apps/marketing/types/envVars.d.ts",
-        "src/pages/docs/index.tsxnot",
-        "src/docs/courses/useGetAllCourses.ts.old"
     ],
     "exclude": [
         "node_modules"

@@ -15,11 +15,11 @@ import remarkEmbedImages from "remark-embed-images";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
 import { Injectable } from "@nestjs/common";
-import { read } from "to-vfile";
 
 @Injectable()
 class MarkdownToHtmlService {
-    async markdownToHtml(path: string): Promise<string> {
+    // not sure what the type is!
+    async markdownToHtml(markdownSection: any): Promise<string> {
         const file = await unified()
             .use(remarkParse)
             .use(gfm)
@@ -28,7 +28,7 @@ class MarkdownToHtmlService {
             .use(rehypePrism)
             .use(rehypeFormat)
             .use(rehypeStringify)
-            .process(await read(path));
+            .process(markdownSection);
 
         return file.toString();
     }

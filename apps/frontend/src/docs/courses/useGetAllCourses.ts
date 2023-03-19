@@ -1,25 +1,17 @@
-import { CourseMetaApi, CourseMetaDto } from "@use-miller/shared-api-client";
+import { ProjectMetaApi, CourseMetaDto } from "@use-miller/shared-api-client";
 import { getAnonymousApiInstance } from "../../api-services/apiInstanceFactories.js";
 import { ApiOptions } from "../../api-services/ApiOptions.js";
 
-export const getAllCourses = async ({
-    apiBase,
-    fetchApi,
-}: ApiOptions): Promise<CourseMetaDto[]> => {
+export const getAllCourses = async (
+    productKey: string,
+    { apiBase, fetchApi }: ApiOptions
+): Promise<CourseMetaDto[]> => {
     const apiClient = await getAnonymousApiInstance(
-        CourseMetaApi,
+        ProjectMetaApi,
         apiBase,
         fetchApi
     );
-    return await apiClient.courseMetaControllerListAllCourses();
+    return await apiClient.courseMetaControllerListAllProjects({
+        productKey,
+    });
 };
-
-// export default function useGetAllCourses(options: ApiOptions) {
-//     return useQuery(
-//         [wellKnownQueries.getAllCourses],
-//         () => getAllCourses(options),
-//         {
-//             refetchOnWindowFocus: false,
-//         }
-//     );
-// }

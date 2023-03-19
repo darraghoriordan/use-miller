@@ -6,7 +6,6 @@ import { Container } from "./Container";
 import { NavLink } from "./NavLink";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { colorVariants } from "../styles/themeColors.js";
-import StyledLink from "./StyledLink.jsx";
 import StyledHref from "./StyledHref.jsx";
 import { signUpUri } from "../home-cta/signupUrl.js";
 
@@ -91,7 +90,7 @@ export const MobileNavigation = () => {
                             Features
                         </MobileNavLink>
                         <MobileNavLink href="/#pricing">Pricing</MobileNavLink>
-                        <MobileNavLink href="/docs/get-started/quick-start">
+                        <MobileNavLink href="/miller-start/docs/get-started/quick-start">
                             Docs
                         </MobileNavLink>
 
@@ -153,7 +152,11 @@ export function Header() {
                                 Features
                             </NavLink>
                             <NavLink href="/#pricing">Pricing</NavLink>
-                            <NavLink href={"/docs/get-started/quick-start"}>
+                            <NavLink
+                                href={
+                                    "/miller-start/docs/get-started/quick-start"
+                                }
+                            >
                                 Docs
                             </NavLink>
                             {(isLoading || !user) && (

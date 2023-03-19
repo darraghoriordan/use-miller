@@ -8,19 +8,15 @@ import { GetServerSidePropsContext, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { getAuthenticatedApiInstance } from "../../api-services/apiInstanceFactories.js";
 
-const superUserScopes = [
-    "openid",
-    "email",
-    "read:all",
-    "modify:all",
-    "profile",
-    "offline_access",
-];
+const superUserScopes = ["openid", "email", "profile", "offline_access"];
 export async function superUserGetUserData(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) {
     const atResponse = await getAccessToken(context.req, context.res, {
         scopes: superUserScopes,
+        authorizationParams: {
+            audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
+        },
     });
     const apiClient = await getAuthenticatedApiInstance(
         UsersApi,
@@ -33,14 +29,18 @@ export async function superUserGetUserData(
         createMenu(),
     ]);
     if (allUsers.status === "rejected" || menuSections.status === "rejected") {
-        throw new Error("Failed to get data");
+        throw new Error(
+            "Failed to get data:" + (allUsers as PromiseRejectedResult).reason!
+        );
     }
 
     return {
-        props: {
-            allUsers: allUsers.value,
-            menuSections: menuSections.value,
-        },
+        props: JSON.parse(
+            JSON.stringify({
+                allUsers: allUsers.value,
+                menuSections: menuSections.value,
+            })
+        ),
     };
 }
 
@@ -94,10 +94,12 @@ export async function superUserGetPaymentData(
     }
 
     return {
-        props: {
-            allData: allData.value,
-            menuSections: menuSections.value,
-        },
+        props: JSON.parse(
+            JSON.stringify({
+                allData: allData.value,
+                menuSections: menuSections.value,
+            })
+        ),
     };
 }
 
@@ -123,9 +125,11 @@ export async function superUserGetSubscriptionsData(
     }
 
     return {
-        props: {
-            allSubs: orgSubs.value,
-            menuSections: menuSections.value,
-        },
+        props: JSON.parse(
+            JSON.stringify({
+                allSubs: orgSubs.value,
+                menuSections: menuSections.value,
+            })
+        ),
     };
 }

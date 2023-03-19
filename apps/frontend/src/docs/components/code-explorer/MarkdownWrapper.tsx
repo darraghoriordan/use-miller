@@ -25,7 +25,7 @@ const MarkdownWrapper = (props: {
     }
 
     return (
-        <>
+        <div>
             <div className="flex bg-dark-mid">
                 <div className="inline-block px-4 py-2 text-sm text-orange-300 border-b border-orange-300 bg-dark-shade">
                     Notes for section
@@ -39,7 +39,7 @@ const MarkdownWrapper = (props: {
                     }}
                 ></article>
             </div>
-        </>
+        </div>
     );
 };
 

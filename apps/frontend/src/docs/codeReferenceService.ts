@@ -1,5 +1,5 @@
 import {
-    CourseFilesApi,
+    ProjectFilesApi,
     FileMetaDto,
     FileStructureDto,
 } from "@use-miller/shared-api-client";
@@ -10,7 +10,7 @@ import {
     getAnonymousApiInstance,
     getAuthenticatedApiInstance,
 } from "../api-services/apiInstanceFactories.js";
-import { getAllCourses } from "./courses/useGetAllCourses.js";
+//import { getAllCourses } from "./courses/useGetAllCourses.js";
 
 export type CodeExplorerData = {
     slug: string;
@@ -34,10 +34,11 @@ export type CodeExplorerData = {
     };
     selectedFile: string;
 };
-export const defaultProjectKey = "miller";
+export const defaultProjectKey = "miller-web";
 export const defaultCodeFile = btoa("/README.md");
 
 export async function getCodeExplorerData(
+    productKey: string,
     projectKey: string,
     codeFile: string,
     accessToken: string | null | undefined
@@ -61,43 +62,56 @@ export async function getCodeExplorerData(
     ) {
         codeFile = defaultCodeFile;
     }
-    let apiClient: CourseFilesApi;
+    let apiClient: ProjectFilesApi;
     if (!accessToken) {
         apiClient = await getAnonymousApiInstance(
-            CourseFilesApi,
+            ProjectFilesApi,
             process.env.NEXT_PUBLIC_API_BASE_PATH,
             fetch
         );
     } else {
         apiClient = await getAuthenticatedApiInstance(
-            CourseFilesApi,
+            ProjectFilesApi,
             process.env.NEXT_PUBLIC_API_BASE_PATH,
             accessToken,
             fetch
         );
     }
 
-    const fileList = await apiClient.courseFilesControllerListCourseFiles({
-        courseName: projectKey,
+    const fileList = await apiClient.courseFilesControllerListProjectFiles({
+        productKey,
+        projectKey,
     });
     let initialCodeFile: FileMetaDto;
+    let initialMarkdownFile: FileMetaDto;
     if (!accessToken) {
         initialCodeFile = await apiClient.openCourseFilesControllerGetFile({
-            courseName: projectKey,
+            productKey,
+            projectKey,
             b64Path: codeFile,
         });
+        initialMarkdownFile =
+            await apiClient.openCourseFilesControllerGetMarkdownFileAsHtml({
+                productKey,
+                projectKey,
+                markdownB64Path:
+                    initialCodeFile.nearestReadmeLocation || defaultCodeFile,
+            });
     } else {
         initialCodeFile = await apiClient.courseFilesControllerGetFile({
-            courseName: projectKey,
+            productKey,
+            projectKey,
             b64Path: codeFile,
         });
+        initialMarkdownFile =
+            await apiClient.courseFilesControllerGetMarkdownFileAsHtml({
+                productKey,
+                projectKey,
+                markdownB64Path:
+                    initialCodeFile.nearestReadmeLocation || defaultCodeFile,
+            });
     }
-    const initialMarkdownFile =
-        await apiClient.openCourseFilesControllerGetMarkdownFileAsHtml({
-            courseName: projectKey,
-            markdownB64Path:
-                initialCodeFile.nearestReadmeLocation || defaultCodeFile,
-        });
+
     const serialisedFileList = JSON.parse(JSON.stringify(fileList));
     return {
         slug: projectKey,
@@ -126,17 +140,17 @@ export async function getCodeExplorerData(
 export async function getCodeFileServerSideProps(
     context: GetServerSidePropsContext
 ) {
-    const projectKey = context.params?.projectKey as string,
-        codeFile = context.params?.codeFile as string;
+    const projectKey = context.params?.projectKey as string;
+    const codeFile = context.params?.codeFile as string;
+    const productKey = context.params?.productKey as string;
+
     const session = await getSession(context.req, context.res);
     let accessToken = null;
     if (session) {
-        console.log("session", { session });
         const atResponse = await getAccessToken(context.req, context.res, {
             scopes: ["openid", "email", "profile", "offline_access"],
         });
         accessToken = atResponse.accessToken;
-        console.log("access token", { accessToken });
     }
     if (!projectKey || !codeFile) {
         throw new Error(
@@ -145,46 +159,48 @@ export async function getCodeFileServerSideProps(
     }
 
     const codeExplorerData = await getCodeExplorerData(
+        productKey,
         projectKey,
         codeFile,
         accessToken
     );
-    const menuSections = await createMenu();
+    const menuSections = await createMenu(productKey);
 
     return {
         props: {
+            productKey,
             menuSections,
             codeExplorerData,
         }, // will be passed to the page component as props
     };
 }
-export async function getStaticReferenceDocsPageSlugs(): Promise<{
-    paths: {
-        params: {
-            projectKey: string;
-            codeFile: string;
-        };
-    }[];
-    fallback: boolean;
-}> {
-    const allReferenceProjects = await getAllCourses({
-        apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH,
-        fetchApi: fetch,
-    });
+// export async function getStaticReferenceDocsPageSlugs(): Promise<{
+//     paths: {
+//         params: {
+//             projectKey: string;
+//             codeFile: string;
+//         };
+//     }[];
+//     fallback: boolean;
+// }> {
+//     const allReferenceProjects = await getAllCourses("not a key", {
+//         apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH,
+//         fetchApi: fetch,
+//     });
 
-    const paths = [
-        ...allReferenceProjects.map((course) => {
-            return {
-                params: {
-                    projectKey: `${course.key}`,
-                    codeFile: defaultCodeFile,
-                },
-            };
-        }),
-    ];
+//     const paths = [
+//         ...allReferenceProjects.map((course) => {
+//             return {
+//                 params: {
+//                     projectKey: `${course.key}`,
+//                     codeFile: defaultCodeFile,
+//                 },
+//             };
+//         }),
+//     ];
 
-    return {
-        paths,
-        fallback: true,
-    };
-}
+//     return {
+//         paths,
+//         fallback: true,
+//     };
+// }

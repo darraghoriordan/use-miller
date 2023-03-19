@@ -46,93 +46,119 @@ export function toCapitalCase(str: string): string {
 export function sortByOrder(a: SummaryDoc, b: SummaryDoc): number {
     return a.order - b.order;
 }
-export function getSortedPostsData(): Section[] {
+export function getSortedPostsData(): {
+    productKey: string;
+    sections: Section[];
+}[] {
     // Get file names for the sections
     // expectation here is a structure like
+    //my-product
     // /my-section
     //   /my-page.md
     //   /my-other-page.md
     //   /folders-are-ignored-here
     // /my-other-section
     // ...
-    const sectionLevelDirItems = fs.readdirSync(docContentDirectory, {
+    const productLevelDirItems = fs.readdirSync(docContentDirectory, {
         withFileTypes: true,
     });
     // get a list of the directories at the top level
-    const sectionDirectories = sectionLevelDirItems.filter((dirEntry) =>
+    const productDirectories = productLevelDirItems.filter((dirEntry) =>
         dirEntry.isDirectory()
     );
-    const allPostSections = sectionDirectories.map((sectionDirectory) => {
-        // section path
-        const sectionPath = path.join(
+    const result = [];
+    for (const productDirectory of productDirectories) {
+        const productContentDirectory = path.join(
             docContentDirectory,
-            sectionDirectory.name
+            productDirectory.name
         );
-        const sectionFiles = fs
-            .readdirSync(sectionPath, {
-                withFileTypes: true,
-            })
-            .filter((dirEntry) => dirEntry.isFile());
-        return {
-            sectionDisplayName: toCapitalCase(
-                sectionDirectory.name.replace(/-/g, " ")
-            ),
-            sectionSlug: sectionDirectory.name,
-            pages: sectionFiles
-                .map((fileName) => {
-                    // Remove ".md" from file name to get slug
-                    const slug = fileName.name.replace(/\.md$/, "");
-
-                    // Read markdown file as string
-                    const contentDocumentPath = path.join(
-                        sectionPath,
-                        fileName.name
-                    );
-
-                    const fileContents = fs.readFileSync(
-                        contentDocumentPath,
-                        "utf8"
-                    );
-
-                    // Use gray-matter to parse the post metadata section
-                    const matterResult = matter(fileContents);
-
-                    return {
-                        slug,
-                        ...matterResult.data,
-                    } as SummaryDoc;
+        // now get the list of sections for this product
+        const sectionLevelDirItems = fs.readdirSync(productContentDirectory, {
+            withFileTypes: true,
+        });
+        const sectionDirectories = sectionLevelDirItems.filter((dirEntry) =>
+            dirEntry.isDirectory()
+        );
+        const allPostSections = sectionDirectories.map((sectionDirectory) => {
+            // section path
+            const sectionPath = path.join(
+                productContentDirectory,
+                sectionDirectory.name
+            );
+            const sectionFiles = fs
+                .readdirSync(sectionPath, {
+                    withFileTypes: true,
                 })
-                .sort(sortByOrder),
-        };
-    });
-    console.log(allPostSections);
-    return allPostSections;
+                .filter((dirEntry) => dirEntry.isFile());
+            return {
+                sectionDisplayName: toCapitalCase(
+                    sectionDirectory.name.replace(/-/g, " ")
+                ),
+                sectionSlug: sectionDirectory.name,
+                pages: sectionFiles
+                    .map((fileName) => {
+                        // Remove ".md" from file name to get slug
+                        const slug = fileName.name.replace(/\.md$/, "");
+
+                        // Read markdown file as string
+                        const contentDocumentPath = path.join(
+                            sectionPath,
+                            fileName.name
+                        );
+
+                        const fileContents = fs.readFileSync(
+                            contentDocumentPath,
+                            "utf8"
+                        );
+
+                        // Use gray-matter to parse the post metadata section
+                        const matterResult = matter(fileContents);
+
+                        return {
+                            slug,
+                            ...matterResult.data,
+                        } as SummaryDoc;
+                    })
+                    .sort(sortByOrder),
+            };
+        });
+        result.push({
+            productKey: productDirectory.name,
+            sections: allPostSections,
+        });
+    }
+
+    return result;
 }
 
 export async function getSinglePost({
     slug,
     sectionSlug,
+    productKey,
 }: {
     slug?: string;
     sectionSlug?: string;
+    productKey?: string;
 }): Promise<FullDoc> {
     // if people are messing about with urls, just send them to the getting started page
     // can improve this later
     if (
-        !sectionSlug ||
-        sectionSlug === "index" ||
-        sectionSlug === "" ||
-        sectionSlug === "/"
+        [slug, sectionSlug, productKey].some((x) => {
+            return !x || x === "index" || x === "" || x === "/";
+        })
     ) {
-        sectionSlug = "get-started";
-        slug = "quick-start";
-    }
-    if (!slug || slug === "index" || slug === "" || slug === "/") {
+        productKey = "miller-start";
         sectionSlug = "get-started";
         slug = "quick-start";
     }
 
-    const fullPath = path.join(docContentDirectory, sectionSlug, `${slug}.md`);
+    const fullPath = path.join(
+        docContentDirectory,
+        productKey!,
+        sectionSlug!,
+        `${slug}.md`
+    );
+
     const fileContents = fs.readFileSync(fullPath, "utf8");
 
     // Use gray-matter to parse the post metadata section
@@ -173,24 +199,26 @@ export async function getStaticDocsPageSlugs(): Promise<{
     }[];
     fallback: boolean;
 }> {
-    const allPostSections = getSortedPostsData();
+    const allPostProducts = getSortedPostsData();
 
     const paths = [];
-    for (const section of allPostSections) {
-        // skip reference section
-        if (section.sectionSlug === "reference") {
-            continue;
-        }
-        for (const page of section.pages) {
-            paths.push({
-                params: {
-                    section: section.sectionSlug,
-                    slug: page.slug,
-                },
-            });
+    for (const product of allPostProducts) {
+        for (const section of product.sections) {
+            // skip reference section (this is dynamically generated)
+            if (section.sectionSlug === "reference") {
+                continue;
+            }
+            for (const page of section.pages) {
+                paths.push({
+                    params: {
+                        productKey: product.productKey,
+                        section: section.sectionSlug,
+                        slug: page.slug,
+                    },
+                });
+            }
         }
     }
-
     return {
         paths,
         fallback: false,
