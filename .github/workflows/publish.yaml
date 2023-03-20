@@ -11,10 +11,12 @@ jobs:
               with:
                   fetch-depth: 0
                   persist-credentials: false
+            - uses: pnpm/action-setup@v2
             - uses: actions/setup-node@v3
               with:
                   node-version: "18"
-            - uses: pnpm/action-setup@v2
+                  cache: "pnpm"
+
             - run: pnpm run test
             - run: pnpm run build
             - name: Release
