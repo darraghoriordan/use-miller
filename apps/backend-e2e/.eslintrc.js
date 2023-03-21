@@ -81,6 +81,7 @@ module.exports = {
                 filterFromPaths: ["node_modules", ".test.", ".spec."],
             },
         ],
+        "@typescript-eslint/require-await": "error",
         "unicorn/prefer-node-protocol": "off",
         "unicorn/filename-case": "off",
         // "unicorn/filename-case": [

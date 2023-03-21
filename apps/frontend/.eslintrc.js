@@ -1,9 +1,12 @@
 module.exports = {
-    extends: ["plugin:tailwind/recommended"],
+    extends: ["plugin:@next/next/recommended", "plugin:tailwind/recommended"],
     settings: {
         next: {
             rootDir: "apps/marketing/",
         },
+    },
+    rules: {
+        "@typescript-eslint/require-await": "error",
     },
     ignorePatterns: [],
 };
