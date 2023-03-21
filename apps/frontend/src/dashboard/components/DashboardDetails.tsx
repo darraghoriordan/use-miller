@@ -1,17 +1,27 @@
-import { OrganisationSubscriptionRecord } from "@use-miller/shared-api-client";
+import {
+    OrganisationSubscriptionRecord,
+    UserDto,
+} from "@use-miller/shared-api-client";
 import NoSubscriptions from "./NoSubscriptions.jsx";
 import { Subscriptions } from "./Subscriptions.jsx";
 
 export const DashboardDetails = ({
     title,
     subs,
+    currentUser,
 }: {
     title: string;
     subs: OrganisationSubscriptionRecord[];
+    currentUser: UserDto;
 }) => {
     let subsComponent = <Subscriptions subs={subs} />;
     if (subs.length === 0) {
-        subsComponent = <NoSubscriptions />;
+        subsComponent = (
+            <NoSubscriptions
+                productName="Miller Starter"
+                isOrganisationOwner={false}
+            />
+        );
     }
 
     return (

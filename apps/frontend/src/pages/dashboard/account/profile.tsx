@@ -4,8 +4,8 @@ import { GetServerSidePropsContext, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { MenuSection } from "../../../components/LeftMenu.jsx";
 import { LeftMenuWrappedContent } from "../../../components/LeftMenuWrappedContent.jsx";
+import { getAccountIndexData } from "../../../dashboard/accountProfileDataService.js";
 import { ProfileDetails } from "../../../dashboard/components/ProfileDetails.jsx";
-import { getAccountIndexData } from "../../../dashboard/dashboardDataService.js";
 
 export const getServerSideProps = withPageAuthRequired({
     // returnTo: '/unauthorized',

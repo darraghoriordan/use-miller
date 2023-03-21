@@ -1,6 +1,4 @@
-import { Organisation } from "@use-miller/shared-api-client";
-
-export const createMenu = (userOrgs: Organisation[]) => {
+export const createMenu = (userOrgs: { name: string; uuid: string }[]) => {
     const menuSections = [];
 
     menuSections.push({

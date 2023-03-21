@@ -31,7 +31,7 @@ export interface StripeCheckoutSessionRequestDto {
      * @type {string}
      * @memberof StripeCheckoutSessionRequestDto
      */
-    organisationId?: string;
+    organisationUuid?: string;
     /**
      * 
      * @type {Array<StripeCheckoutLineItem>}
@@ -45,13 +45,13 @@ export interface StripeCheckoutSessionRequestDto {
      */
     mode: string;
     /**
-     * The URL to which Stripe should redirect the customer after payment. This is appended to the host configured in the StripeClientConfigurationService
+     * The path on frontend to which Stripe should redirect the customer after payment. This is appended to the host configured in the StripeClientConfigurationService
      * @type {string}
      * @memberof StripeCheckoutSessionRequestDto
      */
     successFrontendPath: string;
     /**
-     * The URL to which Stripe should redirect the customer after payment cancellation. This is appended to the host configured in the StripeClientConfigurationService
+     * The path on frontend to which Stripe should redirect the customer after payment cancellation. This is appended to the host configured in the StripeClientConfigurationService
      * @type {string}
      * @memberof StripeCheckoutSessionRequestDto
      */
@@ -68,7 +68,7 @@ export function StripeCheckoutSessionRequestDtoFromJSONTyped(json: any, ignoreDi
     }
     return {
         
-        'organisationId': !exists(json, 'organisationId') ? undefined : json['organisationId'],
+        'organisationUuid': !exists(json, 'organisationUuid') ? undefined : json['organisationUuid'],
         'lineItems': ((json['lineItems'] as Array<any>).map(StripeCheckoutLineItemFromJSON)),
         'mode': json['mode'],
         'successFrontendPath': json['successFrontendPath'],
@@ -85,7 +85,7 @@ export function StripeCheckoutSessionRequestDtoToJSON(value?: StripeCheckoutSess
     }
     return {
         
-        'organisationId': value.organisationId,
+        'organisationUuid': value.organisationUuid,
         'lineItems': ((value.lineItems as Array<any>).map(StripeCheckoutLineItemToJSON)),
         'mode': value.mode,
         'successFrontendPath': value.successFrontendPath,

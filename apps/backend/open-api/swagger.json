@@ -51,6 +51,10 @@
     "/is-super-admin": {
       "get": {
         "operationId": "AppController_getHelloSuperAdmin",
+        "summary": "",
+        "tags": [
+          "Application Support"
+        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -64,9 +68,6 @@
             }
           }
         },
-        "tags": [
-          "Application Support"
-        ],
         "security": [
           {
             "bearer": []
@@ -406,6 +407,10 @@
     "/email-client/peekalljobs": {
       "get": {
         "operationId": "EmailClientController_peekQueueJobs",
+        "summary": "",
+        "tags": [
+          "Email-client"
+        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -422,9 +427,6 @@
             }
           }
         },
-        "tags": [
-          "Email-client"
-        ],
         "security": [
           {
             "bearer": []
@@ -435,6 +437,10 @@
     "/email-client/peekfailedjobs": {
       "get": {
         "operationId": "EmailClientController_peekFailedQueueJobs",
+        "summary": "",
+        "tags": [
+          "Email-client"
+        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -451,9 +457,6 @@
             }
           }
         },
-        "tags": [
-          "Email-client"
-        ],
         "security": [
           {
             "bearer": []
@@ -807,6 +810,10 @@
     "/payments/stripe/peekalljobs": {
       "get": {
         "operationId": "StripeWebhookController_peekQueueJobs",
+        "summary": "",
+        "tags": [
+          "Payments"
+        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -823,9 +830,6 @@
             }
           }
         },
-        "tags": [
-          "Payments"
-        ],
         "security": [
           {
             "bearer": []
@@ -836,6 +840,10 @@
     "/payments/stripe/peekfailedjobs": {
       "get": {
         "operationId": "StripeWebhookController_peekFailedQueueJobs",
+        "summary": "",
+        "tags": [
+          "Payments"
+        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -852,9 +860,6 @@
             }
           }
         },
-        "tags": [
-          "Payments"
-        ],
         "security": [
           {
             "bearer": []
@@ -901,6 +906,10 @@
     "/payments/stripe/events": {
       "get": {
         "operationId": "StripeEventsController_getLastEvents",
+        "summary": "",
+        "tags": [
+          "Payments"
+        ],
         "parameters": [
           {
             "name": "skip",
@@ -934,9 +943,6 @@
             }
           }
         },
-        "tags": [
-          "Payments"
-        ],
         "security": [
           {
             "bearer": []
@@ -983,6 +989,10 @@
       },
       "post": {
         "operationId": "OrganisationSubscriptionsController_addSubscription",
+        "summary": "",
+        "tags": [
+          "Organisation Subscriptions"
+        ],
         "parameters": [
           {
             "name": "orgId",
@@ -1018,9 +1028,6 @@
             }
           }
         },
-        "tags": [
-          "Organisation Subscriptions"
-        ],
         "security": [
           {
             "bearer": []
@@ -1031,6 +1038,10 @@
     "/organisation/{orgId}/subscriptions/{uuid}": {
       "delete": {
         "operationId": "OrganisationSubscriptionsController_deleteSubscription",
+        "summary": "",
+        "tags": [
+          "Organisation Subscriptions"
+        ],
         "parameters": [
           {
             "name": "orgId",
@@ -1061,9 +1072,6 @@
             }
           }
         },
-        "tags": [
-          "Organisation Subscriptions"
-        ],
         "security": [
           {
             "bearer": []
@@ -1074,6 +1082,10 @@
     "/subscriptions": {
       "get": {
         "operationId": "AllSubscriptionsController_findAll",
+        "summary": "",
+        "tags": [
+          "Organisation Subscriptions"
+        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -1090,9 +1102,6 @@
             }
           }
         },
-        "tags": [
-          "Organisation Subscriptions"
-        ],
         "security": [
           {
             "bearer": []
@@ -1103,6 +1112,10 @@
     "/payment-reference": {
       "get": {
         "operationId": "PaymentSessionReferenceController_findAll",
+        "summary": "",
+        "tags": [
+          "Payment references"
+        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -1119,9 +1132,6 @@
             }
           }
         },
-        "tags": [
-          "Payment references"
-        ],
         "security": [
           {
             "bearer": []
@@ -1443,15 +1453,16 @@
     "/super-powers/reset-database": {
       "post": {
         "operationId": "SuperPowersController_resetDatabase",
+        "summary": "",
+        "tags": [
+          "Application Support"
+        ],
         "parameters": [],
         "responses": {
           "200": {
             "description": ""
           }
         },
-        "tags": [
-          "Application Support"
-        ],
         "security": [
           {
             "bearer": []
@@ -1614,6 +1625,111 @@
       }
     },
     "schemas": {
+      "OrganisationSubscriptionRecord": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "productDisplayName": {
+            "type": "string"
+          },
+          "paymentSystemTransactionId": {
+            "type": "string"
+          },
+          "paymentSystemProductId": {
+            "type": "string"
+          },
+          "paymentSystemCustomerId": {
+            "type": "string"
+          },
+          "paymentSystemCustomerEmail": {
+            "type": "string"
+          },
+          "paymentSystemMode": {
+            "type": "string"
+          },
+          "paymentSystemName": {
+            "type": "string"
+          },
+          "validUntil": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "organisationId": {
+            "type": "number"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "productDisplayName",
+          "paymentSystemTransactionId",
+          "paymentSystemProductId",
+          "paymentSystemCustomerId",
+          "paymentSystemCustomerEmail",
+          "paymentSystemMode",
+          "paymentSystemName",
+          "validUntil",
+          "organisationId",
+          "createdDate",
+          "updatedDate"
+        ]
+      },
+      "Organisation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "subscriptionRecords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrganisationSubscriptionRecord"
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "name",
+          "createdDate",
+          "updateDate"
+        ]
+      },
       "MembershipRole": {
         "type": "object",
         "properties": {
@@ -1655,6 +1771,9 @@
           "userId": {
             "type": "number"
           },
+          "organisation": {
+            "$ref": "#/components/schemas/Organisation"
+          },
           "organisationId": {
             "type": "number"
           },
@@ -1681,48 +1800,8 @@
           "id",
           "uuid",
           "userId",
+          "organisation",
           "organisationId",
-          "createdDate",
-          "updateDate"
-        ]
-      },
-      "UserApiKey": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "uuid": {
-            "type": "string"
-          },
-          "apiKey": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "userId": {
-            "type": "number"
-          },
-          "createdDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "updateDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "deletedDate": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "uuid",
-          "apiKey",
-          "description",
-          "userId",
           "createdDate",
           "updateDate"
         ]
@@ -1773,12 +1852,6 @@
               "$ref": "#/components/schemas/OrganisationMembership"
             }
           },
-          "apiKeys": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/UserApiKey"
-            }
-          },
           "createdDate": {
             "format": "date-time",
             "type": "string"
@@ -1799,7 +1872,47 @@
           "emailVerified",
           "blocked",
           "memberships",
-          "apiKeys",
+          "createdDate",
+          "updateDate"
+        ]
+      },
+      "UserApiKey": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "apiKey": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "number"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "apiKey",
+          "description",
+          "userId",
           "createdDate",
           "updateDate"
         ]
@@ -1917,39 +2030,6 @@
           "data"
         ]
       },
-      "Organisation": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "uuid": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "createdDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "updateDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "deletedDate": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "uuid",
-          "name",
-          "createdDate",
-          "updateDate"
-        ]
-      },
       "UpdateOrganisationDto": {
         "type": "object",
         "properties": {
@@ -2014,7 +2094,7 @@
       "StripeCheckoutSessionRequestDto": {
         "type": "object",
         "properties": {
-          "organisationId": {
+          "organisationUuid": {
             "type": "string"
           },
           "lineItems": {
@@ -2028,11 +2108,11 @@
           },
           "successFrontendPath": {
             "type": "string",
-            "description": "The URL to which Stripe should redirect the customer after payment. This is appended to the host configured in the StripeClientConfigurationService"
+            "description": "The path on frontend to which Stripe should redirect the customer after payment. This is appended to the host configured in the StripeClientConfigurationService"
           },
           "cancelFrontendPath": {
             "type": "string",
-            "description": "The URL to which Stripe should redirect the customer after payment cancellation. This is appended to the host configured in the StripeClientConfigurationService"
+            "description": "The path on frontend to which Stripe should redirect the customer after payment cancellation. This is appended to the host configured in the StripeClientConfigurationService"
           }
         },
         "required": [
@@ -2111,72 +2191,6 @@
           "stripeSessionId",
           "stripeObjectType",
           "stripeDataAsString"
-        ]
-      },
-      "OrganisationSubscriptionRecord": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "uuid": {
-            "type": "string"
-          },
-          "productDisplayName": {
-            "type": "string"
-          },
-          "paymentSystemTransactionId": {
-            "type": "string"
-          },
-          "paymentSystemProductId": {
-            "type": "string"
-          },
-          "paymentSystemCustomerId": {
-            "type": "string"
-          },
-          "paymentSystemCustomerEmail": {
-            "type": "string"
-          },
-          "paymentSystemMode": {
-            "type": "string"
-          },
-          "paymentSystemName": {
-            "type": "string"
-          },
-          "validUntil": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "organisationId": {
-            "type": "number"
-          },
-          "createdDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "updatedDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "deletedDate": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "uuid",
-          "productDisplayName",
-          "paymentSystemTransactionId",
-          "paymentSystemProductId",
-          "paymentSystemCustomerId",
-          "paymentSystemCustomerEmail",
-          "paymentSystemMode",
-          "paymentSystemName",
-          "validUntil",
-          "organisationId",
-          "createdDate",
-          "updatedDate"
         ]
       },
       "SaveOrganisationSubscriptionRecordDto": {

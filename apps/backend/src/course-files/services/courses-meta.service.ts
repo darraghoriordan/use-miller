@@ -23,9 +23,9 @@ export class CoursesMetaService {
                         name: "Miller Web",
                         color: "green",
                         demoPaths: ["**/apps/frontend/src/pages/**"],
-                        demoFileLinkHref: `miller-start/${
+                        demoFileLinkHref: `docs/miller-start/${
                             this.coreConfig.frontEndAppUrl
-                        }/docs/reference/miller-web/${btoa(
+                        }/reference/miller-web/${btoa(
                             "/apps/frontend/src/pages/docs/[section]/[slug].tsx"
                         )}`,
                         demoFileLinkText: "Page Router",
@@ -39,9 +39,9 @@ export class CoursesMetaService {
                         name: "NestJs Backend Libraries",
                         color: "pink",
                         demoPaths: ["**/src/twitter-client/**"],
-                        demoFileLinkHref: `miller-start/${
+                        demoFileLinkHref: `docs/miller-start/${
                             this.coreConfig.frontEndAppUrl
-                        }/docs/reference/nestjs-backend-libs/${btoa(
+                        }/reference/nestjs-backend-libs/${btoa(
                             "/src/stripe-client/services/stripe-webhook-handler.service.ts"
                         )}`,
 

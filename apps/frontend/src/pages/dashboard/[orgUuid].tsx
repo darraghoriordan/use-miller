@@ -4,6 +4,7 @@ import { dashboardGetSspData } from "../../dashboard/dashboardDataService.js";
 import {
     Organisation,
     OrganisationSubscriptionRecord,
+    UserDto,
 } from "@use-miller/shared-api-client";
 import { DashboardDetails } from "../../dashboard/components/DashboardDetails.jsx";
 import { LeftMenuWrappedContent } from "../../components/LeftMenuWrappedContent.jsx";
@@ -16,10 +17,12 @@ export const getServerSideProps = withPageAuthRequired({
 export default function Home({
     menuSections,
     currentOrg,
+    currentUser,
     subs,
 }: {
     menuSections: MenuSection[];
     currentOrg: Organisation;
+    currentUser: UserDto;
     subs: OrganisationSubscriptionRecord[];
 }) {
     return (
@@ -28,7 +31,11 @@ export default function Home({
             menuHeaderHref="/dashboard"
             menuSections={menuSections}
         >
-            <DashboardDetails subs={subs} title={currentOrg.name} />
+            <DashboardDetails
+                subs={subs}
+                title={currentOrg.name}
+                currentUser={currentUser}
+            />
         </LeftMenuWrappedContent>
     );
 }

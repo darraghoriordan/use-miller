@@ -19,7 +19,7 @@ const isCurrentMenuItem = (path: string, item: MenuItem) => {
 
     if (
         /\/.*\/docs/.test(path) &&
-        /\/.*\/docs\/get-started-installation/.test(item.path)
+        /\/docs\/.*\/get-started-installation/.test(item.path)
     )
         return true;
     // special case for the reference docs root route

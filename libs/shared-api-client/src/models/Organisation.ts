@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    OrganisationSubscriptionRecord,
+    OrganisationSubscriptionRecordFromJSON,
+    OrganisationSubscriptionRecordFromJSONTyped,
+    OrganisationSubscriptionRecordToJSON,
+} from './';
+
 /**
  * 
  * @export
@@ -31,6 +38,12 @@ export interface Organisation {
      * @memberof Organisation
      */
     uuid: string;
+    /**
+     * 
+     * @type {Array<OrganisationSubscriptionRecord>}
+     * @memberof Organisation
+     */
+    subscriptionRecords?: Array<OrganisationSubscriptionRecord>;
     /**
      * 
      * @type {string}
@@ -69,6 +82,7 @@ export function OrganisationFromJSONTyped(json: any, ignoreDiscriminator: boolea
         
         'id': json['id'],
         'uuid': json['uuid'],
+        'subscriptionRecords': !exists(json, 'subscriptionRecords') ? undefined : ((json['subscriptionRecords'] as Array<any>).map(OrganisationSubscriptionRecordFromJSON)),
         'name': json['name'],
         'createdDate': (new Date(json['createdDate'])),
         'updateDate': (new Date(json['updateDate'])),
@@ -87,6 +101,7 @@ export function OrganisationToJSON(value?: Organisation | null): any {
         
         'id': value.id,
         'uuid': value.uuid,
+        'subscriptionRecords': value.subscriptionRecords === undefined ? undefined : ((value.subscriptionRecords as Array<any>).map(OrganisationSubscriptionRecordToJSON)),
         'name': value.name,
         'createdDate': (value.createdDate.toISOString()),
         'updateDate': (value.updateDate.toISOString()),

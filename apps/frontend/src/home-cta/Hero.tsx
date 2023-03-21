@@ -81,7 +81,7 @@ export function Hero() {
                                 Buy now
                             </StyledLink>
                             <StyledLink
-                                href={`/miller-start/docs/reference/miller-web/${btoa(
+                                href={`docs/miller-start/reference/miller-web/${btoa(
                                     "/README.md"
                                 )}`}
                                 color="violet"

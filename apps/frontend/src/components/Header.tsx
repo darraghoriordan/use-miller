@@ -90,7 +90,7 @@ export const MobileNavigation = () => {
                             Features
                         </MobileNavLink>
                         <MobileNavLink href="/#pricing">Pricing</MobileNavLink>
-                        <MobileNavLink href="/miller-start/docs/get-started/quick-start">
+                        <MobileNavLink href="/docs/miller-start/get-started/quick-start">
                             Docs
                         </MobileNavLink>
 
@@ -154,7 +154,7 @@ export function Header() {
                             <NavLink href="/#pricing">Pricing</NavLink>
                             <NavLink
                                 href={
-                                    "/miller-start/docs/get-started/quick-start"
+                                    "/docs/miller-start/get-started/quick-start"
                                 }
                             >
                                 Docs

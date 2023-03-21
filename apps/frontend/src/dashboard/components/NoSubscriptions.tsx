@@ -5,7 +5,11 @@ import { colorVariants } from "../../styles/themeColors.js";
 
 export default function NoSubscriptions({
     organisationUuid,
+    productName,
+    isOrganisationOwner,
 }: {
+    productName: string;
+    isOrganisationOwner: boolean;
     organisationUuid?: string;
 }) {
     const { mutateAsync } = useGetPaymentLink();
@@ -21,7 +25,7 @@ export default function NoSubscriptions({
                 },
             ],
             mode: "subscription",
-            organisationId: organisationUuid,
+            organisationUuid,
         });
 
         window.location.href = link.stripeSessionUrl;
@@ -32,20 +36,30 @@ export default function NoSubscriptions({
             className={`p-8 overflow-hidden rounded-md text-gray-500 bg-dark-accent hover:shadow-lg ${colorVariants[colorVariant].hoverShadow} ${colorVariants[colorVariant].hoverForeground}`}
         >
             <h3 className="text-lg font-medium text-white">
-                You have no subscriptions.
+                Your org has no subscriptions for <strong>{productName}</strong>
+                .
             </h3>
-            <p className="mt-6 text-sm text-gray-200">
-                Get started by subscribing.
-            </p>
-            <div className="mt-6">
-                <StyledButton onClick={onClick}>
-                    <ShoppingBagIcon
-                        className="w-5 h-5 mr-2 -ml-1"
-                        aria-hidden="true"
-                    />
-                    Subscribe now
-                </StyledButton>
-            </div>
+            {!isOrganisationOwner && (
+                <p className="mt-6 text-sm text-gray-200">
+                    Contact the owner of your organisation to subscribe.
+                </p>
+            )}
+            {isOrganisationOwner && (
+                <>
+                    <p className="mt-6 text-sm text-gray-200">
+                        Get started by subscribing.
+                    </p>
+                    <div className="mt-6">
+                        <StyledButton onClick={onClick}>
+                            <ShoppingBagIcon
+                                className="w-5 h-5 mr-2 -ml-1"
+                                aria-hidden="true"
+                            />
+                            Subscribe now
+                        </StyledButton>
+                    </div>
+                </>
+            )}
         </div>
     );
 }
