@@ -10,6 +10,7 @@ import {
     Get,
     Param,
     Request,
+    UseInterceptors,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 
@@ -17,8 +18,10 @@ import { CodeFilesService } from "../services/code-files.service.js";
 import { FileMetaDto } from "../dtos/FileMetaDto.js";
 import { FileStructureDto } from "../dtos/FileStructureDto.js";
 import { MarkdownFileService } from "../services/markdown-files.service.js";
+import UserDiscriminatedCacheInterceptor from "../UserDiscriminatedCacheInterceptor.js";
 
 @Controller("project-files/:productKey")
+@UseInterceptors(UserDiscriminatedCacheInterceptor)
 @ApiTags("Project Files")
 export class CourseFilesController {
     constructor(

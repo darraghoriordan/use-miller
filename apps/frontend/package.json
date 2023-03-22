@@ -55,12 +55,12 @@
         "@nrwl/jest": "15.8.7",
         "@nrwl/linter": "15.8.7",
         "@nrwl/node": "15.8.7",
-        "@types/node": "18.15.3",
+        "@types/node": "18.15.5",
         "@types/react": "18.0.28",
         "@types/react-dom": "18.0.11",
         "@types/react-router-dom": "5.3.3",
-        "@typescript-eslint/eslint-plugin": "5.55.0",
-        "@typescript-eslint/parser": "5.55.0",
+        "@typescript-eslint/eslint-plugin": "5.56.0",
+        "@typescript-eslint/parser": "5.56.0",
         "eslint": "8.36.0",
         "eslint-config-next": "13.2.4",
         "eslint-config-react-app": "7.0.1",
@@ -71,7 +71,7 @@
         "eslint-plugin-react-hooks": "4.6.0",
         "eslint-plugin-tailwind": "0.2.1",
         "nx": "15.8.7",
-        "prettier": "2.8.5",
-        "typescript": "4.9.5"
+        "prettier": "2.8.6",
+        "typescript": "5.0.2"
     }
 }

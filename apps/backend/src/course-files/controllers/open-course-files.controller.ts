@@ -1,9 +1,18 @@
-import { Controller, HttpCode, HttpStatus, Get, Param } from "@nestjs/common";
+import {
+    Controller,
+    HttpCode,
+    HttpStatus,
+    Get,
+    Param,
+    UseInterceptors,
+    CacheInterceptor,
+} from "@nestjs/common";
 import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { CodeFilesService } from "../services/code-files.service.js";
 import { FileMetaDto } from "../dtos/FileMetaDto.js";
 import { MarkdownFileService } from "../services/markdown-files.service.js";
 
+@UseInterceptors(CacheInterceptor)
 @Controller("project-files/:productKey/open")
 @ApiTags("Project Files")
 export class OpenCourseFilesController {

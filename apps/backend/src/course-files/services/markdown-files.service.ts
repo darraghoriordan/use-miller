@@ -46,10 +46,14 @@ export class MarkdownFileService {
         projectKey: string,
         user?: RequestUser
     ): Promise<FileMetaDto> => {
-        const projectMeta = this.coursesMetaService.getOne(
-            productKey,
-            projectKey
+        const product = this.coursesMetaService.getOneProduct(productKey);
+        const projectMeta = product.projectMeta.find(
+            (p) => projectKey === p.key
         );
+        if (!projectMeta) {
+            throw new NotFoundException("No project found");
+        }
+
         const fileLocation = this.pathMapperService.mapBase64ToAbsolutePath(
             b64Path,
             projectMeta.rootLocation
@@ -79,14 +83,15 @@ export class MarkdownFileService {
         const shouldShowFullFile = this.fileVisibilityGuard.shouldShowFullFile(
             fileLocation,
             projectMeta.demoPaths,
-            productKey,
+            product.subscribedProductNames,
             user
         );
 
         const htmlData = await this.markdownToHtmlService.markdownToHtml(
             shouldShowFullFile
                 ? matterResult.content
-                : matterResult.excerpt + clippedMessage
+                : matterResult.excerpt + clippedMessage,
+            fileLocation
         );
 
         return {

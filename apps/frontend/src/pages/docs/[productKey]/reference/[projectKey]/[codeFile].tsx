@@ -69,6 +69,7 @@ export default function CodeFileHome({
 
     return (
         <LeftMenuWrappedContent
+            productKey={productKey}
             menuSections={menuSections}
             menuHeaderTitle={"Docs"}
             menuHeaderHref={`/docs/${productKey}`}

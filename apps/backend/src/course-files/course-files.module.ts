@@ -9,6 +9,7 @@ import { CourseMetaController } from "./controllers/course-meta.controller.js";
 import PathMapperService from "./services/pathMapper.service.js";
 import { MarkdownFileService } from "./services/markdown-files.service.js";
 import { FileVisibilityControlGuard } from "./services/file-visibility-guard.service.js";
+import UserDiscriminatedCacheInterceptor from "./UserDiscriminatedCacheInterceptor.js";
 
 @Module({
     imports: [CoreModule, CoreConfigModule],
@@ -24,6 +25,7 @@ import { FileVisibilityControlGuard } from "./services/file-visibility-guard.ser
         PathMapperService,
         MarkdownFileService,
         FileVisibilityControlGuard,
+        UserDiscriminatedCacheInterceptor,
     ],
     exports: [],
 })

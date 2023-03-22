@@ -25,21 +25,22 @@ const MarkdownWrapper = (props: {
     }
 
     return (
-        <div>
-            <div className="flex bg-dark-mid">
+        <>
+            {/* don't make the parent of this a div, it breaks the flex col stretch from the parent */}
+            <div className="flex bg-dark-mid max-h-full">
                 <div className="inline-block px-4 py-2 text-sm text-orange-300 border-b border-orange-300 bg-dark-shade">
                     Notes for section
                 </div>
             </div>
-            <div className="overflow-x-hidden overflow-y-scroll flex flex-auto code-scroll">
+            <div className="overflow-x-hidden overflow-y-scroll flex flex-col flex-auto code-scroll max-h-full">
                 <article
-                    className="mx-4 mt-2 mb-4 prose prose-sm prose-invert max-w-none"
+                    className="mx-4 mt-2 mb-4 prose prose-sm prose-invert max-w-none max-h-full"
                     dangerouslySetInnerHTML={{
                         __html: data || firstContents,
                     }}
                 ></article>
             </div>
-        </div>
+        </>
     );
 };
 

@@ -9,11 +9,20 @@ export class FileVisibilityControlGuard {
         fileLocation: string,
         demoPaths: string[],
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        productKey: string,
+        subscribedProductNames: string[],
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         user?: RequestUser
     ): boolean => {
-        // TODO: match products to user's org's subscriptions!
+        // if the person is in an org that has paid for the product, then they can see all files
+        if (
+            subscribedProductNames.some((p) =>
+                user?.activeSubscriptionProducts.includes(p)
+            )
+        ) {
+            return true;
+        }
+
+        //otherwise some files are always visible e.g. "demo" areas
         const globs = demoPaths;
         // eslint-disable-next-line sonarjs/prefer-immediate-return
         const isMatch = globs.some((g) => minimatch(fileLocation, g));

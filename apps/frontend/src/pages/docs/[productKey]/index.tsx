@@ -48,6 +48,7 @@ export default function Home({
 }) {
     return (
         <LeftMenuWrappedContent
+            productKey={productKey}
             menuSections={menuSections}
             menuHeaderTitle={"Docs"}
             menuHeaderHref={`/docs/${productKey}`}

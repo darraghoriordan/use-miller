@@ -5,9 +5,9 @@ import { Pricing } from "../home-ctas/Pricing";
 export default function Home() {
     return (
         <Layout
-            seoDescription="Miller builds tools for busy developers. Learn NestJs and NextJs, enrich your shell, get useful local dev tools, and more."
-            seoTitle="Miller - Tools for busy devs!"
-            headerTitle="Miller"
+            seoDescription="A working full-stack web app with a NextJs frontend and a NestJs backend."
+            seoTitle="Miller Start - Learn NestJs and NextJs by example"
+            headerTitle="Miller // Start"
             productKey="miller-start"
             successRedirectPath="/payment-init/miller-start"
             themeColor="violet"

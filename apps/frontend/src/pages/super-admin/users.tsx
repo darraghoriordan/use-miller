@@ -19,6 +19,7 @@ export default function Home({
 }) {
     return (
         <LeftMenuWrappedContent
+            productKey="miller-start"
             menuHeaderTitle="Super Admin"
             menuHeaderHref="/super-admin"
             menuSections={menuSections}

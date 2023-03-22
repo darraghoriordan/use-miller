@@ -105,7 +105,7 @@ export class CodeFilesService {
         productKey: string,
         projectKey: string
     ): Promise<FileStructureDto> => {
-        const projectMeta = this.coursesMetaService.getOne(
+        const projectMeta = this.coursesMetaService.getOneProject(
             productKey,
             projectKey
         );
@@ -126,7 +126,7 @@ export class CodeFilesService {
         productKey: string,
         projectKey: string
     ): Promise<FileMetaDto> => {
-        const projectMeta = this.coursesMetaService.getOne(
+        const projectMeta = this.coursesMetaService.getOneProject(
             productKey,
             projectKey
         );
@@ -151,7 +151,7 @@ export class CodeFilesService {
         productKey: string,
         projectKey: string
     ): string | undefined => {
-        const projectMeta = this.coursesMetaService.getOne(
+        const projectMeta = this.coursesMetaService.getOneProject(
             productKey,
             projectKey
         );
@@ -163,7 +163,7 @@ export class CodeFilesService {
         return this.findNearestReadme(fileLocation);
     };
 
-    getFileContents = async (fileLocation: string): Promise<string> => {
+    readFromDisk = async (fileLocation: string): Promise<string> => {
         return fs.promises.readFile(fileLocation, {
             encoding: "utf8",
             flag: "r",
@@ -203,10 +203,13 @@ export class CodeFilesService {
         projectKey: string,
         user?: RequestUser
     ): Promise<FileMetaDto> => {
-        const projectMeta = this.coursesMetaService.getOne(
-            productKey,
-            projectKey
+        const product = this.coursesMetaService.getOneProduct(productKey);
+        const projectMeta = product.projectMeta.find(
+            (p) => projectKey === p.key
         );
+        if (!projectMeta) {
+            throw new NotFoundException("No project found");
+        }
         const fileLocation = this.pathMapperService.mapBase64ToAbsolutePath(
             b64Path,
             projectMeta.rootLocation
@@ -214,7 +217,7 @@ export class CodeFilesService {
         const nearestReadme =
             this.findNearestReadme(fileLocation) || "README.md";
 
-        const fileContents = await this.getFileContents(fileLocation);
+        const fileContents = await this.readFromDisk(fileLocation);
         const fileName = path.basename(fileLocation);
         const nearestReadmeLocation =
             this.pathMapperService.mapPathToRelativeBase64(
@@ -225,7 +228,7 @@ export class CodeFilesService {
             this.fileVisibilityGuard.shouldShowFullFile(
                 fileLocation,
                 projectMeta.demoPaths,
-                productKey,
+                product.subscribedProductNames,
                 user
             )
         ) {
