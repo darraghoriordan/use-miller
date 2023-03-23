@@ -8,7 +8,7 @@ resource "stripe_product" "regular_product" {
 
 resource "stripe_price" "regular_price" {
   product     = stripe_product.regular_product.id
-  unit_amount = 34900
+  unit_amount = 54900
   currency    = "usd"
   recurring {
     interval       = "year"

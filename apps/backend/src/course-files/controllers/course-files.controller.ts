@@ -11,6 +11,7 @@ import {
     Param,
     Request,
     UseInterceptors,
+    CacheTTL,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 
@@ -21,6 +22,7 @@ import { MarkdownFileService } from "../services/markdown-files.service.js";
 import UserDiscriminatedCacheInterceptor from "../UserDiscriminatedCacheInterceptor.js";
 
 @Controller("project-files/:productKey")
+@CacheTTL(10)
 @UseInterceptors(UserDiscriminatedCacheInterceptor)
 @ApiTags("Project Files")
 export class CourseFilesController {

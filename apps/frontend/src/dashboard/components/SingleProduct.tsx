@@ -8,7 +8,7 @@ export const SingleProduct = ({
 }: {
     subscriptionRecord: OrganisationSubscriptionRecord;
 }) => {
-    const expiryDate = useFormattedDate(subscriptionRecord.validUntil);
+    // const expiryDate = useFormattedDate(subscriptionRecord.validUntil);
     const createdDate = useFormattedDate(subscriptionRecord.createdDate);
     const colorVariant = "green";
     return (

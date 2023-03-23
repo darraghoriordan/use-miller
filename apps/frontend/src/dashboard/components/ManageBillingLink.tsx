@@ -21,7 +21,7 @@ const ManageBillingLink = ({
     };
 
     return (
-        <StyledButton onClick={() => linkClick(subscriptionUuid)}>
+        <StyledButton onClick={() => linkClick(subscriptionUuid)} color="green">
             Manage Billing {paymentProvider ? "on " + paymentProvider : ""}
             <ArrowTopRightOnSquareIcon className="w-5 h-5 ml-2" />
         </StyledButton>

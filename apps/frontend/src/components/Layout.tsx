@@ -6,7 +6,6 @@ import SEO from "../components/SEO";
 export default function Layout({
     productKey,
     headerTitle,
-    successRedirectPath,
     children,
     seoDescription,
     seoTitle,
@@ -14,7 +13,6 @@ export default function Layout({
 }: {
     productKey: string;
     headerTitle?: string;
-    successRedirectPath?: string;
     seoTitle: string;
     seoDescription: string;
     themeColor?: "green" | "cyan" | "amber" | "red" | "violet" | "pink";
@@ -25,7 +23,6 @@ export default function Layout({
             <Header
                 productKey={productKey}
                 headerTitle={headerTitle}
-                successRedirectPath={successRedirectPath}
                 themeColor={themeColor}
             />
             <main className="flex-grow">{children}</main>

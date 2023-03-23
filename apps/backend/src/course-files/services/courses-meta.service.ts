@@ -11,7 +11,7 @@ export class CoursesMetaService {
     getProjectMetadata(): { [key: string]: ProductMeta } {
         return {
             ["miller-start"]: {
-                color: "green",
+                color: "red",
                 subscribedProductNames: ["myproduct"],
                 projectMeta: [
                     {
@@ -25,7 +25,7 @@ export class CoursesMetaService {
                         }/docs/miller-start/reference/miller-web/${btoa(
                             "/apps/frontend/src/pages/docs/[section]/[slug].tsx"
                         )}`,
-                        demoFileLinkText: "Page Router",
+                        demoFileLinkText: "/apps/frontend/src/pages",
                         rootLocation:
                             "/Users/darraghoriordan/Documents/personal-projects/use-miller",
                     },
@@ -38,12 +38,33 @@ export class CoursesMetaService {
                         demoFileLinkHref: `${
                             this.coreConfig.frontEndAppUrl
                         }/docs/miller-start/reference/nestjs-backend-libs/${btoa(
-                            "/src/stripe-client/services/stripe-webhook-handler.service.ts"
+                            "/src/twitter-client/twitter-account.module.ts"
                         )}`,
 
-                        demoFileLinkText: "Stripe Services",
+                        demoFileLinkText: "/src/twitter-client",
                         rootLocation:
                             "/Users/darraghoriordan/Documents/personal-projects/nest-backend-libs",
+                    },
+                ],
+            },
+            ["dev-shell"]: {
+                color: "green",
+                subscribedProductNames: ["Dev Shell"],
+                projectMeta: [
+                    {
+                        key: "dev-shell-scripts",
+                        rootNodeName: "DEV-SHELL",
+                        name: "Dev Shell Scripts",
+                        color: "green",
+                        demoPaths: ["**/home/setupscripts/mac/brew.sh"],
+                        demoFileLinkHref: `${
+                            this.coreConfig.frontEndAppUrl
+                        }/docs/dev-shell/reference/dev-shell-scripts/${btoa(
+                            "/home/setupscripts/mac/brew.sh"
+                        )}`,
+                        demoFileLinkText: "/home/setupscripts/mac/brew.sh",
+                        rootLocation:
+                            "/Users/darraghoriordan/Documents/personal-projects/mac-setup-script",
                     },
                 ],
             },

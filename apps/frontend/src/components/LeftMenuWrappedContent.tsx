@@ -21,7 +21,6 @@ export const LeftMenuWrappedContent = ({
             seoTitle="Miller - Tools for busy devs!"
             headerTitle="Miller"
             productKey={productKey}
-            successRedirectPath={`/payment-init/${productKey}`}
         >
             <Container className="w-full min-w-full mx-auto bg-neutral-900 mb-16">
                 <div className="flex items-stretch">

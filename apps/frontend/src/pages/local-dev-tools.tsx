@@ -1,18 +1,22 @@
-import { Hero } from "../home-ctas/Hero";
+import { Hero } from "../marketing-pages/miller-start-home/Hero";
 import Layout from "../components/Layout.jsx";
-import { Pricing } from "../home-ctas/Pricing";
+import { Pricing } from "../marketing-pages/miller-start-home/Pricing";
+import { UserDto } from "@use-miller/shared-api-client";
+import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps.js";
 
-export default function Home() {
+export const getServerSideProps = getMarketingServerSideProps;
+
+export default function Home({ user }: { user: UserDto }) {
     return (
         <Layout
             seoDescription="Keep your business data safe and secure by using local dev tools."
             seoTitle="Miller - Local Dev Tools"
             headerTitle="Miller // Local Dev Tools"
             productKey="local-dev-tools"
-            successRedirectPath="/payment-init/local-dev-tools"
+            themeColor="violet"
         >
-            <Hero />
-            <Pricing />
+            <Hero user={user} />
+            <Pricing user={user} />
         </Layout>
     );
 }

@@ -34,7 +34,7 @@ export default function Home({
         >
             <DashboardDetails
                 subs={subs}
-                title={currentOrg.name}
+                currentOrg={currentOrg}
                 currentUser={currentUser}
             />
         </LeftMenuWrappedContent>

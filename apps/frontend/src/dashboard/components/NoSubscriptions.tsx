@@ -1,35 +1,13 @@
-import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import StyledButton from "../../components/StyledButton.jsx";
-import { useGetPaymentLink } from "../../hooks/useGetPaymentLink.js";
+import StyledHref from "../../components/StyledHref.jsx";
 import { colorVariants } from "../../styles/themeColors.js";
 
 export default function NoSubscriptions({
-    organisationUuid,
     productName,
     isOrganisationOwner,
 }: {
     productName: string;
     isOrganisationOwner: boolean;
-    organisationUuid?: string;
 }) {
-    const { mutateAsync } = useGetPaymentLink();
-
-    const onClick = async () => {
-        const link = await mutateAsync({
-            successFrontendPath: "/dashboard",
-            cancelFrontendPath: "/dashboard",
-            lineItems: [
-                {
-                    price: process.env.NEXT_PUBLIC_STRIPE_REGULAR_PRICE_ID,
-                    quantity: 1,
-                },
-            ],
-            mode: "subscription",
-            organisationUuid,
-        });
-
-        window.location.href = link.stripeSessionUrl;
-    };
     const colorVariant = "green";
     return (
         <div
@@ -50,13 +28,9 @@ export default function NoSubscriptions({
                         Get started by subscribing.
                     </p>
                     <div className="mt-6">
-                        <StyledButton onClick={onClick}>
-                            <ShoppingBagIcon
-                                className="w-5 h-5 mr-2 -ml-1"
-                                aria-hidden="true"
-                            />
-                            Subscribe now
-                        </StyledButton>
+                        <StyledHref href="/">
+                            Visit homepage to choose a product
+                        </StyledHref>
                     </div>
                 </>
             )}

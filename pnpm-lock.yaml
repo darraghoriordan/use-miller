@@ -459,9 +459,9 @@ importers:
 
   libs/shared-api-client:
     specifiers:
-      typescript: ^5.0.2
+      typescript: ^3.9.5
     devDependencies:
-      typescript: 5.0.2
+      typescript: 3.9.10
 
 packages:
 
@@ -3750,12 +3750,12 @@ packages:
       - debug
     dev: true
 
-  /@nrwl/devkit/15.8.5_nx@15.8.7+typescript@4.9.5:
+  /@nrwl/devkit/15.8.5_54wigm3ssncw52vvd5rw6tvgbq:
     resolution: {integrity: sha512-NgpD1I1BfFb6wRxB5i5PGP4hMyRhPsArCyENWWvY4gCn8tylAc7yjpQyiDiy2QnymL2PjWM8QeAeCOy1eF2xgw==}
     peerDependencies:
       nx: '>= 14.1 <= 16'
     dependencies:
-      '@phenomnomnominal/tsquery': 4.1.1_typescript@4.9.5
+      '@phenomnomnominal/tsquery': 4.1.1_typescript@3.9.10
       ejs: 3.1.8
       ignore: 5.2.4
       nx: 15.8.7
@@ -4551,13 +4551,13 @@ packages:
       node-gyp-build: 4.6.0
     dev: true
 
-  /@phenomnomnominal/tsquery/4.1.1_typescript@4.9.5:
+  /@phenomnomnominal/tsquery/4.1.1_typescript@3.9.10:
     resolution: {integrity: sha512-jjMmK1tnZbm1Jq5a7fBliM4gQwjxMU7TFoRNwIyzwlO+eHPRCFv/Nv+H/Gi1jc3WR7QURG8D5d0Tn12YGrUqBQ==}
     peerDependencies:
       typescript: ^3 || ^4
     dependencies:
       esquery: 1.5.0
-      typescript: 4.9.5
+      typescript: 3.9.10
     dev: true
 
   /@phenomnomnominal/tsquery/4.1.1_typescript@5.0.2:
@@ -12913,7 +12913,7 @@ packages:
       '@lerna/create': 6.5.1
       '@npmcli/arborist': 5.3.0
       '@npmcli/run-script': 4.1.7
-      '@nrwl/devkit': 15.8.5_nx@15.8.7+typescript@4.9.5
+      '@nrwl/devkit': 15.8.5_54wigm3ssncw52vvd5rw6tvgbq
       '@octokit/plugin-enterprise-rest': 6.0.1
       '@octokit/rest': 19.0.3
       byte-size: 7.0.0
@@ -12976,7 +12976,7 @@ packages:
       strong-log-transformer: 2.1.0
       tar: 6.1.11
       temp-dir: 1.0.0
-      typescript: 4.9.5
+      typescript: 3.9.10
       upath: 2.0.1
       uuid: 8.3.2
       validate-npm-package-license: 3.0.4
@@ -18796,7 +18796,6 @@ packages:
     resolution: {integrity: sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==}
     engines: {node: '>=4.2.0'}
     hasBin: true
-    dev: false
 
   /typescript/4.9.5:
     resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}

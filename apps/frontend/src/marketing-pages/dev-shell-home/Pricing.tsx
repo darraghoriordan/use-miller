@@ -1,7 +1,14 @@
-import StyledLink from "../components/StyledLink";
-import { Container } from "../components/Container";
+import { Container } from "../../components/Container";
+//import dynamic from "next/dynamic.js";
+import { UserDto } from "@use-miller/shared-api-client";
+import { BuyNowButton } from "../../components/BuyNowButton.jsx";
 
-export function Pricing() {
+// const DynamicGumRoad = dynamic(() => import("./GumRoadWrapper"), {
+//     loading: () => <p>Loading Gumroad...</p>,
+//     ssr: false,
+// });
+
+export function Pricing({ user }: { user: UserDto }) {
     return (
         <Container className="pb-16 text-left">
             <div className="flex ">
@@ -41,13 +48,12 @@ export function Pricing() {
                             $199<span className="text-base">USD</span>
                         </p>
                         <div className="mx-auto flex gap-x-6 md:mx-0 mb-10">
-                            <StyledLink
-                                href={"/payment/init-payment"}
+                            <BuyNowButton
+                                user={user}
+                                productKey="dev-shell"
                                 color="cyan"
-                                className={`w-full rounded-lg justify-center text-xl px-14 py-4 hover:shadow-lg border-white`}
-                            >
-                                Buy now
-                            </StyledLink>
+                                className="w-full"
+                            />
                         </div>
                     </div>
                 </div>

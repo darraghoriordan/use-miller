@@ -7,7 +7,7 @@ import { NavLink } from "./NavLink";
 import { UserProfile, useUser } from "@auth0/nextjs-auth0/client";
 import { colorVariants } from "../styles/themeColors.js";
 import StyledHref from "./StyledHref.jsx";
-import { getSignUpUrl } from "../home-ctas/signupUrl.js";
+import { getSignUpUrl } from "./signupUrl.js";
 import {
     ChevronDownIcon,
     CommandLineIcon,
@@ -139,16 +139,16 @@ export const MobileNavigation = ({
 export function Header({
     productKey,
     headerTitle,
-    successRedirectPath,
     themeColor,
 }: {
     productKey: string;
     headerTitle?: string;
-    successRedirectPath?: string;
     themeColor?: "green" | "cyan" | "amber" | "red" | "violet" | "pink";
 }) {
     const { user, isLoading } = useUser();
-    const signUpUri = getSignUpUrl({ successRedirectPath });
+    const signUpUri = getSignUpUrl({
+        productKey,
+    });
     const docsPath = `/docs/${productKey}/get-started/quick-start`;
     const color = themeColor || "green";
     return (
@@ -156,10 +156,12 @@ export function Header({
             <Container>
                 <nav className="relative z-50 flex justify-between">
                     <div className="flex items-center md:hidden md:gap-x-12">
-                        <StyledHref href={signUpUri}>
-                            Get started
-                            <span className="hidden lg:inline">today</span>
-                        </StyledHref>
+                        {(isLoading || !user) && (
+                            <StyledHref href={signUpUri}>
+                                Get started
+                                <span className="hidden lg:inline">today</span>
+                            </StyledHref>
+                        )}
                     </div>
                     <div className="flex items-center md:gap-x-12">
                         <Link
@@ -184,9 +186,6 @@ export function Header({
                                 Pricing
                             </NavLink>
                             <NavLink href={docsPath}>Docs</NavLink>
-                            {(isLoading || !user) && (
-                                <NavLink href={signUpUri}>Get Started</NavLink>
-                            )}
                         </div>
                         <Popover className="relative">
                             <Popover.Button className="inline-flex items-center rounded-lg py-1 px-2 text-sm text-white hover:bg-slate-100 hover:text-slate-900 md:text-lg">
@@ -236,10 +235,10 @@ export function Header({
                                                 key={item.name}
                                                 href={`/${item.key}`}
                                                 className={clsx(
-                                                    `focus:outline-none focus:ring-2 focus:ring-offset-2 inline-flex items-center px-4 py-2 font-medium text-white border border-transparent rounded-md`,
-
+                                                    `focus:outline-none focus:ring-2 focus:ring-offset-2 inline-flex items-center px-4 py-2 font-medium border border-transparent rounded-md`,
+                                                    // "hover:bg-green-500/75",
                                                     colorVariants[color]
-                                                        .hoverBackground,
+                                                        .topMenuHoverBackground,
                                                     colorVariants[color]
                                                         .hoverShadow,
                                                     colorVariants[color]
@@ -263,9 +262,11 @@ export function Header({
                         </Popover>
                         <div className="hidden md:block">
                             {(isLoading || !user) && (
-                                <StyledHref href="/api/auth/login">
-                                    Sign In
-                                </StyledHref>
+                                <>
+                                    <StyledHref href={"/api/auth/login"}>
+                                        Sign In
+                                    </StyledHref>
+                                </>
                             )}
                             {user && (
                                 <NavLink href={"/dashboard"}>Dashboard</NavLink>

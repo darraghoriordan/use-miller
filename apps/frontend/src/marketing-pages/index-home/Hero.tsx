@@ -1,11 +1,13 @@
-import StyledLink from "../components/StyledLink";
-import { Container } from "../components/Container";
-import codeImage from "../intro-media/code.png";
-import adminImage from "../intro-media/admin.png";
-import productImage from "../intro-media/product.png";
+import StyledLink from "../../components/StyledLink";
+import { Container } from "../../components/Container";
+import codeImage from "../../intro-media/code.png";
+import adminImage from "../../intro-media/admin.png";
+import productImage from "../../intro-media/product.png";
 import Image from "next/image";
+import { UserDto } from "@use-miller/shared-api-client";
+import { BuyNowButton } from "../../components/BuyNowButton.jsx";
 
-export function Hero() {
+export function Hero({ user }: { user: UserDto }) {
     const features = [
         "Organisations and Users",
         "Subscriptions and payments (Stripe)",
@@ -19,7 +21,9 @@ export function Hero() {
         "Miller is just Node and React so you can run it on any hosting provider",
         "and more...",
     ];
-
+    const docsLink = `docs/miller-start/reference/miller-web/${btoa(
+        "/README.md"
+    )}`;
     return (
         <Container className="pt-20 text-left">
             <div className="flex">
@@ -73,17 +77,13 @@ export function Hero() {
                             </div>
                         </div>
                         <div className="mx-auto mt-10 flex gap-x-6 md:mx-0">
-                            <StyledLink
-                                href={"/payment/init-payment"}
+                            <BuyNowButton
+                                user={user}
+                                productKey="miller-start"
                                 color="violet"
-                                className="rounded-lg text-xl px-14 py-4 hover:shadow-lg border-white"
-                            >
-                                Buy now
-                            </StyledLink>
+                            />
                             <StyledLink
-                                href={`docs/miller-start/reference/miller-web/${btoa(
-                                    "/README.md"
-                                )}`}
+                                href={docsLink}
                                 color="violet"
                                 className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
                             >
@@ -152,15 +152,13 @@ export function Hero() {
                             ))}
                         </ul>
                         <div className="mx-auto mt-10 flex gap-x-6 md:mx-0">
-                            <StyledLink
-                                href={"/payment/init-payment"}
+                            <BuyNowButton
+                                user={user}
                                 color="green"
-                                className="rounded-lg text-xl px-14 py-4 hover:shadow-lg border-white"
-                            >
-                                Buy now
-                            </StyledLink>
+                                productKey="miller-start"
+                            />
                             <StyledLink
-                                href={"/payment/init-payment"}
+                                href={docsLink}
                                 color="green"
                                 className="rounded-lg text-xl px-14 py-4 hover:shadow-lg"
                             >

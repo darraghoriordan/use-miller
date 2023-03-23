@@ -20,13 +20,17 @@ const isCurrentMenuItem = (path: string, item: MenuItem) => {
     if (
         /\/.*\/docs/.test(path) &&
         /\/docs\/.*\/get-started-installation/.test(item.path)
-    )
+    ) {
         return true;
-    // special case for the reference docs root route
-    // if (path.includes(`/docs/reference`)) {
-    //     return path.includes(item.path.replace("/L1JFQURNRS5tZA==", ""));
-    // }
+    }
 
+    //special case for the references roots
+    if (path.includes(`/reference/`)) {
+        const projectRootPath = path.split("/").slice(0, -1).join("/");
+        return item.path.includes(projectRootPath);
+    }
+
+    // otherwise just do a match
     return item.path === path;
 };
 

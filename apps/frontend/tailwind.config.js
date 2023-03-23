@@ -17,6 +17,7 @@ module.exports = {
         "bg-amber-500",
         "hover:text-amber-500",
         "hover:bg-amber-600",
+        "hover:bg-amber-500/75",
 
         "focus:ring-red-400",
         "hover:shadow-red-500/30",
@@ -24,6 +25,7 @@ module.exports = {
         "bg-red-500",
         "hover:text-red-500",
         "hover:bg-red-600",
+        "hover:bg-red-500/75",
 
         "hover:shadow-green-500/30",
         "focus:ring-green-400",
@@ -32,6 +34,7 @@ module.exports = {
         "bg-green-500",
         "hover:text-green-500",
         "hover:bg-green-600",
+        "hover:bg-green-500/75",
 
         "focus:ring-cyan-400",
         "hover:shadow-cyan-500/30",
@@ -39,6 +42,7 @@ module.exports = {
         "bg-cyan-500",
         "hover:text-cyan-500",
         "hover:bg-cyan-600",
+        "hover:bg-cyan-500/75",
 
         "focus:ring-violet-400",
         "hover:shadow-violet-500/30",
@@ -46,6 +50,7 @@ module.exports = {
         "bg-violet-500",
         "hover:text-violet-500",
         "hover:bg-violet-600",
+        "hover:bg-violet-500/75",
 
         "focus:ring-pink-400",
         "hover:shadow-pink-500/30",
@@ -53,6 +58,7 @@ module.exports = {
         "bg-pink-500",
         "hover:text-pink-500",
         "hover:bg-pink-600",
+        "hover:bg-pink-500/75",
     ],
     theme: {
         fontSize: {

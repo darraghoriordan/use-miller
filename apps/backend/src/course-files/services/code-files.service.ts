@@ -265,15 +265,19 @@ export class CodeFilesService {
         return (
             firstQuarter.join("\n") +
             "\n" +
-            "\n// File viewing is clipped unless you have purchased //" +
+            "\n#######################################################" +
+            "\n#                       NOTICE                         " +
+            "\n#######################################################" +
             "\n" +
-            "// To see the full contents of each file and get the full source code" +
+            "\n# File viewing is clipped unless you have purchased " +
             "\n" +
-            "// please support development by purchasing. //" +
+            "# To see the full contents of each file and get the full source code" +
             "\n" +
-            "// As an example, the full file contents are available at the following path //" +
+            "# please support development by purchasing." +
             "\n" +
-            `// ${demoUrl}//`
+            "# As an demo, the full file contents are available at the following path" +
+            "\n" +
+            `# ${demoUrl}`
         );
     };
 }

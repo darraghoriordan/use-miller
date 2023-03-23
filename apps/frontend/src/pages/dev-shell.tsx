@@ -1,18 +1,22 @@
-import { Hero } from "../home-ctas/Hero";
+import { Hero } from "../marketing-pages/dev-shell-home/Hero";
 import Layout from "../components/Layout.jsx";
-import { Pricing } from "../home-ctas/Pricing";
+import { Pricing } from "../marketing-pages/dev-shell-home/Pricing";
+import { UserDto } from "@use-miller/shared-api-client";
+import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps.js";
 
-export default function Home() {
+export const getServerSideProps = getMarketingServerSideProps;
+
+export default function Home({ user }: { user: UserDto }) {
     return (
         <Layout
             seoDescription="Modern, powerful, and beautiful shells across all your machines - Supports Windows and Mac."
             seoTitle="Miller - Dev Shell"
             headerTitle="Miller // Dev Shell"
             productKey="dev-shell"
-            successRedirectPath="/payment-init/dev-shell"
+            themeColor="violet"
         >
-            <Hero />
-            <Pricing />
+            <Hero user={user} />
+            <Pricing user={user} />
         </Layout>
     );
 }

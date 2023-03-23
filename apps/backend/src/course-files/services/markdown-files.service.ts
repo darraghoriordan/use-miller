@@ -65,11 +65,15 @@ export class MarkdownFileService {
         const fileContents = fs.readFileSync(fileLocation, "utf8");
         const clippedMessage =
             "\n\n ----------------------------" +
-            "\n\nHi there! Thanks so much for checking this out!" +
-            "\n\n**Please note:** There's more content here but file viewing is clipped unless you have purchased." +
-            "\n\nAs a demo, the full contents of the following path are visible." +
-            "\n\n" +
-            `[${projectMeta.demoFileLinkText}](${projectMeta.demoFileLinkHref})`;
+            "\n> # Purchase Notice" +
+            "\n> Hi there! Thanks so much for checking this out!" +
+            "\n>" +
+            "\n> **Please note:** There's more content here but file viewing is clipped unless you have purchased." +
+            "\n>" +
+            "\n>As a demo, the full contents of the following path link are visible." +
+            "\n>" +
+            "\n> " +
+            `Click to open: [${projectMeta.demoFileLinkText}](${projectMeta.demoFileLinkHref})`;
 
         // Use gray-matter to parse the post metadata section
         const matterResult = matter(

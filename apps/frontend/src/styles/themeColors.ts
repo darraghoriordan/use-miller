@@ -7,6 +7,7 @@ export const colorVariants = {
         background: "bg-green-500",
         hoverForeground: "hover:text-green-500",
         hoverBackground: "hover:bg-green-600",
+        topMenuHoverBackground: "hover:bg-green-500/75",
     },
     red: {
         hoverFocusRing: "focus:ring-red-400",
@@ -16,6 +17,7 @@ export const colorVariants = {
         background: "bg-red-500",
         hoverForeground: "hover:text-red-500",
         hoverBackground: "hover:bg-red-600",
+        topMenuHoverBackground: "hover:bg-red-500/75",
     },
     amber: {
         hoverFocusRing: "focus:ring-amber-400",
@@ -25,6 +27,7 @@ export const colorVariants = {
         background: "bg-amber-500",
         hoverForeground: "hover:text-amber-500",
         hoverBackground: "hover:bg-amber-600",
+        topMenuHoverBackground: "hover:bg-amber-500/75",
     },
     cyan: {
         hoverFocusRing: "focus:ring-cyan-400",
@@ -34,6 +37,7 @@ export const colorVariants = {
         background: "bg-cyan-500",
         hoverForeground: "hover:text-cyan-500",
         hoverBackground: "hover:bg-cyan-600",
+        topMenuHoverBackground: "hover:bg-cyan-500/75",
     },
     violet: {
         hoverFocusRing: "focus:ring-violet-400",
@@ -43,6 +47,7 @@ export const colorVariants = {
         background: "bg-violet-500",
         hoverForeground: "hover:text-violet-500",
         hoverBackground: "hover:bg-violet-600",
+        topMenuHoverBackground: "hover:bg-violet-500/75",
     },
     pink: {
         hoverFocusRing: "focus:ring-pink-400",
@@ -52,5 +57,6 @@ export const colorVariants = {
         background: "bg-pink-500",
         hoverForeground: "hover:text-pink-500",
         hoverBackground: "hover:bg-pink-600",
+        topMenuHoverBackground: "hover:bg-pink-500/75",
     },
 };

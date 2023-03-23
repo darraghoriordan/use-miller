@@ -4,10 +4,18 @@ resource "auth0_tenant" "dev_tenant" {
 }
 
 resource "auth0_client" "frontend_spa_app" {
-  name                       = "Frontend App"
-  description                = "The frontend client application"
-  app_type                   = "spa"
-  callbacks                  = ["http://localhost:3000", "http://localhost:3001", "http://localhost", "http://localhost:3000/api/auth/callback"]
+  name        = "Frontend App"
+  description = "The frontend client application"
+  app_type    = "spa"
+  callbacks = ["http://localhost:3000",
+    "http://localhost:3001",
+    "http://localhost",
+    "http://localhost:3000/api/auth/callback",
+    "http://localhost:3000/#pricing",
+    "http://localhost:3000/dashboard",
+    "http://localhost:3000/miller-start/#pricing",
+    "http://localhost:3000/dev-shell/#pricing",
+  ]
   oidc_conformant            = true
   allowed_origins            = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
   allowed_logout_urls        = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
