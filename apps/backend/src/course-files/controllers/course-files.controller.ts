@@ -11,7 +11,6 @@ import {
     Param,
     Request,
     UseInterceptors,
-    CacheTTL,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 
@@ -32,7 +31,6 @@ export class CourseFilesController {
 
     @Get(":projectKey")
     @HttpCode(HttpStatus.OK)
-    @CacheTTL(60)
     @ApiOkResponse({ type: FileStructureDto })
     async listProjectFiles(
         @Param("projectKey") projectKey: string,
@@ -44,7 +42,6 @@ export class CourseFilesController {
 
     @UseGuards(DefaultAuthGuard)
     @ApiBearerAuth()
-    @CacheTTL(10)
     @Get(":projectKey/contents/:b64Path")
     @HttpCode(HttpStatus.OK)
     @ApiOkResponse({ type: FileMetaDto })
@@ -66,7 +63,6 @@ export class CourseFilesController {
 
     @UseGuards(DefaultAuthGuard)
     @ApiBearerAuth()
-    @CacheTTL(10)
     @Get(":projectKey/contents-markdown/:markdownB64Path")
     @HttpCode(HttpStatus.OK)
     @ApiOkResponse({ type: FileMetaDto })

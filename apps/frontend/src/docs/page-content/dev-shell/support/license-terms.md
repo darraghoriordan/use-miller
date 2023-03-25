@@ -8,54 +8,42 @@ order: 10
 
 (Please read full EULA)
 
-1. You can use this code to build a website or web application for yourself or your organisation and charge for it.
+1. You can use this code on your own computers.
 1. You can't use this code to sell a product that sells the codebase itself.
 1. This code is not peer reviewed and is not guaranteed to be secure. It has not been penetration tested or analysed in any way.
-1. Coding experience is required to use this product. It is designed for developers who are familiar with the technologies used.
+1. It is designed for newly installed operating systems. You must analyse the code to ensure it is safe for your use case.
 
 ## EULA (End User License Agreement)
 
-Read about the licensing terms for Miller Start. Have a question? Feel free to contact us.
+Read about the licensing terms for Dev Shall. Have a question? Feel free to contact us.
 
-Darragh ORiordan grants you an ongoing, non-exclusive license to **use** the download files. The license grants permission to one individual (the Licensee) to access and use the download files.
-
-The license grants permission up to 5 Employees and Contractors of the Licensee to access and use the download files.
+Darragh ORiordan grants you an ongoing, non-exclusive personal license to **use** the download files. The license grants permission to one individual (the Licensee) to access and use the download files.
 
 ### Permissible Actions:
 
--   Use the download files to create unlimited End Products.
--   Use the download files to create unlimited End Products for unlimited Clients.
--   Use the download files to create End Products where the End Product is sold to End Users.
--   Use the download files to create End Products that are open source and freely available to End Users following review and approval by Darragh ORiordan.
--   Sell the End Products. The License will survive the sale of the End Product.
+-   Use the download files on your own personal computers.
 
 ### Prohibited Actions:
 
--   Use the download files to create End Products that are designed to allow an End User to build their own End Products using the download files or derivatives of the download files.
--   Re-distribute the download files or derivatives of the download files separately from an End Product.
--   Use the download files to create End Products that are the property of any individual or entity other than the Licensee or Clients of the Licensee.
+-   Re-distribute the download files or derivatives of the download files.
+-   Including the download files in End Products that are the property of any individual or entity other than the Licensee or Clients of the Licensee.
 
 ## Example usage
 
 ### Examples of usage allowed by the license:
 
--   Creating a website for your company
--   Creating a website or web application for a client that will be owned by that client
--   Creating a commercial SaaS application (like an invoicing app for example) where end users have to pay a fee to use the application
--   Creating a commercial self-hosted web application that is sold to end users for a one-time fee
--   Creating a web application where the primary purpose is clearly not to simply re-distribute the download files (like a conference organization app that uses the download files for its UI for example) that is free and open source, where the source code is publicly available
+-   Enhancing the shell on your PC and Mac computers at home
+-   Providing scripts for configuring computers in your company
 
 ### Examples of use not allowed by the license:
 
--   Creating a theme or template using the download files and making it available either for sale for for free
 -   You are not allowed to create a product that sells the codebase itself
--   Creating any End Product that is not the sole property of either your company or a client of your company. For example your employees/contractors can not use your company Miller Start license to build their own websites or side projects.
 
 ## License Definitions
 
 Licensee is the business entity who has purchased a License.
 
-Download files are the files that are downloaded from the Miller Start repository.
+Download files are the files that are downloaded from the Dev Shall repository.
 
 Service is the website, documentation, application, and other services provided by Darragh ORiordan.
 

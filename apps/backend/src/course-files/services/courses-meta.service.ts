@@ -12,7 +12,7 @@ export class CoursesMetaService {
         return {
             ["miller-start"]: {
                 color: "red",
-                subscribedProductNames: ["myproduct"],
+                subscribedProductNames: ["myproduct", "Miller Start"],
                 projectMeta: [
                     {
                         key: "miller-web",
@@ -49,7 +49,7 @@ export class CoursesMetaService {
             },
             ["dev-shell"]: {
                 color: "green",
-                subscribedProductNames: ["Dev Shell"],
+                subscribedProductNames: ["Dev Shell", "Miller Dev Shell"],
                 projectMeta: [
                     {
                         key: "dev-shell-scripts",
