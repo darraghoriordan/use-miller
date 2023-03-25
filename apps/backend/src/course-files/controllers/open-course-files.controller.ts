@@ -6,6 +6,7 @@ import {
     Param,
     UseInterceptors,
     CacheInterceptor,
+    CacheTTL,
 } from "@nestjs/common";
 import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { CodeFilesService } from "../services/code-files.service.js";
@@ -23,6 +24,7 @@ export class OpenCourseFilesController {
 
     @Get(":projectKey/contents/:b64Path")
     @HttpCode(HttpStatus.OK)
+    @CacheTTL(10)
     @ApiOkResponse({ type: FileMetaDto })
     async getFile(
         @Param("projectKey") projectKey: string,
@@ -38,6 +40,7 @@ export class OpenCourseFilesController {
 
     @Get(":projectKey/contents-markdown/:markdownB64Path")
     @HttpCode(HttpStatus.OK)
+    @CacheTTL(10)
     @ApiOkResponse({ type: FileMetaDto })
     async getMarkdownFileAsHtml(
         @Param("projectKey") projectKey: string,
@@ -53,6 +56,7 @@ export class OpenCourseFilesController {
 
     @Get(":projectKey/nearest-readme/:b64Path")
     @HttpCode(HttpStatus.OK)
+    @CacheTTL(10)
     @ApiOkResponse({ type: FileMetaDto })
     async getNearestHtmlReadmeForFile(
         @Param("projectKey") projectKey: string,

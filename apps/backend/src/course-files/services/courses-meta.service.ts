@@ -68,6 +68,11 @@ export class CoursesMetaService {
                     },
                 ],
             },
+            ["local-dev-tools"]: {
+                color: "pink",
+                subscribedProductNames: ["Local Dev Tools"],
+                projectMeta: [],
+            },
             // leave this one for now
             // {
             //     key: "miller-desktop",

@@ -25,10 +25,12 @@ export default function CodeFileHome({
     menuSections,
     codeExplorerData,
     productKey,
+    headerTitle,
 }: {
     menuSections: MenuSection[];
     codeExplorerData: CodeExplorerData;
     productKey: string;
+    headerTitle: string;
 }) {
     const router = useRouter();
 
@@ -71,7 +73,7 @@ export default function CodeFileHome({
         <LeftMenuWrappedContent
             productKey={productKey}
             menuSections={menuSections}
-            menuHeaderTitle={"Docs"}
+            menuHeaderTitle={headerTitle}
             menuHeaderHref={`/docs/${productKey}`}
         >
             <div className="max-h-[calc(100vh-106px)] min-h-[calc(100vh-300px)] flex flex-row w-full overflow-hidden">

@@ -1,5 +1,5 @@
 import { FullDoc, getSinglePost } from "../../../docs/docParser.js";
-import { createMenu } from "../../../docs/leftMenuGeneration.js";
+import { createMenu, mapMenuTitle } from "../../../docs/leftMenuGeneration.js";
 import { DocArticle } from "../../../docs/components/DocArticle.jsx";
 import { MenuSection } from "../../../components/LeftMenu.jsx";
 import { LeftMenuWrappedContent } from "../../../components/LeftMenuWrappedContent.jsx";
@@ -15,11 +15,13 @@ export async function getStaticProps({
         sectionSlug: "",
     });
     const menuSections = await createMenu(params.productKey);
+    const headerTitle = mapMenuTitle(params.productKey);
     return {
         props: {
             productKey: params.productKey,
             menuSections,
             article,
+            headerTitle,
         },
     };
 }
@@ -41,16 +43,18 @@ export default function Home({
     menuSections,
     article,
     productKey,
+    headerTitle,
 }: {
     menuSections: MenuSection[];
     article: FullDoc;
     productKey: string;
+    headerTitle: string;
 }) {
     return (
         <LeftMenuWrappedContent
             productKey={productKey}
             menuSections={menuSections}
-            menuHeaderTitle={"Docs"}
+            menuHeaderTitle={headerTitle}
             menuHeaderHref={`/docs/${productKey}`}
         >
             <DocArticle article={article} />

@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { Container } from "./Container";
 import { NavLink } from "./NavLink";
 import { UserProfile, useUser } from "@auth0/nextjs-auth0/client";
-import { colorVariants } from "../styles/themeColors.js";
+import { colorVariants, ThemeColor } from "../styles/themeColors.js";
 import StyledHref from "./StyledHref.jsx";
 import { getSignUpUrl } from "./signupUrl.js";
 import {
@@ -143,7 +143,7 @@ export function Header({
 }: {
     productKey: string;
     headerTitle?: string;
-    themeColor?: "green" | "cyan" | "amber" | "red" | "violet" | "pink";
+    themeColor?: ThemeColor;
 }) {
     const { user, isLoading } = useUser();
     const signUpUri = getSignUpUrl({

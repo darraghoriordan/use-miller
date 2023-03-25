@@ -44,6 +44,7 @@ export type StripeTerraformInputVariables = {
 };
 export type StripeTerraformOutputVariables = {
     regular_price_id: { value: string };
+    regular_price_no_recurrence_id: { value: string };
     app_stripe_webhook_verification_key: { value: string };
     app_stripe_api_token: { value: string };
 };
@@ -295,7 +296,8 @@ swapEnvVars({
             auth0DevTerraformOutputVariables.auth0_client_id.value,
         NEXT_PUBLIC_STRIPE_REGULAR_PRICE_ID:
             stripeTerraformOutputVariables.regular_price_id.value,
-
+        NEXT_PUBLIC_STRIPE_REGULAR_PRICE_NO_RECURRENCE_ID:
+            stripeTerraformOutputVariables.regular_price_no_recurrence_id.value,
         AUTH0_SECRET:
             auth0DevTerraformOutputVariables.next_app_auth0_secret.value,
         AUTH0_ISSUER_BASE_URL: `https://${auth0DevTerraformOutputVariables.app_auth0_dev_domain.value}`,

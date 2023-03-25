@@ -5,14 +5,46 @@ import { getSortedPostsData } from "./docParser.js";
 export async function sortByCustomSlugMapping(
     menuSections: MenuSection[]
 ): Promise<MenuSection[]> {
-    const customOrderSections: MenuSection[] = [
-        menuSections.find((section) => section.slug === "get-started")!,
-        menuSections.find((section) => section.slug === "reference")!,
+    const customOrderSections: MenuSection[] = [];
+    const getStartedSection = menuSections.find(
+        (section) => section.slug === "get-started"
+    )!;
+    if (getStartedSection) {
+        customOrderSections.push(getStartedSection);
+    }
+    const refSection = menuSections.find(
+        (section) => section.slug === "reference"
+    )!;
+    if (refSection) {
+        customOrderSections.push(refSection);
+    }
+
+    return [
+        ...customOrderSections,
+        ...menuSections.filter(
+            (section) =>
+                !customOrderSections.some((s) => s.slug === section.slug)
+        ),
     ];
-    const otherSections = menuSections.filter(
-        (section) => !customOrderSections.find((s) => s.slug === section.slug)
-    );
-    return [...customOrderSections, ...otherSections];
+}
+
+export function mapMenuTitle(productKey: string): string {
+    let menuTitle = "Docs";
+    // calculating this locally out of laziness
+    switch (productKey) {
+        case "miller-start":
+            menuTitle = "Miller Start Docs";
+            break;
+        case "local-dev-tools":
+            menuTitle = "Dev Tools Docs";
+            break;
+        case "dev-shell":
+            menuTitle = "DevShell Docs";
+            break;
+        default:
+    }
+
+    return menuTitle;
 }
 
 export async function createMenu(productKey: string): Promise<MenuSection[]> {
@@ -43,19 +75,21 @@ export async function createMenu(productKey: string): Promise<MenuSection[]> {
             } as MenuSection;
         }) || [];
     // then the code project references
-    allMenuItems.push({
-        name: "Code Reference",
-        slug: "reference",
-        items:
-            projects.map((project) => {
-                return {
-                    name: project.name,
-                    path: `/docs/${productKey}/reference/${project.key}/${btoa(
-                        "/README.md"
-                    )}`,
-                } as MenuItem;
-            }) || [],
-    });
+    if (projects?.length > 0) {
+        allMenuItems.push({
+            name: "Code Reference",
+            slug: "reference",
+            items:
+                projects.map((project) => {
+                    return {
+                        name: project.name,
+                        path: `/docs/${productKey}/reference/${
+                            project.key
+                        }/${btoa("/README.md")}`,
+                    } as MenuItem;
+                }) || [],
+        });
+    }
 
     return sortByCustomSlugMapping(allMenuItems);
 }

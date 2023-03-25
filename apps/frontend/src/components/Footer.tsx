@@ -23,6 +23,9 @@ export function Footer({ productKey }: { productKey: string }) {
                             >
                                 Docs
                             </StyledHref>
+                            <StyledHref href={`/about`}>
+                                About Miller
+                            </StyledHref>
                         </div>
                     </nav>
                 </Container>

@@ -1,6 +1,6 @@
 
 resource "stripe_product" "regular_product" {
-  name        = "A Regular product"
+  name        = "Miller Start"
   description = "Web product kit with 1 year of updates"
   shippable   = false
   active      = true
@@ -8,13 +8,28 @@ resource "stripe_product" "regular_product" {
 
 resource "stripe_price" "regular_price" {
   product     = stripe_product.regular_product.id
-  unit_amount = 54900
+  unit_amount = 114900
   currency    = "usd"
   recurring {
     interval       = "year"
     interval_count = 1
     usage_type     = "licensed"
   }
+  billing_scheme = "per_unit"
+  tax_behaviour  = "inclusive"
+}
+
+resource "stripe_product" "regular_product_no_recurrence" {
+  name        = "Miller Dev Shell"
+  description = "Premium setup and configuration for your terminal"
+  shippable   = false
+  active      = true
+}
+
+resource "stripe_price" "regular_price_no_recurrence" {
+  product        = stripe_product.regular_product_no_recurrence.id
+  unit_amount    = 2900
+  currency       = "usd"
   billing_scheme = "per_unit"
   tax_behaviour  = "inclusive"
 }
@@ -84,6 +99,11 @@ resource "stripe_portal_configuration" "portal_configuration" {
 
 output "regular_price_id" {
   value     = stripe_price.regular_price.id
+  sensitive = false
+}
+
+output "regular_price_no_recurrence_id" {
+  value     = stripe_price.regular_price_no_recurrence.id
   sensitive = false
 }
 

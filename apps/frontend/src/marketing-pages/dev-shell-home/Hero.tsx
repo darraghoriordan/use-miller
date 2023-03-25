@@ -1,11 +1,12 @@
 import StyledLink from "../../components/StyledLink";
 import { Container } from "../../components/Container";
-import codeImage from "../../intro-media/code.png";
-import adminImage from "../../intro-media/admin.png";
-import productImage from "../../intro-media/product.png";
+import batImage from "./intro-media/bat.png";
+import diffImage from "./intro-media/diff.png";
+import exaImage from "./intro-media/exa.png";
 import Image from "next/image";
 import { UserDto } from "@use-miller/shared-api-client";
 import { BuyNowButton } from "../../components/BuyNowButton.jsx";
+import { TwitterCTA } from "../components/TwitterCTA.jsx";
 
 export function Hero({ user }: { user: UserDto }) {
     const features = [
@@ -50,7 +51,8 @@ export function Hero({ user }: { user: UserDto }) {
                                 </h1>
                                 <p className="mx-auto mt-6 max-w-2xl text-left text-lg tracking-tight text-gray-400 md:mx-0">
                                     Save 30+ hours configuring your development
-                                    environment. Works on Mac and Windows.
+                                    environment. Designed to give you the same
+                                    shell experience on Mac and Windows.
                                 </p>
                             </div>
                             <div className="intro-image-rotation md:relative w-1/2 md:w-full mt-20 mb-32 md:mt-0 md:mb-0">
@@ -58,19 +60,19 @@ export function Hero({ user }: { user: UserDto }) {
                                     <Image
                                         priority
                                         alt="admin image"
-                                        src={adminImage}
+                                        src={exaImage}
                                         className="intro-image absolute md:-translate-y-16 md:translate-x-14 -translate-y-4 translate-x-2"
                                     />
                                     <Image
                                         priority
                                         alt="product image"
-                                        src={productImage}
+                                        src={diffImage}
                                         className="intro-image absolute md:-translate-x-7 translate-x-7"
                                     />
                                     <Image
                                         priority
                                         alt="code image"
-                                        src={codeImage}
+                                        src={batImage}
                                         className="intro-image md:translate-x-8 md:translate-y-32 translate-y-8"
                                     />
                                 </div>
@@ -92,7 +94,7 @@ export function Hero({ user }: { user: UserDto }) {
                             </StyledLink>
                         </div>
                     </div>
-                    <div className="mt-16" id="about">
+                    <div className="mt-16" id="features">
                         <p className="mb-8 max-w-4xl text-left font-display text-4xl font-medium tracking-tight text-white">
                             What is DevShell?
                         </p>
@@ -130,7 +132,7 @@ export function Hero({ user }: { user: UserDto }) {
                                 aliases the commands for you. With DevShell you
                                 get Git file status in your "ls" output. Have
                                 syntax highlighted "cat" output. Get near
-                                instant search with "fz".
+                                instant search with "fzf".
                             </li>
                             <li className="mt-4 ml-8 list-disc text-lg text-gray-200">
                                 <strong>Mac and Windows Support.</strong> I
@@ -141,15 +143,14 @@ export function Hero({ user }: { user: UserDto }) {
                             </li>
                             <li className="mt-4 ml-8 list-disc text-lg text-gray-200">
                                 <strong>Open tooling.</strong> This is not a
-                                SaaS product. It's plain ol' bash/zsh and weeks
-                                of reading, investigation and tweaking on my
-                                part. When you purchase DevShell you get the
-                                source code. You can modify it to your heart's
-                                content.
+                                SaaS product. When you purchase DevShell you get
+                                the source code. You can modify it to your
+                                heart's content. Customize your environment to
+                                your specific needs.
                             </li>
                         </ul>
                     </div>
-                    <div className="mt-16" id="features">
+                    <div className="mt-16" id="">
                         <p className="max-w-4xl text-left font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
                             What you get
                         </p>
@@ -163,11 +164,28 @@ export function Hero({ user }: { user: UserDto }) {
                                 </li>
                             ))}
                         </ul>
+                        <p className="mt-8 text-left font-display text-lg tracking-tight text-gray-200 mb-8">
+                            "But I'm a developer, I could build this myself" -
+                            You absolutely could. If you want to learn shell
+                            scripting, it's a great project to do that. But it
+                            will take 10-20 hours at least to build up all the
+                            tools and config here so you will be "paying
+                            yourself" $3/hour or less. Check out{" "}
+                            <a
+                                className="hover:underline hover:cursor-pointer"
+                                href="https://www.darraghoriordan.com/2022/01/28/developer-shell-modern-bat-fzf-antigen-zsh-wsl-mac/"
+                            >
+                                my blog post
+                            </a>{" "}
+                            with some tips for shell tools if you're keen to go
+                            that route.
+                        </p>
                         <div className="mx-auto mt-10 flex gap-x-6 md:mx-0">
                             <BuyNowButton
                                 user={user}
                                 productKey="dev-shell"
                                 color="green"
+                                text="Buy Now - $29"
                             />
                             <StyledLink
                                 href={codeHref}
@@ -177,6 +195,27 @@ export function Hero({ user }: { user: UserDto }) {
                                 View the code
                             </StyledLink>
                         </div>
+                    </div>
+                    <div className="mt-16" id="">
+                        <p className="max-w-4xl text-left font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
+                            Setup your full Dev Env in minutes
+                        </p>
+                        <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200 mb-8">
+                            DevShell scripts will detect your OS and configure
+                            your shell, install your favourite packages, set
+                            aliases, configure system settings, install vscode
+                            settings and extensions, clone your repos and more.
+                        </p>
+                        <iframe
+                            width="710"
+                            height="399"
+                            src="https://www.youtube.com/embed/laX7U9bc7rw"
+                            title="Developer Shell setup script demo on MacOS"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                        ></iframe>
+                        <TwitterCTA />
                     </div>
                 </div>
             </div>

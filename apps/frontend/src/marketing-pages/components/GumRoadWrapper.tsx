@@ -1,14 +1,12 @@
 import Script from "next/script";
 
-export default function GumRoadWrapper() {
+export default function GumRoadWrapper({ productUrl }: { productUrl: string }) {
     return (
-        <>
+        <div>
             <Script src="https://gumroad.com/js/gumroad-embed.js"></Script>
             <div className="gumroad-product-embed">
-                <a href="https://darraghoriordan.gumroad.com/l/devshell">
-                    Loading...
-                </a>
+                <a href={productUrl}>Loading...</a>
             </div>
-        </>
+        </div>
     );
 }

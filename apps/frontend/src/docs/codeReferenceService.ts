@@ -5,7 +5,7 @@ import {
 } from "@use-miller/shared-api-client";
 import { GetServerSidePropsContext } from "next";
 import { getAccessToken, getSession } from "@auth0/nextjs-auth0";
-import { createMenu } from "./leftMenuGeneration.js";
+import { createMenu, mapMenuTitle } from "./leftMenuGeneration.js";
 import {
     getAnonymousApiInstance,
     getAuthenticatedApiInstance,
@@ -165,42 +165,13 @@ export async function getCodeFileServerSideProps(
         accessToken
     );
     const menuSections = await createMenu(productKey);
-
+    const headerTitle = mapMenuTitle(productKey);
     return {
         props: {
             productKey,
             menuSections,
             codeExplorerData,
+            headerTitle,
         }, // will be passed to the page component as props
     };
 }
-// export async function getStaticReferenceDocsPageSlugs(): Promise<{
-//     paths: {
-//         params: {
-//             projectKey: string;
-//             codeFile: string;
-//         };
-//     }[];
-//     fallback: boolean;
-// }> {
-//     const allReferenceProjects = await getAllCourses("not a key", {
-//         apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH,
-//         fetchApi: fetch,
-//     });
-
-//     const paths = [
-//         ...allReferenceProjects.map((course) => {
-//             return {
-//                 params: {
-//                     projectKey: `${course.key}`,
-//                     codeFile: defaultCodeFile,
-//                 },
-//             };
-//         }),
-//     ];
-
-//     return {
-//         paths,
-//         fallback: true,
-//     };
-// }

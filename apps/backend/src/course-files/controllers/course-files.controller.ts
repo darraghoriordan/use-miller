@@ -22,7 +22,6 @@ import { MarkdownFileService } from "../services/markdown-files.service.js";
 import UserDiscriminatedCacheInterceptor from "../UserDiscriminatedCacheInterceptor.js";
 
 @Controller("project-files/:productKey")
-@CacheTTL(10)
 @UseInterceptors(UserDiscriminatedCacheInterceptor)
 @ApiTags("Project Files")
 export class CourseFilesController {
@@ -33,6 +32,7 @@ export class CourseFilesController {
 
     @Get(":projectKey")
     @HttpCode(HttpStatus.OK)
+    @CacheTTL(60)
     @ApiOkResponse({ type: FileStructureDto })
     async listProjectFiles(
         @Param("projectKey") projectKey: string,
@@ -44,6 +44,7 @@ export class CourseFilesController {
 
     @UseGuards(DefaultAuthGuard)
     @ApiBearerAuth()
+    @CacheTTL(10)
     @Get(":projectKey/contents/:b64Path")
     @HttpCode(HttpStatus.OK)
     @ApiOkResponse({ type: FileMetaDto })
@@ -65,6 +66,7 @@ export class CourseFilesController {
 
     @UseGuards(DefaultAuthGuard)
     @ApiBearerAuth()
+    @CacheTTL(10)
     @Get(":projectKey/contents-markdown/:markdownB64Path")
     @HttpCode(HttpStatus.OK)
     @ApiOkResponse({ type: FileMetaDto })

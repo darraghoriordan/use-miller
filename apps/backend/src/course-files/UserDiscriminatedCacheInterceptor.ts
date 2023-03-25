@@ -19,9 +19,9 @@ export default class UserDiscriminatedCacheInterceptor extends CacheInterceptor 
             .switchToHttp()
             .getRequest<RequestWithUser>();
 
-        const cacheKey = `${httpContext.user?.uuid || ""}${httpContext.method}${
-            httpContext.url
-        }`;
+        const cacheKey = `${httpContext?.user?.uuid || ""}${
+            httpContext?.method
+        }${httpContext?.url}`;
         this.logger.debug({ cacheKey }, "Using cache key");
         return cacheKey;
     }

@@ -1,6 +1,5 @@
 import { Hero } from "../marketing-pages/index-home/Hero";
 import Layout from "../components/Layout.jsx";
-import { Pricing } from "../marketing-pages/index-home/Pricing";
 import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps.js";
 import { UserDto } from "@use-miller/shared-api-client";
 
@@ -16,7 +15,6 @@ export default function Home({ user }: { user: UserDto }) {
             themeColor="violet"
         >
             <Hero user={user} />
-            <Pricing user={user} />
         </Layout>
     );
 }

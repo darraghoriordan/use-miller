@@ -1,6 +1,7 @@
 import { UserDto } from "@use-miller/shared-api-client";
 import clsx from "clsx";
 import { useGetPaymentLink } from "../hooks/useGetPaymentLink.js";
+import { ThemeColor } from "../styles/themeColors.js";
 import { getSignUpUrl } from "./signupUrl.js";
 import StyledButton from "./StyledButton.jsx";
 import StyledLink from "./StyledLink.jsx";
@@ -14,7 +15,8 @@ const productMapping = [
     },
     {
         productKey: "dev-shell",
-        stripePriceId: process.env.NEXT_PUBLIC_STRIPE_REGULAR_PRICE_ID,
+        stripePriceId:
+            process.env.NEXT_PUBLIC_STRIPE_REGULAR_PRICE_NO_RECURRENCE_ID,
         mode: "payment",
     },
 ];
@@ -30,11 +32,13 @@ export function BuyNowButton({
     productKey,
     color,
     className,
+    text,
 }: {
     user: UserDto;
     productKey: string;
-    color: "green" | "cyan" | "amber" | "red" | "violet" | "pink";
+    color: ThemeColor;
     className?: string;
+    text?: string;
 }) {
     const { mutateAsync } = useGetPaymentLink();
 
@@ -56,7 +60,7 @@ export function BuyNowButton({
                     quantity: 1,
                 },
             ],
-            mode: "subscription",
+            mode: product.mode,
             organisationUuid: orgUuid,
         });
 
@@ -73,7 +77,7 @@ export function BuyNowButton({
                     className
                 )}
             >
-                Buy now
+                {text || "Buy now"}
             </StyledButton>
         );
     }

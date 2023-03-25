@@ -5,7 +5,10 @@ import {
 } from "../../../../docs/docParser.js";
 
 import { GetStaticPaths } from "next";
-import { createMenu } from "../../../../docs/leftMenuGeneration.js";
+import {
+    createMenu,
+    mapMenuTitle,
+} from "../../../../docs/leftMenuGeneration.js";
 import { DocArticle } from "../../../../docs/components/DocArticle.jsx";
 import { MenuSection } from "../../../../components/LeftMenu.jsx";
 import { LeftMenuWrappedContent } from "../../../../components/LeftMenuWrappedContent.jsx";
@@ -21,9 +24,13 @@ export async function getStaticProps({
         sectionSlug: params.section,
     });
     const menuSections = await createMenu(params.productKey);
+    const headerTitle = mapMenuTitle(params.productKey);
+    // calculating this locally out of laziness
+
     return {
         props: {
             productKey: params.productKey,
+            headerTitle,
             menuSections,
             article,
         },
@@ -38,16 +45,18 @@ export default function Home({
     productKey,
     menuSections,
     article,
+    headerTitle,
 }: {
     productKey: string;
     menuSections: MenuSection[];
+    headerTitle: string;
     article: FullDoc;
 }) {
     return (
         <LeftMenuWrappedContent
             productKey={productKey}
             menuSections={menuSections}
-            menuHeaderTitle={"Docs"}
+            menuHeaderTitle={headerTitle}
             menuHeaderHref={`/docs/${productKey}`}
         >
             <DocArticle article={article} />

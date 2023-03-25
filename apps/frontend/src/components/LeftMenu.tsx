@@ -47,7 +47,7 @@ export function LeftMenu({
 
     return (
         <div className="flex">
-            <div className="flex flex-col flex-grow ml-4">
+            <div className="flex flex-col flex-grow mr-8">
                 <h1
                     className={clsx(
                         `mb-8 font-bold uppercase`,

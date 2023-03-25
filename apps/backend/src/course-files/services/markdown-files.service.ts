@@ -65,7 +65,7 @@ export class MarkdownFileService {
         const fileContents = fs.readFileSync(fileLocation, "utf8");
         const clippedMessage =
             "\n\n ----------------------------" +
-            "\n> # Purchase Notice" +
+            "\n> # Purchase Notice2" +
             "\n> Hi there! Thanks so much for checking this out!" +
             "\n>" +
             "\n> **Please note:** There's more content here but file viewing is clipped unless you have purchased." +

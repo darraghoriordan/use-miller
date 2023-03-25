@@ -1,12 +1,6 @@
 import { Container } from "../../components/Container";
-//import dynamic from "next/dynamic.js";
 import { UserDto } from "@use-miller/shared-api-client";
 import { BuyNowButton } from "../../components/BuyNowButton.jsx";
-
-// const DynamicGumRoad = dynamic(() => import("./GumRoadWrapper"), {
-//     loading: () => <p>Loading Gumroad...</p>,
-//     ssr: false,
-// });
 
 export function Pricing({ user }: { user: UserDto }) {
     return (
@@ -30,22 +24,9 @@ export function Pricing({ user }: { user: UserDto }) {
                         <p className="mt-4 text-left font-display text-lg font-medium tracking-tight ">
                             Simple pricing, pay once and use forever.
                         </p>
-                        <ul>
-                            <li className="mt-4 ml-8 list-disc text-lg ">
-                                All the features
-                            </li>
-                            <li className="mt-4 ml-8 list-disc text-lg ">
-                                All the time-saving
-                            </li>
-                            <li className="mt-4 ml-8 list-disc text-lg ">
-                                Updates for 1 year
-                            </li>
-                            <li className="mt-4 ml-8 list-disc text-lg ">
-                                Access to chat forum
-                            </li>
-                        </ul>
+
                         <p className="text-6xl py-16 text-center">
-                            $199<span className="text-base">USD</span>
+                            $29<span className="text-base">USD</span>
                         </p>
                         <div className="mx-auto flex gap-x-6 md:mx-0 mb-10">
                             <BuyNowButton

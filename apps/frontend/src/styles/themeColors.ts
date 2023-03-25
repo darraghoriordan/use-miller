@@ -1,3 +1,4 @@
+export type ThemeColor = "green" | "cyan" | "amber" | "red" | "violet" | "pink";
 export const colorVariants = {
     green: {
         hoverShadow: "hover:shadow-green-500/30",
@@ -8,6 +9,7 @@ export const colorVariants = {
         hoverForeground: "hover:text-green-500",
         hoverBackground: "hover:bg-green-600",
         topMenuHoverBackground: "hover:bg-green-500/75",
+        groupHoverForeground: "group-hover:text-green-500",
     },
     red: {
         hoverFocusRing: "focus:ring-red-400",
@@ -18,6 +20,7 @@ export const colorVariants = {
         hoverForeground: "hover:text-red-500",
         hoverBackground: "hover:bg-red-600",
         topMenuHoverBackground: "hover:bg-red-500/75",
+        groupHoverForeground: "group-hover:text-red-500",
     },
     amber: {
         hoverFocusRing: "focus:ring-amber-400",
@@ -28,6 +31,7 @@ export const colorVariants = {
         hoverForeground: "hover:text-amber-500",
         hoverBackground: "hover:bg-amber-600",
         topMenuHoverBackground: "hover:bg-amber-500/75",
+        groupHoverForeground: "group-hover:text-amber-500",
     },
     cyan: {
         hoverFocusRing: "focus:ring-cyan-400",
@@ -38,6 +42,7 @@ export const colorVariants = {
         hoverForeground: "hover:text-cyan-500",
         hoverBackground: "hover:bg-cyan-600",
         topMenuHoverBackground: "hover:bg-cyan-500/75",
+        groupHoverForeground: "group-hover:text-cyan-500",
     },
     violet: {
         hoverFocusRing: "focus:ring-violet-400",
@@ -48,6 +53,7 @@ export const colorVariants = {
         hoverForeground: "hover:text-violet-500",
         hoverBackground: "hover:bg-violet-600",
         topMenuHoverBackground: "hover:bg-violet-500/75",
+        groupHoverForeground: "group-hover:text-violet-500",
     },
     pink: {
         hoverFocusRing: "focus:ring-pink-400",
@@ -58,5 +64,6 @@ export const colorVariants = {
         hoverForeground: "hover:text-pink-500",
         hoverBackground: "hover:bg-pink-600",
         topMenuHoverBackground: "hover:bg-pink-500/75",
+        groupHoverForeground: "group-hover:text-pink-500",
     },
 };

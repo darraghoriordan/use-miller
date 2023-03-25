@@ -1,6 +1,6 @@
-import { Hero } from "../marketing-pages/miller-start-home/Hero";
+import { Hero } from "../marketing-pages/local-dev-tools/Hero";
 import Layout from "../components/Layout.jsx";
-import { Pricing } from "../marketing-pages/miller-start-home/Pricing";
+import { Pricing } from "../marketing-pages/local-dev-tools/Pricing";
 import { UserDto } from "@use-miller/shared-api-client";
 import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps.js";
 

@@ -105,10 +105,16 @@ resource "auth0_role" "super_user_role" {
   }
 }
 
+resource "random_password" "user_password" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
 resource "auth0_user" "dev_test_basic_user" {
   connection_name = "Username-Password-Authentication"
   email           = "testbasic@testbasic.com"
-  password        = "apasspass$12$12"
+  password        = random_password.user_password.result
   nickname        = "testbasic"
   email_verified  = true
   given_name      = "Basic"
@@ -118,7 +124,7 @@ resource "auth0_user" "dev_test_basic_user" {
 resource "auth0_user" "dev_test_no_email_verified_user" {
   connection_name = "Username-Password-Authentication"
   email           = "testbasic@testnoemailverified.com"
-  password        = "apasspass$12$12"
+  password        = random_password.user_password.result
   nickname        = "testbasic"
   email_verified  = false
   given_name      = "NoEmail"
@@ -128,7 +134,7 @@ resource "auth0_user" "dev_test_no_email_verified_user" {
 resource "auth0_user" "dev_test_user" {
   connection_name = "Username-Password-Authentication"
   email           = "test@test.com"
-  password        = "apasspass$12$12"
+  password        = random_password.user_password.result
   nickname        = "testnick"
   given_name      = "Super"
   family_name     = "User"
