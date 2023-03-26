@@ -14,7 +14,7 @@ export function Hero({ user }: { user: UserDto }) {
         {
             colorVariant: "violet" as ThemeColor,
             title: "Miller Start",
-            blurb: "A full-stack web app with a NextJS frontend and a NestJS backend.",
+            blurb: "Learn full-stack web development with a NextJS frontend and a NestJS backend.",
             image: millerStartLogo,
             link: "/miller-start",
             benefits: [

@@ -1634,6 +1634,9 @@
           "uuid": {
             "type": "string"
           },
+          "internalSku": {
+            "type": "string"
+          },
           "productDisplayName": {
             "type": "string"
           },
@@ -1678,6 +1681,7 @@
         "required": [
           "id",
           "uuid",
+          "internalSku",
           "productDisplayName",
           "paymentSystemTransactionId",
           "paymentSystemProductId",
@@ -2220,6 +2224,9 @@
           "paymentSystemName": {
             "type": "string"
           },
+          "internalSku": {
+            "type": "string"
+          },
           "validUntil": {
             "format": "date-time",
             "type": "string"
@@ -2233,6 +2240,7 @@
           "paymentSystemCustomerEmail",
           "paymentSystemMode",
           "paymentSystemName",
+          "internalSku",
           "validUntil"
         ]
       },

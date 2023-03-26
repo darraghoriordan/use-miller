@@ -20,11 +20,8 @@ export async function dashboardGetSspData(
         ? (context.params?.orgUuid as string)
         : undefined;
 
-    const userData = await getUserData(atResponse.accessToken!);
-    const data = mapDataForIndexDashboard(
-        userData, // user must be logged in
-        orgUuid
-    );
+    const userData = await getCurrentUser(atResponse.accessToken!);
+    const data = mapDataForIndexDashboard(userData, orgUuid);
     return {
         props: data,
     };
@@ -77,6 +74,7 @@ export const mapDataForIndexDashboard = (
     //         deletedDate: undefined,
     //     } as OrganisationSubscriptionRecord,
     // ];
+
     const subscriptions =
         userData.memberships.find(
             (m) => m.organisation.uuid === currentOrgInstance.uuid
@@ -106,7 +104,7 @@ export const mapDataForIndexDashboard = (
     };
 };
 
-export const getUserData = async (accessToken: string) => {
+export const getCurrentUser = async (accessToken: string) => {
     const apiClient = await getAuthenticatedApiInstance(
         UsersApi,
         process.env.NEXT_PUBLIC_API_BASE_PATH,

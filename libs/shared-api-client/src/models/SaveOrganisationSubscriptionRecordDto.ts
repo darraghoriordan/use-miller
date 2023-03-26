@@ -69,6 +69,12 @@ export interface SaveOrganisationSubscriptionRecordDto {
     paymentSystemName: string;
     /**
      * 
+     * @type {string}
+     * @memberof SaveOrganisationSubscriptionRecordDto
+     */
+    internalSku: string;
+    /**
+     * 
      * @type {Date}
      * @memberof SaveOrganisationSubscriptionRecordDto
      */
@@ -93,6 +99,7 @@ export function SaveOrganisationSubscriptionRecordDtoFromJSONTyped(json: any, ig
         'paymentSystemCustomerEmail': json['paymentSystemCustomerEmail'],
         'paymentSystemMode': json['paymentSystemMode'],
         'paymentSystemName': json['paymentSystemName'],
+        'internalSku': json['internalSku'],
         'validUntil': (new Date(json['validUntil'])),
     };
 }
@@ -114,6 +121,7 @@ export function SaveOrganisationSubscriptionRecordDtoToJSON(value?: SaveOrganisa
         'paymentSystemCustomerEmail': value.paymentSystemCustomerEmail,
         'paymentSystemMode': value.paymentSystemMode,
         'paymentSystemName': value.paymentSystemName,
+        'internalSku': value.internalSku,
         'validUntil': (value.validUntil.toISOString()),
     };
 }

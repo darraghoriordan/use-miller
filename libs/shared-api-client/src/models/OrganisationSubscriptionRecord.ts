@@ -36,6 +36,12 @@ export interface OrganisationSubscriptionRecord {
      * @type {string}
      * @memberof OrganisationSubscriptionRecord
      */
+    internalSku: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OrganisationSubscriptionRecord
+     */
     productDisplayName: string;
     /**
      * 
@@ -117,6 +123,7 @@ export function OrganisationSubscriptionRecordFromJSONTyped(json: any, ignoreDis
         
         'id': json['id'],
         'uuid': json['uuid'],
+        'internalSku': json['internalSku'],
         'productDisplayName': json['productDisplayName'],
         'paymentSystemTransactionId': json['paymentSystemTransactionId'],
         'paymentSystemProductId': json['paymentSystemProductId'],
@@ -143,6 +150,7 @@ export function OrganisationSubscriptionRecordToJSON(value?: OrganisationSubscri
         
         'id': value.id,
         'uuid': value.uuid,
+        'internalSku': value.internalSku,
         'productDisplayName': value.productDisplayName,
         'paymentSystemTransactionId': value.paymentSystemTransactionId,
         'paymentSystemProductId': value.paymentSystemProductId,

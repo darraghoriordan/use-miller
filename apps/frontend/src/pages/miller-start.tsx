@@ -1,4 +1,4 @@
-import { Hero } from "../marketing-pages/miller-start-home/Hero";
+import { Hero } from "../marketing-pages/miller-start-home/Hero-learner";
 import Layout from "../components/Layout.jsx";
 import { Pricing } from "../marketing-pages/miller-start-home/Pricing";
 import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps.js";

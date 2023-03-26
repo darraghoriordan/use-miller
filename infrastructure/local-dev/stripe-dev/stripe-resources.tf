@@ -1,9 +1,13 @@
 
 resource "stripe_product" "regular_product" {
-  name        = "Miller Start"
-  description = "Web product kit with 1 year of updates"
-  shippable   = false
-  active      = true
+  name                 = "Miller Start"
+  description          = "Web product kit with 1 year of updates"
+  shippable            = false
+  active               = true
+  statement_descriptor = "USEMILLER.DEV"
+  metadata = {
+    internalSku = "miller-start"
+  }
 }
 
 resource "stripe_price" "regular_price" {
@@ -20,10 +24,14 @@ resource "stripe_price" "regular_price" {
 }
 
 resource "stripe_product" "regular_product_no_recurrence" {
-  name        = "Miller Dev Shell"
-  description = "Premium setup and configuration for your terminal"
-  shippable   = false
-  active      = true
+  name                 = "Miller Dev Shell"
+  description          = "Premium setup and configuration for your terminal"
+  shippable            = false
+  active               = true
+  statement_descriptor = "USEMILLER.DEV"
+  metadata = {
+    internalSku = "dev-shell"
+  }
 }
 
 resource "stripe_price" "regular_price_no_recurrence" {
