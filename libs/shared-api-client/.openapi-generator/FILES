@@ -32,12 +32,14 @@ src/models/OrganisationSubscriptionRecord.ts
 src/models/PaymentSessionReference.ts
 src/models/QueueItemDto.ts
 src/models/SaveOrganisationSubscriptionRecordDto.ts
+src/models/SaveSubscriptionAssetDto.ts
 src/models/StripeCheckoutEvent.ts
 src/models/StripeCheckoutLineItem.ts
 src/models/StripeCheckoutSessionRequestDto.ts
 src/models/StripeCheckoutSessionResponseDto.ts
 src/models/StripeCustomerPortalRequestDto.ts
 src/models/StripeCustomerPortalResponseDto.ts
+src/models/SubscriptionAsset.ts
 src/models/UpdateOrganisationDto.ts
 src/models/User.ts
 src/models/UserApiKey.ts

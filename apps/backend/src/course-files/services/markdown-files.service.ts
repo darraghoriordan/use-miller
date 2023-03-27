@@ -87,7 +87,7 @@ export class MarkdownFileService {
         const shouldShowFullFile = this.fileVisibilityGuard.shouldShowFullFile(
             fileLocation,
             projectMeta.demoPaths,
-            product.subscribedProductNames,
+            productKey,
             user
         );
 

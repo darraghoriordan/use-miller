@@ -43,7 +43,7 @@ The license grants permission up to 5 Employees and Contractors of the Licensee 
 -   Creating a website or web application for a client that will be owned by that client
 -   Creating a commercial SaaS application (like an invoicing app for example) where end users have to pay a fee to use the application
 -   Creating a commercial self-hosted web application that is sold to end users for a one-time fee
--   Creating a web application where the primary purpose is clearly not to simply re-distribute the download files (like a conference organization app that uses the download files for its UI for example) that is free and open source, where the source code is publicly available
+-   Creating a web application where the primary purpose is clearly not to simply re-distribute the download files (like a conference organization app that uses the download files for its UI for example)
 
 ### Examples of use not allowed by the license:
 

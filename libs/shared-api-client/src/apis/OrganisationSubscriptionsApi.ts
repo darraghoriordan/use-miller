@@ -24,6 +24,12 @@ import {
     SaveOrganisationSubscriptionRecordDto,
     SaveOrganisationSubscriptionRecordDtoFromJSON,
     SaveOrganisationSubscriptionRecordDtoToJSON,
+    SaveSubscriptionAssetDto,
+    SaveSubscriptionAssetDtoFromJSON,
+    SaveSubscriptionAssetDtoToJSON,
+    SubscriptionAsset,
+    SubscriptionAssetFromJSON,
+    SubscriptionAssetToJSON,
 } from '../models';
 
 export interface OrganisationSubscriptionsControllerAddSubscriptionRequest {
@@ -38,6 +44,14 @@ export interface OrganisationSubscriptionsControllerDeleteSubscriptionRequest {
 
 export interface OrganisationSubscriptionsControllerFindAllRequest {
     orgId: number;
+}
+
+export interface SubscriptionAssetsControllerAddAssetRecordRequest {
+    saveSubscriptionAssetDto: SaveSubscriptionAssetDto;
+}
+
+export interface SubscriptionAssetsControllerDeleteAssetRecordRequest {
+    id: number;
 }
 
 /**
@@ -99,6 +113,44 @@ export interface OrganisationSubscriptionsApiInterface {
     /**
      */
     organisationSubscriptionsControllerFindAll(requestParameters: OrganisationSubscriptionsControllerFindAllRequest): Promise<Array<OrganisationSubscriptionRecord>>;
+
+    /**
+     * 
+     * @param {SaveSubscriptionAssetDto} saveSubscriptionAssetDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganisationSubscriptionsApiInterface
+     */
+    subscriptionAssetsControllerAddAssetRecordRaw(requestParameters: SubscriptionAssetsControllerAddAssetRecordRequest): Promise<runtime.ApiResponse<Array<SubscriptionAsset>>>;
+
+    /**
+     */
+    subscriptionAssetsControllerAddAssetRecord(requestParameters: SubscriptionAssetsControllerAddAssetRecordRequest): Promise<Array<SubscriptionAsset>>;
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganisationSubscriptionsApiInterface
+     */
+    subscriptionAssetsControllerDeleteAssetRecordRaw(requestParameters: SubscriptionAssetsControllerDeleteAssetRecordRequest): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     */
+    subscriptionAssetsControllerDeleteAssetRecord(requestParameters: SubscriptionAssetsControllerDeleteAssetRecordRequest): Promise<void>;
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganisationSubscriptionsApiInterface
+     */
+    subscriptionAssetsControllerGetAssetsForOrgRaw(): Promise<runtime.ApiResponse<Array<SubscriptionAsset>>>;
+
+    /**
+     */
+    subscriptionAssetsControllerGetAssetsForOrg(): Promise<Array<SubscriptionAsset>>;
 
 }
 
@@ -255,6 +307,112 @@ export class OrganisationSubscriptionsApi extends runtime.BaseAPI implements Org
      */
     async organisationSubscriptionsControllerFindAll(requestParameters: OrganisationSubscriptionsControllerFindAllRequest): Promise<Array<OrganisationSubscriptionRecord>> {
         const response = await this.organisationSubscriptionsControllerFindAllRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     */
+    async subscriptionAssetsControllerAddAssetRecordRaw(requestParameters: SubscriptionAssetsControllerAddAssetRecordRequest): Promise<runtime.ApiResponse<Array<SubscriptionAsset>>> {
+        if (requestParameters.saveSubscriptionAssetDto === null || requestParameters.saveSubscriptionAssetDto === undefined) {
+            throw new runtime.RequiredError('saveSubscriptionAssetDto','Required parameter requestParameters.saveSubscriptionAssetDto was null or undefined when calling subscriptionAssetsControllerAddAssetRecord.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/subscription-assets`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveSubscriptionAssetDtoToJSON(requestParameters.saveSubscriptionAssetDto),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SubscriptionAssetFromJSON));
+    }
+
+    /**
+     */
+    async subscriptionAssetsControllerAddAssetRecord(requestParameters: SubscriptionAssetsControllerAddAssetRecordRequest): Promise<Array<SubscriptionAsset>> {
+        const response = await this.subscriptionAssetsControllerAddAssetRecordRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     */
+    async subscriptionAssetsControllerDeleteAssetRecordRaw(requestParameters: SubscriptionAssetsControllerDeleteAssetRecordRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling subscriptionAssetsControllerDeleteAssetRecord.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/subscription-assets/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async subscriptionAssetsControllerDeleteAssetRecord(requestParameters: SubscriptionAssetsControllerDeleteAssetRecordRequest): Promise<void> {
+        await this.subscriptionAssetsControllerDeleteAssetRecordRaw(requestParameters);
+    }
+
+    /**
+     */
+    async subscriptionAssetsControllerGetAssetsForOrgRaw(): Promise<runtime.ApiResponse<Array<SubscriptionAsset>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/subscription-assets`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(SubscriptionAssetFromJSON));
+    }
+
+    /**
+     */
+    async subscriptionAssetsControllerGetAssetsForOrg(): Promise<Array<SubscriptionAsset>> {
+        const response = await this.subscriptionAssetsControllerGetAssetsForOrgRaw();
         return await response.value();
     }
 

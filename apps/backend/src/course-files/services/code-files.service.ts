@@ -228,7 +228,7 @@ export class CodeFilesService {
             this.fileVisibilityGuard.shouldShowFullFile(
                 fileLocation,
                 projectMeta.demoPaths,
-                product.subscribedProductNames,
+                productKey,
                 user
             )
         ) {

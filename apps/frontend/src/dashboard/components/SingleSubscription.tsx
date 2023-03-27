@@ -1,12 +1,17 @@
-import { OrganisationSubscriptionRecord } from "@use-miller/shared-api-client";
+import {
+    OrganisationSubscriptionRecord,
+    SubscriptionAsset,
+} from "@use-miller/shared-api-client";
 import { useFormattedDate } from "../../hooks/useFormattedDate.js";
 import { colorVariants } from "../../styles/themeColors.js";
 import ManageBillingLink from "./ManageBillingLink.jsx";
 
 export const SingleSubscription = ({
     subscriptionRecord,
+    subscriptionAssets,
 }: {
     subscriptionRecord: OrganisationSubscriptionRecord;
+    subscriptionAssets: SubscriptionAsset[];
 }) => {
     const expiryDate = useFormattedDate(subscriptionRecord.validUntil);
     const createdDate = useFormattedDate(subscriptionRecord.createdDate);
@@ -38,7 +43,14 @@ export const SingleSubscription = ({
                         {subscriptionRecord.paymentSystemTransactionId}
                     </p>
                 </div>
-
+                <div className="w-3/4">
+                    {subscriptionAssets.map((asset) => (
+                        <div key={asset.id}>
+                            <p>{asset.description}</p>
+                            <a href={asset.uri}>{asset.displayName}</a>
+                        </div>
+                    ))}
+                </div>
                 <ManageBillingLink
                     subscriptionUuid={subscriptionRecord.uuid}
                     paymentProvider={subscriptionRecord.paymentSystemName}

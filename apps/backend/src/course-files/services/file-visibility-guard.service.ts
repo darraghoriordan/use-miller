@@ -1,24 +1,29 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { RequestUser } from "@darraghor/nest-backend-libs";
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { minimatch } from "minimatch";
 
 @Injectable()
 export class FileVisibilityControlGuard {
+    private readonly logger = new Logger(FileVisibilityControlGuard.name);
     shouldShowFullFile = (
         fileLocation: string,
         demoPaths: string[],
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        subscribedProductNames: string[],
+        productKey: string,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         user?: RequestUser
     ): boolean => {
+        this.logger.debug(
+            {
+                fileLocation,
+                userSubs: user?.activeSubscriptionProductKeys,
+                productKey,
+            },
+            `Checking if user can see file ${fileLocation}`
+        );
         // if the person is in an org that has paid for the product, then they can see all files
-        if (
-            subscribedProductNames.some((p) =>
-                user?.activeSubscriptionProducts.includes(p)
-            )
-        ) {
+        if (user?.activeSubscriptionProductKeys.includes(productKey)) {
             return true;
         }
 

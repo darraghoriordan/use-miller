@@ -1,6 +1,7 @@
 import {
     Organisation,
     OrganisationSubscriptionRecord,
+    SubscriptionAsset,
     UserDto,
 } from "@use-miller/shared-api-client";
 import NoSubscriptions from "./NoSubscriptions.jsx";
@@ -9,10 +10,12 @@ import { Subscriptions } from "./Subscriptions.jsx";
 export const DashboardDetails = ({
     currentOrg,
     subs,
+    subAssets,
     currentUser,
 }: {
     currentOrg: Organisation;
     subs: OrganisationSubscriptionRecord[];
+    subAssets: SubscriptionAsset[];
     currentUser: UserDto;
 }) => {
     const isOwner = currentUser.memberships.some(
@@ -20,17 +23,19 @@ export const DashboardDetails = ({
             m.organisationId === currentOrg.id &&
             m.roles?.some((r) => r.name === "owner")
     );
-    let subsComponent = <Subscriptions subs={subs} />;
+    let subsComponent = <Subscriptions subs={subs} subAssets={subAssets} />;
 
     if (subs.length === 0) {
         subsComponent = (
             <>
                 <NoSubscriptions
                     productName="Miller Start"
+                    productKey="miller-start"
                     isOrganisationOwner={isOwner}
                 />
                 <NoSubscriptions
                     productName="Dev Shell"
+                    productKey="dev-shell"
                     isOrganisationOwner={isOwner}
                 />
             </>

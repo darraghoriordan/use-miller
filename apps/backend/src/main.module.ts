@@ -9,7 +9,6 @@ import {
     SuperPowersModule,
     InvitationModule,
     DatabaseModule,
-    // TypeOrmConfigurationProvider,
 } from "@darraghor/nest-backend-libs";
 import { UserOnboardingModule } from "./user-onboarding/user-onboarding.module.js";
 import { PaymentsModule } from "./payments/payments.module.js";
@@ -18,10 +17,6 @@ import { SubscriptionAssetsModule } from "./subscription-assets/sub-assets.modul
 
 @Module({
     imports: [
-        // TypeOrmModule.forRoot(
-        //     TypeOrmConfigurationProvider.getNestTypeOrmConfig()
-        // ),
-
         CoreModule,
         DatabaseModule,
         AuthzModule,

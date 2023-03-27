@@ -11,7 +11,7 @@ order: 10
 1. You can use this code on your own computers.
 1. You can't use this code to sell a product that sells the codebase itself.
 1. This code is not peer reviewed and is not guaranteed to be secure. It has not been penetration tested or analysed in any way.
-1. It is designed for newly installed operating systems. You must analyse the code to ensure it is safe for your use case.
+1. This code is designed for newly installed operating systems. You must analyse the code to ensure it is safe for your use case. In particular if you have a pre-existing shell configuration you should ensure that the code does not overwrite important existing configuration.
 
 ## EULA (End User License Agreement)
 
@@ -38,6 +38,7 @@ Darragh ORiordan grants you an ongoing, non-exclusive personal license to **use*
 ### Examples of use not allowed by the license:
 
 -   You are not allowed to create a product that sells the codebase itself
+-   You are not allowed to redistribute the codebase in an open source repository
 
 ## License Definitions
 

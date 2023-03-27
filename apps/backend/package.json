@@ -32,7 +32,7 @@
     },
     "dependencies": {
         "@babel/core": "7.21.3",
-        "@darraghor/nest-backend-libs": "file:../../../nest-backend-libs",
+        "@darraghor/nest-backend-libs": "workspace:../../../nest-backend-libs",
         "@mapbox/rehype-prism": "0.8.0",
         "@nestjs/bull": "0.6.3",
         "@nestjs/cli": "9.3.0",
@@ -44,6 +44,7 @@
         "@nestjs/platform-express": "9.3.12",
         "@nestjs/swagger": "6.2.1",
         "@nestjs/typeorm": "9.0.1",
+        "@octokit/rest": "19.0.7",
         "auth0": "3.3.0",
         "axios": "1",
         "bull": "4.10.4",

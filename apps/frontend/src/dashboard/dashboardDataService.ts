@@ -2,6 +2,8 @@ import { getAccessToken } from "@auth0/nextjs-auth0";
 import {
     Organisation,
     OrganisationSubscriptionRecord,
+    OrganisationSubscriptionsApi,
+    SubscriptionAsset,
     UserDto,
     UsersApi,
 } from "@use-miller/shared-api-client";
@@ -20,15 +22,19 @@ export async function dashboardGetSspData(
         ? (context.params?.orgUuid as string)
         : undefined;
 
+    const subAssets = await getCurrentUserSubscriptions(
+        atResponse.accessToken!
+    );
     const userData = await getCurrentUser(atResponse.accessToken!);
-    const data = mapDataForIndexDashboard(userData, orgUuid);
+    const mappedProps = mapDataForIndexDashboard(userData, subAssets, orgUuid);
     return {
-        props: data,
+        props: mappedProps,
     };
 }
 
 export const mapDataForIndexDashboard = (
     userData: UserDto,
+    subAssets: SubscriptionAsset[],
     currentOrg?: string
 ) => {
     const userOrgs = userData.memberships.reduce(
@@ -53,28 +59,6 @@ export const mapDataForIndexDashboard = (
     }
 
     const menuSections = createMenu(userOrgs);
-
-    // const oneYearsTime = new Date();
-    // oneYearsTime.setFullYear(oneYearsTime.getFullYear() + 1);
-    // const fakeSubs = [
-    //     {
-    //         id: 1,
-    //         uuid: "payment-uuid",
-    //         productDisplayName: "Miller Web",
-    //         paymentSystemTransactionId: "payment-system-transaction-id",
-    //         paymentSystemProductId: "payment-system-product-id",
-    //         paymentSystemCustomerId: "payment-system-customer-id",
-    //         paymentSystemCustomerEmail: "payment-system-customer-email",
-    //         paymentSystemMode: "subscription",
-    //         paymentSystemName: "stripe",
-    //         validUntil: oneYearsTime,
-    //         organisationId: 1,
-    //         createdDate: new Date(),
-    //         updatedDate: new Date(),
-    //         deletedDate: undefined,
-    //     } as OrganisationSubscriptionRecord,
-    // ];
-
     const subscriptions =
         userData.memberships.find(
             (m) => m.organisation.uuid === currentOrgInstance.uuid
@@ -85,7 +69,7 @@ export const mapDataForIndexDashboard = (
             menuSections,
             subs: subscriptions,
             currentUser: userData,
-            // subs: fakeSubs,
+            subAssets,
             currentOrg: currentOrgInstance,
         })
     ) as unknown as {
@@ -98,7 +82,7 @@ export const mapDataForIndexDashboard = (
             }[];
         }[];
         subs: OrganisationSubscriptionRecord[];
-        // subs: fakeSubs,
+        subAssets: SubscriptionAsset[];
         currentUser: UserDto;
         currentOrg: Organisation;
     };
@@ -115,4 +99,15 @@ export const getCurrentUser = async (accessToken: string) => {
         uuid: "me",
     });
     return userData;
+};
+
+export const getCurrentUserSubscriptions = async (accessToken: string) => {
+    const apiClient = await getAuthenticatedApiInstance(
+        OrganisationSubscriptionsApi,
+        process.env.NEXT_PUBLIC_API_BASE_PATH,
+        accessToken,
+        fetch
+    );
+    const d = await apiClient.subscriptionAssetsControllerGetAssetsForOrg();
+    return d;
 };

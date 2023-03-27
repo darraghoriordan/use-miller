@@ -41,25 +41,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return getStaticDocsPageSlugs();
 };
 
-export default function Home({
-    productKey,
-    menuSections,
-    article,
-    headerTitle,
-}: {
-    productKey: string;
-    menuSections: MenuSection[];
-    headerTitle: string;
-    article: FullDoc;
-}) {
-    return (
-        <LeftMenuWrappedContent
-            productKey={productKey}
-            menuSections={menuSections}
-            menuHeaderTitle={headerTitle}
-            menuHeaderHref={`/docs/${productKey}`}
-        >
-            <DocArticle article={article} />
-        </LeftMenuWrappedContent>
-    );
-}
+export { default } from "./index.jsx";

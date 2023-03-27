@@ -3,9 +3,11 @@ import { colorVariants } from "../../styles/themeColors.js";
 
 export default function NoSubscriptions({
     productName,
+    productKey,
     isOrganisationOwner,
 }: {
     productName: string;
+    productKey: string;
     isOrganisationOwner: boolean;
 }) {
     const colorVariant = "green";
@@ -28,8 +30,8 @@ export default function NoSubscriptions({
                         Get started by subscribing.
                     </p>
                     <div className="mt-6">
-                        <StyledHref href="/">
-                            Visit homepage to choose a product
+                        <StyledHref href={`/${productKey}`}>
+                            Go to {productName} page
                         </StyledHref>
                     </div>
                 </>

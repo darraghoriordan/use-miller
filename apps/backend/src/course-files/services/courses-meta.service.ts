@@ -12,7 +12,6 @@ export class CoursesMetaService {
         return {
             ["miller-start"]: {
                 color: "red",
-                subscribedProductNames: ["myproduct", "Miller Start"],
                 projectMeta: [
                     {
                         key: "miller-web",
@@ -49,7 +48,7 @@ export class CoursesMetaService {
             },
             ["dev-shell"]: {
                 color: "green",
-                subscribedProductNames: ["Dev Shell", "Miller Dev Shell"],
+
                 projectMeta: [
                     {
                         key: "dev-shell-scripts",
@@ -70,7 +69,7 @@ export class CoursesMetaService {
             },
             ["local-dev-tools"]: {
                 color: "pink",
-                subscribedProductNames: ["Local Dev Tools"],
+
                 projectMeta: [],
             },
             // leave this one for now

@@ -4,6 +4,7 @@ import { dashboardGetSspData } from "../../dashboard/dashboardDataService.js";
 import {
     Organisation,
     OrganisationSubscriptionRecord,
+    SubscriptionAsset,
     UserDto,
 } from "@use-miller/shared-api-client";
 import { DashboardDetails } from "../../dashboard/components/DashboardDetails.jsx";
@@ -18,11 +19,13 @@ export default function Home({
     menuSections,
     currentOrg,
     currentUser,
+    subAssets,
     subs,
 }: {
     menuSections: MenuSection[];
     currentOrg: Organisation;
     currentUser: UserDto;
+    subAssets: SubscriptionAsset[];
     subs: OrganisationSubscriptionRecord[];
 }) {
     return (
@@ -34,6 +37,7 @@ export default function Home({
         >
             <DashboardDetails
                 subs={subs}
+                subAssets={subAssets}
                 currentOrg={currentOrg}
                 currentUser={currentUser}
             />
