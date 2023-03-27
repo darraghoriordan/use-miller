@@ -9,6 +9,7 @@ import {
     SuperPowersModule,
     InvitationModule,
     DatabaseModule,
+    // TypeOrmConfigurationProvider,
 } from "@darraghor/nest-backend-libs";
 import { UserOnboardingModule } from "./user-onboarding/user-onboarding.module.js";
 import { PaymentsModule } from "./payments/payments.module.js";

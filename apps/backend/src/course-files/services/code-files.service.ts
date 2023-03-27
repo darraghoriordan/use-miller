@@ -9,7 +9,7 @@ import PathMapperService from "./pathMapper.service.js";
 import { CourseMetaDto } from "../dtos/CourseMetaDto.js";
 import { MarkdownFileService } from "./markdown-files.service.js";
 import { FileVisibilityControlGuard } from "./file-visibility-guard.service.js";
-import { RequestUser } from "@darraghor/nest-backend-libs/dist/authorization/models/RequestWithUser.js";
+import { RequestUser } from "@darraghor/nest-backend-libs";
 
 @Injectable()
 export class CodeFilesService {

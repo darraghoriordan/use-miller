@@ -1,4 +1,4 @@
-import { RequestUser } from "@darraghor/nest-backend-libs/dist/authorization/models/RequestWithUser.js";
+import { RequestUser } from "@darraghor/nest-backend-libs";
 import { Injectable, Logger } from "@nestjs/common";
 import { SubscriptionAsset } from "./sub-asset.entity.js";
 import { InjectRepository } from "@nestjs/typeorm";

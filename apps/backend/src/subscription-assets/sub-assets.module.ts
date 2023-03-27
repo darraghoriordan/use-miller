@@ -3,10 +3,15 @@ import { Module } from "@nestjs/common";
 import { SubscriptionAssetsController } from "./sub-assets.controller.js";
 import { SubscriptionAssetsService } from "./sub-assets.service.js";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { User } from "@darraghor/nest-backend-libs";
+import { SubscriptionAsset } from "./sub-asset.entity.js";
+import { CoreConfigModule, CoreModule } from "@darraghor/nest-backend-libs";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([User])],
+    imports: [
+        CoreModule,
+        CoreConfigModule,
+        TypeOrmModule.forFeature([SubscriptionAsset]),
+    ],
     controllers: [SubscriptionAssetsController],
     providers: [SubscriptionAssetsService],
     exports: [],

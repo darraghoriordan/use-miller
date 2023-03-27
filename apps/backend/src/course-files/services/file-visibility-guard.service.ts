@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { RequestUser } from "@darraghor/nest-backend-libs/dist/authorization/models/RequestWithUser.js";
+import { RequestUser } from "@darraghor/nest-backend-libs";
 import { Injectable } from "@nestjs/common";
 import { minimatch } from "minimatch";
 

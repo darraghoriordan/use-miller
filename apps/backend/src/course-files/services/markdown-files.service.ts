@@ -8,7 +8,7 @@ import { CoursesMetaService } from "./courses-meta.service.js";
 import PathMapperService from "./pathMapper.service.js";
 import matter, { GrayMatterFile } from "gray-matter";
 import { FileVisibilityControlGuard } from "./file-visibility-guard.service.js";
-import { RequestUser } from "@darraghor/nest-backend-libs/dist/authorization/models/RequestWithUser.js";
+import { RequestUser } from "@darraghor/nest-backend-libs";
 
 export interface MatterResult {
     data: {
