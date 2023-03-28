@@ -8,4 +8,5 @@ export * from './PaymentReferencesApi';
 export * from './PaymentsApi';
 export * from './ProjectFilesApi';
 export * from './ProjectMetaApi';
+export * from './UserOnboardingApi';
 export * from './UsersApi';

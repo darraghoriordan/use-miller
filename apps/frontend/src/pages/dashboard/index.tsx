@@ -21,12 +21,14 @@ export default function Home({
     currentUser,
     subAssets,
     subs,
+    ghUsername,
 }: {
     menuSections: MenuSection[];
     currentOrg: Organisation;
     currentUser: UserDto;
     subAssets: SubscriptionAsset[];
     subs: OrganisationSubscriptionRecord[];
+    ghUsername: string | undefined;
 }) {
     return (
         <LeftMenuWrappedContent
@@ -40,6 +42,7 @@ export default function Home({
                 subAssets={subAssets}
                 currentOrg={currentOrg}
                 currentUser={currentUser}
+                ghUsername={ghUsername}
             />
         </LeftMenuWrappedContent>
     );

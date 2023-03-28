@@ -12,6 +12,7 @@ src/apis/PaymentReferencesApi.ts
 src/apis/PaymentsApi.ts
 src/apis/ProjectFilesApi.ts
 src/apis/ProjectMetaApi.ts
+src/apis/UserOnboardingApi.ts
 src/apis/UsersApi.ts
 src/apis/index.ts
 src/index.ts
@@ -21,11 +22,12 @@ src/models/CreateInvitationDto.ts
 src/models/CreateUpdateMembershipDto.ts
 src/models/FileMetaDto.ts
 src/models/FileStructureDto.ts
-src/models/InitUserResponseDto.ts
 src/models/InlineResponse200.ts
 src/models/InlineResponse503.ts
 src/models/Invitation.ts
 src/models/MembershipRole.ts
+src/models/OrgGithubUser.ts
+src/models/OrgGithubUserDto.ts
 src/models/Organisation.ts
 src/models/OrganisationMembership.ts
 src/models/OrganisationSubscriptionRecord.ts

@@ -18,9 +18,6 @@ import {
     BooleanResult,
     BooleanResultFromJSON,
     BooleanResultToJSON,
-    InitUserResponseDto,
-    InitUserResponseDtoFromJSON,
-    InitUserResponseDtoToJSON,
     User,
     UserFromJSON,
     UserToJSON,
@@ -102,18 +99,6 @@ export interface UsersApiInterface {
     /**
      */
     userControllerUpdate(requestParameters: UserControllerUpdateRequest): Promise<BooleanResult>;
-
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApiInterface
-     */
-    userOnboardingControllerInitUserRaw(): Promise<runtime.ApiResponse<InitUserResponseDto>>;
-
-    /**
-     */
-    userOnboardingControllerInitUser(): Promise<InitUserResponseDto>;
 
 }
 
@@ -268,38 +253,6 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
      */
     async userControllerUpdate(requestParameters: UserControllerUpdateRequest): Promise<BooleanResult> {
         const response = await this.userControllerUpdateRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     */
-    async userOnboardingControllerInitUserRaw(): Promise<runtime.ApiResponse<InitUserResponseDto>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/user-onboarding/init-user`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => InitUserResponseDtoFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async userOnboardingControllerInitUser(): Promise<InitUserResponseDto> {
-        const response = await this.userOnboardingControllerInitUserRaw();
         return await response.value();
     }
 

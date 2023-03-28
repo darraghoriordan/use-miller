@@ -5,10 +5,10 @@ import {
     NotFoundException,
 } from "@nestjs/common";
 import { MoreThan, Repository } from "typeorm";
-import { OrgGithubUser } from "./org-github-user.js";
+import { OrgGithubUser } from "../models/org-github-user.entity.js";
 import { InjectRepository } from "@nestjs/typeorm";
-import { GithubClientService } from "../course-files/github-client/github-service.js";
-import { OrgGithubUserDto } from "./orgGhUser.dto.js";
+import { GithubClientService } from "../../course-files/github-client/github-service.js";
+import { OrgGithubUserDto } from "../models/orgGhUser.dto.js";
 import {
     OrganisationSubscriptionRecord,
     RequestUser,

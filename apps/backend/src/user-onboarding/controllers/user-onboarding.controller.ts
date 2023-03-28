@@ -14,9 +14,9 @@ import {
     Body,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from "@nestjs/swagger";
-import { OrgGithubUserDto } from "./orgGhUser.dto.js";
-import { OrgGithubUser } from "./org-github-user.js";
-import { UserOnboardingService } from "./user-onboarding.service.js";
+import { OrgGithubUserDto } from "../models/orgGhUser.dto.js";
+import { OrgGithubUser } from "../models/org-github-user.entity.js";
+import { UserOnboardingService } from "../services/user-onboarding.service.js";
 
 @UseGuards(DefaultAuthGuard)
 @ApiBearerAuth()
@@ -37,11 +37,10 @@ export class UserOnboardingController {
         return this.ghUserOnboardingService.get(orgUuid, request.user);
     }
 
-    @Post("github-user/:orgUuid")
+    @Post("github-user")
     @HttpCode(HttpStatus.CREATED)
     @ApiOkResponse({ type: OrgGithubUser })
     async addForOrg(
-        @Param("orgUuid") orgUuid: string,
         @Body() requestBody: OrgGithubUserDto,
         @Request() request: RequestWithUser
     ): Promise<OrgGithubUser> {

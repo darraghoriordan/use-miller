@@ -6,11 +6,11 @@ import {
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { GithubAccountModule } from "../course-files/github-client/github-account.module.js";
-import { OrgGithubUser } from "./org-github-user.js";
-import { SubscriptionEventHandlerService } from "./subscription-event-handler.service.js";
-import { UserOnboardingController } from "./user-onboarding.controller.js";
+import { OrgGithubUser } from "./models/org-github-user.entity.js";
+import { SubscriptionEventHandlerService } from "./services/subscription-event-handler.service.js";
+import { UserOnboardingController } from "./controllers/user-onboarding.controller.js";
 
-import { UserOnboardingService } from "./user-onboarding.service.js";
+import { UserOnboardingService } from "./services/user-onboarding.service.js";
 
 @Module({
     imports: [

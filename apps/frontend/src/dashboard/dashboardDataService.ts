@@ -5,6 +5,7 @@ import {
     OrganisationSubscriptionsApi,
     SubscriptionAsset,
     UserDto,
+    UserOnboardingApi,
     UsersApi,
 } from "@use-miller/shared-api-client";
 import { GetServerSidePropsContext, PreviewData } from "next";
@@ -27,15 +28,23 @@ export async function dashboardGetSspData(
     );
     const userData = await getCurrentUser(atResponse.accessToken!);
     const mappedProps = mapDataForIndexDashboard(userData, subAssets, orgUuid);
+
+    const orgGhUsers = await getOrgGhUsernames(
+        atResponse.accessToken!,
+        orgUuid || mappedProps.currentOrg.uuid
+    );
+    // reduce the first 1 to a single string
+    const firstUsername = orgGhUsers[0]?.ghUsername;
+
     return {
-        props: mappedProps,
+        props: { ...mappedProps, ghUsername: firstUsername },
     };
 }
 
 export const mapDataForIndexDashboard = (
     userData: UserDto,
     subAssets: SubscriptionAsset[],
-    currentOrg?: string
+    currentOrgUuid?: string
 ) => {
     const userOrgs = userData.memberships.reduce(
         (acc, membership) => [
@@ -51,8 +60,8 @@ export const mapDataForIndexDashboard = (
 
     // org data permissions are enforced on the server
     // so we can just return the data
-    const currentOrgInstance = currentOrg
-        ? userOrgs.find((org) => org.uuid === currentOrg)
+    const currentOrgInstance = currentOrgUuid
+        ? userOrgs.find((org) => org.uuid === currentOrgUuid)
         : userOrgs[0];
     if (!currentOrgInstance) {
         throw new Error("No organisation for found for this user");
@@ -109,5 +118,19 @@ export const getCurrentUserSubscriptions = async (accessToken: string) => {
         fetch
     );
     const d = await apiClient.subscriptionAssetsControllerGetAssetsForOrg();
+    return d;
+};
+
+export const getOrgGhUsernames = async (
+    accessToken: string,
+    orgUuid: string
+) => {
+    const apiClient = await getAuthenticatedApiInstance(
+        UserOnboardingApi,
+        process.env.NEXT_PUBLIC_API_BASE_PATH,
+        accessToken,
+        fetch
+    );
+    const d = await apiClient.userOnboardingControllerGetAllForOrg({ orgUuid });
     return d;
 };

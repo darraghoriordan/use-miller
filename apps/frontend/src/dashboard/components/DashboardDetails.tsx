@@ -13,11 +13,13 @@ export const DashboardDetails = ({
     subs,
     subAssets,
     currentUser,
+    ghUsername,
 }: {
     currentOrg: Organisation;
     subs: OrganisationSubscriptionRecord[];
     subAssets: SubscriptionAsset[];
     currentUser: UserDto;
+    ghUsername: string | undefined;
 }) => {
     const isOwner = currentUser.memberships.some(
         (m) =>
@@ -48,7 +50,7 @@ export const DashboardDetails = ({
             <h1 className="text-4xl font-bold text-white mb-8">
                 {currentOrg.name}
             </h1>
-            <GithubUserForm />
+            <GithubUserForm ghUsername={ghUsername} />
             <div className="mt-16 mb-32">{subsComponent}</div>
         </div>
     );

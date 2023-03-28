@@ -1,6 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { Process, Processor } from "@nestjs/bull";
-import { ProductActivationDto } from "./product-activation.dto.js";
+import { ProductActivationDto } from "../models/product-activation.dto.js";
 import { Job } from "bull";
 import { UserOnboardingService } from "./user-onboarding.service.js";
 

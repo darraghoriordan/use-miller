@@ -728,6 +728,80 @@
         ]
       }
     },
+    "/onboarding/github-user/{orgUuid}": {
+      "get": {
+        "operationId": "UserOnboardingController_getAllForOrg",
+        "parameters": [
+          {
+            "name": "orgUuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrgGithubUser"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "User Onboarding"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/onboarding/github-user": {
+      "post": {
+        "operationId": "UserOnboardingController_addForOrg",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrgGithubUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrgGithubUser"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "User Onboarding"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/payments/stripe/checkout-session": {
       "post": {
         "operationId": "StripeCheckoutController_createCheckoutSession",
@@ -2135,6 +2209,50 @@
         "required": [
           "userId",
           "roles"
+        ]
+      },
+      "OrgGithubUser": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "orgUuid": {
+            "type": "string"
+          },
+          "ghUsername": {
+            "type": "string"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "orgUuid",
+          "ghUsername",
+          "createdDate",
+          "updateDate"
+        ]
+      },
+      "OrgGithubUserDto": {
+        "type": "object",
+        "properties": {
+          "ghUsername": {
+            "type": "string"
+          },
+          "orgUuid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ghUsername",
+          "orgUuid"
         ]
       },
       "StripeCheckoutLineItem": {

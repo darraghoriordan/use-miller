@@ -20,7 +20,7 @@ export async function getStripeCheckoutLink(
         if (!atResponse.accessToken) {
             throw new Error("No access token");
         }
-        console.log("CALLING");
+
         const apiClient = await getAuthenticatedApiInstance(
             PaymentsApi,
             process.env.NEXT_PUBLIC_API_BASE_PATH!,
@@ -32,13 +32,12 @@ export async function getStripeCheckoutLink(
             await apiClient.stripeCheckoutControllerCreateCheckoutSession({
                 stripeCheckoutSessionRequestDto: requestBody,
             });
-        console.log("data", data);
+
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Cache-Control", "no-store");
         res.end(JSON.stringify(data));
     } catch (error) {
-        console.error("CALLING", error);
         res.json(error);
         res.status(500).end();
     }

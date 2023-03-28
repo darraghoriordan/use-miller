@@ -1,30 +1,38 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export class init21678586472603 implements MigrationInterface {
-    name = "init21678586472603";
+export class init11680005914507 implements MigrationInterface {
+    name = "init11680005914507";
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(
-            `CREATE TABLE "payment_session_reference" ("id" SERIAL NOT NULL, "uuid" uuid NOT NULL DEFAULT uuid_generate_v4(), "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "organisationUuid" character varying, "userUuid" character varying NOT NULL, CONSTRAINT "PK_b2840bc526ab8cda218059434ea" PRIMARY KEY ("id"))`
+            `CREATE TABLE "payment_session_reference" ("id" SERIAL NOT NULL, "uuid" uuid NOT NULL DEFAULT uuid_generate_v4(), "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "organisationUuid" character varying, "userUuid" character varying, CONSTRAINT "PK_b2840bc526ab8cda218059434ea" PRIMARY KEY ("id"))`
         );
         await queryRunner.query(
             `CREATE INDEX "IDX_4907f10417f65fe2284c52eab2" ON "payment_session_reference" ("uuid") `
         );
         await queryRunner.query(
-            `CREATE TABLE "email" ("id" SERIAL NOT NULL, "ownerId" character varying NOT NULL, "uuid" uuid NOT NULL DEFAULT uuid_generate_v4(), "to" character varying NOT NULL, "bccTo" character varying NOT NULL, "textBody" character varying NOT NULL, "htmlBody" character varying NOT NULL, "subject" character varying NOT NULL, "sentDate" TIMESTAMP, "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "updatedDate" TIMESTAMP NOT NULL DEFAULT now(), "deletedDate" TIMESTAMP, CONSTRAINT "PK_1e7ed8734ee054ef18002e29b1c" PRIMARY KEY ("id"))`
+            `CREATE TABLE "subscription_asset" ("id" SERIAL NOT NULL, "internalSku" character varying NOT NULL, "uri" character varying NOT NULL, "description" character varying NOT NULL, "displayName" character varying NOT NULL, "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "updateDate" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_e4f3169b9426373901f0637d631" PRIMARY KEY ("id"))`
+        );
+        await queryRunner.query(
+            `CREATE TABLE "stripe_checkout_event" ("id" SERIAL NOT NULL, "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "clientReferenceId" character varying, "stripeSessionId" character varying NOT NULL, "stripeObjectType" character varying NOT NULL, "stripeObject" jsonb NOT NULL, CONSTRAINT "PK_6579d5f4a0e32634b0800eccf8b" PRIMARY KEY ("id"))`
+        );
+        await queryRunner.query(
+            `CREATE TABLE "email" ("id" SERIAL NOT NULL, "ownerId" character varying NOT NULL, "uuid" uuid NOT NULL DEFAULT uuid_generate_v4(), "to" character varying NOT NULL, "bccTo" character varying NOT NULL, "textBody" character varying, "htmlBody" character varying, "subject" character varying NOT NULL, "sentDate" TIMESTAMP, "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "updatedDate" TIMESTAMP NOT NULL DEFAULT now(), "deletedDate" TIMESTAMP, CONSTRAINT "PK_1e7ed8734ee054ef18002e29b1c" PRIMARY KEY ("id"))`
         );
         await queryRunner.query(
             `CREATE INDEX "IDX_69281e5c9fd2818a066d09f663" ON "email" ("ownerId") `
         );
         await queryRunner.query(
-            `CREATE TABLE "invitation" ("id" SERIAL NOT NULL, "uuid" uuid NOT NULL DEFAULT uuid_generate_v4(), "givenName" character varying NOT NULL, "emailAddress" character varying NOT NULL, "notificationSent" TIMESTAMP NOT NULL, "expiresOn" TIMESTAMP NOT NULL, "acceptedOn" TIMESTAMP NOT NULL, "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "updateDate" TIMESTAMP NOT NULL DEFAULT now(), "deletedDate" TIMESTAMP, CONSTRAINT "PK_beb994737756c0f18a1c1f8669c" PRIMARY KEY ("id"))`
+            `CREATE TABLE "org_github_user" ("id" SERIAL NOT NULL, "orgUuid" character varying NOT NULL, "ghUsername" character varying NOT NULL, "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "updateDate" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_cf49c458ad4a5d034673f08d081" PRIMARY KEY ("id"))`
         );
         await queryRunner.query(
-            `CREATE TABLE "membership_role" ("id" SERIAL NOT NULL, "membershipId" integer NOT NULL, "name" character varying NOT NULL, "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "updateDate" TIMESTAMP NOT NULL DEFAULT now(), "deletedDate" TIMESTAMP, CONSTRAINT "PK_4e57152f7d33b9804afb088fc5b" PRIMARY KEY ("id"))`
+            `CREATE TABLE "invitation" ("id" SERIAL NOT NULL, "uuid" uuid NOT NULL DEFAULT uuid_generate_v4(), "givenName" character varying NOT NULL, "emailAddress" character varying NOT NULL, "notificationSent" TIMESTAMP, "expiresOn" TIMESTAMP NOT NULL, "acceptedOn" TIMESTAMP, "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "updateDate" TIMESTAMP NOT NULL DEFAULT now(), "deletedDate" TIMESTAMP, "organisationMembershipId" integer, CONSTRAINT "PK_beb994737756c0f18a1c1f8669c" PRIMARY KEY ("id"))`
         );
         await queryRunner.query(
-            `CREATE TABLE "organisation_subscription_record" ("id" SERIAL NOT NULL, "uuid" uuid NOT NULL DEFAULT uuid_generate_v4(), "productDisplayName" character varying NOT NULL, "paymentSystemTransactionId" character varying NOT NULL, "paymentSystemProductId" character varying NOT NULL, "paymentSystemCustomerId" character varying NOT NULL, "paymentSystemCustomerEmail" character varying NOT NULL, "paymentSystemMode" character varying NOT NULL, "paymentSystemName" character varying NOT NULL, "validUntil" TIMESTAMP NOT NULL, "organisationId" integer NOT NULL, "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "updatedDate" TIMESTAMP NOT NULL DEFAULT now(), "deletedDate" TIMESTAMP, CONSTRAINT "PK_9c2633ac966aba1f77584146d39" PRIMARY KEY ("id"))`
+            `CREATE TABLE "membership_role" ("id" SERIAL NOT NULL, "membershipId" integer NOT NULL, "name" character varying NOT NULL, "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "updateDate" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_4e57152f7d33b9804afb088fc5b" PRIMARY KEY ("id"))`
+        );
+        await queryRunner.query(
+            `CREATE TABLE "organisation_subscription_record" ("id" SERIAL NOT NULL, "uuid" uuid NOT NULL DEFAULT uuid_generate_v4(), "internalSku" character varying NOT NULL, "productDisplayName" character varying NOT NULL, "paymentSystemTransactionId" character varying NOT NULL, "paymentSystemProductId" character varying NOT NULL, "paymentSystemCustomerId" character varying NOT NULL, "paymentSystemCustomerEmail" character varying NOT NULL, "paymentSystemMode" character varying NOT NULL, "paymentSystemName" character varying NOT NULL, "validUntil" TIMESTAMP NOT NULL, "organisationId" integer NOT NULL, "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "updatedDate" TIMESTAMP NOT NULL DEFAULT now(), "deletedDate" TIMESTAMP, CONSTRAINT "PK_9c2633ac966aba1f77584146d39" PRIMARY KEY ("id"))`
         );
         await queryRunner.query(
             `CREATE INDEX "IDX_e31e2f04bb67322588c870b772" ON "organisation_subscription_record" ("uuid") `
@@ -51,13 +59,13 @@ export class init21678586472603 implements MigrationInterface {
             `CREATE UNIQUE INDEX "IDX_12ba05413227b872a69d810cfc" ON "user" ("auth0UserId") `
         );
         await queryRunner.query(
-            `CREATE TABLE "organisation_membership" ("id" SERIAL NOT NULL, "uuid" uuid NOT NULL DEFAULT uuid_generate_v4(), "userId" integer NOT NULL, "organisationId" integer NOT NULL, "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "updateDate" TIMESTAMP NOT NULL DEFAULT now(), "deletedDate" TIMESTAMP, "invitationId" integer, CONSTRAINT "REL_19d8b2723789ec0384f06cd389" UNIQUE ("invitationId"), CONSTRAINT "PK_fc3213e972ff7b613ebc1833264" PRIMARY KEY ("id"))`
+            `CREATE TABLE "organisation_membership" ("id" SERIAL NOT NULL, "uuid" uuid NOT NULL DEFAULT uuid_generate_v4(), "userId" integer NOT NULL, "organisationId" integer NOT NULL, "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "updateDate" TIMESTAMP NOT NULL DEFAULT now(), "deletedDate" TIMESTAMP, CONSTRAINT "PK_fc3213e972ff7b613ebc1833264" PRIMARY KEY ("id"))`
         );
         await queryRunner.query(
             `CREATE INDEX "IDX_c1ed5dec3dd72686abbc0901f7" ON "organisation_membership" ("uuid") `
         );
         await queryRunner.query(
-            `CREATE TABLE "stripe_checkout_event" ("id" SERIAL NOT NULL, "createdDate" TIMESTAMP NOT NULL DEFAULT now(), "clientReferenceId" character varying, "stripeSessionId" character varying NOT NULL, "stripeObjectType" character varying NOT NULL, "stripeObject" jsonb NOT NULL, CONSTRAINT "PK_6579d5f4a0e32634b0800eccf8b" PRIMARY KEY ("id"))`
+            `ALTER TABLE "invitation" ADD CONSTRAINT "FK_df447ab611f96137545edd40775" FOREIGN KEY ("organisationMembershipId") REFERENCES "organisation_membership"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`
         );
         await queryRunner.query(
             `ALTER TABLE "membership_role" ADD CONSTRAINT "FK_cdfc7ee8916103744bdeb898720" FOREIGN KEY ("membershipId") REFERENCES "organisation_membership"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`
@@ -74,15 +82,9 @@ export class init21678586472603 implements MigrationInterface {
         await queryRunner.query(
             `ALTER TABLE "organisation_membership" ADD CONSTRAINT "FK_3be38f1dacbe189d169072d24c1" FOREIGN KEY ("organisationId") REFERENCES "organisation"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`
         );
-        await queryRunner.query(
-            `ALTER TABLE "organisation_membership" ADD CONSTRAINT "FK_19d8b2723789ec0384f06cd389f" FOREIGN KEY ("invitationId") REFERENCES "invitation"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`
-        );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(
-            `ALTER TABLE "organisation_membership" DROP CONSTRAINT "FK_19d8b2723789ec0384f06cd389f"`
-        );
         await queryRunner.query(
             `ALTER TABLE "organisation_membership" DROP CONSTRAINT "FK_3be38f1dacbe189d169072d24c1"`
         );
@@ -98,7 +100,9 @@ export class init21678586472603 implements MigrationInterface {
         await queryRunner.query(
             `ALTER TABLE "membership_role" DROP CONSTRAINT "FK_cdfc7ee8916103744bdeb898720"`
         );
-        await queryRunner.query(`DROP TABLE "stripe_checkout_event"`);
+        await queryRunner.query(
+            `ALTER TABLE "invitation" DROP CONSTRAINT "FK_df447ab611f96137545edd40775"`
+        );
         await queryRunner.query(
             `DROP INDEX "public"."IDX_c1ed5dec3dd72686abbc0901f7"`
         );
@@ -126,10 +130,13 @@ export class init21678586472603 implements MigrationInterface {
         );
         await queryRunner.query(`DROP TABLE "membership_role"`);
         await queryRunner.query(`DROP TABLE "invitation"`);
+        await queryRunner.query(`DROP TABLE "org_github_user"`);
         await queryRunner.query(
             `DROP INDEX "public"."IDX_69281e5c9fd2818a066d09f663"`
         );
         await queryRunner.query(`DROP TABLE "email"`);
+        await queryRunner.query(`DROP TABLE "stripe_checkout_event"`);
+        await queryRunner.query(`DROP TABLE "subscription_asset"`);
         await queryRunner.query(
             `DROP INDEX "public"."IDX_4907f10417f65fe2284c52eab2"`
         );
