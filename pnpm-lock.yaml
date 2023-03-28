@@ -12208,7 +12208,7 @@ packages:
       pretty-format: 29.5.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1_z3vu5dg2hu3jqyh3anri5tms2q
+      ts-node: 10.9.1_zd7fjxbseldtiwc6h6ujrbvxuy
     transitivePeerDependencies:
       - supports-color
     dev: true

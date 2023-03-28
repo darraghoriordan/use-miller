@@ -18,6 +18,10 @@ export class SubscriptionEventHandlerService {
             },
             "Handling queued item"
         );
-        await this.onboardingService.updateGithubAccess(job.data);
+        await this.onboardingService.updateGithubAccess({
+            productKey: job.data.productKey,
+            organisationUuid: job.data.organisationUuid,
+            isActive: job.data.active,
+        });
     }
 }

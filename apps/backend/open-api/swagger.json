@@ -728,32 +728,6 @@
         ]
       }
     },
-    "/user-onboarding/init-user": {
-      "post": {
-        "operationId": "UserOnboardingController_initUser",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InitUserResponseDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Users"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
     "/payments/stripe/checkout-session": {
       "post": {
         "operationId": "StripeCheckoutController_createCheckoutSession",
@@ -2161,17 +2135,6 @@
         "required": [
           "userId",
           "roles"
-        ]
-      },
-      "InitUserResponseDto": {
-        "type": "object",
-        "properties": {
-          "userWasInitialised": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "userWasInitialised"
         ]
       },
       "StripeCheckoutLineItem": {

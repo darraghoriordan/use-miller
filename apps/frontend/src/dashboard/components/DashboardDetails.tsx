@@ -4,6 +4,7 @@ import {
     SubscriptionAsset,
     UserDto,
 } from "@use-miller/shared-api-client";
+import { GithubUserForm } from "./GithubUserForm.jsx";
 import NoSubscriptions from "./NoSubscriptions.jsx";
 import { Subscriptions } from "./Subscriptions.jsx";
 
@@ -44,7 +45,10 @@ export const DashboardDetails = ({
 
     return (
         <div className="ml-16">
-            <h1 className="text-4xl font-bold text-white">{currentOrg.name}</h1>
+            <h1 className="text-4xl font-bold text-white mb-8">
+                {currentOrg.name}
+            </h1>
+            <GithubUserForm />
             <div className="mt-16 mb-32">{subsComponent}</div>
         </div>
     );
