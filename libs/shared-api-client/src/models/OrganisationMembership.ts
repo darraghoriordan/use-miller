@@ -78,12 +78,6 @@ export interface OrganisationMembership {
      * @memberof OrganisationMembership
      */
     updateDate: Date;
-    /**
-     * 
-     * @type {Date}
-     * @memberof OrganisationMembership
-     */
-    deletedDate?: Date;
 }
 
 export function OrganisationMembershipFromJSON(json: any): OrganisationMembership {
@@ -104,7 +98,6 @@ export function OrganisationMembershipFromJSONTyped(json: any, ignoreDiscriminat
         'roles': !exists(json, 'roles') ? undefined : ((json['roles'] as Array<any>).map(MembershipRoleFromJSON)),
         'createdDate': (new Date(json['createdDate'])),
         'updateDate': (new Date(json['updateDate'])),
-        'deletedDate': !exists(json, 'deletedDate') ? undefined : (new Date(json['deletedDate'])),
     };
 }
 
@@ -125,7 +118,6 @@ export function OrganisationMembershipToJSON(value?: OrganisationMembership | nu
         'roles': value.roles === undefined ? undefined : ((value.roles as Array<any>).map(MembershipRoleToJSON)),
         'createdDate': (value.createdDate.toISOString()),
         'updateDate': (value.updateDate.toISOString()),
-        'deletedDate': value.deletedDate === undefined ? undefined : (value.deletedDate.toISOString()),
     };
 }
 

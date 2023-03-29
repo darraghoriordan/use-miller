@@ -47,6 +47,7 @@ export type StripeTerraformOutputVariables = {
     regular_price_no_recurrence_id: { value: string };
     app_stripe_webhook_verification_key: { value: string };
     app_stripe_api_token: { value: string };
+    app_stripe_fulfilment_gh_token: { value: string };
 };
 
 console.log(figlet.textSync("Miller/Web"));
@@ -335,6 +336,7 @@ swapEnvVars({
             stripeTerraformOutputVariables.app_stripe_webhook_verification_key
                 .value,
         SUPER_USER_IDS: `"${auth0DevTerraformOutputVariables.test_user_auth0_user_id.value}"`,
+        GITHUB_ACCESS_TOKEN: `"${stripeTerraformOutputVariables.app_stripe_fulfilment_gh_token.value}"`,
     },
 });
 swapEnvVars({

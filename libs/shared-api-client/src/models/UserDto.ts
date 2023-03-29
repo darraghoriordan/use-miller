@@ -106,6 +106,12 @@ export interface UserDto {
     memberships: Array<OrganisationMembership>;
     /**
      * 
+     * @type {Array<string>}
+     * @memberof UserDto
+     */
+    activeSubscriptionProductKeys: Array<string>;
+    /**
+     * 
      * @type {Date}
      * @memberof UserDto
      */
@@ -147,6 +153,7 @@ export function UserDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): U
         'auth0UserId': !exists(json, 'auth0UserId') ? undefined : json['auth0UserId'],
         'username': !exists(json, 'username') ? undefined : json['username'],
         'memberships': ((json['memberships'] as Array<any>).map(OrganisationMembershipFromJSON)),
+        'activeSubscriptionProductKeys': json['activeSubscriptionProductKeys'],
         'createdDate': (new Date(json['createdDate'])),
         'updateDate': (new Date(json['updateDate'])),
         'deletedDate': !exists(json, 'deletedDate') ? undefined : (new Date(json['deletedDate'])),
@@ -175,6 +182,7 @@ export function UserDtoToJSON(value?: UserDto | null): any {
         'auth0UserId': value.auth0UserId,
         'username': value.username,
         'memberships': ((value.memberships as Array<any>).map(OrganisationMembershipToJSON)),
+        'activeSubscriptionProductKeys': value.activeSubscriptionProductKeys,
         'createdDate': (value.createdDate.toISOString()),
         'updateDate': (value.updateDate.toISOString()),
         'deletedDate': value.deletedDate === undefined ? undefined : (value.deletedDate.toISOString()),

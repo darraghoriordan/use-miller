@@ -273,6 +273,8 @@
       },
       "patch": {
         "operationId": "UserController_update",
+        "summary": "",
+        "description": "Limited to Super Admin role or the user themselves.",
         "parameters": [
           {
             "name": "uuid",
@@ -316,6 +318,8 @@
       },
       "delete": {
         "operationId": "UserController_remove",
+        "summary": "",
+        "description": "Limited to Super Admin role or the user themselves.",
         "parameters": [
           {
             "name": "uuid",
@@ -1936,10 +1940,6 @@
           "updateDate": {
             "format": "date-time",
             "type": "string"
-          },
-          "deletedDate": {
-            "format": "date-time",
-            "type": "string"
           }
         },
         "required": [
@@ -1998,6 +1998,12 @@
               "$ref": "#/components/schemas/OrganisationMembership"
             }
           },
+          "activeSubscriptionProductKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "createdDate": {
             "format": "date-time",
             "type": "string"
@@ -2018,6 +2024,7 @@
           "emailVerified",
           "blocked",
           "memberships",
+          "activeSubscriptionProductKeys",
           "createdDate",
           "updateDate"
         ]
@@ -2045,10 +2052,6 @@
             "type": "string"
           },
           "updateDate": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "deletedDate": {
             "format": "date-time",
             "type": "string"
           }

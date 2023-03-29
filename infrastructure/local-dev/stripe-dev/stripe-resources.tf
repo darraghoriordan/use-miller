@@ -115,6 +115,12 @@ output "regular_price_no_recurrence_id" {
   sensitive = false
 }
 
+
+output "app_stripe_fulfilment_gh_token" {
+  value     = var.app_stripe_fulfilment_gh_token
+  sensitive = true
+}
+
 output "app_stripe_webhook_verification_key" {
   value     = var.app_stripe_webhook_verification_key
   sensitive = true

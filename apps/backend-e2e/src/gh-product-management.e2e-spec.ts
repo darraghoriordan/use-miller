@@ -1,27 +1,23 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
-    Organisation,
-    OrganisationMembershipsApi,
-    OrganisationsApi,
     OrganisationSubscriptionRecord,
     OrganisationSubscriptionsApi,
     OrganisationSubscriptionsControllerAddSubscriptionRequest,
+    UserDto,
+    UserOnboardingApi,
     UsersApi,
 } from "@use-miller/shared-api-client";
-import { ApiClientFactory } from "../commonDataModels/ApiClientFactory";
-import { TestUserAccounts } from "../commonDataModels/AuthenticationTokenManager";
+import { ApiClientFactory } from "./commonDataModels/ApiClientFactory";
+import { TestUserAccounts } from "./commonDataModels/AuthenticationTokenManager";
 
-// This follows a user through the first steps when they hit
-// the api for the first time.
-
-describe("When getting a user the first time", () => {
+const ghTestUser = process.env.GH_INVITE_TEST_USER || "miller-test-user";
+describe("When a customer has purchased a product", () => {
     const userApi = ApiClientFactory.getAuthenticatedApiInstance(UsersApi);
-    const orgApi =
-        ApiClientFactory.getAuthenticatedApiInstance(OrganisationsApi);
-    const orgMembershipsApi = ApiClientFactory.getAuthenticatedApiInstance(
-        OrganisationMembershipsApi
-    );
+    const onboardingApi =
+        ApiClientFactory.getAuthenticatedApiInstance(UserOnboardingApi);
     const subscriptionsApi = ApiClientFactory.getAuthenticatedApiInstance(
         OrganisationSubscriptionsApi
     );
@@ -30,64 +26,37 @@ describe("When getting a user the first time", () => {
             OrganisationSubscriptionsApi,
             TestUserAccounts.SUPER_USER
         );
+    let user: UserDto | undefined;
 
-    it("the user is initialised", async () => {
-        const foundUser = await userApi.userControllerFindOne({
+    it("the user has no subscriptions", async () => {
+        user = await userApi.userControllerFindOne({
             uuid: "me",
         });
-        expect(foundUser).toMatchObject({
-            //   auth0UserId: expect.any(String),
-            email: "testbasic@testbasic.com",
-        });
-    }, 30_000);
-
-    it("any path other than 'me' is treated as an id", async () => {
-        await expect(() =>
-            userApi.userControllerFindOne({
-                uuid: "does_not_exist",
-            })
-        ).rejects.toMatchObject({ statusText: "Bad Request" });
+        expect(user.activeSubscriptionProductKeys.length).toBe(0);
     });
 
-    let org: Organisation | undefined;
-    it("the user has an organisation", async () => {
-        const orgs = await orgApi.organisationControllerFindAllForUser();
-        expect(orgs).toHaveLength(1);
-
-        org = orgs[0];
-    });
-
-    it("the user's org has one membership for the user", async () => {
-        const memberships =
-            await orgMembershipsApi.organisationMembershipsControllerFindAll({
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                orgUuid: org!.uuid,
+    it("the users org has no github id added", async () => {
+        const ghUsers =
+            await onboardingApi.userOnboardingControllerGetAllForOrg({
+                orgUuid: user?.memberships[0].organisation.uuid!,
             });
-        expect(memberships).toHaveLength(1);
-
-        expect(memberships[0]).toMatchObject({
-            roles: [
-                {
-                    name: "owner",
-                },
-            ],
-        });
+        expect(ghUsers.length).toBe(0);
     });
 
-    it("the user's org has no subscriptions", async () => {
-        const subscriptions =
-            await subscriptionsApi.organisationSubscriptionsControllerFindAll({
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                orgId: org!.id,
-            });
-        expect(subscriptions).toHaveLength(0);
+    it("the user can add a github username to their own org", async () => {
+        const ghUser = await onboardingApi.userOnboardingControllerAddForOrg({
+            orgGithubUserDto: {
+                ghUsername: ghTestUser,
+                orgUuid: user?.memberships[0].organisation.uuid!,
+            },
+        });
+        expect(ghUser.ghUsername).toBe(ghTestUser);
     });
 
     let sub: OrganisationSubscriptionRecord[] | undefined;
     it("as super user we can add a subscription", async () => {
         const requestParameters = {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            orgId: org!.id,
+            orgId: user?.memberships[0].organisationId,
             saveOrganisationSubscriptionRecordDto: {
                 // 1 year from now
                 validUntil: new Date(
@@ -115,8 +84,7 @@ describe("When getting a user the first time", () => {
     it("as a super user we can remove any subscription", async () => {
         const subscriptions =
             await subscriptionsApi.organisationSubscriptionsControllerFindAll({
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                orgId: org!.id,
+                orgId: user?.memberships[0].organisationId!,
             });
 
         const results = [];
@@ -124,9 +92,7 @@ describe("When getting a user the first time", () => {
             const isDeleted =
                 await superUserSubscriptionsApi.organisationSubscriptionsControllerDeleteSubscription(
                     {
-                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                        orgId: org!.id,
-                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                        orgId: user?.memberships[0].organisationId!,
                         uuid: subscription.uuid,
                     }
                 );
@@ -137,5 +103,15 @@ describe("When getting a user the first time", () => {
         for (const r of results) {
             expect(r.result).toBe(true);
         }
+    });
+
+    it("the user can remove the github username from their own org", async () => {
+        const ghUser = await onboardingApi.userOnboardingControllerAddForOrg({
+            orgGithubUserDto: {
+                ghUsername: ghTestUser,
+                orgUuid: user?.memberships[0].organisation.uuid!,
+            },
+        });
+        expect(ghUser.ghUsername).toBe(ghTestUser);
     });
 });

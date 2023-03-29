@@ -74,7 +74,7 @@ export interface UsersApiInterface {
     userControllerFindOne(requestParameters: UserControllerFindOneRequest): Promise<UserDto>;
 
     /**
-     * 
+     * Limited to Super Admin role or the user themselves.
      * @param {string} uuid 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -83,11 +83,12 @@ export interface UsersApiInterface {
     userControllerRemoveRaw(requestParameters: UserControllerRemoveRequest): Promise<runtime.ApiResponse<BooleanResult>>;
 
     /**
+     * Limited to Super Admin role or the user themselves.
      */
     userControllerRemove(requestParameters: UserControllerRemoveRequest): Promise<BooleanResult>;
 
     /**
-     * 
+     * Limited to Super Admin role or the user themselves.
      * @param {string} uuid 
      * @param {object} body 
      * @param {*} [options] Override http request option.
@@ -97,6 +98,7 @@ export interface UsersApiInterface {
     userControllerUpdateRaw(requestParameters: UserControllerUpdateRequest): Promise<runtime.ApiResponse<BooleanResult>>;
 
     /**
+     * Limited to Super Admin role or the user themselves.
      */
     userControllerUpdate(requestParameters: UserControllerUpdateRequest): Promise<BooleanResult>;
 
@@ -178,6 +180,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
     }
 
     /**
+     * Limited to Super Admin role or the user themselves.
      */
     async userControllerRemoveRaw(requestParameters: UserControllerRemoveRequest): Promise<runtime.ApiResponse<BooleanResult>> {
         if (requestParameters.uuid === null || requestParameters.uuid === undefined) {
@@ -207,6 +210,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
     }
 
     /**
+     * Limited to Super Admin role or the user themselves.
      */
     async userControllerRemove(requestParameters: UserControllerRemoveRequest): Promise<BooleanResult> {
         const response = await this.userControllerRemoveRaw(requestParameters);
@@ -214,6 +218,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
     }
 
     /**
+     * Limited to Super Admin role or the user themselves.
      */
     async userControllerUpdateRaw(requestParameters: UserControllerUpdateRequest): Promise<runtime.ApiResponse<BooleanResult>> {
         if (requestParameters.uuid === null || requestParameters.uuid === undefined) {
@@ -250,6 +255,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
     }
 
     /**
+     * Limited to Super Admin role or the user themselves.
      */
     async userControllerUpdate(requestParameters: UserControllerUpdateRequest): Promise<BooleanResult> {
         const response = await this.userControllerUpdateRaw(requestParameters);

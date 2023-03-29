@@ -1,9 +1,5 @@
-import {
-    ApplicationSupportApi,
-    EmailClientApi,
-} from "@use-miller/shared-api-client";
-import { ApiClientFactory } from "./commonDataModels/ApiClientFactory";
-import { TestUserAccounts } from "./commonDataModels/AuthenticationTokenManager";
+import { EmailClientApi } from "@use-miller/shared-api-client";
+import { ApiClientFactory } from "../commonDataModels/ApiClientFactory";
 
 describe("When using the email client", () => {
     const emailClientApi =
@@ -14,13 +10,4 @@ describe("When using the email client", () => {
 
         expect(result.result).toBe(true);
     }, 20_000);
-
-    afterAll(async () => {
-        const applicationSupportApi =
-            ApiClientFactory.getAuthenticatedApiInstance(
-                ApplicationSupportApi,
-                TestUserAccounts.SUPER_USER
-            );
-        await applicationSupportApi.superPowersControllerResetDatabase();
-    });
 });

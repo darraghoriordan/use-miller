@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { ApplicationSupportApi } from "@use-miller/shared-api-client";
-import { ApiClientFactory } from "./commonDataModels/ApiClientFactory";
-import { TestUserAccounts } from "./commonDataModels/AuthenticationTokenManager";
+import { ApiClientFactory } from "../commonDataModels/ApiClientFactory";
+import { TestUserAccounts } from "../commonDataModels/AuthenticationTokenManager";
 
 describe("For unauthenticated users", () => {
     const applicationSupportApi =
@@ -71,9 +71,5 @@ describe("For super admin authorized users", () => {
         const response =
             await applicationSupportApi.appControllerGetHelloSuperAdmin();
         expect(response).toEqual("Healthy and running");
-    });
-
-    afterAll(async () => {
-        await applicationSupportApi.superPowersControllerResetDatabase();
     });
 });

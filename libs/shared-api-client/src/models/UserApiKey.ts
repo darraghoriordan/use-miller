@@ -61,12 +61,6 @@ export interface UserApiKey {
      * @memberof UserApiKey
      */
     updateDate: Date;
-    /**
-     * 
-     * @type {Date}
-     * @memberof UserApiKey
-     */
-    deletedDate?: Date;
 }
 
 export function UserApiKeyFromJSON(json: any): UserApiKey {
@@ -86,7 +80,6 @@ export function UserApiKeyFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'userId': json['userId'],
         'createdDate': (new Date(json['createdDate'])),
         'updateDate': (new Date(json['updateDate'])),
-        'deletedDate': !exists(json, 'deletedDate') ? undefined : (new Date(json['deletedDate'])),
     };
 }
 
@@ -106,7 +99,6 @@ export function UserApiKeyToJSON(value?: UserApiKey | null): any {
         'userId': value.userId,
         'createdDate': (value.createdDate.toISOString()),
         'updateDate': (value.updateDate.toISOString()),
-        'deletedDate': value.deletedDate === undefined ? undefined : (value.deletedDate.toISOString()),
     };
 }
 

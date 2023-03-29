@@ -5,9 +5,10 @@ import {
     InvitationsApi,
     ApplicationSupportApi,
     OrganisationsApi,
+    OrganisationMembershipsApi,
 } from "@use-miller/shared-api-client";
-import { ApiClientFactory } from "./commonDataModels/ApiClientFactory";
-import { TestUserAccounts } from "./commonDataModels/AuthenticationTokenManager";
+import { ApiClientFactory } from "../commonDataModels/ApiClientFactory";
+import { TestUserAccounts } from "../commonDataModels/AuthenticationTokenManager";
 
 describe("When inviting users", () => {
     const applicationSupportApi = ApiClientFactory.getAuthenticatedApiInstance(
@@ -20,6 +21,10 @@ describe("When inviting users", () => {
     );
     const invitationsApi = ApiClientFactory.getAuthenticatedApiInstance(
         InvitationsApi,
+        TestUserAccounts.SUPER_USER
+    );
+    const membershipsApi = ApiClientFactory.getAuthenticatedApiInstance(
+        OrganisationMembershipsApi,
         TestUserAccounts.SUPER_USER
     );
 
@@ -166,12 +171,24 @@ describe("When inviting users", () => {
         });
     });
 
-    afterAll(async () => {
-        const applicationSupportApi =
-            ApiClientFactory.getAuthenticatedApiInstance(
-                ApplicationSupportApi,
-                TestUserAccounts.SUPER_USER
-            );
-        await applicationSupportApi.superPowersControllerResetDatabase();
+    it("Invited users membership can be removed", async () => {
+        const orgs = await orgsApi.organisationControllerFindAllForUser();
+        const memberships =
+            await membershipsApi.organisationMembershipsControllerFindAll({
+                orgUuid: orgs[0].uuid,
+            });
+        const nonOwner = memberships.filter((m) =>
+            m.roles?.some((r) => r.name !== "owner")
+        );
+        if (nonOwner.length !== 1) {
+            //unexpected
+            throw new Error("Unexpected number of non-owner memberships");
+        }
+        const isRemoved =
+            await membershipsApi.organisationMembershipsControllerRemove({
+                orgUuid: orgs[0].uuid,
+                membershipUuid: nonOwner[0].uuid,
+            });
+        expect(isRemoved).toStrictEqual({ result: true });
     });
 });

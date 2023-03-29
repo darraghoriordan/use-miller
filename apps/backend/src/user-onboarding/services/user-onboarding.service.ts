@@ -121,9 +121,9 @@ export class UserOnboardingService {
     }): Promise<void> {
         this.logger.debug(
             {
-                event,
+                accessRequest,
             },
-            "Handling queued item"
+            "Updating gh access"
         );
         // check the customer has access to the product(s)
         const orgGhUsers = await this.orgGhUserRepo.find({
