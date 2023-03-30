@@ -14,39 +14,46 @@ export function Hero({ user }: { user: UserDto }) {
         {
             colorVariant: "violet" as ThemeColor,
             title: "Miller Start",
-            blurb: "Learn full-stack web development with a NextJS frontend and a NestJS backend.",
+            blurb: "Master full-stack web development by example",
             image: millerStartLogo,
-            link: "/miller-start",
+            learnMoreLink: "/miller-start",
+            altLinkText: "Preview the code now",
+            altLink: "/docs/miller-start/reference/miller-web/L1JFQURNRS5tZA==",
             benefits: [
-                "Accelerate your product development with practical examples",
-                "Modules for orgs, memberships, authz payments, queues, twitter, emails, and much more",
-                "Detailed open API docs to support OpenAPI plugin development, auto-generated client libraries",
-                "Pre-built Terraform scripts for managing IaC, Auth0, Stripe all from your terminal",
+                "Become a pro with NextJs, NestJs, tailwind, PostgreSQL, Redis and more",
+                "Accelerate your product development with a fully featured, full-stack app starter",
+                "Setup a new full-stack app in minutes with scripts and terraform",
+                "Advance your learning from beginner tutorials",
             ],
         },
         {
             title: "Local Dev Tools",
-            blurb: "Utilities for developers, keep your business data safe and local.",
+            blurb: "Control your data with local dev utilities",
             image: devToolsLogo,
-            link: "/local-dev-tools",
+            learnMoreLink: "/local-dev-tools",
+            altLinkText: "Download now",
+            altLink: "/local-dev-tools#features",
             benefits: [
-                "Forget random tools websites - encode and decode data offline",
-                "Utilities for git repository management",
-                "Perpetual licence and ownership",
-                "Works on Mac and Windows",
+                "Keep your business data safe from random tools websites",
+                "Local utilities for Git repository management",
+                "Not a SaaS! - Perpetual licence and ownership",
+                "Universal app - Mac and Windows",
             ],
             colorVariant: "cyan" as ThemeColor,
         },
         {
             title: "Miller Dev Shell",
-            blurb: "Setup a beautiful, modern terminal environment with one command. All tools included.",
+            blurb: "Say Goodbye to manual environment configuration",
             image: devShellLogo,
-            link: "/dev-shell",
+            learnMoreLink: "/dev-shell",
+            altLinkText: "Preview the code now",
+            altLink:
+                "/docs/dev-shell/reference/dev-shell-scripts/L1JFQURNRS5tZA==",
             benefits: [
-                "14+ well tested, re-runnable shell scripts",
-                "50+ of the best modern developer tools",
+                "Well tested, re-runnable shell configuration scripts",
+                "50+ of the best modern developer tools, pre-configured",
+                "Designed for a consistent shell on Mac and Windows WSL",
                 "Perpetual licence and updates",
-                "Designed for a consistent shell on Mac and Windows",
             ],
             colorVariant: "green" as ThemeColor,
         },
@@ -71,12 +78,12 @@ export function Hero({ user }: { user: UserDto }) {
                         <div className="md:flex">
                             <div className="mr-8">
                                 <h1 className="leading-snug mx-auto max-w-2xl font-display text-6xl font-medium tracking-tight text-white md:mx-0">
-                                    Tools for busy developers and teams
+                                    Tools that Help You Code Faster and Safer
                                 </h1>
                                 <p className="mx-auto mt-6 max-w-2xl text-left text-lg tracking-tight text-gray-400 md:mx-0">
-                                    Miller software tools save you time so you
-                                    can focus on helping your customers. Built
-                                    by developers for developers.
+                                    Miller dev tools save you time so you can
+                                    focus on building your product and helping
+                                    your customers.
                                 </p>
                             </div>
                             <div className="intro-image-rotation md:relative w-1/2 md:w-full mt-20 md:mt-0 md:mb-0 hidden md:block">
@@ -98,7 +105,7 @@ export function Hero({ user }: { user: UserDto }) {
                         </div>
                     </div>
                     <div
-                        className="flex flex-col space-y-16 mb-32 mt-16 md:mt-52"
+                        className="flex flex-col space-y-16 mb-32 mt-16 md:mt-16"
                         id="features"
                     >
                         {products.map((product) => (

@@ -2,30 +2,37 @@ import { Container } from "./Container";
 import { NavLink } from "./NavLink";
 import StyledHref from "./StyledHref.jsx";
 
-export function Footer({ productKey }: { productKey: string }) {
+export function Footer({
+    productKey,
+    headerTitle,
+}: {
+    productKey?: string;
+    headerTitle?: string;
+}) {
     return (
         <footer className="">
             <div className="py-6">
                 <Container className="">
                     <p className="text-center text-3xl text-white">
-                        Miller Dev Tools
+                        {headerTitle || `Miller Dev Tools`}
                     </p>
                     <nav className="mt-10 text-sm" aria-label="quick links">
                         <div className="-my-1 flex justify-center gap-x-6">
-                            <NavLink href={`/${productKey}/#features`}>
-                                Features
-                            </NavLink>
-                            <NavLink href={`/${productKey}/#pricing`}>
-                                Pricing
-                            </NavLink>
-                            <StyledHref
-                                href={`/docs/${productKey}/get-started/quick-start`}
-                            >
-                                Docs
-                            </StyledHref>
-                            <StyledHref href={`/about`}>
-                                About Miller
-                            </StyledHref>
+                            {productKey && (
+                                <>
+                                    <NavLink href={`/${productKey}/#features`}>
+                                        Features
+                                    </NavLink>
+                                    <NavLink href={`/${productKey}/#pricing`}>
+                                        Pricing
+                                    </NavLink>
+                                    <StyledHref
+                                        href={`/docs/${productKey}/get-started/quick-start`}
+                                    >
+                                        Docs
+                                    </StyledHref>
+                                </>
+                            )}
                         </div>
                     </nav>
                 </Container>
@@ -47,6 +54,12 @@ export function Footer({ productKey }: { productKey: string }) {
                             className="hover:bg-transparent hover:text-white text-white hover:underline hover:underline-offset-4"
                         >
                             Privacy
+                        </NavLink>
+                        <NavLink
+                            href="/about"
+                            className="hover:bg-transparent hover:text-white text-white hover:underline hover:underline-offset-4"
+                        >
+                            About Miller
                         </NavLink>
                     </div>
                 </Container>

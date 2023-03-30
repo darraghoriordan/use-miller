@@ -1,17 +1,10 @@
 import {
-    FullDoc,
     getStaticDocsPageSlugs,
     getSinglePost,
 } from "../../../../docs/docParser.js";
 
 import { GetStaticPaths } from "next";
-import {
-    createMenu,
-    mapMenuTitle,
-} from "../../../../docs/leftMenuGeneration.js";
-import { DocArticle } from "../../../../docs/components/DocArticle.jsx";
-import { MenuSection } from "../../../../components/LeftMenu.jsx";
-import { LeftMenuWrappedContent } from "../../../../components/LeftMenuWrappedContent.jsx";
+import { createMenu, mapTitles } from "../../../../docs/leftMenuGeneration.js";
 
 export async function getStaticProps({
     params,
@@ -24,13 +17,13 @@ export async function getStaticProps({
         sectionSlug: params.section,
     });
     const menuSections = await createMenu(params.productKey);
-    const headerTitle = mapMenuTitle(params.productKey);
+    const titles = mapTitles(params.productKey);
     // calculating this locally out of laziness
 
     return {
         props: {
             productKey: params.productKey,
-            headerTitle,
+            ...titles,
             menuSections,
             article,
         },

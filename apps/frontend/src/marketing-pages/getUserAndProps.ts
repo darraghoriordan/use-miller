@@ -15,25 +15,35 @@ export async function getMarketingServerSideProps(
             },
         };
     }
-    const atResponse = await getAccessToken(context.req, context.res, {
-        scopes: ["openid", "email", "profile", "offline_access"],
-    });
-    const apiClient = await getAuthenticatedApiInstance(
-        UsersApi,
-        process.env.NEXT_PUBLIC_API_BASE_PATH!,
-        atResponse.accessToken!,
-        fetch
-    );
+    try {
+        const atResponse = await getAccessToken(context.req, context.res, {
+            scopes: ["openid", "email", "profile", "offline_access"],
+        });
+        const apiClient = await getAuthenticatedApiInstance(
+            UsersApi,
+            process.env.NEXT_PUBLIC_API_BASE_PATH!,
+            atResponse.accessToken!,
+            fetch
+        );
 
-    const user = await apiClient.userControllerFindOne({
-        uuid: "me",
-    });
+        const user = await apiClient.userControllerFindOne({
+            uuid: "me",
+        });
 
-    return {
-        props: JSON.parse(
-            JSON.stringify({
-                user,
-            })
-        ),
-    };
+        return {
+            props: JSON.parse(
+                JSON.stringify({
+                    user,
+                })
+            ),
+        };
+    } catch (error) {
+        // log user out of auth0
+        return {
+            redirect: {
+                destination: "/api/auth/logout",
+                permanent: false,
+            },
+        };
+    }
 }

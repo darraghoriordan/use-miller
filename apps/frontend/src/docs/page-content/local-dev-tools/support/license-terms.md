@@ -4,13 +4,13 @@ date: "2020-01-01"
 order: 10
 ---
 
-## Summary
-
-(Please read full EULA)
+## TL;DR Summary
 
 1. This code is not peer reviewed and is not guaranteed to be secure. It has not been penetration tested or analysed in any way.
 1. If online services are used, you are responsible for the security of your own credentials.
 1. If online services or features are added in the future, they will be marked as-such on the UI.
+
+(Please read full EULA below)
 
 ## EULA (End User License Agreement)
 

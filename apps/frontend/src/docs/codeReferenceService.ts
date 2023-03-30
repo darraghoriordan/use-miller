@@ -5,7 +5,7 @@ import {
 } from "@use-miller/shared-api-client";
 import { GetServerSidePropsContext } from "next";
 import { getAccessToken, getSession } from "@auth0/nextjs-auth0";
-import { createMenu, mapMenuTitle } from "./leftMenuGeneration.js";
+import { createMenu, mapTitles } from "./leftMenuGeneration.js";
 import {
     getAnonymousApiInstance,
     getAuthenticatedApiInstance,
@@ -165,13 +165,14 @@ export async function getCodeFileServerSideProps(
         accessToken
     );
     const menuSections = await createMenu(productKey);
-    const headerTitle = mapMenuTitle(productKey);
+    const titles = mapTitles(productKey);
+
     return {
         props: {
             productKey,
             menuSections,
             codeExplorerData,
-            headerTitle,
+            ...titles,
         }, // will be passed to the page component as props
     };
 }

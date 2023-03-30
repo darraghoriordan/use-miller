@@ -5,12 +5,12 @@ import diffImage from "./intro-media/diff.png";
 import exaImage from "./intro-media/exa.png";
 import Image from "next/image";
 import { UserDto } from "@use-miller/shared-api-client";
-import { BuyNowButton } from "../../components/BuyNowButton.jsx";
 import { TwitterCTA } from "../components/TwitterCTA.jsx";
+import { CheckIcon } from "@heroicons/react/24/outline";
 
 export function Hero({ user }: { user: UserDto }) {
     const features = [
-        "14+ well tested, re-runnable shell scripts that install everything a developer needs",
+        "Well tested, re-runnable shell scripts that install everything a developer needs",
         "All tools configured to be available on Mac and Windows WSL Ubuntu where possible",
         "Near-instant searching on the CLI with fzf",
         "Great developer settings for your global git and npm configurations.",
@@ -25,9 +25,43 @@ export function Hero({ user }: { user: UserDto }) {
         "VSCode configuration which has many improvements and common extensions to make your life easier",
         "Own the scripts forever - you get the source and I keep the scripts updated and you can get the latest versions for as long as I update them!",
     ];
+    const topFeatures = [
+        {
+            name: "All your packages installed",
+            description:
+                "All your tools installed via homebrew (Mac) or Apt (Windows WSL). Antigen is pre-configured to manage your zsh plugins.",
+        },
+        {
+            name: "Vscode pre-configured",
+            description:
+                "Installs vscode, configures sensible settings and installs common extensions (eslint, prettier, tailwind, spell checker, xml and more)",
+        },
+        {
+            name: "Global developer config",
+            description:
+                "Sensible global git ignores, git config, git aliases, npmrc, zsh aliases and more. Auto-detect flutter, dotnet, miniconda and add to PATH, and more",
+        },
+        {
+            name: "Consistency for Mac and Windows",
+            description:
+                "Installs zsh to WSL, adds beautiful tools and fonts to match the Mac experience. Aliases commands to match Mac",
+        },
+        {
+            name: "Annoying new Mac setup - gone",
+            description:
+                "All text files on mac associated with VSCode, 'smart quotes' disabled, DS_Store files disabled where possible and more",
+        },
+
+        {
+            name: "Full control for you",
+            description:
+                "Get access to the source code in GitHub so you can edit to suit your needs. Delete parts you don't need and add what you use.",
+        },
+    ];
     const codeHref = `docs/dev-shell/reference/dev-shell-scripts/${btoa(
         "/README.md"
     )}`;
+    const docsHref = `/docs/dev-shell/get-started/quick-start`;
     return (
         <Container className="pt-20 text-left">
             <div className="flex">
@@ -44,15 +78,17 @@ export function Hero({ user }: { user: UserDto }) {
                 </div>
                 <div>
                     <div id="hero">
-                        <div className="md:flex">
+                        <div className="md:flex" id="features">
                             <div className="mr-8">
                                 <h1 className="leading-snug mx-auto max-w-2xl font-display text-6xl font-medium tracking-tight text-white md:mx-0">
-                                    DevShell Terminal for Mac and Windows WSL
+                                    Your full dev environment configured with
+                                    one command
                                 </h1>
                                 <p className="mx-auto mt-6 max-w-2xl text-left text-lg tracking-tight text-gray-400 md:mx-0">
                                     Save 30+ hours configuring your development
-                                    environment. Designed to give you the same
-                                    shell experience on Mac and Windows.
+                                    environment. Specifically designed to give
+                                    you the same shell experience on Mac and
+                                    Windows.
                                 </p>
                             </div>
                             <div className="intro-image-rotation md:relative w-1/2 md:w-full mt-20 mb-32 md:mt-0 md:mb-0">
@@ -78,34 +114,89 @@ export function Hero({ user }: { user: UserDto }) {
                                 </div>
                             </div>
                         </div>
+                        <div className="mx-auto mt-24 flex gap-x-6 md:mx-0">
+                            <dl className="col-span-2 grid grid-cols-1 gap-x-8 gap-y-10 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:gap-y-16">
+                                {topFeatures.map((tf) => (
+                                    <div
+                                        key={tf.name}
+                                        className="relative pl-9 "
+                                    >
+                                        <dt className="font-semibold text-white">
+                                            <CheckIcon
+                                                className="absolute left-0 top-1 h-5 w-5 text-green-500"
+                                                aria-hidden="true"
+                                            />
+                                            {tf.name}
+                                        </dt>
+                                        <dd className="mt-2  text-gray-400">
+                                            {tf.description}
+                                        </dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        </div>
                         <div className="mx-auto mt-10 flex gap-x-6 md:mx-0">
-                            <BuyNowButton
-                                user={user}
-                                productKey="dev-shell"
-                                color="violet"
-                            />
-
                             <StyledLink
-                                href={codeHref}
+                                href={"#pricing"}
                                 color="violet"
                                 className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
                             >
-                                View the code
+                                Pricing
+                            </StyledLink>
+                            <StyledLink
+                                href={docsHref}
+                                color="violet"
+                                className="rounded-lg text-xl px-14 py-4 hover:shadow-lg"
+                            >
+                                Read the docs
+                            </StyledLink>
+                            <StyledLink
+                                href={codeHref}
+                                color="violet"
+                                className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg border border-white"
+                            >
+                                Preview the code
                             </StyledLink>
                         </div>
                     </div>
-                    <div className="mt-16" id="features">
+                    <div className="mt-16" id="">
+                        <p className="max-w-4xl text-left font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
+                            Setup your full Dev Env in minutes
+                        </p>
+                        <p className="mt-4 text-left font-display text-lg  text-gray-200 mb-8">
+                            DevShell scripts will detect your OS and configure
+                            your shell, install your favourite packages, set
+                            aliases, configure system settings, install vscode
+                            settings and extensions, clone your repos and more.
+                        </p>
+                        <p className="mt-4 text-left font-display text-lg  text-gray-200 mb-8">
+                            Preview what this experience looks like on YouTube:
+                        </p>
+                        <iframe
+                            width="710"
+                            height="399"
+                            src="https://www.youtube.com/embed/laX7U9bc7rw"
+                            title="Developer Shell setup script demo on MacOS"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                        ></iframe>
+                    </div>
+                    <div className="mt-16">
                         <p className="mb-8 max-w-4xl text-left font-display text-4xl font-medium tracking-tight text-white">
                             What is DevShell?
                         </p>
-                        <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
+                        <p className="mt-4 text-left font-display text-lg  text-gray-200">
                             DevShell is a collection of well-tested scripts for
                             setting up and synchronising your shell across all
-                            of your computers. Have one source of truth for all
-                            your aliases, functions, preferred packages and any
-                            other configuration.
+                            of your computers.{" "}
                         </p>
-                        <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
+                        <p className="mt-4 text-left font-display text-lg text-gray-200">
+                            Have one source of truth for all your Macs and PCs -
+                            consistent aliases, functions, preferred packages
+                            and any other configuration.
+                        </p>
+                        <p className="mt-4 text-left font-display text-lg text-gray-200">
                             DevShell also includes all the latest and greatest
                             terminal tooling to help a productive developer. The
                             windows tools are already aliased to the mac
@@ -145,8 +236,8 @@ export function Hero({ user }: { user: UserDto }) {
                                 <strong>Open tooling.</strong> This is not a
                                 SaaS product. When you purchase DevShell you get
                                 the source code. You can modify it to your
-                                heart's content. Customize your environment to
-                                your specific needs.
+                                heart's content. Every dev will customize their
+                                own environment to specific needs.
                             </li>
                         </ul>
                     </div>
@@ -164,57 +255,52 @@ export function Hero({ user }: { user: UserDto }) {
                                 </li>
                             ))}
                         </ul>
-                        <p className="mt-8 text-left font-display text-lg tracking-tight text-gray-200 mb-8">
-                            "But I'm a developer, I could build this myself" -
-                            You absolutely could. If you want to learn shell
-                            scripting, it's a great project to do that. But it
-                            will take 10-20 hours at least to build up all the
-                            tools and config here so you will be "paying
-                            yourself" $3/hour or less. Check out{" "}
-                            <a
-                                className="hover:underline hover:cursor-pointer"
-                                href="https://www.darraghoriordan.com/2022/01/28/developer-shell-modern-bat-fzf-antigen-zsh-wsl-mac/"
-                            >
-                                my blog post
-                            </a>{" "}
-                            with some tips for shell tools if you're keen to go
-                            that route.
-                        </p>
+
                         <div className="mx-auto mt-10 flex gap-x-6 md:mx-0">
-                            <BuyNowButton
-                                user={user}
-                                productKey="dev-shell"
-                                color="green"
-                                text="Buy Now - $29"
-                            />
                             <StyledLink
-                                href={codeHref}
+                                href={"#pricing"}
                                 color="green"
                                 className="rounded-lg text-xl px-14 py-4 hover:shadow-lg"
                             >
-                                View the code
+                                Pricing
+                            </StyledLink>
+                            <StyledLink
+                                href={docsHref}
+                                color="green"
+                                className="rounded-lg text-xl px-14 py-4 hover:shadow-lg"
+                            >
+                                Read the docs
+                            </StyledLink>
+                            <StyledLink
+                                href={codeHref}
+                                color="green"
+                                className="rounded-lg text-xl px-14 py-4 hover:shadow-lg border border-white"
+                            >
+                                Preview the code
                             </StyledLink>
                         </div>
                     </div>
                     <div className="mt-16" id="">
-                        <p className="max-w-4xl text-left font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
-                            Setup your full Dev Env in minutes
+                        <p className="mt-8 text-left font-display text-2xl text-gray-200 mb-8">
+                            " But I'm a developer, I could build this myself!? "
                         </p>
-                        <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200 mb-8">
-                            DevShell scripts will detect your OS and configure
-                            your shell, install your favourite packages, set
-                            aliases, configure system settings, install vscode
-                            settings and extensions, clone your repos and more.
+                        <p className="mt-8 text-left font-display text-lg text-gray-200 mb-8">
+                            You absolutely could! It's a great project to learn
+                            shell scripting if you'd like to do that. Check out{" "}
+                            <a
+                                className="hover:cursor-pointer underline"
+                                href="https://www.darraghoriordan.com/2022/01/28/developer-shell-modern-bat-fzf-antigen-zsh-wsl-mac/"
+                            >
+                                my blog post
+                            </a>{" "}
+                            with some tips for shell tools if you're keen to
+                            learn yourself.
                         </p>
-                        <iframe
-                            width="710"
-                            height="399"
-                            src="https://www.youtube.com/embed/laX7U9bc7rw"
-                            title="Developer Shell setup script demo on MacOS"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowFullScreen
-                        ></iframe>
+                        <p className="mt-8 text-left font-display text-lg text-gray-200 mb-8">
+                            It will take 10-20 hours, at least, to build up all
+                            the tools and config here so that's ~$3/hour. If you
+                            just want to save time... DevShell is for you!
+                        </p>
                         <TwitterCTA />
                     </div>
                 </div>

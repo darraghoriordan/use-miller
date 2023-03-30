@@ -10,8 +10,7 @@ export default function Home({ user }: { user: UserDto }) {
         <Layout
             seoDescription="Miller builds tools for busy developers. Learn NestJs and NextJs, enrich your shell, get useful local dev tools, and more."
             seoTitle="Miller - Tools for busy devs!"
-            headerTitle="Miller"
-            productKey="miller-start"
+            headerTitle="Miller Dev Tools"
             themeColor="violet"
         >
             <Hero user={user} />

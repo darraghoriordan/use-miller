@@ -29,6 +29,10 @@ export function Pricing({ user }: { user: UserDto }) {
                     <p className="mt-4 text-left font-display text-lg font-medium tracking-tight ">
                         Simple pricing, pay once and use forever.
                     </p>
+                    <p className="mt-4 text-left font-display text-lg font-medium tracking-tight ">
+                        I use Gumroad to handle licenses. You will receive an
+                        email with a license key after purchase.
+                    </p>
                     <TwitterCTA />
                     <div className=" mb-10">
                         <DynamicGumRoad productUrl="https://darraghoriordan.gumroad.com/l/localtools" />

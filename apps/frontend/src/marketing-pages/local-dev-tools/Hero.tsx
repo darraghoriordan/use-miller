@@ -10,9 +10,9 @@ export function Hero({ user }: { user: UserDto }) {
     const features = [
         "Offline encoding and decoding tools for base64, JWT, JSON",
         "A git url parser and generator that is aware of your local ssh aliases",
-        "A git repo summary tool to verify user name is consistent across related repos",
-        "A tool to parse and generate timestamps in different formats, local and UTC",
-        "An internationalisation aware string sorter, simple, but better than most online tools",
+        "A git repo summary tool to verify user name is consistent across ssh alias related repos",
+        "A tool to quickly parse and map timestamps in different formats, local and UTC",
+        "An internationalisation aware string sorter. Simple, but better than most online tools",
     ];
     const codeHref = `/docs/local-dev-tools/get-started/quick-start`;
     return (
@@ -75,7 +75,7 @@ export function Hero({ user }: { user: UserDto }) {
                             <StyledLink
                                 href={codeHref}
                                 color="violet"
-                                className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
+                                className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg border-white border"
                             >
                                 View the docs
                             </StyledLink>
@@ -101,11 +101,11 @@ export function Hero({ user }: { user: UserDto }) {
                     </div>
                     <div className="mt-16" id="features">
                         <p className="mb-8 max-w-4xl text-left font-display text-4xl font-medium tracking-tight text-white">
-                            Free Trial
+                            Download Local Dev Tools
                         </p>
                         <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
-                            Download right now and try it out. Buy a license if
-                            you find it useful.
+                            Download right now and try it out. Buy a license
+                            later if you find it useful.
                         </p>
                         <h3 className="mt-8 leading-snug mx-auto max-w-2xl font-display text-2xl font-medium tracking-tight text-white md:mx-0">
                             Mac
@@ -166,7 +166,7 @@ export function Hero({ user }: { user: UserDto }) {
                             <StyledLink
                                 href={codeHref}
                                 color="green"
-                                className="rounded-lg text-xl px-14 py-4 hover:shadow-lg"
+                                className="rounded-lg text-xl px-14 py-4 hover:shadow-lg border-white border"
                             >
                                 View the docs
                             </StyledLink>

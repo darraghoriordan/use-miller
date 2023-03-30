@@ -3,10 +3,7 @@ import {
     getSinglePost,
     getStaticDocsPageSlugs,
 } from "../../../../docs/docParser.js";
-import {
-    createMenu,
-    mapMenuTitle,
-} from "../../../../docs/leftMenuGeneration.js";
+import { createMenu, mapTitles } from "../../../../docs/leftMenuGeneration.js";
 import { DocArticle } from "../../../../docs/components/DocArticle.jsx";
 import { MenuSection } from "../../../../components/LeftMenu.jsx";
 import { LeftMenuWrappedContent } from "../../../../components/LeftMenuWrappedContent.jsx";
@@ -23,13 +20,13 @@ export async function getStaticProps({
         sectionSlug: params.section,
     });
     const menuSections = await createMenu(params.productKey);
-    const headerTitle = mapMenuTitle(params.productKey);
+    const titles = mapTitles(params.productKey);
     return {
         props: {
             productKey: params.productKey,
             menuSections,
             article,
-            headerTitle,
+            ...titles,
         },
     };
 }
@@ -43,19 +40,22 @@ export default function Home({
     productKey,
     menuSections,
     article,
+    menuHeaderTitle,
     headerTitle,
 }: {
     productKey: string;
     menuSections: MenuSection[];
     article: FullDoc;
+    menuHeaderTitle: string;
     headerTitle: string;
 }) {
     return (
         <LeftMenuWrappedContent
             productKey={productKey}
             menuSections={menuSections}
-            menuHeaderTitle={headerTitle}
+            menuHeaderTitle={menuHeaderTitle}
             menuHeaderHref={`/docs/${productKey}`}
+            headerTitle={headerTitle}
         >
             <DocArticle article={article} />
         </LeftMenuWrappedContent>

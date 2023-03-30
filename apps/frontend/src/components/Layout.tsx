@@ -12,7 +12,7 @@ export default function Layout({
     seoTitle,
     themeColor,
 }: {
-    productKey: string;
+    productKey?: string;
     headerTitle?: string;
     seoTitle: string;
     seoDescription: string;
@@ -27,7 +27,7 @@ export default function Layout({
                 themeColor={themeColor}
             />
             <main className="flex-grow">{children}</main>
-            <Footer productKey={productKey} />
+            <Footer productKey={productKey} headerTitle={headerTitle} />
         </div>
     );
 }

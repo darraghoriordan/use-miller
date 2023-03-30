@@ -64,7 +64,7 @@ export const MobileNavigation = ({
     docsPath,
 }: {
     user: UserProfile | undefined;
-    productKey: string;
+    productKey?: string;
     signUpUri: string;
     docsPath: string;
 }) => {
@@ -102,13 +102,21 @@ export const MobileNavigation = ({
                         as="div"
                         className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
                     >
-                        <MobileNavLink href={`/${productKey}/#features`}>
-                            Features
-                        </MobileNavLink>
-                        <MobileNavLink href={`/${productKey}/#pricing`}>
-                            Pricing
-                        </MobileNavLink>
-                        <MobileNavLink href={docsPath}>Docs</MobileNavLink>
+                        {productKey && (
+                            <>
+                                <MobileNavLink
+                                    href={`/${productKey}/#features`}
+                                >
+                                    Features
+                                </MobileNavLink>
+                                <MobileNavLink href={`/${productKey}/#pricing`}>
+                                    Pricing
+                                </MobileNavLink>
+                                <MobileNavLink href={docsPath}>
+                                    Docs
+                                </MobileNavLink>
+                            </>
+                        )}
 
                         {user && (
                             <MobileNavLink href={"/dashboard"}>
@@ -141,7 +149,7 @@ export function Header({
     headerTitle,
     themeColor,
 }: {
-    productKey: string;
+    productKey?: string;
     headerTitle?: string;
     themeColor?: ThemeColor;
 }) {
@@ -169,11 +177,11 @@ export function Header({
                             aria-label="Home"
                             className="text-3xl text-white"
                         >
-                            {`Miller Dev Tools`}
+                            {headerTitle || `Miller Dev Tools`}
                         </Link>
                     </div>
-                    <div className="flex items-center gap-x-5 md:gap-x-8">
-                        <div className="hidden md:flex md:gap-x-6">
+                    {productKey && (
+                        <div className="hidden md:flex items-center gap-x-4 md:gap-x-4">
                             <NavLink
                                 href={`/${productKey}/#features`}
                                 className={
@@ -187,6 +195,9 @@ export function Header({
                             </NavLink>
                             <NavLink href={docsPath}>Docs</NavLink>
                         </div>
+                    )}
+
+                    <div className="flex items-center gap-x-5 md:gap-x-8">
                         <Popover className="relative">
                             <Popover.Button className="inline-flex items-center rounded-lg py-1 px-2 text-sm text-white hover:bg-slate-100 hover:text-slate-900 md:text-lg">
                                 <span>Products</span>

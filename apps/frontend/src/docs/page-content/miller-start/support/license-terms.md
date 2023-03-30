@@ -4,14 +4,14 @@ date: "2020-01-01"
 order: 10
 ---
 
-## Summary
-
-(Please read full EULA)
+## TL;DR Summary
 
 1. You can use this code to build a website or web application for yourself or your organisation and charge for it.
 1. You can't use this code to sell a product that sells the codebase itself.
 1. This code is not peer reviewed and is not guaranteed to be secure. It has not been penetration tested or analysed in any way.
 1. Coding experience is required to use this product. It is designed for developers who are familiar with the technologies used.
+
+(Please read full EULA below)
 
 ## EULA (End User License Agreement)
 

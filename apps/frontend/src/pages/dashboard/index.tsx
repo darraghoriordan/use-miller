@@ -32,7 +32,6 @@ export default function Home({
 }) {
     return (
         <LeftMenuWrappedContent
-            productKey="miller-start"
             menuHeaderTitle="Dashboard"
             menuHeaderHref="/dashboard"
             menuSections={menuSections}

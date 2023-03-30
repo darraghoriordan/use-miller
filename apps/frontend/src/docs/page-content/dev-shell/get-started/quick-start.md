@@ -4,23 +4,25 @@ date: "2020-01-01"
 order: 1
 ---
 
-Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
+## MacOS Quick Start
 
--   **Static Generation** is the pre-rendering method that generates the HTML at **build time**. The pre-rendered HTML is then _reused_ on each request.
--   **Server-side Rendering** is the pre-rendering method that generates the HTML on **each request**.
+1. Download the source code.
+1. Delete `.github` and `buildTools` folders.
+1. Run the `home/setupscripts/sharedSetup.sh` script from the `setupscripts` directory to set up everything. This is script works on Windows and MacOS. It will detect the OS automatically. You must run it while in the `setupscripts` folder.
 
-Importantly, Next.js lets you **choose** which pre-rendering form to use for each page. You can create a "hybrid" Next.js app by using Static Generation for most pages and using Server-side Rendering for others.
+## Windows Quick Start
 
-Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
+1. Download the source code.
+1. Delete `.github` and `buildTools` folders.
+1. Install WSL2 and Ubuntu (or your preferred Linux distro but note that the scripts use apt-get).
+1. Run the `home/setupscripts/sharedSetup.sh` script from the `setupscripts` directory to set up everything. This is script works on Windows and MacOS. It will detect the OS automatically. You must run it while in the `setupscripts` folder.
 
--   **Static Generation** is the pre-rendering method that generates the HTML at **build time**. The pre-rendered HTML is then _reused_ on each request.
--   **Server-side Rendering** is the pre-rendering method that generates the HTML on **each request**.
+## Additional Setup
 
-Importantly, Next.js lets you **choose** which pre-rendering form to use for each page. You can create a "hybrid" Next.js app by using Static Generation for most pages and using Server-side Rendering for others.
+Edit anything you like to suit your needs.
 
-Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
+You can populate the `/certs` directory to have ssh certs installed for you.
 
--   **Static Generation** is the pre-rendering method that generates the HTML at **build time**. The pre-rendered HTML is then _reused_ on each request.
--   **Server-side Rendering** is the pre-rendering method that generates the HTML on **each request**.
+You should commit to your own private repo and manage with homeshick.
 
-Importantly, Next.js lets you **choose** which pre-rendering form to use for each page. You can create a "hybrid" Next.js app by using Static Generation for most pages and using Server-side Rendering for others.
+Read more in the full docs.

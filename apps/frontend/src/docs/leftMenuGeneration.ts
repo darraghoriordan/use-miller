@@ -28,23 +28,36 @@ export async function sortByCustomSlugMapping(
     ];
 }
 
-export function mapMenuTitle(productKey: string): string {
-    let menuTitle = "Docs";
+export function mapTitles(productKey: string): {
+    headerTitle: string;
+    menuHeaderTitle: string;
+} {
     // calculating this locally out of laziness
     switch (productKey) {
         case "miller-start":
-            menuTitle = "Miller Start Docs";
-            break;
-        case "local-dev-tools":
-            menuTitle = "Dev Tools Docs";
-            break;
-        case "dev-shell":
-            menuTitle = "DevShell Docs";
-            break;
-        default:
-    }
+            return {
+                menuHeaderTitle: "Miller Start Docs",
+                headerTitle: "Miller // Start",
+            };
 
-    return menuTitle;
+        case "local-dev-tools":
+            return {
+                menuHeaderTitle: "Dev Tools Docs",
+                headerTitle: "Miller // Local Dev Tools",
+            };
+
+        case "dev-shell":
+            return {
+                menuHeaderTitle: "DevShell Docs",
+                headerTitle: "Miller // Dev Shell",
+            };
+
+        default:
+            return {
+                menuHeaderTitle: "Docs",
+                headerTitle: "Miller Dev Tools",
+            };
+    }
 }
 
 export async function createMenu(productKey: string): Promise<MenuSection[]> {

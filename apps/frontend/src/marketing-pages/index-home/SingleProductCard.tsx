@@ -10,14 +10,18 @@ export const SingleProductCard = ({
     blurb,
     benefits,
     image,
-    link,
+    learnMoreLink,
+    altLinkText,
+    altLink,
 }: {
     colorVariant: ThemeColor;
     title: string;
     blurb: string;
     benefits: string[];
     image: StaticImageData;
-    link: string;
+    learnMoreLink: string;
+    altLinkText: string;
+    altLink: string;
 }) => {
     return (
         <div
@@ -50,13 +54,22 @@ export const SingleProductCard = ({
                             <li key={benefit}>{benefit}</li>
                         ))}
                     </ul>
-                    <StyledLink
-                        href={link}
-                        color={colorVariant}
-                        className={"md:w-1/4"}
-                    >
-                        Learn more &rarr;
-                    </StyledLink>
+                    <div className="flex items-center space-x-8">
+                        <StyledLink
+                            href={learnMoreLink}
+                            color={colorVariant}
+                            className={" border-white border"}
+                        >
+                            Learn more &rarr;
+                        </StyledLink>
+                        <StyledLink
+                            href={altLink}
+                            color={colorVariant}
+                            className={""}
+                        >
+                            {altLinkText} &rarr;
+                        </StyledLink>
+                    </div>
                 </div>
             </div>
         </div>
