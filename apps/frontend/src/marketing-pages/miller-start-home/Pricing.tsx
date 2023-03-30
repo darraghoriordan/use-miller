@@ -2,6 +2,14 @@ import { Container } from "../../components/Container";
 import { UserDto } from "@use-miller/shared-api-client";
 import { BuyNowButton } from "../../components/BuyNowButton.jsx";
 import { TwitterCTA } from "../components/TwitterCTA.jsx";
+import { CheckIcon } from "@heroicons/react/24/outline";
+
+const buyBenefits = [
+    "Direct access to the GitHub repositories",
+    "One year of updates",
+    "Growing list of docs and notes on usage",
+    "Access to support chat (see license terms)",
+];
 
 export function Pricing({ user }: { user: UserDto }) {
     return (
@@ -25,15 +33,20 @@ export function Pricing({ user }: { user: UserDto }) {
                         <p className="mt-4 text-left font-display text-lg font-medium tracking-tight ">
                             Simple pricing, pay once and use forever.
                         </p>
-                        <div className="prose prose-md text-white mt-8 ml-8">
-                            <ul>
-                                <li>1 year of updates</li>
-                                <li>
-                                    Access to support chat (see license terms)
-                                </li>
-                                <li>Access to the github repository</li>
+                        <div className="mt-8 font-semibold  text-white">
+                            <ul className="space-y-4">
+                                {buyBenefits.map((benefit) => (
+                                    <li className="flex items-center">
+                                        <CheckIcon
+                                            className="mr-6 h-5 w-5 text-green-500"
+                                            aria-hidden="true"
+                                        />
+                                        {benefit}
+                                    </li>
+                                ))}
                             </ul>
                         </div>
+
                         <TwitterCTA />
                         <p className="text-6xl pt-16 text-center">
                             $1149<span className="text-base">USD</span>

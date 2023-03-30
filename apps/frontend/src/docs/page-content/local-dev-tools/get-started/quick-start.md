@@ -4,23 +4,34 @@ date: "2020-01-01"
 order: 1
 ---
 
-Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
+## Windows Quickstart
 
--   **Static Generation** is the pre-rendering method that generates the HTML at **build time**. The pre-rendered HTML is then _reused_ on each request.
--   **Server-side Rendering** is the pre-rendering method that generates the HTML on **each request**.
+1. Run the installer and follow the instructions. It's a standard installer, so you shouldn't have any problems.
+1. Start the application if it doesn't start automatically after the installation is complete.
+1. Configure the settings for ssh and git. You can find the settings in the settings menu.
 
-Importantly, Next.js lets you **choose** which pre-rendering form to use for each page. You can create a "hybrid" Next.js app by using Static Generation for most pages and using Server-side Rendering for others.
+You may get warnings from windows about the application being unsigned. This is because the application is not signed by a trusted certificate (This is expensive and annoying to do).
 
-Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
+You can safely ignore these warnings this time.
 
--   **Static Generation** is the pre-rendering method that generates the HTML at **build time**. The pre-rendered HTML is then _reused_ on each request.
--   **Server-side Rendering** is the pre-rendering method that generates the HTML on **each request**.
+## Mac Quickstart
 
-Importantly, Next.js lets you **choose** which pre-rendering form to use for each page. You can create a "hybrid" Next.js app by using Static Generation for most pages and using Server-side Rendering for others.
+1. Drag the application to the Applications folder.
+1. Start the application.
+1. Configure the settings for ssh and git. You can find the settings in the settings menu.
 
-Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
+The Mac application is signed by a trusted certificate, but Apple will warn you that the application is not from the Mac App Store.
 
--   **Static Generation** is the pre-rendering method that generates the HTML at **build time**. The pre-rendered HTML is then _reused_ on each request.
--   **Server-side Rendering** is the pre-rendering method that generates the HTML on **each request**.
+You can safely ignore this warning this time.
 
-Importantly, Next.js lets you **choose** which pre-rendering form to use for each page. You can create a "hybrid" Next.js app by using Static Generation for most pages and using Server-side Rendering for others.
+## Using the application
+
+Select the tool you want to use from the left hand menu and follow the instructions.
+
+## Online Tools
+
+If there are ever online tools added to the application, they will be clearly marked as such. There may be high utility for developers in using AI APIs in the future. Preference will always be given to offline capabilities in Local Dev Tools.
+
+## Adding your license
+
+Click on the `View License` button on the bottom left of the application. This will open the license page. Enter the license key and click `Activate`.

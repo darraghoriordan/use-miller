@@ -3,6 +3,7 @@ import Layout from "../components/Layout.jsx";
 import { Pricing } from "../marketing-pages/miller-start-home/Pricing";
 import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps.js";
 import { UserDto } from "@use-miller/shared-api-client";
+import { Container } from "../components/Container.jsx";
 
 export const getServerSideProps = getMarketingServerSideProps;
 
@@ -15,8 +16,10 @@ export default function Home({ user }: { user: UserDto }) {
             productKey="miller-start"
             themeColor="violet"
         >
-            <Hero user={user} />
-            <Pricing user={user} />
+            <Container>
+                <Hero user={user} />
+                <Pricing user={user} />
+            </Container>
         </Layout>
     );
 }

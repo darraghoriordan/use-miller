@@ -80,7 +80,7 @@ export function Hero({ user }: { user: UserDto }) {
                                 <h1 className="leading-snug mx-auto max-w-2xl font-display text-6xl font-medium tracking-tight text-white md:mx-0">
                                     Tools that Help You Code Faster and Safer
                                 </h1>
-                                <p className="mx-auto mt-6 max-w-2xl text-left text-lg tracking-tight text-gray-400 md:mx-0">
+                                <p className="mx-auto mt-6 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
                                     Miller dev tools save you time so you can
                                     focus on building your product and helping
                                     your customers.

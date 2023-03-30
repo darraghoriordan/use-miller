@@ -5,7 +5,7 @@ import dashboardImage from "./intro-media/dashboard.png";
 import docsImage from "./intro-media/docs.png";
 import Image from "next/image";
 import { UserDto } from "@use-miller/shared-api-client";
-import { BuyNowButton } from "../../components/BuyNowButton.jsx";
+import { CheckIcon } from "@heroicons/react/24/outline";
 
 export function Hero({ user }: { user: UserDto }) {
     const features = [
@@ -22,9 +22,62 @@ export function Hero({ user }: { user: UserDto }) {
         "Miller is Node and React so you can run it on any hosting provider - Vercel, AWS, Azure, DigitalOcean",
         "and more...",
     ];
+    const topFeatures = [
+        {
+            name: "NextJs",
+            description:
+                "NextJS is the dominant framework for React apps today. It's fast, easy to use and has a great community. Learn how to use SSR,SSG and client side dynamic components to build a fast, SEO friendly and responsive web app.",
+        },
+        {
+            name: "NestJs",
+            description:
+                "NestJs is an awesome backend application framework for node apps. It's built on express, fully typed, has a huge number of modules and functions out-of-the-box.",
+        },
+        {
+            name: "Async Background Jobs",
+            description:
+                "Redis and Bull are pre-configured for you with docker-compose. Adding an async job is a simple decorator.",
+        },
+        {
+            name: "Web app data models",
+            description:
+                "Miller comes with organisations, users, membership and subscriptions modules. These are all pre-configured and ready to use.",
+        },
+        {
+            name: "PostgreSQL for Data",
+            description:
+                "PostgreSQL is a powerful, open source object-relational datastore. It has excellent performance, ACID compliance, and a rich feature set.",
+        },
+        {
+            name: "Authentication and Authorization",
+            description:
+                "Auth0 is pre-configured. Terraform configures the apps and test users for you. Learning a commercial auth provider is a great way to learn how to build a secure web app. Adding MFA is a simple config change.",
+        },
+        {
+            name: "Payments",
+            description:
+                "Learn how Stripe is used in subscriptions and single payment models. Stripe is pre-configured and ready to use.",
+        },
+        {
+            name: "CLI Tool for initialising your project",
+            description:
+                "The Miller CLI tool makes it easy to get started with a new project. It configures and runs terraform to deploy Auth0 and Stripe. It also sets file names and env files for you.",
+        },
+        {
+            name: "Full Typescript",
+            description:
+                "Every line of code is written in Typescript. This means you can learn how to use Typescript in a real-world application.",
+        },
+        {
+            name: "Full Open API Docs",
+            description:
+                "Open API specifications make it easy for other apps to integrate with your app. Miller comes with a full Open API specification for the API. Open AI / ChatGPT plugins can use this.",
+        },
+    ];
     const docsLink = `docs/miller-start/reference/miller-web/${btoa(
         "/README.md"
     )}`;
+    const docsHref = `/docs/miller-start/get-started/quick-start`;
     return (
         <Container className="pt-20 text-left">
             <div className="flex">
@@ -44,14 +97,15 @@ export function Hero({ user }: { user: UserDto }) {
                         <div className="md:flex">
                             <div className="mr-8">
                                 <h1 className="leading-snug mx-auto max-w-2xl font-display text-6xl font-medium tracking-tight text-white md:mx-0">
-                                    A NestJS and NextJS SaaS Example project
+                                    Master full-stack web development
                                 </h1>
-                                <p className="mx-auto mt-6 max-w-2xl text-left text-lg tracking-tight text-gray-400 md:mx-0">
-                                    Solve your issues with NestJs, NextJS,
-                                    Postgres, React, Tailwind, Stripe and Auth0
-                                    in minutes with real examples.
+                                <p className="mx-auto mt-6 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
+                                    Become a pro with NextJs, NestJs, tailwind,
+                                    PostgreSQL, Redis and more - by example. For
+                                    engineers who have completed beginner
+                                    tutorials and are ready to advance.
                                 </p>
-                                <p className="mx-auto mt-6 max-w-2xl text-left text-lg tracking-tight text-gray-400 md:mx-0">
+                                <p className="mx-auto mt-6 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
                                     Save months of time learning how to
                                     integrate common features and skip straight
                                     to the good stuff - providing valuable
@@ -81,18 +135,48 @@ export function Hero({ user }: { user: UserDto }) {
                                 </div>
                             </div>
                         </div>
+                        <div className="mx-auto mt-36 flex gap-x-6 md:mx-0">
+                            <dl className="col-span-2 grid grid-cols-1 gap-x-8 gap-y-10 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:gap-y-16">
+                                {topFeatures.map((tf) => (
+                                    <div
+                                        key={tf.name}
+                                        className="relative pl-9 "
+                                    >
+                                        <dt className="font-semibold text-white">
+                                            <CheckIcon
+                                                className="absolute left-0 top-1 h-5 w-5 text-green-500"
+                                                aria-hidden="true"
+                                            />
+                                            {tf.name}
+                                        </dt>
+                                        <dd className="mt-2  text-gray-400">
+                                            {tf.description}
+                                        </dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        </div>
                         <div className="mx-auto mt-10 flex gap-x-6 md:mx-0">
-                            <BuyNowButton
-                                user={user}
-                                productKey="miller-start"
+                            <StyledLink
+                                href={"#pricing"}
                                 color="violet"
-                            />
+                                className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
+                            >
+                                Pricing
+                            </StyledLink>
+                            <StyledLink
+                                href={docsHref}
+                                color="violet"
+                                className="rounded-lg text-xl px-14 py-4 hover:shadow-lg"
+                            >
+                                Read the docs
+                            </StyledLink>
                             <StyledLink
                                 href={docsLink}
                                 color="violet"
                                 className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
                             >
-                                View the code
+                                Preview the code
                             </StyledLink>
                         </div>
                     </div>
@@ -100,15 +184,15 @@ export function Hero({ user }: { user: UserDto }) {
                         <p className="mb-8 max-w-4xl text-left font-display text-4xl font-medium tracking-tight text-white">
                             What is Miller Start?
                         </p>
-                        <p className="mt-4 text-left font-display text-lg font-medium tracking-tight text-gray-200">
+                        <p className="mt-4 text-left font-display text-lg font-medium text-gray-200">
                             Miller Start is learning tool for full stack
                             engineers. You'll have access to a frontend app,
-                            backend app, a collection of integrations and the
-                            scripts to set everything up. Miller is months of
-                            dev work already completed, so you can learn how
-                            this is done.
+                            backend app, a huge collection of integrations and
+                            the scripts to set everything up. Miller is months
+                            of dev work already completed, so you can learn how
+                            fullstack apps are built.
                         </p>
-                        <p className="mt-8 text-left font-display text-lg font-medium tracking-tight text-gray-200">
+                        <p className="mt-8 text-left font-display text-lg font-medium text-gray-200">
                             Miller Start focuses on four main things:
                         </p>
                         <ul>
@@ -131,23 +215,24 @@ export function Hero({ user }: { user: UserDto }) {
                             </li>
                             <li className="mt-4 ml-8 list-disc text-lg text-gray-200">
                                 <strong>
-                                    Simple but safe for future success
+                                    Simple architecture but safe for future
+                                    success
                                 </strong>{" "}
                                 Miller is a "simple" architecture example for
                                 small teams and solo developers - monorepo,
                                 monolithic backend. However it is also designed
                                 to be easy to extend and scale with your
                                 success. Modular design allows extraction to
-                                serverless where needed. Async jobs and caching
-                                are built in. The NestJS backend is stateless.
+                                serverless where needed. Use of Async jobs and
+                                caching are built-in and encouraged.
                             </li>
                             <li className="mt-4 ml-8 list-disc text-lg text-gray-200">
                                 <strong>Convention over configuration.</strong>{" "}
                                 Miller comes with sensible defaults for a
-                                production ready application but you can
-                                override them if you want. Nothing is hidden.
-                                Consistent code is encouraged with linting and
-                                formatting rules.
+                                production ready application. Consistent code is
+                                encouraged with linting and formatting rules.
+                                But you can override or turn them off if you
+                                want. Nothing is hidden.
                             </li>
                         </ul>
                     </div>
@@ -155,12 +240,11 @@ export function Hero({ user }: { user: UserDto }) {
                         <p className="max-w-4xl text-left font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
                             What you get
                         </p>
-                        <p className="mt-4 text-left font-display text-lg font-medium tracking-tight text-gray-200">
-                            This site is built with Miller, you will get access
-                            to the complete code for this application. You can
-                            view the code in the docs section to get a better
-                            idea of the depth of the features. Here is a quick
-                            overview:
+                        <p className="mt-4 text-left font-display text-lg font-medium text-gray-200">
+                            You will get access to the complete code for this
+                            application. You can view the code reference section
+                            in the docs to get a better idea of the depth of the
+                            features. Here is a quick overview:
                         </p>
                         <ul>
                             {features.map((feature, key) => (
@@ -173,17 +257,26 @@ export function Hero({ user }: { user: UserDto }) {
                             ))}
                         </ul>
                         <div className="mx-auto mt-10 flex gap-x-6 md:mx-0">
-                            <BuyNowButton
-                                user={user}
+                            <StyledLink
+                                href={"#pricing"}
                                 color="green"
-                                productKey="miller-start"
-                            />
+                                className="rounded-lg text-xl px-14 py-4 hover:shadow-lg"
+                            >
+                                Pricing
+                            </StyledLink>
+                            <StyledLink
+                                href={docsHref}
+                                color="green"
+                                className="rounded-lg text-xl px-14 py-4 hover:shadow-lg"
+                            >
+                                Read the docs
+                            </StyledLink>
                             <StyledLink
                                 href={docsLink}
                                 color="green"
                                 className="rounded-lg text-xl px-14 py-4 hover:shadow-lg"
                             >
-                                View the code
+                                Preview the code
                             </StyledLink>
                         </div>
                     </div>

@@ -3,6 +3,11 @@ import { UserDto } from "@use-miller/shared-api-client";
 import { BuyNowButton } from "../../components/BuyNowButton.jsx";
 import { CheckIcon } from "@heroicons/react/24/outline";
 
+const buyBenefits = [
+    "Direct access to the GitHub repository",
+    "Docs and notes on usage and decisions",
+    "Lifetime license - get all future updates for free",
+];
 export function Pricing({ user }: { user: UserDto }) {
     return (
         <Container className="pb-16 text-left">
@@ -28,28 +33,15 @@ export function Pricing({ user }: { user: UserDto }) {
 
                         <div className="mt-8 font-semibold  text-white">
                             <ul className="space-y-4">
-                                <li className="flex items-center">
-                                    <CheckIcon
-                                        className="mr-6 h-5 w-5 text-green-500"
-                                        aria-hidden="true"
-                                    />
-                                    Direct access to the GitHub repository
-                                </li>
-                                <li className="flex items-center">
-                                    <CheckIcon
-                                        className="mr-6 h-5 w-5 text-green-500"
-                                        aria-hidden="true"
-                                    />
-                                    Docs and notes on usage and decisions
-                                </li>
-                                <li className="flex items-center">
-                                    <CheckIcon
-                                        className="mr-6 h-5 w-5 text-green-500"
-                                        aria-hidden="true"
-                                    />
-                                    Lifetime license - get all future updates
-                                    for free
-                                </li>
+                                {buyBenefits.map((benefit) => (
+                                    <li className="flex items-center">
+                                        <CheckIcon
+                                            className="mr-6 h-5 w-5 text-green-500"
+                                            aria-hidden="true"
+                                        />
+                                        {benefit}
+                                    </li>
+                                ))}
                             </ul>
                         </div>
 

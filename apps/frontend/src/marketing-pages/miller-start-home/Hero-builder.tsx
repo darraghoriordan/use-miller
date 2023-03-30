@@ -46,12 +46,12 @@ export function Hero({ user }: { user: UserDto }) {
                                 <h1 className="leading-snug mx-auto max-w-2xl font-display text-6xl font-medium tracking-tight text-white md:mx-0">
                                     A NestJS and NextJS SaaS kit for busy devs
                                 </h1>
-                                <p className="mx-auto mt-6 max-w-2xl text-left text-lg tracking-tight text-gray-400 md:mx-0">
+                                <p className="mx-auto mt-6 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
                                     Setup a new project with NestJs, NextJS,
                                     Postgres, React, Tailwind, Stripe and Auth0
                                     in minutes.
                                 </p>
-                                <p className="mx-auto mt-6 max-w-2xl text-left text-lg tracking-tight text-gray-400 md:mx-0">
+                                <p className="mx-auto mt-6 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
                                     Save months of time and skip straight to the
                                     good stuff - providing valuable features to
                                     your customers.
@@ -99,7 +99,7 @@ export function Hero({ user }: { user: UserDto }) {
                         <p className="mb-8 max-w-4xl text-left font-display text-4xl font-medium tracking-tight text-white">
                             What is Miller Start?
                         </p>
-                        <p className="mt-4 text-left font-display text-lg font-medium tracking-tight text-gray-200">
+                        <p className="mt-4 text-left font-display text-lg font-medium text-gray-200">
                             Miller Start is a frontend app, backend app, a
                             collection of integrations and scripts to set
                             everything up. Miller is months of dev work already
@@ -154,7 +154,7 @@ export function Hero({ user }: { user: UserDto }) {
                         <p className="max-w-4xl text-left font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
                             What you get
                         </p>
-                        <p className="mt-4 text-left font-display text-lg font-medium tracking-tight text-gray-200">
+                        <p className="mt-4 text-left font-display text-lg font-medium text-gray-200">
                             This site is built with Miller, you're using what
                             you get with the package. You can view the code in
                             the docs section to get a better idea of the depth

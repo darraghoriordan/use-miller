@@ -21,6 +21,8 @@ order: 1
 
 Edit anything you like to suit your needs.
 
+There are readme files in various folders describing some of the files you can change.
+
 You can populate the `/certs` directory to have ssh certs installed for you.
 
 You should commit to your own private repo and manage with homeshick.

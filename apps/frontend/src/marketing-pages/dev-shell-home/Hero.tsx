@@ -84,7 +84,7 @@ export function Hero({ user }: { user: UserDto }) {
                                     Your full dev environment configured with
                                     one command
                                 </h1>
-                                <p className="mx-auto mt-6 max-w-2xl text-left text-lg tracking-tight text-gray-400 md:mx-0">
+                                <p className="mx-auto mt-6 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
                                     Save 30+ hours configuring your development
                                     environment. Specifically designed to give
                                     you the same shell experience on Mac and
