@@ -122,7 +122,7 @@ You can also use the IP to start configuring your domain name
 
 You will have to configure your own domain host. Every domain host is different but the general idea is the same. I use namecheap purchase and digital ocean to host my domains.
 
-Create an `A` record for `api.yourdomain.com` to `10.123.123.123` (replace with your domain and your IP).
+Create an `A` records for `api.yourdomain.com`, `yourdomain.com` and `www.yourdomain.com` to `10.123.123.123` (replace with your domain and your IP).
 
 The terraform modules will configure the apps to use these subdomains by default.
 
@@ -147,6 +147,19 @@ terraform plan
 terraform apply
 
 ```
+
+## Configure ssh for your domains
+
+I recommend using Let's Encrypt if you're using dokku. It's free and easy to set up.
+
+There are many articles describing the initial setup online. Once it's setup just enable the apps.
+
+```bash
+dokku letsencrypt:enable [appname]
+
+```
+
+It will read the domains that were set by terraform and get certs installed for you.
 
 ## Common management tasks for dokku
 
