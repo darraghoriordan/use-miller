@@ -35,6 +35,7 @@ export default function Home({
             menuHeaderTitle="Dashboard"
             menuHeaderHref="/dashboard"
             menuSections={menuSections}
+            headerTitle={"Miller Dev Tools"}
         >
             <DashboardDetails
                 subs={subs}

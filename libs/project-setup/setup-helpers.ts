@@ -71,8 +71,10 @@ const writeTerraformVariables = (
 };
 
 const searchFilesForTextAndReplace = async (
-    searchText: string,
-    replaceText: string
+    replacePatterns: {
+        search: string;
+        replace: string;
+    }[]
 ) => {
     const files = await globby.globby(["**/*"], {
         dot: true,
@@ -86,10 +88,9 @@ const searchFilesForTextAndReplace = async (
     });
     files.forEach((file) => {
         const fileContents = fs.readFileSync(file, "utf8");
-
-        if (fileContents.includes(searchText)) {
-            const regex = new RegExp(searchText, "g");
-            const newFileContents = fileContents.replace(regex, replaceText);
+        for (const { search, replace } of replacePatterns) {
+            const regex = new RegExp(search, "g");
+            const newFileContents = fileContents.replace(regex, replace);
             fs.writeFileSync(file, newFileContents);
         }
     });

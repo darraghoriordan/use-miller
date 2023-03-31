@@ -30,9 +30,9 @@ e.g. if you're working on a feature and have the BE set to --watch and aut_insta
 
 These are the path that typeorm will scan for `*.entity.ts/js` files. These will be used to generate the database schema in migrations. Core module is the location of installed `nest-backend-libs` package which contains many database models.
 
-### APP_REDIS\_\*\*\* variables
+### DOCKER_REDIS_PORT
 
-These are used to configure the connection to the Redis database LOCALLY. Dokku sets a variable called `REDIS_URL` which is used to configure the connection to the database in production.
+This is only used for local docker configuration.
 
 ### EMAIL_SYNC_SEND_ENABLED
 

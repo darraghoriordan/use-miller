@@ -30,7 +30,10 @@ export const DashboardDetails = ({
 
     if (subs.length === 0) {
         subsComponent = (
-            <>
+            <div className="flex flex-col space-y-8">
+                <h2 className="text-3xl font-bold text-white w-full">
+                    Your Products and Subscriptions
+                </h2>
                 <NoSubscriptions
                     productName="Miller Start"
                     productKey="miller-start"
@@ -41,7 +44,7 @@ export const DashboardDetails = ({
                     productKey="dev-shell"
                     isOrganisationOwner={isOwner}
                 />
-            </>
+            </div>
         );
     }
 
@@ -50,7 +53,7 @@ export const DashboardDetails = ({
             <h1 className="text-4xl font-bold text-white mb-8">
                 {currentOrg.name}
             </h1>
-            <GithubUserForm ghUsername={ghUsername} />
+            <GithubUserForm ghUsername={ghUsername} orgUuid={currentOrg.uuid} />
             <div className="mt-16 mb-32">{subsComponent}</div>
         </div>
     );

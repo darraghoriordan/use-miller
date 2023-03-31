@@ -37,7 +37,9 @@ export async function dashboardGetSspData(
     const firstUsername = orgGhUsers[0]?.ghUsername;
 
     return {
-        props: { ...mappedProps, ghUsername: firstUsername },
+        props: JSON.parse(
+            JSON.stringify({ ...mappedProps, ghUsername: firstUsername })
+        ),
     };
 }
 

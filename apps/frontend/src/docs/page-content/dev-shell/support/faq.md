@@ -6,7 +6,7 @@ order: 1
 
 ### Can I re-run the scripts safely?
 
-The scripts are designed to be safely re-runnable and repeatable so you can start from the start if it fails. You can manually run each part in isolation also from where it broke by copying and pasting the remaining commands.
+The scripts are designed to be safely re-runnable and repeatable so you can start from the start if it fails. You can also manually run each part in isolation also from where it broke by copying and pasting the remaining commands.
 
 ### What if it fails?
 

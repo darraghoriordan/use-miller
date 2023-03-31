@@ -1,11 +1,45 @@
+resource "dokku_app" "frontend_app" {
+  name = "use-miller-frontend"
+
+  config_vars = {
+    APP_BASE                                          = "apps/frontend"
+    AUTH0_SECRET                                      = var.frontend_app_auth0_secret
+    AUTH0_BASE_URL                                    = var.frontend_app_auth0_base_url
+    AUTH0_ISSUER_BASE_URL                             = var.frontend_app_auth0_issuer_base_url
+    AUTH0_CLIENT_SECRET                               = var.frontend_app_auth0_client_secret
+    AUTH0_CLIENT_ID                                   = var.frontend_app_auth0_client_id
+    AUTH0_SCOPE                                       = var.frontend_app_auth0_scope
+    AUTH0_AUDIENCE                                    = var.frontend_app_auth0_audience
+    NEXT_PUBLIC_API_BASE_PATH                         = var.frontend_app_next_public_api_base_path
+    NEXT_PUBLIC_AUTH0_DOMAIN                          = var.frontend_app_next_public_auth0_domain
+    NEXT_PUBLIC_AUTH0_CLIENT_ID                       = var.frontend_app_next_public_auth0_client_id
+    NEXT_PUBLIC_APP_BASE_PATH                         = var.frontend_app_next_public_app_base_path
+    NEXT_PUBLIC_STRIPE_REGULAR_PRICE_ID               = var.frontend_app_next_public_stripe_regular_price_id
+    NEXT_PUBLIC_STRIPE_REGULAR_PRICE_NO_RECURRENCE_ID = var.frontend_app_next_public_stripe_regular_price_no_recurrence_id
+  }
+
+  domains = var.frontend_app_domains
+
+  buildpacks = [
+    "https://github.com/lstoll/heroku-buildpack-monorepo",
+    "https://github.com/heroku/heroku-buildpack-nodejs.git"
+  ]
+}
+
 resource "dokku_app" "app" {
   name = "use-miller"
 
   config_vars = {
+    APP_BASE                        = "apps/backend"
     AUTO_INSTALL_API_MODELS         = var.app_auto_install_api_models
     AUTH0_AUDIENCE                  = var.app_auth0_audience
     AUTH0_DOMAIN                    = var.app_auth0_domain
     APP_TITLE                       = var.app_app_title
+    APP_MODULE_ENTITY_PATH          = var.app_module_entity_path
+    BACKEND_APP_URL                 = var.app_backend_app_url
+    CORE_MODULE_ENTITY_PATH         = var.app_core_module_entity_path
+    MIGRATIONS_PATH                 = var.app_migrations_path
+    GITHUB_ACCESS_TOKEN             = var.app_github_access_token
     EMAIL_SENDER_NAME               = var.app_email_sender_name
     EMAIL_SYNC_SEND_ENABLED         = var.app_smtp_email_sync_send_enabled
     EMAIL_BCC                       = var.app_email_bcc
@@ -27,11 +61,11 @@ resource "dokku_app" "app" {
     WEB_PORT                        = var.app_web_port
   }
 
-  domains = [
-    var.dokku_app_domain
-  ]
+  domains = var.backend_app_domains
+
 
   buildpacks = [
+    "https://github.com/lstoll/heroku-buildpack-monorepo",
     "https://github.com/heroku/heroku-buildpack-nodejs.git"
   ]
 }

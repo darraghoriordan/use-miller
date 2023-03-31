@@ -55,7 +55,7 @@ console.log(figlet.textSync("Miller/Web"));
 console.log(`Hi and welcome to the Miller / Web project setup!`);
 
 // try to read the default projectName from a file /project-setup/project-name.txt
-let defaultProjectName = "Miller App";
+let defaultProjectName = "Use Miller";
 
 if (fs.existsSync("./libs/project-setup/project-name.txt")) {
     defaultProjectName = fs.readFileSync(
@@ -63,10 +63,11 @@ if (fs.existsSync("./libs/project-setup/project-name.txt")) {
         "utf8"
     );
 }
-
+// now ask the user for the project name
 const answers = await inquirer.default.prompt([
     {
         name: "projectName",
+        message: "What is the name of the project?",
         default: defaultProjectName,
         validate: (input) => {
             console.log(input);
@@ -78,17 +79,45 @@ const answers = await inquirer.default.prompt([
         },
     },
 ]);
-
-// write the project name to a file so it can be read by other scripts
-fs.writeFileSync("./libs/project-setup/project-name.txt", answers.projectName);
 const snakeCaseName = answers.projectName.toLowerCase().replace(" ", "-");
 const underscoreCaseName = answers.projectName.toLowerCase().replace(" ", "_");
 
-console.info(
-    `${os.EOL}Using project name(s): ${answers.projectName}, ${snakeCaseName}, ${underscoreCaseName}`
-);
+// has the name changed?
+if (defaultProjectName !== answers.projectName) {
+    // write the project name to a file so it can be read next time
+    fs.writeFileSync(
+        "./libs/project-setup/project-name.txt",
+        answers.projectName
+    );
+    // search and replace everything for a new project
 
-await searchFilesForTextAndReplace("use-miller", snakeCaseName);
+    console.info(
+        `${os.EOL}Using project name(s): ${answers.projectName}, ${snakeCaseName}, ${underscoreCaseName}`
+    );
+    const replacePatterns = [
+        {
+            search: "use-miller",
+            replace: snakeCaseName,
+        },
+        {
+            search: "use_miller",
+            replace: underscoreCaseName,
+        },
+        {
+            search: "Use Miller",
+            replace: answers.projectName,
+        },
+        {
+            search: "Miller Dev Tools",
+            replace: answers.projectName,
+        },
+        {
+            search: "darragh-com",
+            replace: answers.projectName,
+        },
+    ];
+    await searchFilesForTextAndReplace(replacePatterns);
+}
 // -------------
 
 const auth0TfRunParams: TerraformVariablesMapperParams<Auth0DevTerraformInputVariables> =
@@ -322,7 +351,7 @@ swapEnvVars({
         APP_POSTGRES_PORT: `54${Math.floor(Math.random() * 10)}${Math.floor(
             Math.random() * 10
         )}`,
-        APP_REDIS_PORT: redisPort,
+        DOCKER_REDIS_PORT: redisPort,
         REDIS_URL: `"redis://:redis-pass@host.docker.internal:${redisPort}"`,
         APP_POSTGRES_DATABASE: `${answers.projectName
             .toLowerCase()

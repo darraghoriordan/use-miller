@@ -1,13 +1,17 @@
-resource "stripe_product" "regular_product" {
-  name        = "A Regular product"
-  description = "Web product kit with 1 year of updates"
-  shippable   = false
-  active      = true
+resource "stripe_product" "miller_start_product" {
+  name                 = "Miller Start"
+  description          = "Web product kit with 1 year of updates"
+  shippable            = false
+  active               = true
+  statement_descriptor = "USEMILLER.DEV"
+  metadata = {
+    internalSku = "miller-start"
+  }
 }
 
-resource "stripe_price" "regular_price" {
-  product     = stripe_product.regular_product.id
-  unit_amount = 34900
+resource "stripe_price" "miller_start_price" {
+  product     = stripe_product.miller_start_product.id
+  unit_amount = 114900
   currency    = "usd"
   recurring {
     interval       = "year"
@@ -18,6 +22,24 @@ resource "stripe_price" "regular_price" {
   tax_behaviour  = "inclusive"
 }
 
+resource "stripe_product" "dev_shell_product" {
+  name                 = "Miller Dev Shell"
+  description          = "Premium setup and configuration for your terminal"
+  shippable            = false
+  active               = true
+  statement_descriptor = "USEMILLER.DEV"
+  metadata = {
+    internalSku = "dev-shell"
+  }
+}
+
+resource "stripe_price" "dev_shell_price" {
+  product        = stripe_product.dev_shell_product.id
+  unit_amount    = 2900
+  currency       = "usd"
+  billing_scheme = "per_unit"
+  tax_behaviour  = "inclusive"
+}
 resource "stripe_webhook_endpoint" "webhook_endpoint" {
   url      = var.app_stripe_webhook_url
   disabled = false
@@ -72,20 +94,25 @@ resource "stripe_portal_configuration" "portal_configuration" {
       default_allowed_updates = ["price", "quantity", "promotion_code"]
       proration_behavior      = "none"
       products {
-        product = stripe_product.regular_product.id
-        prices  = [stripe_price.regular_price.id]
+        product = stripe_product.miller_start_product.id
+        prices  = [stripe_price.miller_start_price.id]
       }
     }
   }
 }
 
-output "regular_price_id" {
-  value     = stripe_price.regular_price.id
+output "miller_start_price_id" {
+  value     = stripe_price.miller_start_price.id
+  sensitive = false
+}
+
+output "dev_shell_price_id" {
+  value     = stripe_price.dev_shell_price.id
   sensitive = false
 }
 
 output "app_stripe_webhook_verification_key" {
-  value     = var.app_stripe_webhook_verification_key
+  value     = stripe_webhook_endpoint.webhook_endpoint.secret
   sensitive = true
 }
 

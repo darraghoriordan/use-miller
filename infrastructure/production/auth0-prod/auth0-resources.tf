@@ -4,14 +4,20 @@ resource "auth0_tenant" "prod_tenant" {
 }
 
 resource "auth0_client" "frontend_spa_app" {
-  name                       = "Frontend App"
-  description                = "The frontend client application"
-  app_type                   = "spa"
-  callbacks                  = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
+  name        = "Frontend App"
+  description = "The frontend client application"
+  app_type    = "spa"
+  callbacks = ["https://usemiller.dev",
+    "https://usemiller.dev/api/auth/callback",
+    "https://usemiller.dev/#pricing",
+    "https://usemiller.dev/dashboard",
+    "https://usemiller.dev/miller-start/#pricing",
+    "https://usemiller.dev/dev-shell/#pricing",
+  ]
   oidc_conformant            = true
-  allowed_origins            = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
-  allowed_logout_urls        = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
-  web_origins                = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
+  allowed_origins            = ["https://usemiller.dev", "https://www.usemiller.dev"]
+  allowed_logout_urls        = ["https://usemiller.dev", "https://www.usemiller.dev"]
+  web_origins                = ["https://usemiller.dev", "https://www.usemiller.dev"]
   token_endpoint_auth_method = "none"
   grant_types = [
     "authorization_code",
@@ -101,13 +107,13 @@ output "auth0_client_id" {
   value = auth0_client.frontend_spa_app.client_id
 }
 output "app_auth0_prod_domain" {
-  value = var.app_auth0_prod_domain
+  value = var.app_auth0_domain
 }
 output "app_auth0_prod_management_client_id" {
-  value = var.app_auth0_prod_management_client_id
+  value = var.app_auth0_management_client_id
 }
 output "app_auth0_prod_management_client_secret" {
-  value     = var.app_auth0_prod_management_client_secret
+  value     = var.app_auth0_management_client_secret
   sensitive = true
 }
 output "auth0_client_secret" {

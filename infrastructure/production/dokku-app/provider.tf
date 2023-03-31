@@ -23,26 +23,14 @@ variable "do_droplet_ip" {
   description = "Your digital ocean droplet IP address"
 }
 
-variable "do_ssh_path" {
+variable "do_ssh_private_path" {
   type        = string
-  description = "The path to an ssh certificate to use for droplets"
+  description = "The path to an ssh certificate to use for deploying to droplets"
 }
 
-variable "app_auth0_prod_domain" {
+variable "app_auth0_domain" {
   type        = string
   description = "The auth0 domain for PROD account"
-}
-variable "app_auth0_prod_management_client_id" {
-  type        = string
-  description = "The auth0 client ID for PROD Management API"
-}
-variable "app_auth0_prod_management_client_secret" {
-  type        = string
-  description = "The auth0 client secret for PROD Management API"
-}
-variable "app_public_domain" {
-  type        = string
-  description = "The public domain for your api"
 }
 
 variable "app_web_port" {
@@ -52,6 +40,12 @@ variable "app_node_env" {
   type = string
 }
 
+variable "frontend_app_domains" {
+  type = list(string)
+}
+variable "backend_app_domains" {
+  type = list(string)
+}
 variable "app_auth0_audience" {
   type = string
 }
@@ -97,13 +91,74 @@ variable "app_app_title" {
 variable "app_stripe_access_token" {
   type = string
 }
-variable "app_stripe_checkout_success_url" {
+
+variable "app_module_entity_path" {
   type = string
 }
-variable "app_stripe_checkout_failure_url" {
+variable "app_backend_app_url" {
   type = string
 }
-variable "app_stripe_checkout_price_id" {
+variable "app_core_module_entity_path" {
+  type = string
+}
+variable "app_migrations_path" {
+  type = string
+}
+variable "app_github_access_token" {
+  type = string
+}
+variable "app_invitation_base_url" {
+  type = string
+}
+variable "app_logger_use_pretty_logs" {
+  type = string
+}
+variable "app_logger_min_level" {
+  type = string
+}
+variable "app_stripe_webhook_verification_key" {
+  type = string
+}
+variable "app_stripe_redirects_base_url" {
+  type = string
+}
+variable "frontend_app_auth0_secret" {
+  type = string
+}
+variable "frontend_app_auth0_base_url" {
+  type = string
+}
+variable "frontend_app_auth0_issuer_base_url" {
+  type = string
+}
+variable "frontend_app_auth0_client_secret" {
+  type = string
+}
+variable "frontend_app_auth0_client_id" {
+  type = string
+}
+variable "frontend_app_auth0_scope" {
+  type = string
+}
+variable "frontend_app_auth0_audience" {
+  type = string
+}
+variable "frontend_app_next_public_api_base_path" {
+  type = string
+}
+variable "frontend_app_next_public_auth0_domain" {
+  type = string
+}
+variable "frontend_app_next_public_auth0_client_id" {
+  type = string
+}
+variable "frontend_app_next_public_app_base_path" {
+  type = string
+}
+variable "frontend_app_next_public_stripe_regular_price_id" {
+  type = string
+}
+variable "frontend_app_next_public_stripe_regular_price_no_recurrence_id" {
   type = string
 }
 
@@ -111,6 +166,6 @@ provider "dokku" {
   ssh_host                 = var.do_droplet_ip
   ssh_user                 = "dokku"
   ssh_port                 = 22
-  ssh_cert                 = var.do_ssh_path
+  ssh_cert                 = var.do_ssh_private_path
   fail_on_untested_version = false
 }

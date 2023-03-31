@@ -40,6 +40,7 @@ export default function Home({
             menuSections={menuSections}
             menuHeaderTitle={"Dashboard"}
             menuHeaderHref={"/dashboard"}
+            headerTitle={"Miller Dev Tools"}
         >
             <ProfileDetails currentUser={currentUser} />
         </LeftMenuWrappedContent>

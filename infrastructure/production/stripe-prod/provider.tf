@@ -1,7 +1,8 @@
 terraform {
   required_providers {
     stripe = {
-      source = "lukasaron/stripe"
+      source  = "lukasaron/stripe"
+      version = "1.6.0"
     }
   }
   # You don't need this if you're a solo dev. When you're ready you can create a
@@ -22,11 +23,6 @@ variable "app_stripe_api_token" {
   type        = string
   sensitive   = true
   description = "The stripe API token"
-}
-variable "app_stripe_webhook_verification_key" {
-  type        = string
-  sensitive   = true
-  description = "The stripe webhook verification key"
 }
 variable "app_stripe_webhook_url" {
   type        = string

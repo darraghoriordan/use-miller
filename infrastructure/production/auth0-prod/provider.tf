@@ -18,24 +18,24 @@ terraform {
   }
 }
 
-variable "app_auth0_prod_domain" {
+variable "app_auth0_domain" {
   type        = string
   description = "The auth0 domain for prod account"
 }
-variable "app_auth0_prod_management_client_id" {
+variable "app_auth0_management_client_id" {
   type        = string
   description = "The auth0 client ID for prod Management API"
 }
-variable "app_auth0_prod_management_client_secret" {
+variable "app_auth0_management_client_secret" {
   type        = string
   sensitive   = true
   description = "The auth0 client secret for prod Management API"
 }
 
 provider "auth0" {
-  domain        = var.app_auth0_prod_domain
-  client_id     = var.app_auth0_prod_management_client_id
-  client_secret = var.app_auth0_prod_management_client_secret
+  domain        = var.app_auth0_domain
+  client_id     = var.app_auth0_management_client_id
+  client_secret = var.app_auth0_management_client_secret
   #   scopes = ["read:client_grants",
   #     "create:client_grants",
   #     "delete:client_grants",

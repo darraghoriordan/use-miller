@@ -2,7 +2,8 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/lukasaron/stripe" {
-  version = "1.6.0"
+  version     = "1.6.0"
+  constraints = "1.6.0"
   hashes = [
     "h1:Ito1PlormjkifC7lRtCswDBMtOWaUbfWCbJ/Rah+Bpc=",
     "zh:05ce12609d4ffe3253b09772ffdfa7772cc8e19483fa9b6f6e2717c4c8cf51ea",
