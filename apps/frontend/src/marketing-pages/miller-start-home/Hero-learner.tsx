@@ -44,6 +44,11 @@ export function Hero({ user }: { user: UserDto }) {
                 "Miller comes with organisations, users, membership and subscriptions modules. These are all pre-configured and ready to use.",
         },
         {
+            name: "Tailwind CSS",
+            description:
+                "Tailwind is a utility-first CSS framework. It's easy to learn and makes it easy to build responsive web apps.",
+        },
+        {
             name: "PostgreSQL for Data",
             description:
                 "PostgreSQL is a powerful, open source object-relational datastore. It has excellent performance, ACID compliance, and a rich feature set.",
@@ -64,9 +69,14 @@ export function Hero({ user }: { user: UserDto }) {
                 "The Miller CLI tool makes it easy to get started with a new project. It configures and runs terraform to deploy Auth0 and Stripe. It also sets file names and env files for you.",
         },
         {
-            name: "Full Typescript",
+            name: "Typescript Everywhere",
             description:
                 "Every line of code is written in Typescript. This means you can learn how to use Typescript in a real-world application.",
+        },
+        {
+            name: "End to End Testing",
+            description:
+                "Miller has a full suite of end-to-end tests. They are a great way to verify the system is working as expected after you make changes",
         },
         {
             name: "Full Open API Docs",
@@ -77,7 +87,7 @@ export function Hero({ user }: { user: UserDto }) {
     const docsLink = `docs/miller-start/reference/miller-web/${btoa(
         "/README.md"
     )}`;
-    const docsHref = `/docs/miller-start/get-started/quick-start`;
+    const docsHref = `/docs/miller-start/get-started/introduction`;
     return (
         <Container className="pt-20 text-left">
             <div className="flex">
@@ -94,7 +104,7 @@ export function Hero({ user }: { user: UserDto }) {
                 </div>
                 <div>
                     <div id="hero">
-                        <div className="md:flex">
+                        <div className="md:flex" id="features">
                             <div className="mr-8">
                                 <h1 className="leading-snug mx-auto max-w-2xl font-display text-6xl font-medium tracking-tight text-white md:mx-0">
                                     Master full-stack web development
@@ -180,7 +190,7 @@ export function Hero({ user }: { user: UserDto }) {
                             </StyledLink>
                         </div>
                     </div>
-                    <div className="mt-16" id="features">
+                    <div className="mt-16">
                         <p className="mb-8 max-w-4xl text-left font-display text-4xl font-medium tracking-tight text-white">
                             What is Miller Start?
                         </p>

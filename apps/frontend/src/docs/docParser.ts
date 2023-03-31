@@ -12,6 +12,7 @@ import remarkRehype from "remark-rehype";
 import remarkEmbedImages from "remark-embed-images";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
+import { VFile } from "vfile";
 
 const docContentDirectory = path.join(
     process.cwd(),
@@ -167,7 +168,7 @@ export async function getSinglePost({
         content: any;
     };
 
-    const markdownResult = await markdownToHtml(matterResult.content);
+    const markdownResult = await markdownToHtml(matterResult.content, fullPath);
     // Combine the data with the id
     return {
         slug: slug!,
@@ -176,8 +177,16 @@ export async function getSinglePost({
     };
 }
 
-export async function markdownToHtml(markdownSection: any): Promise<string> {
-    const file = await unified()
+export async function markdownToHtml(
+    markdownSection: any,
+    filePath: string
+): Promise<string> {
+    const inFile = new VFile({
+        path: filePath,
+        value: markdownSection,
+    });
+
+    const outFile = await unified()
         .use(remarkParse)
         .use(gfm)
         .use(remarkEmbedImages)
@@ -185,9 +194,9 @@ export async function markdownToHtml(markdownSection: any): Promise<string> {
         .use(rehypePrism)
         .use(rehypeFormat)
         .use(rehypeStringify)
-        .process(markdownSection);
+        .process(inFile);
 
-    return file.toString();
+    return outFile.toString();
 }
 
 export async function getStaticDocsPageSlugs(): Promise<{

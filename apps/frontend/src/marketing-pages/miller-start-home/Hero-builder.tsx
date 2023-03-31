@@ -95,7 +95,7 @@ export function Hero({ user }: { user: UserDto }) {
                             </StyledLink>
                         </div>
                     </div>
-                    <div className="mt-16" id="features">
+                    <div className="mt-16">
                         <p className="mb-8 max-w-4xl text-left font-display text-4xl font-medium tracking-tight text-white">
                             What is Miller Start?
                         </p>

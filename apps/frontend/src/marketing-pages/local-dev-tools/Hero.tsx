@@ -54,7 +54,7 @@ export function Hero({ user }: { user: UserDto }) {
                 </div>
                 <div>
                     <div id="hero">
-                        <div className="md:flex">
+                        <div className="md:flex" id="features">
                             <div className="mr-8">
                                 <h1 className="leading-snug mx-auto max-w-2xl font-display text-6xl font-medium tracking-tight text-white md:mx-0">
                                     Control your data with local dev utilities
@@ -125,7 +125,7 @@ export function Hero({ user }: { user: UserDto }) {
                             </StyledLink>
                         </div>
                     </div>
-                    <div className="mt-16" id="features">
+                    <div className="mt-16">
                         <p className="mb-8 max-w-4xl text-left font-display text-4xl font-medium tracking-tight text-white">
                             What are Local Dev Tools?
                         </p>
@@ -142,7 +142,7 @@ export function Hero({ user }: { user: UserDto }) {
                             websites. The tools work on both Mac and Windows.
                         </p>
                     </div>
-                    <div className="mt-16" id="features">
+                    <div className="mt-16">
                         <p className="mb-8 max-w-4xl text-left font-display text-4xl font-medium tracking-tight text-white">
                             Download Local Dev Tools
                         </p>

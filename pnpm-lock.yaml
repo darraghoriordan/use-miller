@@ -75,7 +75,7 @@ importers:
     specifiers:
       '@babel/core': 7.21.3
       '@darraghor/eslint-plugin-nestjs-typed': 3.19.0
-      '@darraghor/nest-backend-libs': workspace:../../../nest-backend-libs
+      '@darraghor/nest-backend-libs': 2.32.13
       '@mapbox/rehype-prism': 0.8.0
       '@nestjs/bull': 0.6.3
       '@nestjs/cli': 9.3.0
@@ -158,7 +158,7 @@ importers:
       webpack: '5'
     dependencies:
       '@babel/core': 7.21.3
-      '@darraghor/nest-backend-libs': file:../nest-backend-libs_yr72x7ox7ggz6vtqiehzit6ixa
+      '@darraghor/nest-backend-libs': 2.32.13_yr72x7ox7ggz6vtqiehzit6ixa
       '@mapbox/rehype-prism': 0.8.0
       '@nestjs/bull': 0.6.3_u2mony5kmh7go5ghhogedw25bu
       '@nestjs/cli': 9.3.0
@@ -385,6 +385,7 @@ importers:
       to-vfile: 7.2.4
       typescript: 5.0.2
       unified: 10.1.2
+      vfile: 5.3.7
       vscode-material-icon-theme-js: 1.0.7
     dependencies:
       '@auth0/nextjs-auth0': 2.3.1_next@13.2.4
@@ -418,6 +419,7 @@ importers:
       tailwindcss: 3.2.7
       to-vfile: 7.2.4
       unified: 10.1.2
+      vfile: 5.3.7
       vscode-material-icon-theme-js: 1.0.7
     devDependencies:
       '@nrwl/eslint-plugin-nx': 15.8.9_665krbnmic2xlbat3r5atvpoze
@@ -2168,6 +2170,86 @@ packages:
       - supports-color
       - typescript
     dev: true
+
+  /@darraghor/nest-backend-libs/2.32.13_yr72x7ox7ggz6vtqiehzit6ixa:
+    resolution: {integrity: sha512-ODfW0N7gONmljeMAHj8FVZjGQL+huDj1abOrVOdNzAYovLb846a1FAtAtPRj4WjZKdwpv5vaxjfFGYXY5I00bQ==}
+    engines: {node: '>=18'}
+    hasBin: true
+    peerDependencies:
+      '@nestjs/bull': 0.6.3
+      '@nestjs/common': 9.3.12
+      '@nestjs/config': 2.3.1
+      '@nestjs/core': 9.3.12
+      '@nestjs/passport': 9.0.3
+      '@nestjs/platform-express': 9.3.12
+      '@nestjs/swagger': 6.2.1
+      '@nestjs/typeorm': 9.0.1
+      class-transformer: 0.5.1
+      class-validator: 0.14.0
+      reflect-metadata: 0.1.13
+      typeorm: 0.3.12
+    dependencies:
+      '@nestjs/axios': 2.0.0_v6tjnoiqsnib5jtos4nrpuzpyu
+      '@nestjs/bull': 0.6.3_u2mony5kmh7go5ghhogedw25bu
+      '@nestjs/common': 9.3.12_5ezc66h7azca7t7jxbenr4bfzy
+      '@nestjs/config': 2.3.1_jy37pi22pqa22ux5geb72eebiu
+      '@nestjs/core': 9.3.12_qhubmme3ystyvorrsy6sfc2ome
+      '@nestjs/microservices': 9.3.12_nbmdco2uyb7d7rseflizcj32bu
+      '@nestjs/passport': 9.0.3_ajy2slul3age3kopk444psnhqq
+      '@nestjs/platform-express': 9.3.12_ge4qplnzbmfyi5znl534zhtkn4
+      '@nestjs/swagger': 6.2.1_56wskrocvqeup2a4dyvgnvm62u
+      '@nestjs/terminus': 9.2.1_u7onwlgcke355pigasdil5rpgu
+      '@nestjs/typeorm': 9.0.1_tczrxjq6l4bicygw3hjjbo47ua
+      add: 2.0.6
+      auth0: 3.3.0
+      bull: 4.10.4
+      cache-manager: 5.2.0
+      cache-manager-redis-yet: 4.1.1
+      chalk: 5.2.0
+      class-transformer: 0.5.1
+      class-validator: 0.14.0
+      date-fns: 2.29.3
+      dotenv: 16.0.3
+      helmet: 6.0.1
+      jwks-rsa: 3.0.1
+      nanoid: 4.0.1
+      nestjs-pino: 3.1.2_g2cqd4mgcg63o5mvxc7l66lzja
+      nodemailer: 6.9.1
+      passport: 0.6.0
+      passport-headerapikey: 1.2.2
+      passport-jwt: 4.0.1
+      pino-http: 8.3.3
+      pino-pretty: 10.0.0
+      redis: 4.6.5
+      reflect-metadata: 0.1.13
+      rimraf: 4.4.1
+      rxjs: 7.8.0
+      stripe: 11.16.0
+      swagger-ui-express: 4.6.2_express@4.18.2
+      twitter-api-v2: 1.14.2
+      typeorm: 0.3.12_pg@8.10.0+ts-node@10.9.1
+    transitivePeerDependencies:
+      - '@grpc/grpc-js'
+      - '@grpc/proto-loader'
+      - '@mikro-orm/core'
+      - '@mikro-orm/nestjs'
+      - '@nestjs/mongoose'
+      - '@nestjs/sequelize'
+      - '@nestjs/websockets'
+      - amqp-connection-manager
+      - amqplib
+      - axios
+      - debug
+      - express
+      - ioredis
+      - kafkajs
+      - mongoose
+      - mqtt
+      - nats
+      - sequelize
+      - superagent-proxy
+      - supports-color
+    dev: false
 
   /@es-joy/jsdoccomment/0.37.0:
     resolution: {integrity: sha512-hjK0wnsPCYLlF+HHB4R/RbUjOWeLW2SlarB67+Do5WsKILOkmIZvvPJFbtWSmbypxcjpoECLAMzoao0D4Bg5ZQ==}
@@ -20707,88 +20789,5 @@ packages:
       lodash: 2.4.2
       nano: 4.2.1
     transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  file:../nest-backend-libs_yr72x7ox7ggz6vtqiehzit6ixa:
-    resolution: {directory: ../nest-backend-libs, type: directory}
-    id: file:../nest-backend-libs
-    name: '@darraghor/nest-backend-libs'
-    version: 1.0.1
-    engines: {node: '>=18'}
-    hasBin: true
-    peerDependencies:
-      '@nestjs/bull': 0.6.3
-      '@nestjs/common': 9.3.12
-      '@nestjs/config': 2.3.1
-      '@nestjs/core': 9.3.12
-      '@nestjs/passport': 9.0.3
-      '@nestjs/platform-express': 9.3.12
-      '@nestjs/swagger': 6.2.1
-      '@nestjs/typeorm': 9.0.1
-      class-transformer: 0.5.1
-      class-validator: 0.14.0
-      reflect-metadata: 0.1.13
-      typeorm: 0.3.12
-    dependencies:
-      '@nestjs/axios': 2.0.0_v6tjnoiqsnib5jtos4nrpuzpyu
-      '@nestjs/bull': 0.6.3_u2mony5kmh7go5ghhogedw25bu
-      '@nestjs/common': 9.3.12_5ezc66h7azca7t7jxbenr4bfzy
-      '@nestjs/config': 2.3.1_jy37pi22pqa22ux5geb72eebiu
-      '@nestjs/core': 9.3.12_qhubmme3ystyvorrsy6sfc2ome
-      '@nestjs/microservices': 9.3.12_nbmdco2uyb7d7rseflizcj32bu
-      '@nestjs/passport': 9.0.3_ajy2slul3age3kopk444psnhqq
-      '@nestjs/platform-express': 9.3.12_ge4qplnzbmfyi5znl534zhtkn4
-      '@nestjs/swagger': 6.2.1_56wskrocvqeup2a4dyvgnvm62u
-      '@nestjs/terminus': 9.2.1_u7onwlgcke355pigasdil5rpgu
-      '@nestjs/typeorm': 9.0.1_tczrxjq6l4bicygw3hjjbo47ua
-      add: 2.0.6
-      auth0: 3.3.0
-      bull: 4.10.4
-      cache-manager: 5.2.0
-      cache-manager-redis-yet: 4.1.1
-      chalk: 5.2.0
-      class-transformer: 0.5.1
-      class-validator: 0.14.0
-      date-fns: 2.29.3
-      dotenv: 16.0.3
-      helmet: 6.0.1
-      jwks-rsa: 3.0.1
-      nanoid: 4.0.1
-      nestjs-pino: 3.1.2_g2cqd4mgcg63o5mvxc7l66lzja
-      nodemailer: 6.9.1
-      passport: 0.6.0
-      passport-headerapikey: 1.2.2
-      passport-jwt: 4.0.1
-      pino-http: 8.3.3
-      pino-pretty: 10.0.0
-      redis: 4.6.5
-      reflect-metadata: 0.1.13
-      rimraf: 4.4.1
-      rxjs: 7.8.0
-      stripe: 11.16.0
-      swagger-ui-express: 4.6.2_express@4.18.2
-      twitter-api-v2: 1.14.2
-      typeorm: 0.3.12_pg@8.10.0+ts-node@10.9.1
-    transitivePeerDependencies:
-      - '@grpc/grpc-js'
-      - '@grpc/proto-loader'
-      - '@mikro-orm/core'
-      - '@mikro-orm/nestjs'
-      - '@nestjs/mongoose'
-      - '@nestjs/sequelize'
-      - '@nestjs/websockets'
-      - amqp-connection-manager
-      - amqplib
-      - axios
-      - debug
-      - express
-      - ioredis
-      - kafkajs
-      - mongoose
-      - mqtt
-      - nats
-      - sequelize
-      - superagent-proxy
       - supports-color
     dev: false

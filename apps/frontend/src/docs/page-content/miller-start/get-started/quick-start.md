@@ -4,23 +4,29 @@ date: "2020-01-01"
 order: 1
 ---
 
-Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
+This is the quick start. See the full installation instructions for more detail on the steps below.
 
--   **Static Generation** is the pre-rendering method that generates the HTML at **build time**. The pre-rendered HTML is then _reused_ on each request.
--   **Server-side Rendering** is the pre-rendering method that generates the HTML on **each request**.
+## Minimum requirements
 
-Importantly, Next.js lets you **choose** which pre-rendering form to use for each page. You can create a "hybrid" Next.js app by using Static Generation for most pages and using Server-side Rendering for others.
+```
+node >=18
+pnpm >=7.0.0
+docker desktop @ latest
+terraform >=0.14.0
+```
 
-Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
+## Initialising your new project
 
--   **Static Generation** is the pre-rendering method that generates the HTML at **build time**. The pre-rendered HTML is then _reused_ on each request.
--   **Server-side Rendering** is the pre-rendering method that generates the HTML on **each request**.
+Copy the files from the repository into your own local repository.
 
-Importantly, Next.js lets you **choose** which pre-rendering form to use for each page. You can create a "hybrid" Next.js app by using Static Generation for most pages and using Server-side Rendering for others.
+Run `pnpm run mill:init` in the root and follow the instructions.
 
-Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
+## Running locally
 
--   **Static Generation** is the pre-rendering method that generates the HTML at **build time**. The pre-rendered HTML is then _reused_ on each request.
--   **Server-side Rendering** is the pre-rendering method that generates the HTML on **each request**.
+Run `pnpm run mill:dev` to start the local infra, frontend and backend.
 
-Importantly, Next.js lets you **choose** which pre-rendering form to use for each page. You can create a "hybrid" Next.js app by using Static Generation for most pages and using Server-side Rendering for others.
+## Failures?
+
+The init scripts interface with your file system, git, auth0 and stripe. It's somewhat complex and it's possible that something will go wrong. If you get stuck, please read the full installation instructions for more detailed instructions.
+
+Also use the support channels if there's something that isn't covered in the docs. It helps me to make this better for everyone.

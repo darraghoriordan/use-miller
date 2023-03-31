@@ -22,6 +22,7 @@ export default function Home({
             productKey="miller-start"
             menuHeaderTitle="Super Admin"
             menuHeaderHref="/super-admin"
+            headerTitle="Miller Dev Tools"
             menuSections={menuSections}
         >
             <UsersSuperAdmin allUsers={allUsers} title={"Users"} />
