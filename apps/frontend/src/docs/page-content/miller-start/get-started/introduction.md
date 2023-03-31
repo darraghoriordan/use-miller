@@ -19,6 +19,7 @@ Design principals are:
 1. Likely a very small user base (<5000 DAU).
 1. Ability to grow with success - easily extract microservices or serverless functions later
 1. Ability to expose the api to clients other than web apps in the future (e.g. a mobile app or ChatGPT plugin).
+1. Provide (all the) features and let the user delete what they don't want
 
 Miller Start deliberately avoids the use of microservices, kubernetes, serverless and other "cloud first" technologies. It's designed to be simple, easy to understand and easy to manage.
 
@@ -34,7 +35,7 @@ It uses dependency injection, typescript, linting, testing, CI/CD, docker, terra
 
 If you're a Java or .Net developer learning about NodeJS-land, you will find that Miller is a great way to quickly learn the tools in the NodeJS ecosystem. Everything is typed, dependency injection is used, linting and testing are built-in and the project is designed to be modular and easy extend.
 
-If you're just learning how to code, Miller Start might not be the best tool for you. I don't explain the web stuff in-depth because I assume prior knowledge. [Free Code Camp](https://www.freecodecamp.org/) and [The Odin Project](https://www.theodinproject.com/) are excellent resources for learning how to code web apps.
+If you're just learning how to code, I don't explain the web stuff in-depth because I assume prior knowledge. [Free Code Camp](https://www.freecodecamp.org/) and [The Odin Project](https://www.theodinproject.com/) are excellent resources for learning how to code web apps.
 
 Tl;dr - Miller is designed for developers who have some prior-experience, or have finished a bootcamp and tutorials and want to continue their learning.
 

@@ -25,6 +25,16 @@ Run `pnpm run mill:init` in the root and follow the instructions.
 
 Run `pnpm run mill:dev` to start the local infra, frontend and backend.
 
+## Surprising commit strictness
+
+I use husky, lint-staged and commitlint to enforce code consistency and commit message standards.
+
+If you try to commit and get a formatting error, try using a conventional commit message prefix like `fix:` or `feat: `.
+
+e.g. `fix: fix a bug` or `feat: add a new feature`
+
+See the docs on Code Quality Tools for instructions on how to turn all of this off.
+
 ## Failures?
 
 The init scripts interface with your file system, git, auth0 and stripe. It's somewhat complex and it's possible that something will go wrong. If you get stuck, please read the full installation instructions for more detailed instructions.
