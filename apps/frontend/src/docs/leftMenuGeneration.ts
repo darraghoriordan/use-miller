@@ -1,5 +1,4 @@
 import { MenuItem, MenuSection } from "../components/LeftMenu.jsx";
-import { getAllCourses } from "./courses/useGetAllCourses.js";
 import { getSortedPostsData } from "./docParser.js";
 
 export async function sortByCustomSlugMapping(
@@ -59,17 +58,46 @@ export function mapTitles(productKey: string): {
             };
     }
 }
+// hack to have this work in SSG mode
+// there is an api for this data also
+// but then building the site would require a backend to be available
+function getProjectMeta(productKey: string) {
+    const allProjects = {
+        ["miller-start"]: {
+            projectMeta: [
+                {
+                    key: "miller-web",
+                    name: "Miller Web",
+                },
+                {
+                    key: "nestjs-backend-libs",
+                    name: "NestJs Backend Libraries",
+                },
+            ],
+        },
+        ["dev-shell"]: {
+            projectMeta: [
+                {
+                    key: "dev-shell-scripts",
+                    name: "Dev Shell Scripts",
+                },
+            ],
+        },
+        ["local-dev-tools"]: {
+            projectMeta: [],
+        },
+    };
 
+    return allProjects[productKey as keyof typeof allProjects];
+}
 export async function createMenu(productKey: string): Promise<MenuSection[]> {
     if (fetch === undefined) {
         throw new Error(
             "fetch is undefined. This should never happen but most likely you're using a very old browser or old nodeJS."
         );
     }
-    const projects = await getAllCourses(productKey, {
-        apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH,
-        fetchApi: fetch,
-    });
+
+    const projects = getProjectMeta(productKey)?.projectMeta;
     // add all the docs that were found
     const postData = getSortedPostsData().find(
         (p) => p.productKey === productKey

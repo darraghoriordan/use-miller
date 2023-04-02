@@ -11,6 +11,15 @@ jobs:
               with:
                   fetch-depth: 0
                   persist-credentials: false
+              # we pull the repo course contents outside the docker build to avoid
+              # putting ssh keys on the docker layers
+            - uses: webfactory/ssh-agent@v0.8.0
+              with:
+                  ssh-private-key: |
+                      ${{ secrets.MAC_SETUP_DEPLOY_KEY }}
+                      ${{ secrets.NBL_DEPLOY_KEY }}
+                      ${{ secrets.USEMILLER_DEPLOY_KEY }}
+
             - uses: actions/setup-node@v3
               with:
                   node-version: "18"

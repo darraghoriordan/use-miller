@@ -29,15 +29,19 @@ I do realise this may be a controversial statement to some developers, but I use
 
 ## Who is Miller for?
 
-If you're a more experienced developer, you should find Miller's depth of content very useful.
+If you've done some courses or have a couple of years experience with web dev, you should find Miller's depth of content very useful.
 
-It uses dependency injection, typescript, linting, testing, CI/CD, docker, terraform and many modern dev tools that encourage consistency and correct our code as we build and help us move faster in the long run. It comes with additional support like custom bash scripts and tools, redis queues, infrastructure-as-code and code quality automations that you will commonly find "production" applications.
+It uses dependency injection, typescript, linting, testing, CI/CD, docker, terraform and many modern dev tools that encourage consistency and correct our code as we build and help us move faster in the long run. It comes with additional support like custom bash scripts and tools, redis queues, multi-stage docker builds, infrastructure-as-code and code quality automations that you will commonly find "production" applications.
 
 If you're a Java or .Net developer learning about NodeJS-land, you will find that Miller is a great way to quickly learn the tools in the NodeJS ecosystem. Everything is typed, dependency injection is used, linting and testing are built-in and the project is designed to be modular and easy extend.
 
-If you're just learning how to code, I don't explain the web stuff in-depth because I assume prior knowledge. [Free Code Camp](https://www.freecodecamp.org/) and [The Odin Project](https://www.theodinproject.com/) are excellent resources for learning how to code web apps.
+I don't really explain the web stuff in-depth because I assume prior knowledge. If you're just learning how to code, [Free Code Camp](https://www.freecodecamp.org/) and [The Odin Project](https://www.theodinproject.com/) are excellent resources for learning how to code web apps.
 
-Tl;dr - Miller is designed for developers who have some prior-experience, or have finished a bootcamp and tutorials and want to continue their learning.
+Tl;dr - Miller is designed for
+
+-   developers who have some prior-experience,
+-   or devs who have finished a bootcamp and tutorials and want to continue their learning.
+-   anyone stuck with some aspect of getting a NodeJs or NextJs app up and running.
 
 ## Miller structure
 

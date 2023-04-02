@@ -20,10 +20,7 @@ resource "dokku_app" "frontend_app" {
 
   domains = var.frontend_app_domains
 
-  buildpacks = [
-    "https://github.com/lstoll/heroku-buildpack-monorepo",
-    "https://github.com/heroku/heroku-buildpack-nodejs.git"
-  ]
+  buildpacks = []
 }
 
 resource "dokku_app" "app" {
@@ -47,6 +44,7 @@ resource "dokku_app" "app" {
     FRONTEND_APP_URL                = var.app_frontend_app_url
     GENERATE_SWAGGER                = var.app_generate_swagger
     INVITATION_URLS_BASE_URL        = var.app_invitation_base_url
+    COURSE_FILES_BASE_PATH          = var.app_course_files_base_path
     LOGGER_NAME                     = var.app_logger_name
     LOGGER_USE_PRETTY_LOGS          = var.app_logger_use_pretty_logs
     LOGGER_MIN_LEVEL                = var.app_logger_min_level
@@ -64,10 +62,7 @@ resource "dokku_app" "app" {
   domains = var.backend_app_domains
 
 
-  buildpacks = [
-    "https://github.com/lstoll/heroku-buildpack-monorepo",
-    "https://github.com/heroku/heroku-buildpack-nodejs.git"
-  ]
+  buildpacks = []
 }
 
 # Create accompanying services...

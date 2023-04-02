@@ -10,6 +10,7 @@ import PathMapperService from "./services/pathMapper.service.js";
 import { MarkdownFileService } from "./services/markdown-files.service.js";
 import { FileVisibilityControlGuard } from "./services/file-visibility-guard.service.js";
 import UserDiscriminatedCacheInterceptor from "./UserDiscriminatedCacheInterceptor.js";
+import { CourseFilesConfigurationService } from "./config/CourseFilesConfigurationService.js";
 
 @Module({
     imports: [CoreModule, CoreConfigModule],
@@ -26,6 +27,7 @@ import UserDiscriminatedCacheInterceptor from "./UserDiscriminatedCacheIntercept
         MarkdownFileService,
         FileVisibilityControlGuard,
         UserDiscriminatedCacheInterceptor,
+        CourseFilesConfigurationService,
     ],
     exports: [],
 })

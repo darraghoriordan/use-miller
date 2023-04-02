@@ -40,3 +40,4 @@ backend/ormconfig.json
 .docker-compose
 .jest_cache
 junit-TEST.xml
+code-repos

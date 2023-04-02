@@ -1,11 +1,15 @@
 import { CoreConfigurationService } from "@darraghor/nest-backend-libs";
 import { Injectable } from "@nestjs/common";
+import { CourseFilesConfigurationService } from "../config/CourseFilesConfigurationService.js";
 import { CourseMetaDto } from "../dtos/CourseMetaDto.js";
 import { ProductMeta } from "./ProductMeta";
 
 @Injectable()
 export class CoursesMetaService {
-    constructor(private readonly coreConfig: CoreConfigurationService) {}
+    constructor(
+        private readonly coreConfig: CoreConfigurationService,
+        private readonly courseFileConfig: CourseFilesConfigurationService
+    ) {}
 
     // probably should move this out of here at some stage
     getProjectMetadata(): { [key: string]: ProductMeta } {
@@ -25,8 +29,7 @@ export class CoursesMetaService {
                             "/apps/frontend/src/pages/docs/[section]/[slug].tsx"
                         )}`,
                         demoFileLinkText: "/apps/frontend/src/pages",
-                        rootLocation:
-                            "/Users/darraghoriordan/Documents/personal-projects/use-miller",
+                        rootLocation: `${this.courseFileConfig.basePath}/use-miller`,
                     },
                     {
                         key: "nestjs-backend-libs",
@@ -41,8 +44,7 @@ export class CoursesMetaService {
                         )}`,
 
                         demoFileLinkText: "/src/twitter-client",
-                        rootLocation:
-                            "/Users/darraghoriordan/Documents/personal-projects/nest-backend-libs",
+                        rootLocation: `${this.courseFileConfig.basePath}/nest-backend-libs`,
                     },
                 ],
             },
@@ -62,8 +64,7 @@ export class CoursesMetaService {
                             "/home/setupscripts/mac/brew.sh"
                         )}`,
                         demoFileLinkText: "/home/setupscripts/mac/brew.sh",
-                        rootLocation:
-                            "/Users/darraghoriordan/Documents/personal-projects/mac-setup-script",
+                        rootLocation: `${this.courseFileConfig.basePath}/mac-setup-script`,
                     },
                 ],
             },

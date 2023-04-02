@@ -5,6 +5,8 @@
         "test",
         "dist",
         "**/*.spec.ts",
-        "**/*.test.ts"
+        "**/*.test.ts",
+        "jest.config*",
+        "src/testing"
     ]
 }

@@ -9,6 +9,7 @@ app_email_sender_address            = "hello@somedomain.dev"
 app_frontend_app_url                = "https://app.filteredreduced.dev"
 app_generate_swagger                = "false"
 app_invitation_base_url             = "https://app.filteredreduced.dev/invitation"
+app_course_files_base_path          = "/app/code-repos"
 app_logger_name                     = "BE Api"
 app_logger_use_pretty_logs          = false
 app_logger_min_level                = "info"

@@ -110,6 +110,9 @@ variable "app_github_access_token" {
 variable "app_invitation_base_url" {
   type = string
 }
+variable "app_course_files_base_path" {
+  type = string
+}
 variable "app_logger_use_pretty_logs" {
   type = string
 }
