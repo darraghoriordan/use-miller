@@ -3,7 +3,8 @@ FROM node:18-alpine as pnpm_base
 
 WORKDIR /app
 RUN npm i --global --no-update-notifier --no-fund pnpm@7
-RUN apk add --no-cache g++ make py3-pip libc6-compat
+RUN apk update
+RUN apk add --no-cache g++ make py3-pip libc6-compat git openssh
 
 # run fetch in a separate step to avoid re-fetching deps on every change
 FROM pnpm_base as fetched_deps
@@ -23,15 +24,28 @@ RUN pnpm install --offline
 FROM with_all_deps as builder
 RUN pnpm --filter='*backend-api' build
 RUN pnpm --filter='*backend-api' deploy pruned --prod
+# get the latest code files
+RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan -H github.com ghNestBackend ghMacSetup ghMiller >>~/.ssh/known_hosts
+# COPY ./libs/project-deploy/sshConfig.txt ~/.ssh/config
+RUN mkdir -p /app/code-repos
+WORKDIR /app/code-repos
 
+RUN --mount=type=ssh,id=nestbackend git clone git@github.com:darraghoriordan/nest-backend-libs.git
+RUN rm -rf /app/code-repos/nest-backend-libs/.git
+RUN --mount=type=ssh,id=macsetup git clone git@github.com:darraghoriordan/mac-setup-script.git
+RUN rm -rf /app/code-repos/mac-setup-script/.git
+RUN --mount=type=ssh,id=usemiller git clone git@github.com:darraghoriordan/use-miller.git
+RUN rm -rf /app/code-repos/use-miller/.git
 # Production image - only take pruned assets
 FROM node:18-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
+
 RUN addgroup --system --gid 1001 app
 RUN adduser --system --uid 1001 app
 USER app
-COPY --chown=app:app ./code-repos /app/code-repos
+
+#COPY --chown=app:app ./code-repos /app/code-repos
 COPY --chown=app:app --from=builder /app/apps/backend/dist/src src
 COPY --chown=app:app --from=builder /app/apps/backend/package.json package.json
 COPY --chown=app:app --from=builder /app/apps/backend/dist/migrations migrations

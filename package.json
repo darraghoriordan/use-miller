@@ -29,7 +29,7 @@
         "semantic-release": "semantic-release",
         "knip": "knip",
         "code-repo:init": "node ./libs/project-deploy/init-code-repos.cjs",
-        "docker:be": "docker build . -f ./Dockerfile-be -t use-miller/backend-api:latest -t dokku/use-miller:v1.0.0",
+        "docker:be": "docker build . --ssh usemiller=$HOME/.ssh/useMiller --ssh macsetup=$HOME/.ssh/macSetupScript --ssh nestbackend=$HOME/.ssh/nestBackendLibs -f ./Dockerfile-be -t use-miller/backend-api:latest -t dokku/use-miller:v1.0.0",
         "md:be": "docker save dokku/use-miller:v1.0.0 | ssh dokku-as-darragh \"docker load\" && ssh dokku-as-darragh \"dokku tags:set use-miller v1.0.0\"",
         "docker:fe": "docker build . -f ./Dockerfile-fe -t use-miller/frontend:latest -t dokku/use-miller-frontend:v1.0.0",
         "md:fe": "docker save dokku/use-miller:v1.0.0 | ssh dokku-as-darragh \"docker load\""

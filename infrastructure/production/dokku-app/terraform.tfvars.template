@@ -25,4 +25,4 @@ app_web_port                        = "80"
 backend_app_domains                   = ["api.yoursite.dev"]
 frontend_app_domains = ["yoursite.dev", "www.yoursite.dev"]
 do_droplet_ip                       = "137.184.36.100"
-do_ssh_private_path                         = "/home/username/.ssh/authorized_keys/somekey"
+do_ssh_private_path                         = "/home/username/.ssh/somekey"

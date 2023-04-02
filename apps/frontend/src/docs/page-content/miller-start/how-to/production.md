@@ -113,7 +113,7 @@ You should be able to ssh into the server now.
  ssh -i [path/to/your/ssh/key] root@[the.ipv4.address.in.terraform.output]
 
  # e.g.
- ssh -i ~/.ssh/authorized_keys/mykey root@10.123.123.123
+ ssh -i ~/.ssh/mykey root@10.123.123.123
 ```
 
 You can also use the IP to start configuring your domain name
