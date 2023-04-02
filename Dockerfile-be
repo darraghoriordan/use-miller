@@ -36,7 +36,8 @@ RUN --mount=type=ssh,id=macsetup git clone git@github.com:darraghoriordan/mac-se
 RUN rm -rf /app/code-repos/mac-setup-script/.git
 RUN --mount=type=ssh,id=usemiller git clone git@github.com:darraghoriordan/use-miller.git
 RUN rm -rf /app/code-repos/use-miller/.git
-# Production image - only take pruned assets
+
+# Lean production image - only take pruned assets
 FROM node:18-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
@@ -45,7 +46,7 @@ RUN addgroup --system --gid 1001 app
 RUN adduser --system --uid 1001 app
 USER app
 
-#COPY --chown=app:app ./code-repos /app/code-repos
+COPY --chown=app:app --from=builder ./code-repos /app/code-repos
 COPY --chown=app:app --from=builder /app/apps/backend/dist/src src
 COPY --chown=app:app --from=builder /app/apps/backend/package.json package.json
 COPY --chown=app:app --from=builder /app/apps/backend/dist/migrations migrations

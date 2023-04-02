@@ -39,7 +39,7 @@ resource "dokku_app" "app" {
     GITHUB_ACCESS_TOKEN             = var.app_github_access_token
     EMAIL_SENDER_NAME               = var.app_email_sender_name
     EMAIL_SYNC_SEND_ENABLED         = var.app_smtp_email_sync_send_enabled
-    EMAIL_BCC                       = var.app_email_bcc
+    EXTRA_EMAIL_BCC                 = var.app_email_bcc
     EMAIL_SENDER_ADDRESS            = var.app_email_sender_address
     FRONTEND_APP_URL                = var.app_frontend_app_url
     GENERATE_SWAGGER                = var.app_generate_swagger
