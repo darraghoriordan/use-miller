@@ -8,6 +8,7 @@ export const GithubClientProvider = {
     provide: OKTO_KIT,
     useFactory: async (
         config: GithubClientConfigurationService
+        // eslint-disable-next-line @typescript-eslint/require-await
     ): Promise<Octokit> => {
         const fullClient: Octokit = new Octokit({
             auth: config.accessToken,
@@ -26,19 +27,6 @@ export const GithubClientProvider = {
                 },
             },
         });
-        try {
-            const response = await fullClient.rest.repos.checkCollaborator({
-                owner: "darraghoriordan",
-                repo: "use-miller",
-                username: "darraghoriordan-roam",
-            });
-            logger.debug(
-                { data: response.data, status: response.status },
-                "Github client initialised"
-            );
-        } catch (error) {
-            logger.error(error, "Failed to initialise github client");
-        }
 
         return fullClient;
     },

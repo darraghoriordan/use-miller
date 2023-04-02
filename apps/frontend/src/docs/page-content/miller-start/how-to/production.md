@@ -223,4 +223,9 @@ dokku apps:list
 
 # show current config
 dokku config:show use-miller
+
+# the frontend proxy buffering can be small for some apps
+dokku nginx:set use-miller-frontend proxy-buffer-size 128k
+dokku nginx:set use-miller-frontend proxy-buffers "4 256k"
+dokku nginx:set use-miller-frontend proxy-busy-buffers-size 256k
 ```

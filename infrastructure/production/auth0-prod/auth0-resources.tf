@@ -22,7 +22,6 @@ resource "auth0_client" "frontend_spa_app" {
   grant_types = [
     "authorization_code",
     "implicit",
-    "password",
     "refresh_token"
   ]
 
