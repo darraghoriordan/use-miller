@@ -71,12 +71,6 @@
             "@semantic-release/commit-analyzer",
             "@semantic-release/release-notes-generator",
             [
-                "@semantic-release/exec",
-                {
-                    "prepareCmd": "node ./libs/project-deploy/init-code-repos.cjs github.com"
-                }
-            ],
-            [
                 "@semantic-release/github",
                 {
                     "assets": []

@@ -11,9 +11,15 @@ import { MarkdownFileService } from "./services/markdown-files.service.js";
 import { FileVisibilityControlGuard } from "./services/file-visibility-guard.service.js";
 import UserDiscriminatedCacheInterceptor from "./UserDiscriminatedCacheInterceptor.js";
 import { CourseFilesConfigurationService } from "./config/CourseFilesConfigurationService.js";
+import { ConfigModule } from "@nestjs/config";
+import configVariables from "./config/CourseFilesConfigurationVariables.js";
 
 @Module({
-    imports: [CoreModule, CoreConfigModule],
+    imports: [
+        CoreModule,
+        CoreConfigModule,
+        ConfigModule.forFeature(configVariables),
+    ],
     controllers: [
         CourseFilesController,
         OpenCourseFilesController,
