@@ -1,29 +1,43 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { RequestUser } from "@darraghor/nest-backend-libs";
 import { Injectable, Logger } from "@nestjs/common";
 import { minimatch } from "minimatch";
 
 @Injectable()
 export class FileVisibilityControlGuard {
     private readonly logger = new Logger(FileVisibilityControlGuard.name);
-    shouldShowFullFile = (
-        fileLocation: string,
-        demoPaths: string[],
+    shouldShowFullFile = ({
+        fileLocation,
+        demoPaths,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        productKey: string,
+        productKey,
+        lengthInLines,
+        maximumLines,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        user?: RequestUser
-    ): boolean => {
+        activeSubscriptionProductKeys,
+    }: {
+        fileLocation: string;
+        demoPaths: string[];
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        productKey: string;
+        lengthInLines: number;
+        maximumLines: number;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        activeSubscriptionProductKeys?: string[];
+    }): boolean => {
         this.logger.debug(
             {
                 fileLocation,
-                userSubs: user?.activeSubscriptionProductKeys,
+                userSubs: activeSubscriptionProductKeys,
                 productKey,
             },
             `Checking if user can see file ${fileLocation}`
         );
+        // if the file is short, then it is always visible
+        if (lengthInLines < maximumLines) {
+            return true;
+        }
         // if the person is in an org that has paid for the product, then they can see all files
-        if (user?.activeSubscriptionProductKeys.includes(productKey)) {
+        if (activeSubscriptionProductKeys?.includes(productKey)) {
             return true;
         }
 

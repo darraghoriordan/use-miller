@@ -1,6 +1,6 @@
 # End to end tests for backend apis
 
-This project contains tests you can run but they DO have I/O. They are not unit tests. They are end to end tests.
+This project contains tests you can run, but they do have I/O. They are not unit tests. They are end to end tests.
 
 To run the tests, you need to have a running backend.
 

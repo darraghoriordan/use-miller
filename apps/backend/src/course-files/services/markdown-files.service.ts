@@ -23,8 +23,11 @@ export const firstQuarter = (
     options: never
 ): void => {
     const lines = file.content.split("\n");
-    // for long docs a quarter is too much
-    const amountToTake = Math.min(Math.floor(lines.length / 4), 20);
+    // for long docs a quarter is too much but less than 20 is too little
+    const amountToTake = Math.max(
+        Math.min(Math.floor(lines.length / 4), 20),
+        20
+    );
     const firstQuarter = lines.slice(0, amountToTake);
     file.excerpt = firstQuarter.join("\n");
 };
@@ -84,12 +87,14 @@ export class MarkdownFileService {
             }
         ) as MatterResult;
 
-        const shouldShowFullFile = this.fileVisibilityGuard.shouldShowFullFile(
+        const shouldShowFullFile = this.fileVisibilityGuard.shouldShowFullFile({
             fileLocation,
-            projectMeta.demoPaths,
+            demoPaths: projectMeta.demoPaths,
             productKey,
-            user
-        );
+            lengthInLines: fileContents.split("\n").length,
+            maximumLines: 30,
+            activeSubscriptionProductKeys: user?.activeSubscriptionProductKeys,
+        });
 
         const htmlData = await this.markdownToHtmlService.markdownToHtml(
             shouldShowFullFile

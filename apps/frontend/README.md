@@ -1,17 +1,5 @@
-# Welome to frontend
+# NextJs frontend
 
-This is the frontend of the application.
+This is the NextJs frontend for Miller Start.
 
-## Getting started
-
-To get started, you need to install the dependencies:
-
-```bash
-npm install
-```
-
-Then, you can run the application:
-
-```bash
-npm start
-```
+It uses SSR and SSG to render pages. There are some dynamic components for the code viewer.

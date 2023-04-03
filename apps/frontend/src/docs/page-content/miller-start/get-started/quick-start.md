@@ -15,11 +15,25 @@ docker desktop @ latest
 terraform >=0.14.0
 ```
 
+Install node from https://nodejs.org/en or with nvm.
+
+Install pnpm with npm `npm install -g pnpm`
+
+Install docker desktop from https://www.docker.com/products/docker-desktop
+
+Install terraform from https://www.terraform.io/downloads.html
+
 ## Initialising your new project
 
 Copy the files from the repository into your own local repository.
 
 Run `pnpm run mill:init` in the root and follow the instructions.
+
+## Project name and these docs
+
+After running `mill:init` the projects should be renamed to match your project name. This means anywhere I use `use-miller` in the docs should be replaced with your project name.
+
+e.g. `git remote add dokku dokku@YOURdokkuSERVER:use-miller` would be `git remote add dokku dokku@YOURdokkuSERVER:<YOUR_PROJECT_NAME>`
 
 ## Running locally
 

@@ -110,9 +110,11 @@ $ pnpm run db:run
 ```bash
 # add dokku remote (only need to run this once)
 git remote add dokku dokku@YOURdokkuSERVER:use-miller
+git remote add dokkufe dokku@YOURdokkuSERVER:use-miller-frontend
 ```
 
 ```bash
 # push to dokku
 git push dokku main:master
+git push dokkufe main:master
 ```

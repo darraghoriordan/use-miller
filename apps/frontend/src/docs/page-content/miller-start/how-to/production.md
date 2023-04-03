@@ -196,7 +196,11 @@ dokku builder-dockerfile:set use-miller-frontend dockerfile-path Dockerfile-fe
 dokku builder-dockerfile:set use-miller dockerfile-path Dockerfile-be
 # you should try to deploy now
 # (on your dev machine)
+git remote add dokku dokku@YOURdokkuSERVER:use-miller
+git remote add dokkufe dokku@YOURdokkuSERVER:use-miller-frontend
+
 git push dokku main:master
+git push dokkufe main:master
 
 # set the ports (after a successful deployment)
 dokku proxy:ports-add use-miller-frontend http:80:5000
@@ -224,7 +228,7 @@ dokku apps:list
 # show current config
 dokku config:show use-miller
 
-# the frontend proxy buffering can be small for some apps
+# the frontend proxy buffering can be too small for some apps
 dokku nginx:set use-miller-frontend proxy-buffer-size 128k
 dokku nginx:set use-miller-frontend proxy-buffers "4 256k"
 dokku nginx:set use-miller-frontend proxy-busy-buffers-size 256k

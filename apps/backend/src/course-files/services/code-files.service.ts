@@ -225,12 +225,15 @@ export class CodeFilesService {
                 projectMeta.rootLocation
             );
         if (
-            this.fileVisibilityGuard.shouldShowFullFile(
-                fileLocation,
-                projectMeta.demoPaths,
+            this.fileVisibilityGuard.shouldShowFullFile({
                 productKey,
-                user
-            )
+                demoPaths: projectMeta.demoPaths,
+                fileLocation,
+                lengthInLines: fileContents.split("\n").length,
+                activeSubscriptionProductKeys:
+                    user?.activeSubscriptionProductKeys,
+                maximumLines: 15,
+            })
         ) {
             return {
                 contents: fileContents,
@@ -252,15 +255,12 @@ export class CodeFilesService {
     };
 
     trimCodeFile = (contents: string, demoUrl: string): string => {
-        // if the file is less than 200 lines, return the whole thing
-        if (contents.length < 200) {
-            return contents;
-        }
         const lines = contents.split("\n");
-        const firstQuarter = lines.slice(
-            0,
-            Math.min(Math.floor(lines.length / 4), 20)
+        const amountToTake = Math.max(
+            Math.min(Math.floor(lines.length / 4), 20),
+            12
         );
+        const firstQuarter = lines.slice(0, amountToTake);
 
         return (
             firstQuarter.join("\n") +

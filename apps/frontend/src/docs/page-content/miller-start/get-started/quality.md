@@ -4,21 +4,27 @@ date: "2020-01-01"
 order: 0
 ---
 
-I personally like having tools help me write consistent, correct code. Miller uses a lot of tools to help with this.
+I use tools help me write consistent, correct code. Miller includes pre-configured tools to help with this.
 
-If you're not used to them, you will likely find it frustrating. I recommend you keep it all turned on and learn how to use it. It will save you time in the long run.
+If you're not used to strict tools, you might find it frustrating.
 
-But if you want to turn anything off, here's how to do it.
+I recommend you keep it all turned on, It will save you time in the long run. But if you want to turn anything off, here's how to do it.
+
+## Lint Staged
+
+I use lint-staged and husky to run linting and formatting on any changes when you're creating a commit.
+
+Lint-staged is configured to run commitlint to enforce a strict commit message format.
 
 ## Conventional commits and commitlint
 
-If you use conventional commits, git can version your code automatically and produce release notes for you.
+If you try to commit you may get an error. This is because I use commitlint to enforce a strict commit message format.
 
 A conventional commit looks like `feat: add a new feature` or `fix: fix a bug`.
 
-I enforce this with commitlint, which will stop you from committing if you don't use a conventional commit.
-
 Turn off commit message linting by deleting `.husky/commit-msg`.
+
+Read more: https://www.conventionalcommits.org/en/v1.0.0/#summary
 
 ## Linting
 
