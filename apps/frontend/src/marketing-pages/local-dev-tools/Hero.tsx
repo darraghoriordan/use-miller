@@ -125,7 +125,7 @@ export function Hero({ user }: { user: UserDto }) {
                             </StyledLink>
                         </div>
                     </div>
-                    <div className="mt-16">
+                    <div className="mt-16" id="download">
                         <p className="mb-8 max-w-4xl text-left font-display text-4xl font-medium tracking-tight text-white">
                             What are Local Dev Tools?
                         </p>

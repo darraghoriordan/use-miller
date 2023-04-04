@@ -26,7 +26,7 @@ export class CoursesMetaService {
                         demoFileLinkHref: `${
                             this.coreConfig.frontEndAppUrl
                         }/docs/miller-start/reference/miller-web/${btoa(
-                            "/apps/frontend/src/pages/docs/[section]/[slug].tsx"
+                            "/apps/frontend/src/pages/docs/[productKey]/[section]/[slug].tsx"
                         )}`,
                         demoFileLinkText: "/apps/frontend/src/pages",
                         rootLocation: `${this.courseFileConfig.basePath}/use-miller`,

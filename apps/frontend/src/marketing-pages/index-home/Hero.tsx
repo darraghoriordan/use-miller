@@ -32,7 +32,7 @@ export function Hero({ user }: { user: UserDto }) {
             image: devToolsLogo,
             learnMoreLink: "/local-dev-tools",
             altLinkText: "Download now",
-            altLink: "/local-dev-tools#features",
+            altLink: "/local-dev-tools#download",
             benefits: [
                 "Keep your business data safe from random tools websites",
                 "Local utilities for Git repository management",
