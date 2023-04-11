@@ -78,7 +78,7 @@ export function Hero({ user }: { user: UserDto }) {
                         <div className="md:flex">
                             <div className="mr-8">
                                 <h1 className="leading-snug mx-auto max-w-2xl font-display text-6xl font-medium tracking-tight text-white md:mx-0">
-                                    Tools that Help You Code Faster and Safer
+                                    Tools that Help You Code Safer, and Faster
                                 </h1>
                                 <p className="mx-auto mt-6 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
                                     Miller dev tools save you time so you can

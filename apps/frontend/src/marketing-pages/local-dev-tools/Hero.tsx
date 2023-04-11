@@ -9,17 +9,20 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 
 export function Hero({ user }: { user: UserDto }) {
     const features = [
-        "Offline encoding and decoding tools for base64, JWT, JSON",
+        "Offline encoding and decoding tools for base64, JWT and JSON",
+        "An AI powered ESLint rule generator [This tool uses an API]",
+        "A color converter with 'nearest tailwind color' and harmonious colors feature",
+        "Encoders and decoders for Html and CSS Unicode characters, uri components",
         "A git url parser and generator that is aware of your local ssh aliases",
         "A git repo summary tool to verify user name is consistent across ssh alias related repos",
         "A tool to quickly parse and map timestamps in different formats, local and UTC",
-        "An internationalisation aware string sorter. Simple, but better than most online tools",
+        "String tools - A case converter and an internationalisation aware string sorter. Simple, but better than most online tools",
     ];
     const topFeatures = [
         {
             name: "Secure your data",
             description:
-                "Jwt decoding is very common these days but devs still use jwt.io to decode. You should never let an active access token leave your custody.",
+                "Jwt decoding is very common these days but devs still use jwt.io to decode. You should never let an active access token leave your custody. Dev tools keeps your data safe.",
         },
         {
             name: "Universal app",
@@ -29,12 +32,12 @@ export function Hero({ user }: { user: UserDto }) {
         {
             name: "Simple offline tools",
             description:
-                "Sometimes you want to quickly check a timestamp's value in localtime or sort some strings in a locale aware way. These tools are simple but useful.",
+                "Encoders, decoders and convertors galore! Sometimes you want to quickly check a timestamp's value in localtime or sort some strings in a locale aware way. Dev tools has you covered.",
         },
         {
             name: "Git repository tools",
             description:
-                "If you work with multiple clients or git accounts you will find the git url parser and repo user summary tools very useful.",
+                "If you work with multiple clients or git accounts you will find the git url parser and repo user summary tools very useful. Made for git power-users.",
         },
     ];
     const codeHref = `/docs/local-dev-tools/get-started/quick-start`;
@@ -110,11 +113,11 @@ export function Hero({ user }: { user: UserDto }) {
                         </div>
                         <div className="mx-auto mt-10 flex gap-x-6 md:mx-0">
                             <StyledLink
-                                href={"#pricing"}
+                                href={"#download"}
                                 color="violet"
                                 className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
                             >
-                                Pricing
+                                Try for Free
                             </StyledLink>
                             <StyledLink
                                 href={codeHref}
@@ -156,8 +159,8 @@ export function Hero({ user }: { user: UserDto }) {
                         <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
                             Universal App (Apple Silicon & Intel) -{" "}
                             <a
-                                href="https://assets.darraghoriordan.com/localDevTools%2Fgr-hosting%2F1.55.0%2FLocalDevTools-1.55.0-universal.dmg"
-                                className="underline underline-offset-2"
+                                href="https://assets.darraghoriordan.com/localDevTools/gr-hosting/1.60.1/LocalDevTools-1.60.1-universal.dmg"
+                                className="underline underline-offset-2 font-semibold"
                             >
                                 Download
                             </a>
@@ -168,8 +171,8 @@ export function Hero({ user }: { user: UserDto }) {
                         <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
                             Intel x64 -{" "}
                             <a
-                                href="https://assets.darraghoriordan.com/localDevTools%2Fgr-hosting%2F1.55.0%2FLocalDevTools-1.55.0-x64.exe"
-                                className="underline underline-offset-2"
+                                href="https://assets.darraghoriordan.com/localDevTools/gr-hosting/1.60.1/LocalDevTools-1.60.1-x64.exe"
+                                className="underline underline-offset-2 font-semibold"
                             >
                                 Download
                             </a>
@@ -177,8 +180,8 @@ export function Hero({ user }: { user: UserDto }) {
                         <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
                             Arm 64 -{" "}
                             <a
-                                href="https://assets.darraghoriordan.com/localDevTools%2Fgr-hosting%2F1.55.0%2FLocalDevTools-1.55.0-arm64.exe"
-                                className="underline underline-offset-2"
+                                href="https://assets.darraghoriordan.com/localDevTools/gr-hosting/1.60.1/LocalDevTools-1.60.1-arm64.exe"
+                                className="underline underline-offset-2 font-semibold"
                             >
                                 Download
                             </a>
