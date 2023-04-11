@@ -21,12 +21,14 @@ export async function getStaticProps({
     // calculating this locally out of laziness
 
     return {
-        props: {
-            productKey: params.productKey,
-            ...titles,
-            menuSections,
-            article,
-        },
+        props: JSON.parse(
+            JSON.stringify({
+                productKey: params.productKey,
+                ...titles,
+                menuSections,
+                article,
+            })
+        ),
     };
 }
 

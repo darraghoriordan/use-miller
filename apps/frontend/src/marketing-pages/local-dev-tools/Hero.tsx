@@ -159,7 +159,7 @@ export function Hero({ user }: { user: UserDto }) {
                         <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
                             Universal App (Apple Silicon & Intel) -{" "}
                             <a
-                                href="https://assets.darraghoriordan.com/localDevTools/gr-hosting/1.60.1/LocalDevTools-1.60.1-universal.dmg"
+                                href="https://assets.darraghoriordan.com/localDevTools/gr-hosting/1.60.4/LocalDevTools-1.60.4-universal.dmg"
                                 className="underline underline-offset-2 font-semibold"
                             >
                                 Download
@@ -171,7 +171,7 @@ export function Hero({ user }: { user: UserDto }) {
                         <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
                             Intel x64 -{" "}
                             <a
-                                href="https://assets.darraghoriordan.com/localDevTools/gr-hosting/1.60.1/LocalDevTools-1.60.1-x64.exe"
+                                href="https://assets.darraghoriordan.com/localDevTools/gr-hosting/1.60.4/LocalDevTools-1.60.4-x64.exe"
                                 className="underline underline-offset-2 font-semibold"
                             >
                                 Download
@@ -180,7 +180,7 @@ export function Hero({ user }: { user: UserDto }) {
                         <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
                             Arm 64 -{" "}
                             <a
-                                href="https://assets.darraghoriordan.com/localDevTools/gr-hosting/1.60.1/LocalDevTools-1.60.1-arm64.exe"
+                                href="https://assets.darraghoriordan.com/localDevTools/gr-hosting/1.60.4/LocalDevTools-1.60.4-arm64.exe"
                                 className="underline underline-offset-2 font-semibold"
                             >
                                 Download

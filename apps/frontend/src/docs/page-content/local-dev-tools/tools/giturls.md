@@ -1,5 +1,5 @@
 ---
-title: "Git ssh alias urls"
+title: "Git SSH Alias Urls"
 date: "2020-01-01"
 order: 5
 ---
