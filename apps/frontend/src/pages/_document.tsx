@@ -18,6 +18,11 @@ export default function Document(props: any) {
                     rel="stylesheet"
                     href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Lexend:wght@400;500&display=swap"
                 />
+                <script
+                    defer
+                    data-domain="usemiller.dev"
+                    src="https://plausible.io/js/script.js"
+                ></script>
             </Head>
             <body>
                 <Main />
