@@ -6,4 +6,4 @@ order: 11
 
 This tool accepts a Unix or ISO timestamp and converts it to a human readable date and time.
 
-![Timestamps](../images/timestamps.png)
+![Timestamps](images/timestamps.png)

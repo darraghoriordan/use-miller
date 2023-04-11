@@ -8,4 +8,4 @@ This tool converts strings to different cases.
 
 A new line is treated as a separator.
 
-![String Case](../images/stringcase.png)
+![String Case](images/stringcase.png)

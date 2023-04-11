@@ -14,8 +14,8 @@ It shows you the nearest TailwindCSS color to your color.
 -   css names
 -   and more...
 
-![Colors](../images/colors.png)
+![Colors](images/colors.png)
 
 It also shows harmony/related colors.
 
-![Colors2](../images/colors2.png)
+![Colors2](images/colors2.png)

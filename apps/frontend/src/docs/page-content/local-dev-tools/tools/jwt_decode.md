@@ -6,4 +6,4 @@ order: 8
 
 This tool decodes JWT tokens.
 
-![JWT Decode](../images/jwt_decoder.png)
+![JWT Decode](images/jwt_decoder.png)

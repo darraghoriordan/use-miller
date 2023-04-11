@@ -10,4 +10,4 @@ It focuses on showing you the user that is assigned to a repository so you can e
 
 It provides easy access to the settings for all your repos in one place. You can also open the global settings easily.
 
-![git projects](../images/git_projects.png)
+![git projects](images/git_projects.png)

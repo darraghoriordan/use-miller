@@ -6,4 +6,4 @@ order: 10
 
 This tool uses the Intl.Collator API to sort strings.
 
-![String sort](../images/stringsort.png)
+![String sort](images/stringsort.png)

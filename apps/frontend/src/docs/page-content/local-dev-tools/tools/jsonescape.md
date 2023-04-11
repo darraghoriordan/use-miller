@@ -6,4 +6,4 @@ order: 7
 
 This tool escapes and unescapes the double quotes on JSON strings that are returned in bash.
 
-![JSON Escape](../images/json_escape.png)
+![JSON Escape](images/json_escape.png)

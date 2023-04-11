@@ -6,4 +6,4 @@ order: 6
 
 This tool converts html chars and unicode to ascii and back.
 
-![Html Chars](../images/html_char.png)
+![Html Chars](images/html_char.png)
