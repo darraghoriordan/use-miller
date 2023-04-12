@@ -6,6 +6,10 @@ import timestamps from "./intro-media/timestamps.png";
 import Image from "next/image";
 import { UserDto } from "@use-miller/shared-api-client";
 import { CheckIcon } from "@heroicons/react/24/outline";
+const version = "1.60.6";
+const winArm64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.exe`;
+const universalDownload = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-universal.dmg`;
+const winX64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-x64.exe`;
 
 export function Hero({ user }: { user: UserDto }) {
     const features = [
@@ -147,7 +151,7 @@ export function Hero({ user }: { user: UserDto }) {
                     </div>
                     <div className="mt-16">
                         <p className="mb-8 max-w-4xl text-left font-display text-4xl font-medium tracking-tight text-white">
-                            Download Local Dev Tools
+                            Download Local Dev Tools (v{version})
                         </p>
                         <p className="mt-4 text-left font-display text-lg text-gray-200">
                             Download right now and try it out. Buy a license
@@ -159,7 +163,7 @@ export function Hero({ user }: { user: UserDto }) {
                         <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
                             Universal App (Apple Silicon & Intel) -{" "}
                             <a
-                                href="https://assets.darraghoriordan.com/localDevTools/gr-hosting/1.60.4/LocalDevTools-1.60.4-universal.dmg"
+                                href={universalDownload}
                                 className="underline underline-offset-2 font-semibold"
                             >
                                 Download
@@ -171,7 +175,7 @@ export function Hero({ user }: { user: UserDto }) {
                         <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
                             Intel x64 -{" "}
                             <a
-                                href="https://assets.darraghoriordan.com/localDevTools/gr-hosting/1.60.4/LocalDevTools-1.60.4-x64.exe"
+                                href={winX64Download}
                                 className="underline underline-offset-2 font-semibold"
                             >
                                 Download
@@ -180,7 +184,7 @@ export function Hero({ user }: { user: UserDto }) {
                         <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
                             Arm 64 -{" "}
                             <a
-                                href="https://assets.darraghoriordan.com/localDevTools/gr-hosting/1.60.4/LocalDevTools-1.60.4-arm64.exe"
+                                href={winArm64Download}
                                 className="underline underline-offset-2 font-semibold"
                             >
                                 Download
