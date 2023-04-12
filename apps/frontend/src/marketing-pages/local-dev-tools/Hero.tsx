@@ -148,6 +148,11 @@ export function Hero({ user }: { user: UserDto }) {
                             data with confidence rather than using random
                             websites. The tools work on both Mac and Windows.
                         </p>
+                        <p className="mt-4 text-left font-display text-lg text-gray-200">
+                            Any online tools use your API keys (e.g.
+                            OpenAI/ChatGPT) and never transmit data to a
+                            UseMiller server.
+                        </p>
                     </div>
                     <div className="mt-16">
                         <p className="mb-8 max-w-4xl text-left font-display text-4xl font-medium tracking-tight text-white">
