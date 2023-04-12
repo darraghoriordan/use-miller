@@ -14,9 +14,9 @@ export default function Home() {
                     <h1>About Miller</h1>
                     <p>Hi! Thanks for checking out the Miller products. </p>
                     <p>
-                        I'm Darragh ORiordan, I make created the tools that are
+                        I'm Darragh ORiordan, I make all the tools that are
                         available here. I'm a software engineer and people
-                        leader and I live in Sydney, Australia.
+                        leader. I currently live in sunny Sydney, Australia.
                     </p>
                     <p>
                         You can read more about me on my main website{" "}

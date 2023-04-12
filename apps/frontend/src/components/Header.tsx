@@ -175,7 +175,7 @@ export function Header({
                         <Link
                             href="/"
                             aria-label="Home"
-                            className="text-3xl text-white"
+                            className="text-xl md:text-3xl text-white"
                         >
                             {headerTitle || `Miller Dev Tools`}
                         </Link>
