@@ -5,10 +5,11 @@ import { TwitterCTA } from "../components/TwitterCTA.jsx";
 import { CheckIcon } from "@heroicons/react/24/outline";
 
 const buyBenefits = [
+    "Full ownership, you own the code forever. Even if you cancel your subscription to updates",
     "Direct access to the GitHub repositories",
     "One year of updates",
     "Growing list of docs and notes on usage",
-    "Access to support chat (see license terms)",
+    "Access to support community",
 ];
 
 export function Pricing({ user }: { user: UserDto }) {
