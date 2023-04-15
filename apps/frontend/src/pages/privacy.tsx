@@ -6,8 +6,8 @@ export default function Home() {
     const email = "info@usemiller.dev";
     return (
         <Layout
-            seoDescription="Miller builds tools for busy developers. Learn NestJs and NextJs, enrich your shell, get useful local dev tools, and more."
-            seoTitle="Miller - Tools for busy devs!"
+            seoDescription="Miller dev tools save you time so you can focus on building your product and helping your customers."
+            seoTitle={`Dev tools to save you time`}
             headerTitle="Miller Dev Tools"
             themeColor="violet"
         >
