@@ -83,6 +83,8 @@ You can use the local backend for now but do consider using a remote backend in 
 
 The project uses docker to run local development backend tools (database, redis). The services are already configured for you but you must install docker from https://www.docker.com/products/docker-desktop to use it.
 
+You must set `127.0.0.1      host.docker.internal` in your `/etc/hosts` file or the equivalent for local dns lookups on your operating system. This might already be done for you by docker installer.
+
 ## Initialise your new project
 
 There is a setup helper to get you started for the first run.

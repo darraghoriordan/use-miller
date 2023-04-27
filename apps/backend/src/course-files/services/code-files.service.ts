@@ -229,7 +229,7 @@ export class CodeFilesService {
                 productKey,
                 demoPaths: projectMeta.demoPaths,
                 fileLocation,
-                lengthInLines: fileContents.split("\n").length,
+                lengthInLines: fileContents?.split("\n").length,
                 activeSubscriptionProductKeys:
                     user?.activeSubscriptionProductKeys,
                 maximumLines: 15,
@@ -255,7 +255,7 @@ export class CodeFilesService {
     };
 
     trimCodeFile = (contents: string, demoUrl: string): string => {
-        const lines = contents.split("\n");
+        const lines = contents?.split("\n");
         const amountToTake = Math.max(
             Math.min(Math.floor(lines.length / 4), 20),
             12

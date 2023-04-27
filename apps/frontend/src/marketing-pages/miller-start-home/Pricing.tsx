@@ -1,8 +1,8 @@
 import { Container } from "../../components/Container";
 import { UserDto } from "@use-miller/shared-api-client";
-import { BuyNowButton } from "../../components/BuyNowButton.jsx";
 import { TwitterCTA } from "../components/TwitterCTA.jsx";
 import { CheckIcon } from "@heroicons/react/24/outline";
+import { SignUpBuyNowButton } from "../../components/SignupBuyNow.jsx";
 
 const buyBenefits = [
     "Full ownership, you own the code forever. Even if you cancel your subscription to updates",
@@ -36,8 +36,8 @@ export function Pricing({ user }: { user: UserDto }) {
                         </p>
                         <div className="mt-8 font-semibold  text-white">
                             <ul className="space-y-4">
-                                {buyBenefits.map((benefit) => (
-                                    <li className="flex items-center">
+                                {buyBenefits.map((benefit, i) => (
+                                    <li className="flex items-center" key={i}>
                                         <CheckIcon
                                             className="mr-6 h-5 w-5 text-green-500"
                                             aria-hidden="true"
@@ -62,7 +62,7 @@ export function Pricing({ user }: { user: UserDto }) {
                         </p>
                         <p className="text-smtext-center"></p>
                         <div className="mx-auto flex gap-x-6 md:mx-0 mb-10">
-                            <BuyNowButton
+                            <SignUpBuyNowButton
                                 user={user}
                                 productKey="miller-start"
                                 color="cyan"

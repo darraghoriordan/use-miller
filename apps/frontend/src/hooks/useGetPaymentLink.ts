@@ -13,6 +13,7 @@ export async function getStripeCheckoutLink(
     res: NextApiResponse
 ) {
     try {
+        console.log("running req", req);
         const requestBody = req.body as StripeCheckoutSessionRequestDto;
         const atResponse = await getAccessToken(req, res, {
             scopes: ["openid", "email", "profile", "offline_access"],
@@ -20,19 +21,16 @@ export async function getStripeCheckoutLink(
         if (!atResponse.accessToken) {
             throw new Error("No access token");
         }
-
         const apiClient = await getAuthenticatedApiInstance(
             PaymentsApi,
             process.env.NEXT_PUBLIC_API_BASE_PATH!,
             atResponse.accessToken!,
             fetch
         );
-
         const data =
             await apiClient.stripeCheckoutControllerCreateCheckoutSession({
                 stripeCheckoutSessionRequestDto: requestBody,
             });
-
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Cache-Control", "no-store");
