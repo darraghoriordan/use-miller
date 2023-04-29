@@ -9,6 +9,7 @@ const nextConfig = {
 
     experimental: {
         scrollRestoration: true,
+        instrumentationHook: true,
     },
     webpack: (config) => {
         config.resolve.extensionAlias = {

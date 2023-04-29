@@ -1,3 +1,6 @@
+import { initTelemetry } from "./instrumentation.js";
+await initTelemetry();
+
 import "reflect-metadata";
 import { INestApplication } from "@nestjs/common";
 import {

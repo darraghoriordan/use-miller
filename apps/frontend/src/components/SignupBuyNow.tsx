@@ -34,7 +34,7 @@ export function SignUpBuyNowButton({
                     className
                 )}
             >
-                {text || "Sign up to buy"}
+                {text || "Sign up and buy"}
             </StyledLink>
         );
     }

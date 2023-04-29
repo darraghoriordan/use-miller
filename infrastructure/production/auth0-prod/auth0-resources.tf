@@ -1,5 +1,5 @@
 resource "auth0_tenant" "prod_tenant" {
-  friendly_name     = "use-miller App (Production)"
+  friendly_name     = "Use Miller Dev Tools"
   default_directory = "Username-Password-Authentication"
 }
 

@@ -31,7 +31,7 @@ export function Hero({ user }: { user: UserDto }) {
         {
             name: "NestJs",
             description:
-                "NestJs is an awesome backend application framework for node apps. It's built on express, fully typed, has a huge number of modules and functions out-of-the-box.",
+                "NestJs is a backend application framework for node apps. It's built on express, fully typed, has a huge number of modules and functions out-of-the-box. We also wrote the most popular ESLint library for NestJS, we really know NestJS well",
         },
         {
             name: "Async Background Jobs",
@@ -110,16 +110,17 @@ export function Hero({ user }: { user: UserDto }) {
                                     Master full-stack web development
                                 </h1>
                                 <p className="mx-auto mt-6 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
-                                    Become a pro with NextJs, NestJs, tailwind,
+                                    Become a pro with NextJs, NestJs, Tailwind,
                                     PostgreSQL, Redis and more - by example. For
                                     engineers who have completed beginner
                                     tutorials and are ready to advance.
                                 </p>
                                 <p className="mx-auto mt-6 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
-                                    Save months of time learning how to
-                                    integrate common features and skip straight
-                                    to the good stuff - providing valuable
-                                    features to your customers.
+                                    Save months of time learning how to build
+                                    and integrate common features to your app
+                                    and skip straight to the good stuff -
+                                    providing valuable features to your
+                                    customers.
                                 </p>
                             </div>
                             <div className="intro-image-rotation md:relative w-1/2 md:w-full mt-20 mb-32 md:mt-0 md:mb-0">
@@ -200,7 +201,7 @@ export function Hero({ user }: { user: UserDto }) {
                             backend app, a huge collection of integrations and
                             the scripts to set everything up. Miller is months
                             of dev work already completed, so you can learn how
-                            fullstack apps are built.
+                            fullstack apps are built and create your own app.
                         </p>
                         <p className="mt-8 text-left font-display text-lg font-medium text-gray-200">
                             Miller Start focuses on four main things:
@@ -209,10 +210,10 @@ export function Hero({ user }: { user: UserDto }) {
                             <li className="mt-4 ml-8 list-disc text-lg text-gray-200">
                                 <strong>Fast setup.</strong> Miller is designed
                                 to get you up and running locally in minutes.
-                                We've scripted setup and already integrated
-                                everything. NextJS frontend and NestJS backend.
-                                Prebuilt website, examples of common use cases
-                                and services.
+                                We've scripted the setup (bash and terraform)
+                                and have already integrated everything. NextJS
+                                frontend and NestJS backend. Prebuilt website,
+                                examples of common use cases and services.
                             </li>
                             <li className="mt-4 ml-8 list-disc text-lg text-gray-200">
                                 <strong>Iteration speed.</strong> Tools
@@ -221,28 +222,28 @@ export function Hero({ user }: { user: UserDto }) {
                                 clients, terraform, linting, testing. Managed
                                 services like Stripe and Auth0 provide
                                 extraordinary value to developers. Learn how to
-                                integrate them in your project.
+                                leverage them in your project.
                             </li>
                             <li className="mt-4 ml-8 list-disc text-lg text-gray-200">
                                 <strong>
                                     Simple architecture but safe for future
                                     success
                                 </strong>{" "}
-                                Miller is a "simple" architecture example for
-                                small teams and solo developers - monorepo,
-                                monolithic backend. However it is also designed
-                                to be easy to extend and scale with your
-                                success. Modular design allows extraction to
-                                serverless where needed. Use of Async jobs and
-                                caching are built-in and encouraged.
+                                Miller is an architecture for small teams and
+                                solo developers - monorepo, monolithic backend.
+                                However it is also designed to be easy to extend
+                                and scale with your success. Modular design
+                                allows easy extraction to serverless where
+                                needed. Use of Async jobs and caching are
+                                built-in, configured and encouraged.
                             </li>
                             <li className="mt-4 ml-8 list-disc text-lg text-gray-200">
                                 <strong>Convention over configuration.</strong>{" "}
                                 Miller comes with sensible defaults for a
                                 production ready application. Consistent code is
                                 encouraged with linting and formatting rules.
-                                But you can override or turn them off if you
-                                want. Nothing is hidden.
+                                But you can override or turn off these rules if
+                                you want. Nothing is hidden.
                             </li>
                         </ul>
                     </div>
@@ -252,9 +253,10 @@ export function Hero({ user }: { user: UserDto }) {
                         </p>
                         <p className="mt-4 text-left font-display text-lg font-medium text-gray-200">
                             You will get access to the complete code for this
-                            application. You can view the code reference section
-                            in the docs to get a better idea of the depth of the
-                            features. Here is a quick overview:
+                            application (usemiller.dev). You can view the code
+                            reference section in the docs to get a better idea
+                            of the depth of the features. Here is a quick
+                            overview:
                         </p>
                         <ul>
                             {features.map((feature, key) => (

@@ -5,10 +5,10 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 import { SignUpBuyNowButton } from "../../components/SignupBuyNow.jsx";
 
 const buyBenefits = [
-    "Full ownership, you own the code forever. Even if you cancel your subscription to updates",
-    "Direct access to the GitHub repositories",
-    "One year of updates",
-    "Growing list of docs and notes on usage",
+    "Full ownership, you own the code you have forever",
+    "Direct access to the GitHub repositories while subscribed",
+    "Subscription includes one year of updates",
+    "Growing list of expert documentation",
     "Access to support community",
 ];
 
