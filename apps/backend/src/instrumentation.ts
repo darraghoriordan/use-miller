@@ -6,7 +6,7 @@ import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentation
 // Set an internal logger for open telemetry to report any issues to your console/stdout
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.WARN);
 
-export const initTelemetry = async (): Promise<void> => {
+export const initTelemetry = (): void => {
     const sdk = new NodeSDK({
         resource: new Resource({
             [SemanticResourceAttributes.SERVICE_NAME]: "backend-app",
@@ -14,16 +14,22 @@ export const initTelemetry = async (): Promise<void> => {
         instrumentations: getNodeAutoInstrumentations(),
     });
     console.log("starting otel instrumentation...");
-    process.on("SIGTERM", () => {
+    function shutdown() {
         // eslint-disable-next-line promise/catch-or-return
         sdk.shutdown()
             .then(
                 () => console.log("SDK shut down successfully"),
-                (error) => console.log("Error shutting down SDK", error)
+                // eslint-disable-next-line unicorn/catch-error-name, unicorn/prevent-abbreviations
+                (err) => console.log("Error shutting down SDK", err)
             )
+            // eslint-disable-next-line unicorn/no-process-exit
             .finally(() => process.exit(0));
-    });
-    // eslint-disable-next-line @typescript-eslint/await-thenable
-    await sdk.start();
+    }
+
+    process.on("exit", shutdown);
+    process.on("SIGINT", shutdown);
+    process.on("SIGTERM", shutdown);
+    sdk.start();
+
     console.log("SDK started successfully");
 };

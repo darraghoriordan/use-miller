@@ -9,15 +9,18 @@ const sdk = new NodeSDK({
     }),
 });
 console.log("starting otel instrumentation...");
-process.on("SIGTERM", () => {
-    // eslint-disable-next-line promise/catch-or-return
+
+function shutdown() {
     sdk.shutdown()
         .then(
             () => console.log("SDK shut down successfully"),
-            (error) => console.log("Error shutting down SDK", error)
+            (err) => console.log("Error shutting down SDK", err)
         )
         .finally(() => process.exit(0));
-});
+}
 
+process.on("exit", shutdown);
+process.on("SIGINT", shutdown);
+process.on("SIGTERM", shutdown);
 sdk.start();
 console.log("SDK started successfully");

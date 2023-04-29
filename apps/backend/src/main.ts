@@ -1,5 +1,5 @@
 import { initTelemetry } from "./instrumentation.js";
-await initTelemetry();
+initTelemetry();
 
 import "reflect-metadata";
 import { INestApplication } from "@nestjs/common";
