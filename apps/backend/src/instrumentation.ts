@@ -6,7 +6,7 @@ import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentation
 // Set an internal logger for open telemetry to report any issues to your console/stdout
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.WARN);
 
-export const initTelemetry = (): void => {
+export const initTelemetry = async (): Promise<void> => {
     const sdk = new NodeSDK({
         resource: new Resource({
             [SemanticResourceAttributes.SERVICE_NAME]: "backend-app",
@@ -29,7 +29,10 @@ export const initTelemetry = (): void => {
     process.on("exit", shutdown);
     process.on("SIGINT", shutdown);
     process.on("SIGTERM", shutdown);
+    // eslint-disable-next-line promise/catch-or-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, promise/always-return
     sdk.start();
+
+    await import("./init-app.js");
 
     console.log("SDK started successfully");
 };
