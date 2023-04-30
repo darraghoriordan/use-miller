@@ -1,20 +1,23 @@
 import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
-// instrumentation.node.ts
 import { NodeSDK } from "@opentelemetry/sdk-node";
 import { Resource } from "@opentelemetry/resources";
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
-// import { FetchInstrumentation } from "@opentelemetry/instrumentation-fetch";
-// import { UndiciInstrumentation } from "opentelemetry-instrumentation-undici";
+import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
+import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-grpc";
+
+const metricExporter = new OTLPMetricExporter({});
+
+const metricReader = new PeriodicExportingMetricReader({
+    exporter: metricExporter,
+    exportIntervalMillis: 5000,
+});
 
 const sdk = new NodeSDK({
     resource: new Resource({
         [SemanticResourceAttributes.SERVICE_NAME]: "next-app",
     }),
+    metricReader,
     instrumentations: [
-        // new FetchInstrumentation({
-        //     propagateTraceHeaderCorsUrls: [/.+/g], // this is too broad for production
-        //     clearTimingResources: true,
-        // }),
         ...getNodeAutoInstrumentations({
             "@opentelemetry/instrumentation-fs": {
                 enabled: false, // very noisy

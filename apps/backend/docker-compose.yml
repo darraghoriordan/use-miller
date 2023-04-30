@@ -7,6 +7,10 @@ services:
         container_name: ${COMPOSE_PROJECT_NAME}_postgres
         image: postgres:14.6-alpine
         restart: "no"
+        deploy:
+            resources:
+                limits:
+                    memory: 400M
         ports:
             - ${APP_POSTGRES_PORT}:5432
         volumes:
@@ -22,6 +26,10 @@ services:
         container_name: ${COMPOSE_PROJECT_NAME}_redis
         image: redis:7-alpine
         restart: "no"
+        deploy:
+            resources:
+                limits:
+                    memory: 400M
         command: redis-server --save 20 1 --loglevel warning --requirepass redis-pass
         ports:
             - ${DOCKER_REDIS_PORT-6379}:6379
@@ -36,6 +44,10 @@ services:
         restart: "no"
         environment:
             - COLLECTOR_OTLP_ENABLED=true
+        deploy:
+            resources:
+                limits:
+                    memory: 400M
         ports:
             - "16685:16685" # jaeger-query grpc for the admin ui
             - "16686:16686" # jaeger-query http for the admin ui
@@ -53,14 +65,18 @@ services:
         container_name: ${COMPOSE_PROJECT_NAME}_otel_collector
         image: otel/opentelemetry-collector:latest
         restart: "no"
+        deploy:
+            resources:
+                limits:
+                    memory: 400M
         command:
             ["--config=/etc/otel-collector-config.yaml", "${OTELCOL_ARGS:-}"]
         volumes:
             - ./infrastructure/otel-collector-config.yaml:/etc/otel-collector-config.yaml
         ports:
             - "1888:1888" # pprof extension
-            - "8888:8888" # Prometheus metrics exposed by the collector
-            - "8889:8889" # Prometheus exporter metrics
+            - "8888:8888" # Prometheus metrics exposed by the otel collector itself
+            - "8889:8889" # Prometheus exporter metrics passed through the otel collector from your apps
             - "13133:13133" # health_check extension
             - "4317:4317" # OTLP gRPC receiver
             - "4318:4318" # OTLP HTTP receiver
@@ -71,6 +87,10 @@ services:
         container_name: ${COMPOSE_PROJECT_NAME}_prometheus
         image: prom/prometheus:latest
         restart: "no"
+        deploy:
+            resources:
+                limits:
+                    memory: 400M
         volumes:
             - ./infrastructure/prometheus.yaml:/etc/prometheus/prometheus.yml
         ports:

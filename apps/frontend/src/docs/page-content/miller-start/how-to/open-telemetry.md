@@ -20,9 +20,11 @@ You can view the metrics in Prometheus at http://localhost:9090/.
 
 ## View Open Telemetry data in production
 
-Refer to your telemetry provider's documentation.
+Refer to your telemetry provider's documentation. If you haven't chosen a provider I recommend honeycomb.io - https://honeycomb.io.
 
-You do not have to configure instrumentation using a third party provider's libraries. You can use the default Open Telemetry exporters that are included in Miller Start with all the major Telemetry SaaS tools.
+You do not have to configure instrumentation using a third party provider's libraries. Use Miller is already fully instrumented. The Open Telemetry exporters that are configured in Miller Start work with all the major Telemetry SaaS tools.
+
+You need to find the Open Telemetry url for your provider.
 
 ## Control Open Telemetry in frontend NextJs
 

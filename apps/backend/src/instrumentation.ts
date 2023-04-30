@@ -3,14 +3,25 @@ import { diag, DiagConsoleLogger, DiagLogLevel } from "@opentelemetry/api";
 import { Resource } from "@opentelemetry/resources";
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
 import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
+import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
+import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-grpc";
+
 // Set an internal logger for open telemetry to report any issues to your console/stdout
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.WARN);
 
 export const initTelemetry = async (): Promise<void> => {
+    const metricExporter = new OTLPMetricExporter({});
+
+    const metricReader = new PeriodicExportingMetricReader({
+        exporter: metricExporter,
+        exportIntervalMillis: 5000,
+    });
+
     const sdk = new NodeSDK({
         resource: new Resource({
             [SemanticResourceAttributes.SERVICE_NAME]: "backend-app",
         }),
+        metricReader,
         instrumentations: getNodeAutoInstrumentations({
             // eslint-disable-next-line @typescript-eslint/naming-convention
             "@opentelemetry/instrumentation-fs": {

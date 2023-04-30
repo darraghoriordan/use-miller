@@ -81,12 +81,14 @@ importers:
       '@octokit/rest': 19.0.7
       '@opentelemetry/api': 1.4.1
       '@opentelemetry/auto-instrumentations-node': 0.36.6
+      '@opentelemetry/exporter-metrics-otlp-grpc': 0.38.0
       '@opentelemetry/exporter-trace-otlp-http': 0.38.0
       '@opentelemetry/host-metrics': 0.32.1
       '@opentelemetry/instrumentation-express': 0.32.2
       '@opentelemetry/instrumentation-nestjs-core': 0.32.3
       '@opentelemetry/instrumentation-pino': 0.33.2
       '@opentelemetry/resources': 1.12.0
+      '@opentelemetry/sdk-metrics': 1.12.0
       '@opentelemetry/sdk-node': 0.38.0
       '@opentelemetry/sdk-trace-base': 1.12.0
       '@opentelemetry/sdk-trace-node': 1.12.0
@@ -173,12 +175,14 @@ importers:
       '@octokit/rest': 19.0.7
       '@opentelemetry/api': 1.4.1
       '@opentelemetry/auto-instrumentations-node': 0.36.6_@opentelemetry+api@1.4.1
+      '@opentelemetry/exporter-metrics-otlp-grpc': 0.38.0_@opentelemetry+api@1.4.1
       '@opentelemetry/exporter-trace-otlp-http': 0.38.0_@opentelemetry+api@1.4.1
       '@opentelemetry/host-metrics': 0.32.1_@opentelemetry+api@1.4.1
       '@opentelemetry/instrumentation-express': 0.32.2_@opentelemetry+api@1.4.1
       '@opentelemetry/instrumentation-nestjs-core': 0.32.3_@opentelemetry+api@1.4.1
       '@opentelemetry/instrumentation-pino': 0.33.2_@opentelemetry+api@1.4.1
       '@opentelemetry/resources': 1.12.0_@opentelemetry+api@1.4.1
+      '@opentelemetry/sdk-metrics': 1.12.0_@opentelemetry+api@1.4.1
       '@opentelemetry/sdk-node': 0.38.0_@opentelemetry+api@1.4.1
       '@opentelemetry/sdk-trace-base': 1.12.0_@opentelemetry+api@1.4.1
       '@opentelemetry/sdk-trace-node': 1.12.0_@opentelemetry+api@1.4.1
@@ -357,9 +361,11 @@ importers:
       '@nrwl/node': 16.0.1
       '@opentelemetry/api': 1.4.1
       '@opentelemetry/auto-instrumentations-node': 0.36.6
+      '@opentelemetry/exporter-metrics-otlp-grpc': 0.38.0
       '@opentelemetry/exporter-trace-otlp-http': 0.38.0
       '@opentelemetry/instrumentation-fetch': 0.38.0
       '@opentelemetry/resources': 1.12.0
+      '@opentelemetry/sdk-metrics': 1.12.0
       '@opentelemetry/sdk-node': 0.38.0
       '@opentelemetry/sdk-trace-base': 1.12.0
       '@opentelemetry/sdk-trace-node': 1.12.0
@@ -428,9 +434,11 @@ importers:
       '@nrwl/node': 16.0.1_5ylyhcuktem2kzlye4a4kp5w44
       '@opentelemetry/api': 1.4.1
       '@opentelemetry/auto-instrumentations-node': 0.36.6_@opentelemetry+api@1.4.1
+      '@opentelemetry/exporter-metrics-otlp-grpc': 0.38.0_@opentelemetry+api@1.4.1
       '@opentelemetry/exporter-trace-otlp-http': 0.38.0_@opentelemetry+api@1.4.1
       '@opentelemetry/instrumentation-fetch': 0.38.0_@opentelemetry+api@1.4.1
       '@opentelemetry/resources': 1.12.0_@opentelemetry+api@1.4.1
+      '@opentelemetry/sdk-metrics': 1.12.0_@opentelemetry+api@1.4.1
       '@opentelemetry/sdk-node': 0.38.0_@opentelemetry+api@1.4.1
       '@opentelemetry/sdk-trace-base': 1.12.0_@opentelemetry+api@1.4.1
       '@opentelemetry/sdk-trace-node': 1.12.0_@opentelemetry+api@1.4.1
@@ -3824,8 +3832,7 @@ packages:
   /@nrwl/eslint-plugin-nx/16.0.1:
     resolution: {integrity: sha512-XbS4FlTOvtg5ElJu1zseQr+p1RyJjOaYvVXa+CgTISha/x0kFuOwGMX29zcGq4shJ2AyizMaeWrq6odJqSdWVg==}
     dependencies:
-      '@nx/eslint-plugin': 16.0.1_l5i7hpeqzqjgj6sin6qxw3yxqe
-    dev: false
+      '@nx/eslint-plugin': 16.0.1_taozjkeng6mpfjrb4laf55phji
 
   /@nrwl/eslint-plugin-nx/16.0.1_l5i7hpeqzqjgj6sin6qxw3yxqe:
     resolution: {integrity: sha512-XbS4FlTOvtg5ElJu1zseQr+p1RyJjOaYvVXa+CgTISha/x0kFuOwGMX29zcGq4shJ2AyizMaeWrq6odJqSdWVg==}
@@ -3861,8 +3868,7 @@ packages:
   /@nrwl/jest/16.0.1:
     resolution: {integrity: sha512-RCTEziX6PKsAAd95FevcWoRfb1cR6i5494nuRY9Krc9AAFYTz6YGaaGgRgKvHaTIfNY3Nl2Hgojhq5v5FzXaUA==}
     dependencies:
-      '@nx/jest': 16.0.1_mkt33u56sxlku6b6parbdasetq
-    dev: false
+      '@nx/jest': 16.0.1_ibr3juqygo4iqams2gvkwywul4
 
   /@nrwl/jest/16.0.1_ibr3juqygo4iqams2gvkwywul4:
     resolution: {integrity: sha512-RCTEziX6PKsAAd95FevcWoRfb1cR6i5494nuRY9Krc9AAFYTz6YGaaGgRgKvHaTIfNY3Nl2Hgojhq5v5FzXaUA==}
@@ -3923,8 +3929,7 @@ packages:
   /@nrwl/node/16.0.1:
     resolution: {integrity: sha512-vg1EDdmCdbgyAPah9mcmS06uy2E1w9PGflmCh3R3S4MjhX2cnRGiGynIgTD/KCs98nrciRwdMcPmSu9FZb80xA==}
     dependencies:
-      '@nx/node': 16.0.1_5ylyhcuktem2kzlye4a4kp5w44
-    dev: false
+      '@nx/node': 16.0.1_56z3almiiwgnylzpdtkvbq24qm
 
   /@nrwl/node/16.0.1_56z3almiiwgnylzpdtkvbq24qm:
     resolution: {integrity: sha512-vg1EDdmCdbgyAPah9mcmS06uy2E1w9PGflmCh3R3S4MjhX2cnRGiGynIgTD/KCs98nrciRwdMcPmSu9FZb80xA==}
@@ -4103,7 +4108,7 @@ packages:
       eslint-config-prettier:
         optional: true
     dependencies:
-      '@nrwl/eslint-plugin-nx': 16.0.1
+      '@nrwl/eslint-plugin-nx': 16.0.1_l5i7hpeqzqjgj6sin6qxw3yxqe
       '@nx/devkit': 16.0.1_nx@16.0.1
       '@nx/js': 16.0.1_nx@16.0.1+typescript@4.9.3
       '@typescript-eslint/parser': 5.59.1_gy3du4ua7jh3o6eaikhxgbtp3m
@@ -4130,7 +4135,7 @@ packages:
       eslint-config-prettier:
         optional: true
     dependencies:
-      '@nrwl/eslint-plugin-nx': 16.0.1_taozjkeng6mpfjrb4laf55phji
+      '@nrwl/eslint-plugin-nx': 16.0.1
       '@nx/devkit': 16.0.1_nx@16.0.1
       '@nx/js': 16.0.1_nx@16.0.1+typescript@4.9.3
       '@typescript-eslint/parser': 5.59.1_gy3du4ua7jh3o6eaikhxgbtp3m
@@ -4153,7 +4158,7 @@ packages:
     dependencies:
       '@jest/reporters': 29.5.0
       '@jest/test-result': 29.5.0
-      '@nrwl/jest': 16.0.1_ibr3juqygo4iqams2gvkwywul4
+      '@nrwl/jest': 16.0.1
       '@nx/devkit': 16.0.1_nx@16.0.1
       '@nx/js': 16.0.1_nx@16.0.1+typescript@4.9.3
       '@phenomnomnominal/tsquery': 5.0.1_typescript@4.9.3
@@ -4181,7 +4186,7 @@ packages:
     dependencies:
       '@jest/reporters': 29.5.0
       '@jest/test-result': 29.5.0
-      '@nrwl/jest': 16.0.1
+      '@nrwl/jest': 16.0.1_mkt33u56sxlku6b6parbdasetq
       '@nx/devkit': 16.0.1_nx@16.0.1
       '@nx/js': 16.0.1_nx@16.0.1+typescript@4.9.3
       '@phenomnomnominal/tsquery': 5.0.1_typescript@4.9.3
@@ -4265,7 +4270,7 @@ packages:
   /@nx/node/16.0.1_56z3almiiwgnylzpdtkvbq24qm:
     resolution: {integrity: sha512-3ZAT9WVLKsrpd3mqvsQq4NwJLK0Ojr7myKhzgKAUP2WwqHkb12XEkLSkc+VIxipvF1jBiNyq53VAtiq45VY6dQ==}
     dependencies:
-      '@nrwl/node': 16.0.1_56z3almiiwgnylzpdtkvbq24qm
+      '@nrwl/node': 16.0.1
       '@nx/devkit': 16.0.1_nx@16.0.1
       '@nx/jest': 16.0.1_ibr3juqygo4iqams2gvkwywul4
       '@nx/js': 16.0.1_nx@16.0.1+typescript@4.9.3
@@ -4287,7 +4292,7 @@ packages:
   /@nx/node/16.0.1_5ylyhcuktem2kzlye4a4kp5w44:
     resolution: {integrity: sha512-3ZAT9WVLKsrpd3mqvsQq4NwJLK0Ojr7myKhzgKAUP2WwqHkb12XEkLSkc+VIxipvF1jBiNyq53VAtiq45VY6dQ==}
     dependencies:
-      '@nrwl/node': 16.0.1
+      '@nrwl/node': 16.0.1_5ylyhcuktem2kzlye4a4kp5w44
       '@nx/devkit': 16.0.1_nx@16.0.1
       '@nx/jest': 16.0.1_mkt33u56sxlku6b6parbdasetq
       '@nx/js': 16.0.1_nx@16.0.1+typescript@4.9.3
@@ -4663,6 +4668,36 @@ packages:
       '@opentelemetry/sdk-trace-base': 1.12.0_@opentelemetry+api@1.4.1
       '@opentelemetry/semantic-conventions': 1.12.0
       jaeger-client: 3.19.0
+    dev: false
+
+  /@opentelemetry/exporter-metrics-otlp-grpc/0.38.0_@opentelemetry+api@1.4.1:
+    resolution: {integrity: sha512-dwsNQqf/EsuImcEwOMMSIIM+Jage61mIBsN+HTObHc+KtMKedQrc2zYLzaNR2Krz1dTa0cwF9QmIkPNDe6kWmw==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      '@opentelemetry/api': ^1.3.0
+    dependencies:
+      '@grpc/grpc-js': 1.8.14
+      '@opentelemetry/api': 1.4.1
+      '@opentelemetry/core': 1.12.0_@opentelemetry+api@1.4.1
+      '@opentelemetry/exporter-metrics-otlp-http': 0.38.0_@opentelemetry+api@1.4.1
+      '@opentelemetry/otlp-grpc-exporter-base': 0.38.0_@opentelemetry+api@1.4.1
+      '@opentelemetry/otlp-transformer': 0.38.0_@opentelemetry+api@1.4.1
+      '@opentelemetry/resources': 1.12.0_@opentelemetry+api@1.4.1
+      '@opentelemetry/sdk-metrics': 1.12.0_@opentelemetry+api@1.4.1
+    dev: false
+
+  /@opentelemetry/exporter-metrics-otlp-http/0.38.0_@opentelemetry+api@1.4.1:
+    resolution: {integrity: sha512-R090VUyGbhWi07JLkJvNksQaFDXvs81mm+i+IOqkZTbyvajKKMb9Cr94YcaL6+2jb3DaaDlvAqfzbkAJLxYONQ==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      '@opentelemetry/api': ^1.3.0
+    dependencies:
+      '@opentelemetry/api': 1.4.1
+      '@opentelemetry/core': 1.12.0_@opentelemetry+api@1.4.1
+      '@opentelemetry/otlp-exporter-base': 0.38.0_@opentelemetry+api@1.4.1
+      '@opentelemetry/otlp-transformer': 0.38.0_@opentelemetry+api@1.4.1
+      '@opentelemetry/resources': 1.12.0_@opentelemetry+api@1.4.1
+      '@opentelemetry/sdk-metrics': 1.12.0_@opentelemetry+api@1.4.1
     dev: false
 
   /@opentelemetry/exporter-trace-otlp-grpc/0.38.0_@opentelemetry+api@1.4.1:
@@ -15282,7 +15317,7 @@ packages:
       tsconfig-paths: 4.2.0
       tslib: 2.5.0
       v8-compile-cache: 2.3.0
-      yargs: 17.7.1
+      yargs: 17.7.2
       yargs-parser: 21.1.1
     optionalDependencies:
       '@nrwl/nx-darwin-arm64': 15.9.2

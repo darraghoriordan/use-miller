@@ -11,7 +11,7 @@ receivers:
                 include_metadata: true
 exporters:
     prometheus:
-        endpoint: "otel-collector:9464"
+        endpoint: "otel-collector:8889"
         resource_to_telemetry_conversion:
             enabled: true
         enable_open_metrics: true
@@ -45,4 +45,4 @@ service:
         metrics:
             receivers: [otlp]
             processors: [batch]
-            exporters: [otlp, logging, prometheus]
+            exporters: [prometheus]
