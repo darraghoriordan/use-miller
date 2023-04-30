@@ -33,7 +33,7 @@ services:
     jaeger-all-in-one:
         container_name: ${COMPOSE_PROJECT_NAME}_jaeger
         image: jaegertracing/all-in-one:latest
-        restart: always
+        restart: "no"
         environment:
             - COLLECTOR_OTLP_ENABLED=true
         ports:
@@ -52,7 +52,7 @@ services:
     otel-collector:
         container_name: ${COMPOSE_PROJECT_NAME}_otel_collector
         image: otel/opentelemetry-collector:latest
-        restart: always
+        restart: "no"
         command:
             ["--config=/etc/otel-collector-config.yaml", "${OTELCOL_ARGS:-}"]
         volumes:
@@ -70,7 +70,7 @@ services:
     prometheus:
         container_name: ${COMPOSE_PROJECT_NAME}_prometheus
         image: prom/prometheus:latest
-        restart: always
+        restart: "no"
         volumes:
             - ./infrastructure/prometheus.yaml:/etc/prometheus/prometheus.yml
         ports:

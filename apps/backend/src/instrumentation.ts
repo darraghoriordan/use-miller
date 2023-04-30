@@ -11,7 +11,12 @@ export const initTelemetry = async (): Promise<void> => {
         resource: new Resource({
             [SemanticResourceAttributes.SERVICE_NAME]: "backend-app",
         }),
-        instrumentations: getNodeAutoInstrumentations(),
+        instrumentations: getNodeAutoInstrumentations({
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            "@opentelemetry/instrumentation-fs": {
+                enabled: false, // very noisy
+            },
+        }),
     });
     console.log("starting otel instrumentation...");
     function shutdown() {
