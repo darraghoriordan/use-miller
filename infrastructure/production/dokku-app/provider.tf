@@ -165,6 +165,28 @@ variable "frontend_app_next_public_stripe_regular_price_no_recurrence_id" {
   type = string
 }
 
+variable "otel_exporter_otlp_endpoint" {
+  type = string
+}
+variable "otel_exporter_otlp_headers" {
+  type = string
+}
+variable "otel_exporter_otlp_compression" {
+  type = string
+}
+variable "otel_traces_exporter" {
+  type = string
+}
+variable "otel_exporter_otlp_traces_protocol" {
+  type = string
+}
+variable "otel_log_level" {
+  type = string
+}
+variable "otel_sdk_disabled" {
+  type = string
+}
+
 provider "dokku" {
   ssh_host                 = var.do_droplet_ip
   ssh_user                 = "dokku"
