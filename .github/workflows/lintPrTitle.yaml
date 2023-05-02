@@ -6,7 +6,12 @@ on:
             - opened
             - edited
             - synchronize
-
+permissions:
+    pull-requests: write
+    statuses: read
+    actions: read
+    checks: read
+    contents: read
 jobs:
     main:
         runs-on: ubuntu-latest
