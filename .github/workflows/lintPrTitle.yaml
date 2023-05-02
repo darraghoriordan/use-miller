@@ -6,7 +6,7 @@ on:
             - opened
             - edited
             - synchronize
-permissions: read-all
+permissions: write-all
 jobs:
     main:
         runs-on: ubuntu-latest
