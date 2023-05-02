@@ -24,5 +24,13 @@ app_stripe_redirects_base_url       = ""
 app_web_port                        = "80"
 backend_app_domains                   = ["api.yoursite.dev"]
 frontend_app_domains = ["yoursite.dev", "www.yoursite.dev"]
-do_droplet_ip                       = "137.184.36.100"
+do_droplet_ip                       = "123.123.123.132"
 do_ssh_private_path                         = "/home/username/.ssh/somekey"
+app_github_access_token = ghp_
+otel_exporter_otlp_endpoint = "https://api.honeycomb.io"
+otel_exporter_otlp_headers   = "x-honeycomb-team="
+otel_exporter_otlp_compression = gzip
+otel_traces_exporter               = otlp
+otel_exporter_otlp_traces_protocol = grpc
+otel_log_level                     = WARN
+otel_sdk_disabled                  = false

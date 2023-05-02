@@ -9,7 +9,7 @@ const metricExporter = new OTLPMetricExporter({});
 
 const metricReader = new PeriodicExportingMetricReader({
     exporter: metricExporter,
-    exportIntervalMillis: 5000,
+    exportIntervalMillis: 60_000,
 });
 
 const sdk = new NodeSDK({

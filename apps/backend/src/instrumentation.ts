@@ -14,7 +14,7 @@ export const initTelemetry = async (): Promise<void> => {
 
     const metricReader = new PeriodicExportingMetricReader({
         exporter: metricExporter,
-        exportIntervalMillis: 5000,
+        exportIntervalMillis: 60_000,
     });
 
     const sdk = new NodeSDK({
