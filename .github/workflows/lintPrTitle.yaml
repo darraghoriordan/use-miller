@@ -6,9 +6,11 @@ on:
             - opened
             - edited
             - synchronize
-permissions: write-all
+
 jobs:
     main:
+        permissions:
+            pull-requests: read
         runs-on: ubuntu-latest
         steps:
             # Please look up the latest version from
