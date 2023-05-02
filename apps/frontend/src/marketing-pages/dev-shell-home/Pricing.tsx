@@ -4,8 +4,8 @@ import { BuyNowButton } from "../../components/BuyNowButton.jsx";
 import { CheckIcon } from "@heroicons/react/24/outline";
 
 const buyBenefits = [
+    "Mac and Windows dev environment setup in 1 command",
     "Direct access to the GitHub repository",
-    "Docs and notes on usage and decisions",
     "Lifetime license - get all future updates for free",
 ];
 export function Pricing({ user }: { user: UserDto }) {
@@ -33,8 +33,8 @@ export function Pricing({ user }: { user: UserDto }) {
 
                         <div className="mt-8 font-semibold  text-white">
                             <ul className="space-y-4">
-                                {buyBenefits.map((benefit) => (
-                                    <li className="flex items-center">
+                                {buyBenefits.map((benefit, i) => (
+                                    <li className="flex items-center" key={i}>
                                         <CheckIcon
                                             className="mr-6 h-5 w-5 text-green-500"
                                             aria-hidden="true"

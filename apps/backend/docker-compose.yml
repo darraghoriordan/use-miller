@@ -7,6 +7,10 @@ services:
         container_name: ${COMPOSE_PROJECT_NAME}_postgres
         image: postgres:14.6-alpine
         restart: "no"
+        deploy:
+            resources:
+                limits:
+                    memory: 400M
         ports:
             - ${APP_POSTGRES_PORT}:5432
         volumes:
@@ -14,7 +18,7 @@ services:
             - ./.docker-compose/volumes/postgres:/var/lib/postgresql/data
         environment:
             - POSTGRES_DB=${APP_POSTGRES_DATABASE}
-            - POSTGRES_SCHEMA_NAME=${APP_POSTGRES_SCHEMA}
+            - POSTGRES_SCHEMA_NAME=${APP_POSTGRES_SCHEMA:-}
             - POSTGRES_USER=${APP_POSTGRES_USER}
             - POSTGRES_PASSWORD=${APP_POSTGRES_PASSWORD}
             - PGDATA=/var/lib/postgresql/data/pgdata
@@ -22,6 +26,10 @@ services:
         container_name: ${COMPOSE_PROJECT_NAME}_redis
         image: redis:7-alpine
         restart: "no"
+        deploy:
+            resources:
+                limits:
+                    memory: 400M
         command: redis-server --save 20 1 --loglevel warning --requirepass redis-pass
         ports:
             - ${DOCKER_REDIS_PORT-6379}:6379
@@ -29,3 +37,61 @@ services:
             - ./.docker-compose/volumes/redis:/data
         environment:
             - REDIS_REPLICATION_MODE=master
+    # Jaeger
+    jaeger-all-in-one:
+        container_name: ${COMPOSE_PROJECT_NAME}_jaeger
+        image: jaegertracing/all-in-one:latest
+        restart: "no"
+        environment:
+            - COLLECTOR_OTLP_ENABLED=true
+        deploy:
+            resources:
+                limits:
+                    memory: 400M
+        ports:
+            - "16685:16685" # jaeger-query grpc for the admin ui
+            - "16686:16686" # jaeger-query http for the admin ui
+            # - "14250:14250" # Used by jaeger-agent to send spans in model.proto format.
+            # - "14268:14268" # jaeger thrift protocol
+            - "14269:14269" # Admin port: health check at / and metrics at /metrics.
+            # - "6831:6831/udp" # jaeger thrift protocol
+            # - "6832:6832/udp" # jaeger thrift protocol
+            # - "5778:5778" # remote sampling
+            # don't have to expose these. internal only
+            #- "16687:4317" # for forwarding traces in otlp to jaeger (grpc)
+            #- "16688:4318" # for forwarding otlp traces to jaeger (http)
+    # Collector
+    otel-collector:
+        container_name: ${COMPOSE_PROJECT_NAME}_otel_collector
+        image: otel/opentelemetry-collector:latest
+        restart: "no"
+        deploy:
+            resources:
+                limits:
+                    memory: 400M
+        command:
+            ["--config=/etc/otel-collector-config.yaml", "${OTELCOL_ARGS:-}"]
+        volumes:
+            - ./infrastructure/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+        ports:
+            - "1888:1888" # pprof extension
+            - "8888:8888" # Prometheus metrics exposed by the otel collector itself
+            - "8889:8889" # Prometheus exporter metrics passed through the otel collector from your apps
+            - "13133:13133" # health_check extension
+            - "4317:4317" # OTLP gRPC receiver
+            - "4318:4318" # OTLP HTTP receiver
+            - "55679:55679" # zpages extension
+        depends_on:
+            - jaeger-all-in-one
+    prometheus:
+        container_name: ${COMPOSE_PROJECT_NAME}_prometheus
+        image: prom/prometheus:latest
+        restart: "no"
+        deploy:
+            resources:
+                limits:
+                    memory: 400M
+        volumes:
+            - ./infrastructure/prometheus.yaml:/etc/prometheus/prometheus.yml
+        ports:
+            - "9090:9090"

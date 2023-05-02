@@ -14,6 +14,7 @@ export async function getStaticProps({
         slug: "",
         sectionSlug: "",
     });
+    console.log("geting single post...");
     const menuSections = await createMenu(params.productKey);
     const titles = mapTitles(params.productKey);
     return {
@@ -32,6 +33,16 @@ export async function getStaticPaths() {
             {
                 params: {
                     productKey: "miller-start",
+                },
+            },
+            {
+                params: {
+                    productKey: "dev-shell",
+                },
+            },
+            {
+                params: {
+                    productKey: "local-dev-tools",
                 },
             },
         ],

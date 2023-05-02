@@ -5,6 +5,7 @@ provider "registry.terraform.io/auth0/auth0" {
   version = "0.45.0"
   hashes = [
     "h1:5cXkLNKpbKfxRNA56LFrQjemriqfMzRFlZQIxAdnqyI=",
+    "h1:Rm8fTzMXlRQpFzw6NTAUwH5McvXCwL88I2FjwjOxj/w=",
     "zh:01cc2928920de907939ec640989aaf59cdd1121f57a40658b5e46ca3ea18e31e",
     "zh:35b47723784c141ca0e5f9bf4f017570d528e0570decd9965301839b64b53f31",
     "zh:53ddbd21f5071f33063575d88ddde124dbc290bcf97f95dea9822e5c6939aeee",

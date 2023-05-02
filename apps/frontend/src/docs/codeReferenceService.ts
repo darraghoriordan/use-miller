@@ -78,20 +78,21 @@ export async function getCodeExplorerData(
         );
     }
 
-    const fileList = await apiClient.courseFilesControllerListProjectFiles({
-        productKey,
-        projectKey,
-    });
+    const fileListPromise =
+        await apiClient.courseFilesControllerListProjectFiles({
+            productKey,
+            projectKey,
+        });
     let initialCodeFile: FileMetaDto;
-    let initialMarkdownFile: FileMetaDto;
+    let initialMarkdownFilePromise: Promise<FileMetaDto>;
     if (!accessToken) {
         initialCodeFile = await apiClient.openCourseFilesControllerGetFile({
             productKey,
             projectKey,
             b64Path: codeFile,
         });
-        initialMarkdownFile =
-            await apiClient.openCourseFilesControllerGetMarkdownFileAsHtml({
+        initialMarkdownFilePromise =
+            apiClient.openCourseFilesControllerGetMarkdownFileAsHtml({
                 productKey,
                 projectKey,
                 markdownB64Path:
@@ -103,15 +104,19 @@ export async function getCodeExplorerData(
             projectKey,
             b64Path: codeFile,
         });
-        initialMarkdownFile =
-            await apiClient.courseFilesControllerGetMarkdownFileAsHtml({
+        initialMarkdownFilePromise =
+            apiClient.courseFilesControllerGetMarkdownFileAsHtml({
                 productKey,
                 projectKey,
                 markdownB64Path:
                     initialCodeFile.nearestReadmeLocation || defaultCodeFile,
             });
     }
-
+    // maybe change this to settled later
+    const [fileList, initialMarkdownFile] = await Promise.all([
+        fileListPromise,
+        initialMarkdownFilePromise,
+    ]);
     const serialisedFileList = JSON.parse(JSON.stringify(fileList));
     return {
         slug: projectKey,

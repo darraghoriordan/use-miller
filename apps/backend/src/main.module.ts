@@ -14,10 +14,19 @@ import { UserOnboardingModule } from "./user-onboarding/user-onboarding.module.j
 import { PaymentsModule } from "./payments/payments.module.js";
 import { CourseFilesModule } from "./course-files/course-files.module.js";
 import { SubscriptionAssetsModule } from "./subscription-assets/sub-assets.module.js";
+import { OpenTelemetryModule } from "nestjs-otel";
 
 @Module({
     imports: [
         CoreModule,
+        OpenTelemetryModule.forRoot({
+            metrics: {
+                hostMetrics: true,
+                apiMetrics: {
+                    enable: true,
+                },
+            },
+        }),
         DatabaseModule,
         AuthzModule,
         UserInternalModule,

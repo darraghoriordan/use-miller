@@ -26,7 +26,7 @@ const isCurrentMenuItem = (path: string, item: MenuItem) => {
 
     //special case for the references roots
     if (path.includes(`/reference/`)) {
-        const projectRootPath = path.split("/").slice(0, -1).join("/");
+        const projectRootPath = path?.split("/").slice(0, -1).join("/");
         return item.path.includes(projectRootPath);
     }
 

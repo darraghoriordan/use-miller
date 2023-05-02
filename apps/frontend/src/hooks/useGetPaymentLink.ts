@@ -1,47 +1,8 @@
 import {
-    PaymentsApi,
     StripeCheckoutSessionRequestDto,
     StripeCheckoutSessionResponseDto,
 } from "@use-miller/shared-api-client";
 import { useMutation } from "@tanstack/react-query";
-import { NextApiRequest, NextApiResponse } from "next";
-import { getAccessToken } from "@auth0/nextjs-auth0";
-import { getAuthenticatedApiInstance } from "../api-services/apiInstanceFactories.js";
-
-export async function getStripeCheckoutLink(
-    req: NextApiRequest,
-    res: NextApiResponse
-) {
-    try {
-        const requestBody = req.body as StripeCheckoutSessionRequestDto;
-        const atResponse = await getAccessToken(req, res, {
-            scopes: ["openid", "email", "profile", "offline_access"],
-        });
-        if (!atResponse.accessToken) {
-            throw new Error("No access token");
-        }
-
-        const apiClient = await getAuthenticatedApiInstance(
-            PaymentsApi,
-            process.env.NEXT_PUBLIC_API_BASE_PATH!,
-            atResponse.accessToken!,
-            fetch
-        );
-
-        const data =
-            await apiClient.stripeCheckoutControllerCreateCheckoutSession({
-                stripeCheckoutSessionRequestDto: requestBody,
-            });
-
-        res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
-        res.setHeader("Cache-Control", "no-store");
-        res.end(JSON.stringify(data));
-    } catch (error) {
-        res.json(error);
-        res.status(500).end();
-    }
-}
 
 export function useGetPaymentLink() {
     return useMutation(

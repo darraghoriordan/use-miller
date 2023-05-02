@@ -50,8 +50,8 @@ export const SingleProductCard = ({
                         {blurb}
                     </p>
                     <ul className="list-disc list-inside ml-8">
-                        {benefits.map((benefit) => (
-                            <li key={benefit}>{benefit}</li>
+                        {benefits.map((benefit, i) => (
+                            <li key={i}>{benefit}</li>
                         ))}
                     </ul>
                     <div className="flex items-center space-x-8">
