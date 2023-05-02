@@ -51,11 +51,12 @@ export const GithubUserForm = ({
             {localUsername && (
                 <>
                     <p className="text-white mb-8">
-                        Your configured Github username is:{" "}
+                        Your Github username is:{" "}
                         <strong>{localUsername}</strong>
                     </p>
                     <p className="text-white mb-8">
-                        This user will get access to relevant repos
+                        Enter your username here and this user will get access
+                        to any relevant repos for purchased products
                     </p>
                 </>
             )}
