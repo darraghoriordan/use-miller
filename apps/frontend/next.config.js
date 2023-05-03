@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-    //output: "standalone",
+    output: "standalone",
     eslint: {
         dirs: ["src"],
         ignoreDuringBuilds: true, // lint doesnt match build lint
