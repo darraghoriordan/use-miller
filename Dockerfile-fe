@@ -18,8 +18,7 @@ FROM fetched_deps as with_all_deps
 COPY . ./
 RUN pnpm install --offline
 
-# Build the BE
-# the main issue with building everything is the FE depends on a running BE
+# Build the FE
 FROM with_all_deps as builder
 RUN pnpm --filter='*frontend' build
 RUN pnpm --filter='*frontend' deploy pruned --prod
