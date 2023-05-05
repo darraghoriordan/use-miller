@@ -28,6 +28,7 @@ importers:
       nx: 16.0.1
       prettier: 2.8.8
       rimraf: 5.0.0
+      semantic-release: 21.0.2
       ts-jest: 29.1.0
       ts-node: 10.9.1
       typescript: 4.9.3
@@ -56,6 +57,7 @@ importers:
       nx: 16.0.1
       prettier: 2.8.8
       rimraf: 5.0.0
+      semantic-release: 21.0.2
       ts-jest: 29.1.0_ydzrp3x3c3cjv4farg7gwfd2iu
       ts-node: 10.9.1_pqe2tydaqbkrfdokinys65s35a
       typescript: 4.9.3
@@ -3829,11 +3831,6 @@ packages:
     transitivePeerDependencies:
       - nx
 
-  /@nrwl/eslint-plugin-nx/16.0.1:
-    resolution: {integrity: sha512-XbS4FlTOvtg5ElJu1zseQr+p1RyJjOaYvVXa+CgTISha/x0kFuOwGMX29zcGq4shJ2AyizMaeWrq6odJqSdWVg==}
-    dependencies:
-      '@nx/eslint-plugin': 16.0.1_taozjkeng6mpfjrb4laf55phji
-
   /@nrwl/eslint-plugin-nx/16.0.1_l5i7hpeqzqjgj6sin6qxw3yxqe:
     resolution: {integrity: sha512-XbS4FlTOvtg5ElJu1zseQr+p1RyJjOaYvVXa+CgTISha/x0kFuOwGMX29zcGq4shJ2AyizMaeWrq6odJqSdWVg==}
     dependencies:
@@ -3864,11 +3861,6 @@ packages:
       - nx
       - supports-color
       - typescript
-
-  /@nrwl/jest/16.0.1:
-    resolution: {integrity: sha512-RCTEziX6PKsAAd95FevcWoRfb1cR6i5494nuRY9Krc9AAFYTz6YGaaGgRgKvHaTIfNY3Nl2Hgojhq5v5FzXaUA==}
-    dependencies:
-      '@nx/jest': 16.0.1_ibr3juqygo4iqams2gvkwywul4
 
   /@nrwl/jest/16.0.1_ibr3juqygo4iqams2gvkwywul4:
     resolution: {integrity: sha512-RCTEziX6PKsAAd95FevcWoRfb1cR6i5494nuRY9Krc9AAFYTz6YGaaGgRgKvHaTIfNY3Nl2Hgojhq5v5FzXaUA==}
@@ -3925,11 +3917,6 @@ packages:
       - nx
       - supports-color
       - typescript
-
-  /@nrwl/node/16.0.1:
-    resolution: {integrity: sha512-vg1EDdmCdbgyAPah9mcmS06uy2E1w9PGflmCh3R3S4MjhX2cnRGiGynIgTD/KCs98nrciRwdMcPmSu9FZb80xA==}
-    dependencies:
-      '@nx/node': 16.0.1_56z3almiiwgnylzpdtkvbq24qm
 
   /@nrwl/node/16.0.1_56z3almiiwgnylzpdtkvbq24qm:
     resolution: {integrity: sha512-vg1EDdmCdbgyAPah9mcmS06uy2E1w9PGflmCh3R3S4MjhX2cnRGiGynIgTD/KCs98nrciRwdMcPmSu9FZb80xA==}
@@ -4135,7 +4122,7 @@ packages:
       eslint-config-prettier:
         optional: true
     dependencies:
-      '@nrwl/eslint-plugin-nx': 16.0.1
+      '@nrwl/eslint-plugin-nx': 16.0.1_taozjkeng6mpfjrb4laf55phji
       '@nx/devkit': 16.0.1_nx@16.0.1
       '@nx/js': 16.0.1_nx@16.0.1+typescript@4.9.3
       '@typescript-eslint/parser': 5.59.1_gy3du4ua7jh3o6eaikhxgbtp3m
@@ -4158,7 +4145,7 @@ packages:
     dependencies:
       '@jest/reporters': 29.5.0
       '@jest/test-result': 29.5.0
-      '@nrwl/jest': 16.0.1
+      '@nrwl/jest': 16.0.1_ibr3juqygo4iqams2gvkwywul4
       '@nx/devkit': 16.0.1_nx@16.0.1
       '@nx/js': 16.0.1_nx@16.0.1+typescript@4.9.3
       '@phenomnomnominal/tsquery': 5.0.1_typescript@4.9.3
@@ -4270,7 +4257,7 @@ packages:
   /@nx/node/16.0.1_56z3almiiwgnylzpdtkvbq24qm:
     resolution: {integrity: sha512-3ZAT9WVLKsrpd3mqvsQq4NwJLK0Ojr7myKhzgKAUP2WwqHkb12XEkLSkc+VIxipvF1jBiNyq53VAtiq45VY6dQ==}
     dependencies:
-      '@nrwl/node': 16.0.1
+      '@nrwl/node': 16.0.1_56z3almiiwgnylzpdtkvbq24qm
       '@nx/devkit': 16.0.1_nx@16.0.1
       '@nx/jest': 16.0.1_ibr3juqygo4iqams2gvkwywul4
       '@nx/js': 16.0.1_nx@16.0.1+typescript@4.9.3
@@ -18502,7 +18489,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       del: 6.1.1
-      is-stream: 2.0.0
+      is-stream: 2.0.1
       temp-dir: 2.0.0
       type-fest: 0.16.0
       unique-string: 2.0.0

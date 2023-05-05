@@ -28,7 +28,8 @@ do_droplet_ip                       = "123.123.123.132"
 do_ssh_private_path                         = "/home/username/.ssh/somekey"
 app_github_access_token = ghp_
 otel_exporter_otlp_endpoint = "https://api.honeycomb.io"
-otel_exporter_otlp_headers   = "x-honeycomb-team="
+frontend_app_otel_exporter_otlp_headers   = "x-honeycomb-team=,x-honeycomb-dataset=next-app"
+backend_app_otel_exporter_otlp_headers   = "x-honeycomb-team=,x-honeycomb-dataset=next-app"
 otel_exporter_otlp_compression = gzip
 otel_traces_exporter               = otlp
 otel_exporter_otlp_traces_protocol = grpc

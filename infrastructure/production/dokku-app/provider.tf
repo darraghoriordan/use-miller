@@ -168,7 +168,10 @@ variable "frontend_app_next_public_stripe_regular_price_no_recurrence_id" {
 variable "otel_exporter_otlp_endpoint" {
   type = string
 }
-variable "otel_exporter_otlp_headers" {
+variable "frontend_app_otel_exporter_otlp_headers" {
+  type = string
+}
+variable "backend_app_otel_exporter_otlp_headers" {
   type = string
 }
 variable "otel_exporter_otlp_compression" {
