@@ -5,11 +5,14 @@ import { useState } from "react";
 import "../styles/tailwind.css";
 import NextProgress from "next-progress";
 
+import OtelClientSide from "./otel.jsx";
+
 export default function App({ Component, pageProps }: any) {
     const [queryClient] = useState(() => new QueryClient());
     return (
         <QueryClientProvider client={queryClient}>
             <UserProvider>
+                <OtelClientSide />
                 <NextProgress delay={300} options={{ showSpinner: true }} />
                 <Component {...pageProps} />
             </UserProvider>

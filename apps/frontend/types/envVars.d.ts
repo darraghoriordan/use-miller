@@ -6,5 +6,6 @@ declare namespace NodeJS {
         NEXT_PUBLIC_APP_BASE_PATH: string;
         NEXT_PUBLIC_STRIPE_REGULAR_PRICE_ID: string;
         NEXT_PUBLIC_STRIPE_REGULAR_PRICE_NO_RECURRENCE_ID: string;
+        NEXT_PUBLIC_OTEL_EXPORTER_OTLP_ENDPOINT: string;
     }
 }

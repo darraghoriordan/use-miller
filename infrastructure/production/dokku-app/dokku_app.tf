@@ -18,7 +18,8 @@ resource "dokku_app" "frontend_app" {
     NEXT_PUBLIC_STRIPE_REGULAR_PRICE_NO_RECURRENCE_ID = var.frontend_app_next_public_stripe_regular_price_no_recurrence_id
     OTEL_EXPORTER_OTLP_ENDPOINT                       = var.otel_exporter_otlp_endpoint
     OTEL_EXPORTER_OTLP_HEADERS                        = var.frontend_app_otel_exporter_otlp_headers
-
+    NEXT_PUBLIC_OTEL_EXPORTER_OTLP_HEADERS            = var.frontend_app_next_public_otel_exporter_otlp_headers
+    NEXT_PUBLIC_OTEL_EXPORTER_OTLP_ENDPOINT           = var.frontend_app_next_public_otel_exporter_otlp_endpoint
   }
 
   domains = var.frontend_app_domains
