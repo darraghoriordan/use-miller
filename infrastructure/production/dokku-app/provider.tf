@@ -146,34 +146,11 @@ variable "frontend_app_auth0_scope" {
 variable "frontend_app_auth0_audience" {
   type = string
 }
-variable "frontend_app_next_public_api_base_path" {
-  type = string
-}
-variable "frontend_app_next_public_auth0_domain" {
-  type = string
-}
-variable "frontend_app_next_public_auth0_client_id" {
-  type = string
-}
-variable "frontend_app_next_public_app_base_path" {
-  type = string
-}
-variable "frontend_app_next_public_stripe_regular_price_id" {
-  type = string
-}
-variable "frontend_app_next_public_stripe_regular_price_no_recurrence_id" {
-  type = string
-}
 
 variable "otel_exporter_otlp_endpoint" {
   type = string
 }
-variable "frontend_app_next_public_otel_exporter_otlp_headers" {
-  type = string
-}
-variable "frontend_app_next_public_otel_exporter_otlp_endpoint" {
-  type = string
-}
+
 variable "frontend_app_otel_exporter_otlp_headers" {
   type = string
 }
