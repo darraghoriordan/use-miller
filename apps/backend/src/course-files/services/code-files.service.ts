@@ -275,7 +275,7 @@ export class CodeFilesService {
             "\n" +
             "# please support development by purchasing." +
             "\n" +
-            "# As an demo, the full file contents are available at the following path" +
+            "# As a demo, the full file contents are available at the following path" +
             "\n" +
             `# ${demoUrl}`
         );
