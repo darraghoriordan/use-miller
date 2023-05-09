@@ -1,10 +1,7 @@
 import { Container } from "../../components/Container";
 import { UserDto } from "@use-miller/shared-api-client";
 import { TwitterCTA } from "../components/TwitterCTA.jsx";
-import { CheckIcon } from "@heroicons/react/24/outline";
-import { SignUpBuyNowButton } from "../../components/SignupBuyNow.jsx";
 import { Price } from "./Price.jsx";
-import build from "next/dist/build/index.js";
 
 const learnerBenefits = [
     "Full ownership, you own the code you have forever",
