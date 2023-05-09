@@ -1,4 +1,4 @@
-name: PublishToNpm
+name: PublishRelease
 on:
     push:
         branches:
@@ -38,10 +38,12 @@ jobs:
             - uses: actions/cache@v3
               name: Setup pnpm cache
               with:
-                  path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  path: |
+                      ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+                      ${{ github.workspace }}/apps/frontend/.next/cache
+                  key: ${{ runner.os }}-pnpm-store-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
                   restore-keys: |
-                      ${{ runner.os }}-pnpm-store-
+                      ${{ runner.os }}-pnpm-store-nextjs
             - name: Install dependencies
               run: pnpm install --frozen-lockfile -r
             - run: pnpm run test

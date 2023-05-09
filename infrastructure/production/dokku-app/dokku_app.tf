@@ -2,22 +2,16 @@ resource "dokku_app" "frontend_app" {
   name = "use-miller-frontend"
 
   config_vars = {
-    APP_BASE                                          = "apps/frontend"
-    AUTH0_SECRET                                      = var.frontend_app_auth0_secret
-    AUTH0_BASE_URL                                    = var.frontend_app_auth0_base_url
-    AUTH0_ISSUER_BASE_URL                             = var.frontend_app_auth0_issuer_base_url
-    AUTH0_CLIENT_SECRET                               = var.frontend_app_auth0_client_secret
-    AUTH0_CLIENT_ID                                   = var.frontend_app_auth0_client_id
-    AUTH0_SCOPE                                       = var.frontend_app_auth0_scope
-    AUTH0_AUDIENCE                                    = var.frontend_app_auth0_audience
-    NEXT_PUBLIC_API_BASE_PATH                         = var.frontend_app_next_public_api_base_path
-    NEXT_PUBLIC_AUTH0_DOMAIN                          = var.frontend_app_next_public_auth0_domain
-    NEXT_PUBLIC_AUTH0_CLIENT_ID                       = var.frontend_app_next_public_auth0_client_id
-    NEXT_PUBLIC_APP_BASE_PATH                         = var.frontend_app_next_public_app_base_path
-    NEXT_PUBLIC_STRIPE_REGULAR_PRICE_ID               = var.frontend_app_next_public_stripe_regular_price_id
-    NEXT_PUBLIC_STRIPE_REGULAR_PRICE_NO_RECURRENCE_ID = var.frontend_app_next_public_stripe_regular_price_no_recurrence_id
-    OTEL_EXPORTER_OTLP_ENDPOINT                       = var.otel_exporter_otlp_endpoint
-    OTEL_EXPORTER_OTLP_HEADERS                        = var.otel_exporter_otlp_headers
+    APP_BASE                    = "apps/frontend"
+    AUTH0_SECRET                = var.frontend_app_auth0_secret
+    AUTH0_BASE_URL              = var.frontend_app_auth0_base_url
+    AUTH0_ISSUER_BASE_URL       = var.frontend_app_auth0_issuer_base_url
+    AUTH0_CLIENT_SECRET         = var.frontend_app_auth0_client_secret
+    AUTH0_CLIENT_ID             = var.frontend_app_auth0_client_id
+    AUTH0_SCOPE                 = var.frontend_app_auth0_scope
+    AUTH0_AUDIENCE              = var.frontend_app_auth0_audience
+    OTEL_EXPORTER_OTLP_ENDPOINT = var.otel_exporter_otlp_endpoint
+    OTEL_EXPORTER_OTLP_HEADERS  = var.frontend_app_otel_exporter_otlp_headers
 
   }
 
@@ -61,7 +55,7 @@ resource "dokku_app" "app" {
     STRIPE_REDIRECTS_BASE_URL          = var.app_stripe_redirects_base_url
     WEB_PORT                           = var.app_web_port
     OTEL_EXPORTER_OTLP_ENDPOINT        = var.otel_exporter_otlp_endpoint
-    OTEL_EXPORTER_OTLP_HEADERS         = var.otel_exporter_otlp_headers
+    OTEL_EXPORTER_OTLP_HEADERS         = var.backend_app_otel_exporter_otlp_headers
     OTEL_EXPORTER_OTLP_COMPRESSION     = var.otel_exporter_otlp_compression
     OTEL_TRACES_EXPORTER               = var.otel_traces_exporter
     OTEL_EXPORTER_OTLP_TRACES_PROTOCOL = var.otel_exporter_otlp_traces_protocol

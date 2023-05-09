@@ -7,6 +7,8 @@ import NextProgress from "next-progress";
 import { useRouter } from "next/router.js";
 import Head from "next/head.js";
 
+import OtelClientSide from "./otel.jsx";
+
 export default function App({ Component, pageProps }: any) {
     const [queryClient] = useState(() => new QueryClient());
     const router = useRouter();
@@ -19,6 +21,7 @@ export default function App({ Component, pageProps }: any) {
                 <Head>
                     <link rel="canonical" href={canonicalUrl} />
                 </Head>
+                <OtelClientSide />
                 <NextProgress delay={300} options={{ showSpinner: true }} />
                 <Component {...pageProps} />
             </UserProvider>

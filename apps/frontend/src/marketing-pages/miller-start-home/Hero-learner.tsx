@@ -69,6 +69,11 @@ export function Hero({ user }: { user: UserDto }) {
                 "The Miller CLI tool makes it easy to get started with a new project. It configures and runs terraform to deploy Auth0 and Stripe. It also sets file names and env files for you.",
         },
         {
+            name: "Open Telemetry",
+            description:
+                "Miller has full-stack otel tracing configured by default. Each request is traced from the browser to the database. Easily find issues with your app locally and in production.",
+        },
+        {
             name: "Typescript Everywhere",
             description:
                 "Every line of code is written in Typescript. This means you can learn how to use Typescript in a real-world application.",
@@ -111,16 +116,16 @@ export function Hero({ user }: { user: UserDto }) {
                                 </h1>
                                 <p className="mx-auto mt-6 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
                                     Become a pro with NextJs, NestJs, Tailwind,
-                                    PostgreSQL, Redis and more - by example. For
-                                    engineers who have completed beginner
-                                    tutorials and are ready to advance.
+                                    PostgreSQL, Redis and more. Miller Start is
+                                    a complete app starter for engineers who
+                                    have completed beginner tutorials and are
+                                    ready to advance.
                                 </p>
                                 <p className="mx-auto mt-6 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
                                     Save months of time learning how to build
-                                    and integrate common features to your app
-                                    and skip straight to the good stuff -
-                                    providing valuable features to your
-                                    customers.
+                                    and integrate common features to your app,
+                                    skip straight to the good stuff - providing
+                                    valuable features to your customers.
                                 </p>
                             </div>
                             <div className="intro-image-rotation md:relative w-1/2 md:w-full mt-20 mb-32 md:mt-0 md:mb-0">
@@ -235,7 +240,8 @@ export function Hero({ user }: { user: UserDto }) {
                                 and scale with your success. Modular design
                                 allows easy extraction to serverless where
                                 needed. Use of Async jobs and caching are
-                                built-in, configured and encouraged.
+                                built-in, configured and encouraged. It runs in
+                                docker on any cloud provider.
                             </li>
                             <li className="mt-4 ml-8 list-disc text-lg text-gray-200">
                                 <strong>Convention over configuration.</strong>{" "}

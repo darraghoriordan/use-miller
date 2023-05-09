@@ -7,7 +7,8 @@ receivers:
                 cors:
                     allowed_origins:
                         - "http://localhost*"
-                        - "http://host.docker.internal*"
+                    allowed_headers:
+                        - "*"
                 include_metadata: true
 exporters:
     prometheus:
