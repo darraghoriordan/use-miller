@@ -103,6 +103,10 @@ Unsure if your use case is covered by our licenses?
 
 Contact us if you have any questions.
 
+## Consulting
+
+Consulting will only be scheduled on mutual agreement between you and Darragh ORiordan. Consulting must occur within 1 year of purchase date unless otherwise agreed with Darragh ORiordan. The consulting cannot be split into small blocks unless agreed on by Darragh ORiordan. Each 8 hours of consulting will be scheduled in one block within a single 24 hour period.
+
 ## Refunds
 
-Due to the non-returnable nature of this product, we do not offer a refund for purchased made after 25 March 2023. Please contact us if you have any questions or want to review the code before purchase.
+Due to the non-returnable nature of this product, we do not offer a refund for purchases. Please contact us if you have any questions or want to review the code before purchase.

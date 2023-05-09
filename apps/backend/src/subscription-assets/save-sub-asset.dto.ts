@@ -8,7 +8,12 @@ export class SaveSubscriptionAssetDto {
 
     @ApiProperty()
     @IsString()
-    @IsIn(["miller-start", "dev-shell", "local-dev-tools"])
+    @IsIn([
+        "miller-start",
+        "dev-shell",
+        "local-dev-tools",
+        "miller-start-consulting",
+    ])
     internalSku!: string;
 
     @ApiProperty()

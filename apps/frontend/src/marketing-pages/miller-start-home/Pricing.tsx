@@ -3,13 +3,21 @@ import { UserDto } from "@use-miller/shared-api-client";
 import { TwitterCTA } from "../components/TwitterCTA.jsx";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { SignUpBuyNowButton } from "../../components/SignupBuyNow.jsx";
+import { Price } from "./Price.jsx";
+import build from "next/dist/build/index.js";
 
-const buyBenefits = [
+const learnerBenefits = [
     "Full ownership, you own the code you have forever",
     "Direct access to the GitHub repositories while subscribed",
     "Subscription includes one year of updates",
-    "Growing list of expert documentation",
+    "Expert documentation",
     "Access to support community",
+];
+
+const builderBenefits = [
+    "All the benefits of the Learner plan",
+    "Prioritised support for builders",
+    "8 hours of consulting time from the Miller team",
 ];
 
 export function Pricing({ user }: { user: UserDto }) {
@@ -29,46 +37,29 @@ export function Pricing({ user }: { user: UserDto }) {
                 <div>
                     <div id="pricing" className="mt-16 text-gray-200">
                         <p className="my-8 max-w-4xl text-left font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
-                            Pricing
-                        </p>
-                        <p className="mt-4 text-left font-display text-lg font-medium tracking-tight ">
                             Simple pricing, pay once and use forever.
                         </p>
-                        <div className="mt-8 font-semibold  text-white">
-                            <ul className="space-y-4">
-                                {buyBenefits.map((benefit, i) => (
-                                    <li className="flex items-center" key={i}>
-                                        <CheckIcon
-                                            className="mr-6 h-5 w-5 text-green-500"
-                                            aria-hidden="true"
-                                        />
-                                        {benefit}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        <TwitterCTA />
-                        <p className="text-6xl pt-16 text-center">
-                            $1149<span className="text-base">USD</span>
-                        </p>
-                        <p className="text-sm text-center pb-16">
-                            <a
-                                href="/docs/miller-start/support/license-terms"
-                                className="text-sm hover:underline hover:cursor-pointer"
-                            >
-                                License Terms
-                            </a>
-                        </p>
-                        <p className="text-smtext-center"></p>
-                        <div className="mx-auto flex gap-x-6 md:mx-0 mb-10">
-                            <SignUpBuyNowButton
+                        <div className="md:flex md:space-x-32 max-w-7xl">
+                            <Price
                                 user={user}
+                                title="Learner Package"
+                                currency="usd"
                                 productKey="miller-start"
-                                color="cyan"
-                                className="w-full"
+                                price="249"
+                                benefits={learnerBenefits}
+                                licenceUrl="/docs/miller-start/support/license-terms"
+                            />
+                            <Price
+                                user={user}
+                                title="Builder Package"
+                                productKey="miller-start-consulting"
+                                currency="usd"
+                                price="1649"
+                                benefits={builderBenefits}
+                                licenceUrl="/docs/miller-start/support/license-terms"
                             />
                         </div>
+                        <TwitterCTA />
                     </div>
                 </div>
             </div>

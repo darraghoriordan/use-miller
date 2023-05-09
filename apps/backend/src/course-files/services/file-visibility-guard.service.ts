@@ -32,12 +32,22 @@ export class FileVisibilityControlGuard {
             },
             `Checking if user can see file ${fileLocation}`
         );
+
         // if the file is short, then it is always visible
         if (lengthInLines < maximumLines) {
             return true;
         }
+        // added a new product variation for miller start
+        const productVariations =
+            productKey === "miller-start"
+                ? ["miller-start", "miller-start-consulting"]
+                : [productKey];
         // if the person is in an org that has paid for the product, then they can see all files
-        if (activeSubscriptionProductKeys?.includes(productKey)) {
+        if (
+            activeSubscriptionProductKeys?.some((k) =>
+                productVariations.includes(k)
+            )
+        ) {
             return true;
         }
 

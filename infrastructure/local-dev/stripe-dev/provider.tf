@@ -33,6 +33,13 @@ variable "app_stripe_webhook_url" {
   sensitive   = true
   description = "The URL in your app to send the webhook to"
 }
+
+
+variable "app_stripe_fulfilment_gh_token" {
+  type        = string
+  sensitive   = true
+  description = "The gh token that gets written to an env var for fullfilment later"
+}
 variable "app_stripe_customer_portal_privacy_url" {
   type        = string
   sensitive   = true

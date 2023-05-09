@@ -12,7 +12,31 @@ resource "stripe_product" "regular_product" {
 
 resource "stripe_price" "regular_price" {
   product     = stripe_product.regular_product.id
-  unit_amount = 114900
+  unit_amount = 24900
+  currency    = "usd"
+  recurring {
+    interval       = "year"
+    interval_count = 1
+    usage_type     = "licensed"
+  }
+  billing_scheme = "per_unit"
+  tax_behaviour  = "inclusive"
+}
+
+resource "stripe_product" "product_with_consult" {
+  name                 = "Miller Start Consulting"
+  description          = "Web product kit, 1 year of updates, 8h of consulting"
+  shippable            = false
+  active               = true
+  statement_descriptor = "USEMILLER.DEV"
+  metadata = {
+    internalSku = "miller-start-consulting"
+  }
+}
+
+resource "stripe_price" "miller_start_consult_price" {
+  product     = stripe_product.product_with_consult.id
+  unit_amount = 164900
   currency    = "usd"
   recurring {
     interval       = "year"
@@ -107,6 +131,11 @@ resource "stripe_portal_configuration" "portal_configuration" {
 
 output "regular_price_id" {
   value     = stripe_price.regular_price.id
+  sensitive = false
+}
+
+output "miller_start_consult_price_id" {
+  value     = stripe_price.miller_start_consult_price.id
   sensitive = false
 }
 

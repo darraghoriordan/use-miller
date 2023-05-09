@@ -94,4 +94,4 @@ Contact us if you have any questions.
 
 ## Refunds
 
-Due to the non-returnable nature of this product, we do not offer a refund for purchased made after 25 March 2023. Please contact us if you have any questions or want to review the code before purchase.
+Due to the non-returnable nature of this product, we do not offer a refund for purchases. Please contact us if you have any questions or want to review the code before purchase.

@@ -6,6 +6,7 @@ provider "registry.terraform.io/lukasaron/stripe" {
   constraints = "1.6.0"
   hashes = [
     "h1:Ito1PlormjkifC7lRtCswDBMtOWaUbfWCbJ/Rah+Bpc=",
+    "h1:yWjnI5laf6JC2ehmD5NPrqVF87jTH4F8ZLWmb2EN4p8=",
     "zh:05ce12609d4ffe3253b09772ffdfa7772cc8e19483fa9b6f6e2717c4c8cf51ea",
     "zh:0a181cc4b50f216ce334a05323c66fe318adea777ba7093728e848189b5d2351",
     "zh:11888aed639cb81f5b9569f43744b716bce0a4bb1e0752bae90b291a3692d9b9",

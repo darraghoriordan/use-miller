@@ -24,11 +24,18 @@ variable "app_stripe_api_token" {
   sensitive   = true
   description = "The stripe API token"
 }
+# not needed in production
+# variable "app_stripe_webhook_verification_key" {
+#   type        = string
+#   sensitive   = true
+#   description = "The stripe webhook verification key"
+# }
 variable "app_stripe_webhook_url" {
   type        = string
   sensitive   = true
   description = "The URL in your app to send the webhook to"
 }
+
 variable "app_stripe_customer_portal_privacy_url" {
   type        = string
   sensitive   = true

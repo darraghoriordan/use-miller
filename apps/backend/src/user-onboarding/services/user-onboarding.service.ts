@@ -174,6 +174,7 @@ export class UserOnboardingService {
     }[] {
         const result = [];
         switch (productKey) {
+            case "miller-start-consulting":
             case "miller-start": {
                 for (const u of usernames) {
                     result.push(

@@ -12,6 +12,13 @@ const productMapping = [
         mode: "subscription",
     },
     {
+        productKey: "miller-start-consulting",
+        stripePriceId:
+            process.env.NEXT_PUBLIC_STRIPE_MILLER_CONSULTING_PRICE_ID,
+        mode: "subscription",
+    },
+
+    {
         productKey: "dev-shell",
         stripePriceId:
             process.env.NEXT_PUBLIC_STRIPE_REGULAR_PRICE_NO_RECURRENCE_ID,
