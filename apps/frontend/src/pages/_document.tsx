@@ -21,7 +21,8 @@ export default function Document(props: any) {
                 <script
                     defer
                     data-domain="usemiller.dev"
-                    src="https://plausible.io/js/script.js"
+                    data-api="/plaus/api/event"
+                    src="/plaus/js/script.js"
                 ></script>
             </Head>
             <body>
