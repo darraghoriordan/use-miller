@@ -6,7 +6,7 @@ import timestamps from "./intro-media/timestamps.png";
 import Image from "next/image";
 import { UserDto } from "@use-miller/shared-api-client";
 import { CheckIcon } from "@heroicons/react/24/outline";
-const version = "1.61.0";
+const version = "1.62.0";
 const winArm64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.exe`;
 const universalDownload = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-universal.dmg`;
 const winX64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-x64.exe`;
