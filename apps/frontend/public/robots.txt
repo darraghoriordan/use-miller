@@ -1,0 +1,10 @@
+User-agent: googlebot
+Disallow: 
+
+User-agent: bingbot
+Disallow: 
+
+Sitemap: https://usemiller.dev/sitemap.xml
+
+User-agent: *
+Disallow: /
