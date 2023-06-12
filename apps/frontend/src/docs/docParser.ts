@@ -12,7 +12,7 @@ import remarkRehype from "remark-rehype";
 import remarkEmbedImages from "remark-embed-images";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
-import { VFile } from "vfile";
+import { Compatible, VFile } from "vfile";
 
 const docContentDirectory = path.join(
     process.cwd(),
@@ -194,7 +194,7 @@ export async function markdownToHtml(
         .use(rehypePrism)
         .use(rehypeFormat)
         .use(rehypeStringify)
-        .process(inFile);
+        .process(inFile as any);
 
     return outFile.toString();
 }

@@ -36,7 +36,7 @@ class MarkdownToHtmlService {
             .use(rehypePrism)
             .use(rehypeFormat)
             .use(rehypeStringify)
-            .process(inFile);
+            .process(inFile as any);
         return outFile.toString();
     }
 }
