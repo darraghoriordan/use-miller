@@ -12,7 +12,7 @@ import remarkRehype from "remark-rehype";
 import remarkEmbedImages from "remark-embed-images";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
-import { Compatible, VFile } from "vfile";
+import { VFile } from "vfile";
 
 const docContentDirectory = path.join(
     process.cwd(),
