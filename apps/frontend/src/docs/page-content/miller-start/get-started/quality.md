@@ -1,7 +1,7 @@
 ---
 title: "Code Quality Tools"
 date: "2020-01-01"
-order: 0
+order: 30
 ---
 
 I use tools help me write consistent, correct code. Miller includes pre-configured tools to help with this.

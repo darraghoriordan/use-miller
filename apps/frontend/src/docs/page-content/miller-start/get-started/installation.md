@@ -1,7 +1,7 @@
 ---
 title: "Installation"
 date: "2020-01-01"
-order: 2
+order: 20
 ---
 
 ## 1. Copy the files from the repository into your own local repository.

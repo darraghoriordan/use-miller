@@ -1,7 +1,7 @@
 ---
 title: "Why Miller Start"
 date: "2020-06-13"
-order: 0
+order: 5
 ---
 
 ## 1. Miller Start gets you past the hard parts

@@ -1,7 +1,7 @@
 ---
 title: "Introduction"
 date: "2020-01-01"
-order: 0
+order: 10
 ---
 
 Miller Start is a fullstack application example for learning and building javascript applications.

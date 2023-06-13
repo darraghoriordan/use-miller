@@ -1,7 +1,7 @@
 ---
 title: "Quick Start"
 date: "2020-01-01"
-order: 1
+order: 11
 ---
 
 This is the quick start. See the full installation instructions for more detail on the steps below.
