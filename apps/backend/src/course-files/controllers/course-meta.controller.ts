@@ -5,13 +5,11 @@ import {
     Get,
     Param,
     UseInterceptors,
-    CacheInterceptor,
-    CacheTTL,
 } from "@nestjs/common";
 import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { CoursesMetaService } from "../services/courses-meta.service.js";
 import { CourseMetaDto } from "../dtos/CourseMetaDto.js";
-
+import { CacheInterceptor, CacheTTL } from "@nestjs/cache-manager";
 @Controller("project-meta/:productKey")
 @UseInterceptors(CacheInterceptor)
 @CacheTTL(10_000)

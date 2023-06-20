@@ -842,6 +842,89 @@
         ]
       }
     },
+    "/payments/stripe/customer-portal-session": {
+      "post": {
+        "operationId": "StripeCustomerPortalController_createCustomerPortalSession",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StripeCustomerPortalRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The URL to the customer portal",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StripeCustomerPortalResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Payments"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/payments/stripe/events": {
+      "get": {
+        "operationId": "StripeEventsController_getLastEvents",
+        "summary": "",
+        "tags": [
+          "Payments"
+        ],
+        "parameters": [
+          {
+            "name": "skip",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "take",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StripeCheckoutEvent"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/payments/stripe/webhook-receiver": {
       "post": {
         "operationId": "StripeWebhookController_webhookReceiver",
@@ -919,67 +1002,14 @@
         ]
       }
     },
-    "/payments/stripe/customer-portal-session": {
-      "post": {
-        "operationId": "StripeCustomerPortalController_createCustomerPortalSession",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StripeCustomerPortalRequestDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "The URL to the customer portal",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StripeCustomerPortalResponseDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Payments"
-        ],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
-    "/payments/stripe/events": {
+    "/subscriptions": {
       "get": {
-        "operationId": "StripeEventsController_getLastEvents",
+        "operationId": "AllSubscriptionsController_findAll",
         "summary": "",
         "tags": [
-          "Payments"
+          "Organisation Subscriptions"
         ],
-        "parameters": [
-          {
-            "name": "skip",
-            "required": true,
-            "in": "query",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "take",
-            "required": true,
-            "in": "query",
-            "schema": {
-              "type": "number"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "",
@@ -988,7 +1018,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/StripeCheckoutEvent"
+                    "$ref": "#/components/schemas/OrganisationSubscriptionRecord"
                   }
                 }
               }
@@ -1119,36 +1149,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BooleanResult"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
-    "/subscriptions": {
-      "get": {
-        "operationId": "AllSubscriptionsController_findAll",
-        "summary": "",
-        "tags": [
-          "Organisation Subscriptions"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/OrganisationSubscriptionRecord"
-                  }
                 }
               }
             }

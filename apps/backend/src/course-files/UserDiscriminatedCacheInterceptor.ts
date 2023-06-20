@@ -1,11 +1,6 @@
 import { RequestWithUser } from "@darraghor/nest-backend-libs";
-import {
-    CacheInterceptor,
-    ExecutionContext,
-    Injectable,
-    Logger,
-} from "@nestjs/common";
-
+import { ExecutionContext, Injectable, Logger } from "@nestjs/common";
+import { CacheInterceptor } from "@nestjs/cache-manager";
 // eslint-disable-next-line @darraghor/nestjs-typed/injectable-should-be-provided
 @Injectable()
 export default class UserDiscriminatedCacheInterceptor extends CacheInterceptor {
