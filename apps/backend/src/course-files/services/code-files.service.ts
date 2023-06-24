@@ -10,6 +10,7 @@ import { CourseMetaDto } from "../dtos/CourseMetaDto.js";
 import { MarkdownFileService } from "./markdown-files.service.js";
 import { FileVisibilityControlGuard } from "./file-visibility-guard.service.js";
 import { RequestUser } from "@darraghor/nest-backend-libs";
+import { FileScramblerService } from "./file-scrambler.service.js";
 
 @Injectable()
 export class CodeFilesService {
@@ -17,7 +18,8 @@ export class CodeFilesService {
         private readonly markdownFileService: MarkdownFileService,
         private readonly coursesMetaService: CoursesMetaService,
         private readonly pathMapperService: PathMapperService,
-        private readonly fileVisibilityGuard: FileVisibilityControlGuard
+        private readonly fileVisibilityGuard: FileVisibilityControlGuard,
+        private readonly fileScramblerService: FileScramblerService
     ) {}
 
     //private readonly logger = new Logger(CourseFilesService.name);
@@ -232,7 +234,7 @@ export class CodeFilesService {
                 lengthInLines: fileContents?.split("\n").length,
                 activeSubscriptionProductKeys:
                     user?.activeSubscriptionProductKeys,
-                maximumLines: 15,
+                maximumLines: 8,
             })
         ) {
             return {
@@ -242,42 +244,15 @@ export class CodeFilesService {
                 nearestReadmeLocation,
             };
         }
-        // otherwise return the trimmed file(s)
+        // otherwise return the modified file(s)
         return {
-            contents: this.trimCodeFile(
+            contents: this.fileScramblerService.scrambleCodeFile(
                 fileContents,
-                projectMeta.demoFileLinkHref
+                "()`~!@#$%^&*-+=|\\{}[]:;\"'<>,.?/_abcdefghijklmnopqrstuvwxyz"
             ),
             fileLocation: b64Path,
             fileName,
             nearestReadmeLocation,
         };
-    };
-
-    trimCodeFile = (contents: string, demoUrl: string): string => {
-        const lines = contents?.split("\n");
-        const amountToTake = Math.max(
-            Math.min(Math.floor(lines.length / 4), 20),
-            12
-        );
-        const firstQuarter = lines.slice(0, amountToTake);
-
-        return (
-            firstQuarter.join("\n") +
-            "\n" +
-            "\n#######################################################" +
-            "\n#                       NOTICE                         " +
-            "\n#######################################################" +
-            "\n" +
-            "\n# File viewing is clipped unless you have purchased " +
-            "\n" +
-            "# To see the full contents of each file and get the full source code" +
-            "\n" +
-            "# please support development by purchasing." +
-            "\n" +
-            "# As a demo, the full file contents are available at the following path" +
-            "\n" +
-            `# ${demoUrl}`
-        );
     };
 }
