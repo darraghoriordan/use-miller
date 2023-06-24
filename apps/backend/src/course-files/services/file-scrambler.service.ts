@@ -2,8 +2,6 @@ import { Injectable } from "@nestjs/common";
 
 export type ScramblePartitions = {
     clearPortion: { start: number; takeLines: number };
-    transitionPortion: { start: number; takeLines: number };
-    hiddenPortion: { start: number; takeLines: number };
 };
 
 @Injectable()
@@ -12,8 +10,6 @@ export class FileScramblerService {
         if (numberOfLines < 3) {
             return {
                 clearPortion: { start: 0, takeLines: numberOfLines },
-                transitionPortion: { start: 0, takeLines: 0 },
-                hiddenPortion: { start: 0, takeLines: 0 },
             };
         }
         const clearTextDisplayConfiguration = {
@@ -24,29 +20,14 @@ export class FileScramblerService {
         const amountToTakeClear = Math.ceil(
             numberOfLines * clearTextDisplayConfiguration.percentOfLinesToShow
         );
-        const transitionAmount = Math.ceil(
-            numberOfLines *
-                clearTextDisplayConfiguration.percentOfLinesForTransition
-        );
-        const hiddenAmount =
-            numberOfLines - (amountToTakeClear + transitionAmount);
 
         const clearPortion = {
             start: 0,
             takeLines: amountToTakeClear,
         };
-        const transitionPortion = {
-            start: amountToTakeClear,
-            takeLines: transitionAmount,
-        };
-        const hiddenPortion = {
-            start: amountToTakeClear + transitionAmount,
-            takeLines: hiddenAmount,
-        };
+
         return {
             clearPortion,
-            transitionPortion,
-            hiddenPortion,
         };
     };
 
@@ -130,7 +111,6 @@ export class FileScramblerService {
             "\n#######################################################" +
             "\n#                       NOTICE                         " +
             "\n#######################################################" +
-            "\n" +
             "\n# File viewing is clipped unless you have purchased " +
             "\n" +
             "# To see the full contents of each file and get the full source code on GitHub" +
