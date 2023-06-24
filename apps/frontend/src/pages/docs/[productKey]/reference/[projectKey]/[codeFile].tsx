@@ -99,8 +99,8 @@ export default function CodeFileHome({
                                 It looks like you haven't purchased yet. You can
                                 explore the full project structure here, but you
                                 will see clipped code files. After purchasing
-                                you will see full file content here, and on
-                                GitHub.
+                                you will see full file content here, and get
+                                full access on GitHub.
                             </span>
                         </div>
                     )

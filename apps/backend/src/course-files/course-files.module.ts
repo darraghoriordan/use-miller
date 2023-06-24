@@ -13,6 +13,7 @@ import UserDiscriminatedCacheInterceptor from "./UserDiscriminatedCacheIntercept
 import { CourseFilesConfigurationService } from "./config/CourseFilesConfigurationService.js";
 import { ConfigModule } from "@nestjs/config";
 import configVariables from "./config/CourseFilesConfigurationVariables.js";
+import { FileScramblerService } from "./services/file-scrambler.service.js";
 
 @Module({
     imports: [
@@ -34,6 +35,7 @@ import configVariables from "./config/CourseFilesConfigurationVariables.js";
         FileVisibilityControlGuard,
         UserDiscriminatedCacheInterceptor,
         CourseFilesConfigurationService,
+        FileScramblerService,
     ],
     exports: [],
 })
