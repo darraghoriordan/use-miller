@@ -1,6 +1,9 @@
 User-agent: googlebot
 Disallow: 
 
+User-agent: AhrefsSiteAudit
+Allow: /
+
 User-agent: bingbot
 Disallow: 
 
