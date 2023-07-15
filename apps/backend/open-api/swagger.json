@@ -2525,6 +2525,9 @@
           },
           "color": {
             "type": "string"
+          },
+          "isOpenSource": {
+            "type": "boolean"
           }
         },
         "required": [
@@ -2535,7 +2538,8 @@
           "demoFileLinkHref",
           "demoFileLinkText",
           "name",
-          "color"
+          "color",
+          "isOpenSource"
         ]
       },
       "Invitation": {

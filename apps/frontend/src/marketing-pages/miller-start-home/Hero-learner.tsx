@@ -117,9 +117,9 @@ export function Hero({ user }: { user: UserDto }) {
                                 <p className="mx-auto mt-6 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
                                     Become a pro with NextJs, NestJs, Tailwind,
                                     PostgreSQL, Redis and more. Miller Start is
-                                    a complete app starter for engineers who
-                                    have completed beginner tutorials and are
-                                    ready to advance.
+                                    a free app starter for engineers who have
+                                    completed beginner tutorials and are ready
+                                    to advance.
                                 </p>
                                 <p className="mx-auto mt-6 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
                                     Save months of time learning how to build

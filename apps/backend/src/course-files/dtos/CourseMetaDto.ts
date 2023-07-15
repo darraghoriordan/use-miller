@@ -17,4 +17,6 @@ export class CourseMetaDto {
     public name!: string;
     @ApiProperty()
     public color!: string;
+    @ApiProperty()
+    public isOpenSource!: boolean;
 }

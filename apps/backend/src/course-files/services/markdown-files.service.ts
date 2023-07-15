@@ -20,13 +20,13 @@ export interface MatterResult {
 export const firstQuarter = (
     file: GrayMatterFile<string>,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    options: never
+    options: never,
 ): void => {
     const lines = file.content?.split("\n");
     // for long docs a quarter is too much but less than 20 is too little
     const amountToTake = Math.max(
         Math.min(Math.floor(lines.length / 4), 20),
-        20
+        20,
     );
     const firstQuarter = lines.slice(0, amountToTake);
     file.excerpt = firstQuarter.join("\n");
@@ -38,7 +38,7 @@ export class MarkdownFileService {
         private readonly markdownToHtmlService: MarkdownToHtmlService,
         private readonly coursesMetaService: CoursesMetaService,
         private readonly pathMapperService: PathMapperService,
-        private readonly fileVisibilityGuard: FileVisibilityControlGuard
+        private readonly fileVisibilityGuard: FileVisibilityControlGuard,
     ) {}
 
     //private readonly logger = new Logger(CourseFilesService.name);
@@ -47,11 +47,11 @@ export class MarkdownFileService {
         b64Path: string,
         productKey: string,
         projectKey: string,
-        user?: RequestUser
+        user?: RequestUser,
     ): Promise<FileMetaDto> => {
         const product = this.coursesMetaService.getOneProduct(productKey);
         const projectMeta = product.projectMeta.find(
-            (p) => projectKey === p.key
+            (p) => projectKey === p.key,
         );
         if (!projectMeta) {
             throw new NotFoundException("No project found");
@@ -59,7 +59,7 @@ export class MarkdownFileService {
 
         const fileLocation = this.pathMapperService.mapBase64ToAbsolutePath(
             b64Path,
-            projectMeta.rootLocation
+            projectMeta.rootLocation,
         );
 
         if (!fileLocation) {
@@ -84,13 +84,14 @@ export class MarkdownFileService {
             {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 excerpt: firstQuarter as any,
-            }
+            },
         ) as MatterResult;
 
         const shouldShowFullFile = this.fileVisibilityGuard.shouldShowFullFile({
             fileLocation,
             demoPaths: projectMeta.demoPaths,
             productKey,
+            isOpenSourceProject: projectMeta.isOpenSource,
             lengthInLines: fileContents?.split("\n").length,
             maximumLines: 30,
             activeSubscriptionProductKeys: user?.activeSubscriptionProductKeys,
@@ -100,7 +101,7 @@ export class MarkdownFileService {
             shouldShowFullFile
                 ? matterResult.content
                 : matterResult.excerpt + clippedMessage,
-            fileLocation
+            fileLocation,
         );
 
         return {

@@ -8,7 +8,7 @@ import { ProductMeta } from "./ProductMeta";
 export class CoursesMetaService {
     constructor(
         private readonly coreConfig: CoreConfigurationService,
-        private readonly courseFileConfig: CourseFilesConfigurationService
+        private readonly courseFileConfig: CourseFilesConfigurationService,
     ) {}
 
     // probably should move this out of here at some stage
@@ -26,10 +26,11 @@ export class CoursesMetaService {
                         demoFileLinkHref: `${
                             this.coreConfig.frontEndAppUrl
                         }/docs/miller-start/reference/miller-web/${btoa(
-                            "/apps/frontend/src/pages/docs/[productKey]/[section]/[slug].tsx"
+                            "/apps/frontend/src/pages/docs/[productKey]/[section]/[slug].tsx",
                         )}`,
                         demoFileLinkText: "/apps/frontend/src/pages",
                         rootLocation: `${this.courseFileConfig.basePath}/use-miller`,
+                        isOpenSource: true,
                     },
                     {
                         key: "nestjs-backend-libs",
@@ -40,11 +41,12 @@ export class CoursesMetaService {
                         demoFileLinkHref: `${
                             this.coreConfig.frontEndAppUrl
                         }/docs/miller-start/reference/nestjs-backend-libs/${btoa(
-                            "/src/twitter-client/twitter-account.module.ts"
+                            "/src/twitter-client/twitter-account.module.ts",
                         )}`,
 
                         demoFileLinkText: "/src/twitter-client",
                         rootLocation: `${this.courseFileConfig.basePath}/nest-backend-libs`,
+                        isOpenSource: true,
                     },
                 ],
             },
@@ -61,10 +63,11 @@ export class CoursesMetaService {
                         demoFileLinkHref: `${
                             this.coreConfig.frontEndAppUrl
                         }/docs/dev-shell/reference/dev-shell-scripts/${btoa(
-                            "/home/setupscripts/mac/brew.sh"
+                            "/home/setupscripts/mac/brew.sh",
                         )}`,
                         demoFileLinkText: "/home/setupscripts/mac/brew.sh",
                         rootLocation: `${this.courseFileConfig.basePath}/mac-setup-script`,
+                        isOpenSource: false,
                     },
                 ],
             },

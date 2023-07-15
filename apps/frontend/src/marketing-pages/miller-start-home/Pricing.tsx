@@ -2,19 +2,18 @@ import { Container } from "../../components/Container";
 import { UserDto } from "@use-miller/shared-api-client";
 import { TwitterCTA } from "../components/TwitterCTA.jsx";
 import { Price } from "./Price.jsx";
+import { FreePrice } from "./FreePrice.jsx";
 
 const learnerBenefits = [
-    "Full ownership, you own the code you have forever",
-    "Direct access to the GitHub repositories while subscribed",
-    "Subscription includes one year of updates",
+    "Direct access to the GitHub repositories",
     "Expert documentation",
     "Access to support community",
 ];
 
 const builderBenefits = [
     "All the benefits of the Learner plan",
-    "Prioritised support for builders",
-    "8 hours of consulting time from the Miller team",
+    "Prioritised support for paying customers",
+    "8 hours of consulting time from Me!",
 ];
 
 export function Pricing({ user }: { user: UserDto }) {
@@ -37,14 +36,10 @@ export function Pricing({ user }: { user: UserDto }) {
                             Simple pricing, pay once and use forever.
                         </p>
                         <div className="md:flex md:space-x-32 max-w-7xl">
-                            <Price
-                                user={user}
+                            <FreePrice
                                 title="Learner Package"
-                                currency="usd"
                                 productKey="miller-start"
-                                price="249"
                                 benefits={learnerBenefits}
-                                licenceUrl="/docs/miller-start/support/license-terms"
                             />
                             <Price
                                 user={user}
@@ -55,6 +50,18 @@ export function Pricing({ user }: { user: UserDto }) {
                                 benefits={builderBenefits}
                                 licenceUrl="/docs/miller-start/support/license-terms"
                             />
+                        </div>
+                        <div>
+                            <p className="text-sm text-center">
+                                <a
+                                    href={
+                                        "/docs/miller-start/support/license-terms"
+                                    }
+                                    className="text-sm hover:underline hover:cursor-pointer"
+                                >
+                                    License Terms
+                                </a>
+                            </p>
                         </div>
                         <TwitterCTA />
                     </div>

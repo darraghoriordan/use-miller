@@ -1,22 +1,13 @@
 import { CheckIcon } from "@heroicons/react/24/outline";
-import { SignUpBuyNowButton } from "../../components/SignupBuyNow.jsx";
-import { UserDto } from "@use-miller/shared-api-client";
+import { GoToGithub } from "../../components/GoToGithub.jsx";
 
-export function Price({
+export function FreePrice({
     title,
     benefits,
-    price,
-    currency,
-    licenceUrl,
-    user,
     productKey,
 }: {
     title: string;
     benefits: string[];
-    price: string;
-    currency: string;
-    licenceUrl: string;
-    user: UserDto;
     productKey: string;
 }) {
     return (
@@ -39,14 +30,10 @@ export function Price({
                 </ul>
             </div>
 
-            <p className="text-6xl pt-16 text-center pb-16">
-                {price}
-                <span className="text-base">{currency.toUpperCase()}</span>
-            </p>
+            <p className="text-6xl pt-16 text-center pb-16">Free!</p>
 
             <div className="mx-auto w-full flex gap-x-6 md:mx-0 mb-10">
-                <SignUpBuyNowButton
-                    user={user}
+                <GoToGithub
                     productKey={productKey}
                     color="cyan"
                     className="w-full"
