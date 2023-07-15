@@ -4,17 +4,15 @@ import { TwitterCTA } from "../components/TwitterCTA.jsx";
 import { Price } from "./Price.jsx";
 
 const learnerBenefits = [
-    "Full ownership, you own the code you have forever",
-    "Direct access to the GitHub repositories while subscribed",
-    "Subscription includes one year of updates",
+    "Direct access to the GitHub repositories",
     "Expert documentation",
     "Access to support community",
 ];
 
 const builderBenefits = [
     "All the benefits of the Learner plan",
-    "Prioritised support for builders",
-    "8 hours of consulting time from the Miller team",
+    "Prioritised support for paying customers",
+    "8 hours of consulting time from Me!",
 ];
 
 export function Pricing({ user }: { user: UserDto }) {
@@ -42,7 +40,7 @@ export function Pricing({ user }: { user: UserDto }) {
                                 title="Learner Package"
                                 currency="usd"
                                 productKey="miller-start"
-                                price="249"
+                                price="FREE"
                                 benefits={learnerBenefits}
                                 licenceUrl="/docs/miller-start/support/license-terms"
                             />

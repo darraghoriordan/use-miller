@@ -36,7 +36,7 @@ export const initTelemetry = async (): Promise<void> => {
             .then(
                 () => console.log("SDK shut down successfully"),
                 // eslint-disable-next-line unicorn/catch-error-name, unicorn/prevent-abbreviations
-                (err) => console.log("Error shutting down SDK", err)
+                (err) => console.log("Error shutting down SDK", err),
             )
             // eslint-disable-next-line unicorn/no-process-exit
             .finally(() => process.exit(0));
