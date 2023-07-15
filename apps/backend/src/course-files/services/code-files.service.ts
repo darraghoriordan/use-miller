@@ -19,22 +19,22 @@ export class CodeFilesService {
         private readonly coursesMetaService: CoursesMetaService,
         private readonly pathMapperService: PathMapperService,
         private readonly fileVisibilityGuard: FileVisibilityControlGuard,
-        private readonly fileScramblerService: FileScramblerService
+        private readonly fileScramblerService: FileScramblerService,
     ) {}
 
     //private readonly logger = new Logger(CourseFilesService.name);
 
     async walk(
         root: FileStructureDto,
-        courseMeta: CourseMetaDto
+        courseMeta: CourseMetaDto,
     ): Promise<FileStructureDto> {
         const absolutePath = this.pathMapperService.mapBase64ToAbsolutePath(
             root.fileLocation,
-            courseMeta.rootLocation
+            courseMeta.rootLocation,
         );
 
         const fileSystemNodes = await this.getSortedFileSystemNodes(
-            absolutePath
+            absolutePath,
         );
         // and parse them
         for (const d of fileSystemNodes) {
@@ -43,7 +43,7 @@ export class CodeFilesService {
             const itemPathBase64 =
                 this.pathMapperService.mapPathToRelativeBase64(
                     path.join(absolutePath, d.name),
-                    courseMeta.rootLocation
+                    courseMeta.rootLocation,
                 );
             if (d.isDirectory()) {
                 const entry: FileStructureDto = {
@@ -105,11 +105,11 @@ export class CodeFilesService {
 
     mapFiles = async (
         productKey: string,
-        projectKey: string
+        projectKey: string,
     ): Promise<FileStructureDto> => {
         const projectMeta = this.coursesMetaService.getOneProject(
             productKey,
-            projectKey
+            projectKey,
         );
 
         const rootDirectory: FileStructureDto = {
@@ -126,15 +126,15 @@ export class CodeFilesService {
     getNearestHtmlReadmeForFile = async (
         b64Path: string,
         productKey: string,
-        projectKey: string
+        projectKey: string,
     ): Promise<FileMetaDto> => {
         const projectMeta = this.coursesMetaService.getOneProject(
             productKey,
-            projectKey
+            projectKey,
         );
         const fileLocation = this.pathMapperService.mapBase64ToAbsolutePath(
             b64Path,
-            projectMeta.rootLocation
+            projectMeta.rootLocation,
         );
 
         const readmePath = this.findNearestReadme(fileLocation);
@@ -144,22 +144,22 @@ export class CodeFilesService {
         return this.markdownFileService.getMdFileAsHtml(
             readmePath,
             productKey,
-            projectKey
+            projectKey,
         );
     };
 
     getNearestReadMePathForFile = (
         b64Path: string,
         productKey: string,
-        projectKey: string
+        projectKey: string,
     ): string | undefined => {
         const projectMeta = this.coursesMetaService.getOneProject(
             productKey,
-            projectKey
+            projectKey,
         );
         const fileLocation = this.pathMapperService.mapBase64ToAbsolutePath(
             b64Path,
-            projectMeta.rootLocation
+            projectMeta.rootLocation,
         );
 
         return this.findNearestReadme(fileLocation);
@@ -178,7 +178,7 @@ export class CodeFilesService {
 
         function findFile(
             directory: string,
-            filename: string
+            filename: string,
         ): string | undefined {
             const file = path.join(directory, filename);
 
@@ -203,18 +203,18 @@ export class CodeFilesService {
         b64Path: string,
         productKey: string,
         projectKey: string,
-        user?: RequestUser
+        user?: RequestUser,
     ): Promise<FileMetaDto> => {
         const product = this.coursesMetaService.getOneProduct(productKey);
         const projectMeta = product.projectMeta.find(
-            (p) => projectKey === p.key
+            (p) => projectKey === p.key,
         );
         if (!projectMeta) {
             throw new NotFoundException("No project found");
         }
         const fileLocation = this.pathMapperService.mapBase64ToAbsolutePath(
             b64Path,
-            projectMeta.rootLocation
+            projectMeta.rootLocation,
         );
         const nearestReadme =
             this.findNearestReadme(fileLocation) || "README.md";
@@ -224,13 +224,14 @@ export class CodeFilesService {
         const nearestReadmeLocation =
             this.pathMapperService.mapPathToRelativeBase64(
                 nearestReadme,
-                projectMeta.rootLocation
+                projectMeta.rootLocation,
             );
         if (
             this.fileVisibilityGuard.shouldShowFullFile({
                 productKey,
                 demoPaths: projectMeta.demoPaths,
                 fileLocation,
+                isOpenSourceProject: projectMeta.isOpenSource,
                 lengthInLines: fileContents?.split("\n").length,
                 activeSubscriptionProductKeys:
                     user?.activeSubscriptionProductKeys,
@@ -248,7 +249,7 @@ export class CodeFilesService {
         return {
             contents: this.fileScramblerService.scrambleCodeFile(
                 fileContents,
-                "()`~!@#$%^&*-+=|\\{}[]:;\"'<>,.?/_abcdefghijklmnopqrstuvwxyz"
+                "()`~!@#$%^&*-+=|\\{}[]:;\"'<>,.?/_abcdefghijklmnopqrstuvwxyz",
             ),
             fileLocation: b64Path,
             fileName,

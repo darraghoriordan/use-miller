@@ -39,19 +39,11 @@ export function Price({
                 </ul>
             </div>
 
-            <p className="text-6xl pt-16 text-center">
+            <p className="text-6xl pt-16 text-center pb-16">
                 {price}
                 <span className="text-base">{currency.toUpperCase()}</span>
             </p>
-            <p className="text-sm text-center pb-16">
-                <a
-                    href={licenceUrl}
-                    className="text-sm hover:underline hover:cursor-pointer"
-                >
-                    License Terms
-                </a>
-            </p>
-            <p className="text-smtext-center"></p>
+
             <div className="mx-auto w-full flex gap-x-6 md:mx-0 mb-10">
                 <SignUpBuyNowButton
                     user={user}

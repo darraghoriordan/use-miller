@@ -12,6 +12,7 @@ export class FileVisibilityControlGuard {
         productKey,
         lengthInLines,
         maximumLines,
+        isOpenSourceProject,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         activeSubscriptionProductKeys,
     }: {
@@ -21,6 +22,7 @@ export class FileVisibilityControlGuard {
         productKey: string;
         lengthInLines: number;
         maximumLines: number;
+        isOpenSourceProject: boolean;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         activeSubscriptionProductKeys?: string[];
     }): boolean => {
@@ -30,14 +32,17 @@ export class FileVisibilityControlGuard {
                 userSubs: activeSubscriptionProductKeys,
                 productKey,
             },
-            `Checking if user can see file ${fileLocation}`
+            `Checking if user can see file ${fileLocation}`,
         );
-
+        // if the project is open source then it is always visible
+        if (isOpenSourceProject) {
+            return true;
+        }
         // if the file is short, then it is always visible
         if (lengthInLines < maximumLines) {
             return true;
         }
-        // added a new product variation for miller start
+        // added a new product variation for miller start (this shouldn't be here, but it's a quick fix)
         const productVariations =
             productKey === "miller-start"
                 ? ["miller-start", "miller-start-consulting"]
@@ -45,7 +50,7 @@ export class FileVisibilityControlGuard {
         // if the person is in an org that has paid for the product, then they can see all files
         if (
             activeSubscriptionProductKeys?.some((k) =>
-                productVariations.includes(k)
+                productVariations.includes(k),
             )
         ) {
             return true;

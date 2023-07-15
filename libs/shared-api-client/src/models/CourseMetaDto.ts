@@ -67,6 +67,12 @@ export interface CourseMetaDto {
      * @memberof CourseMetaDto
      */
     color: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CourseMetaDto
+     */
+    isOpenSource: boolean;
 }
 
 export function CourseMetaDtoFromJSON(json: any): CourseMetaDto {
@@ -87,6 +93,7 @@ export function CourseMetaDtoFromJSONTyped(json: any, ignoreDiscriminator: boole
         'demoFileLinkText': json['demoFileLinkText'],
         'name': json['name'],
         'color': json['color'],
+        'isOpenSource': json['isOpenSource'],
     };
 }
 
@@ -107,6 +114,7 @@ export function CourseMetaDtoToJSON(value?: CourseMetaDto | null): any {
         'demoFileLinkText': value.demoFileLinkText,
         'name': value.name,
         'color': value.color,
+        'isOpenSource': value.isOpenSource,
     };
 }
 
