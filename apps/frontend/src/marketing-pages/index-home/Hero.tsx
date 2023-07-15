@@ -12,23 +12,25 @@ import { ThemeColor } from "../../styles/themeColors.js";
 export function Hero({ user }: { user: UserDto }) {
     const products = [
         {
-            colorVariant: "violet" as ThemeColor,
-            title: "Miller Start",
-            blurb: "Master full-stack web development by example",
-            image: millerStartLogo,
-            learnMoreLink: "/miller-start",
+            title: "Miller Dev Shell",
+            blurb: "Say Goodbye to manual dev environment configuration",
+            image: devShellLogo,
+            learnMoreLink: "/dev-shell",
             altLinkText: "Preview the code now",
-            altLink: "/docs/miller-start/reference/miller-web/L1JFQURNRS5tZA==",
+            altLink:
+                "/docs/dev-shell/reference/dev-shell-scripts/L1JFQURNRS5tZA==",
             benefits: [
-                "Become a pro with NextJs, NestJs, tailwind, PostgreSQL, Redis and more",
-                "Accelerate your product development with a fully featured, full-stack app starter",
-                "Setup a new full-stack app in minutes with scripts and terraform",
-                "Advance your learning from beginner tutorials",
+                "Set up a new machine in minutes, not hours",
+                "Well tested, re-runnable configuration scripts",
+                "50+ of the best modern developer tools, pre-configured",
+                "Designed for a consistent shell on Mac and Windows WSL",
+                "Perpetual licence and updates",
             ],
+            colorVariant: "green" as ThemeColor,
         },
         {
             title: "Local Dev Tools",
-            blurb: "Control your data with local dev utilities",
+            blurb: "Local dev utilities to keep your business data safe",
             image: devToolsLogo,
             learnMoreLink: "/local-dev-tools",
             altLinkText: "Download now",
@@ -42,20 +44,19 @@ export function Hero({ user }: { user: UserDto }) {
             colorVariant: "cyan" as ThemeColor,
         },
         {
-            title: "Miller Dev Shell",
-            blurb: "Say Goodbye to manual environment configuration",
-            image: devShellLogo,
-            learnMoreLink: "/dev-shell",
+            colorVariant: "violet" as ThemeColor,
+            title: "Miller Start",
+            blurb: "Master full-stack web development by example",
+            image: millerStartLogo,
+            learnMoreLink: "/miller-start",
             altLinkText: "Preview the code now",
-            altLink:
-                "/docs/dev-shell/reference/dev-shell-scripts/L1JFQURNRS5tZA==",
+            altLink: "/docs/miller-start/reference/miller-web/L1JFQURNRS5tZA==",
             benefits: [
-                "Well tested, re-runnable shell configuration scripts",
-                "50+ of the best modern developer tools, pre-configured",
-                "Designed for a consistent shell on Mac and Windows WSL",
-                "Perpetual licence and updates",
+                "Become a pro with NextJs, NestJs, tailwind, PostgreSQL, Redis and more",
+                "Accelerate your product development with a fully featured, full-stack app starter",
+                "Setup a new full-stack app in minutes with scripts and terraform",
+                "Advance your learning from beginner tutorials",
             ],
-            colorVariant: "green" as ThemeColor,
         },
     ];
 
@@ -78,12 +79,12 @@ export function Hero({ user }: { user: UserDto }) {
                         <div className="md:flex">
                             <div className="mr-8">
                                 <h1 className="leading-snug mx-auto max-w-2xl font-display text-6xl font-medium tracking-tight text-white md:mx-0">
-                                    Tools that Help You Code Safer, and Faster
+                                    Code Safer. <br></br>Code Faster.
                                 </h1>
-                                <p className="mx-auto mt-6 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
-                                    Miller dev tools save you time so you can
-                                    focus on building your product and helping
-                                    your customers.
+                                <p className="mx-auto mt-12 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
+                                    Miller makes dev tools that save you time so
+                                    you can focus on building your product and
+                                    helping your customers.
                                 </p>
                             </div>
                             <div className="intro-image-rotation md:relative w-1/2 md:w-full mt-20 md:mt-0 md:mb-0 hidden md:block">
@@ -92,13 +93,13 @@ export function Hero({ user }: { user: UserDto }) {
                                         priority
                                         alt="admin image"
                                         src={adminImage}
-                                        className="intro-image absolute md:-translate-y-16 md:translate-x-14 -translate-y-4 translate-x-2"
+                                        className="md:max-w-md intro-image absolute md:-translate-y-16 md:translate-x-14 -translate-y-4 translate-x-2"
                                     />
                                     <Image
                                         priority
                                         alt="product image"
                                         src={codeImage}
-                                        className="intro-image absolute md:-translate-x-7 translate-x-7"
+                                        className="md:max-w-md intro-image absolute md:-translate-x-7 translate-x-7"
                                     />
                                 </div>
                             </div>
