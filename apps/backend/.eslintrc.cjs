@@ -17,10 +17,8 @@ module.exports = {
     settings: {},
     extends: [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
-        "plugin:unicorn/recommended",
-
+        "plugin:@typescript-eslint/recommended-type-checked",
+        "plugin:@typescript-eslint/stylistic-type-checked",
         "plugin:unicorn/recommended",
         "plugin:eslint-comments/recommended",
         "plugin:sonarjs/recommended",
@@ -39,15 +37,6 @@ module.exports = {
     ignorePatterns: [".eslintrc.cjs", "dist"],
     rules: {
         "import/namespace": "off", // this is very slow
-        // "jest/no-try-expect":"off",
-        // "jest/no-conditional-expect":"off",
-        // "sonarjs/no-duplicate-string":"off",
-        // "no-eval": "error",
-        "@typescript-eslint/require-await": "error",
-        "@typescript-eslint/interface-name-prefix": "off",
-        "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/explicit-module-boundary-types": "off",
-        "@typescript-eslint/no-explicit-any": "off",
         "jest/expect-expect": [
             "error",
             {
