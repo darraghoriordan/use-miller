@@ -233,3 +233,15 @@ dokku nginx:set use-miller-frontend proxy-buffer-size 128k
 dokku nginx:set use-miller-frontend proxy-buffers "4 256k"
 dokku nginx:set use-miller-frontend proxy-busy-buffers-size 256k
 ```
+
+## Maintaining space on the droplet
+
+You can cleanup old docker images and containers to save space on the droplet. This will also cleanup logs and old apt packages.
+
+```bash
+docker system prune
+sudo apt-get autoremove
+sudo apt-get autoclean
+sudo journalctl --vacuum-time=5d
+
+```

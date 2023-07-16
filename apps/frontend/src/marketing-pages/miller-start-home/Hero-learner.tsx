@@ -153,9 +153,26 @@ export function Hero({ user }: { user: UserDto }) {
                         </div>
                         <div className="mx-auto mt-36 flex gap-x-6 md:mx-0">
                             <dl className="col-span-2 grid grid-cols-1 gap-x-8 gap-y-10 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:gap-y-16">
-                                {topFeatures.map((tf) => (
+                                {[
+                                    ...topFeatures.map((tf) => (
+                                        <div
+                                            key={tf.name}
+                                            className="relative pl-9 "
+                                        >
+                                            <dt className="font-semibold text-white">
+                                                <CheckIcon
+                                                    className="absolute left-0 top-1 h-5 w-5 text-green-500"
+                                                    aria-hidden="true"
+                                                />
+                                                {tf.name}
+                                            </dt>
+                                            <dd className="mt-2  text-gray-400">
+                                                {tf.description}
+                                            </dd>
+                                        </div>
+                                    )),
                                     <div
-                                        key={tf.name}
+                                        key={"open-source"}
                                         className="relative pl-9 "
                                     >
                                         <dt className="font-semibold text-white">
@@ -163,13 +180,21 @@ export function Hero({ user }: { user: UserDto }) {
                                                 className="absolute left-0 top-1 h-5 w-5 text-green-500"
                                                 aria-hidden="true"
                                             />
-                                            {tf.name}
+                                            {"Open source"}
                                         </dt>
                                         <dd className="mt-2  text-gray-400">
-                                            {tf.description}
+                                            Miller Start is open source and you
+                                            can contribute on{" "}
+                                            <a
+                                                className="underline underline-offset-2"
+                                                target="_blank"
+                                                href="https://github.com/darraghoriordan/use-miller"
+                                            >
+                                                GitHub
+                                            </a>
                                         </dd>
-                                    </div>
-                                ))}
+                                    </div>,
+                                ]}
                             </dl>
                         </div>
                         <div className="mx-auto mt-10 flex gap-x-6 md:mx-0">
