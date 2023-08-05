@@ -1,0 +1,42 @@
+name: BuildTestRenovate
+on:
+    push:
+        branches:
+            - renovate/*
+jobs:
+    buildTest:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+                  persist-credentials: false
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: "18"
+
+            - uses: pnpm/action-setup@v2
+              name: Install pnpm
+              id: pnpm-install
+              with:
+                  version: 7
+                  run_install: false
+            - name: Get pnpm store directory
+              id: pnpm-cache
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+            - uses: actions/cache@v3
+              name: Setup pnpm cache
+              with:
+                  path: |
+                      ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+                      ${{ github.workspace }}/apps/frontend/.next/cache
+                  key: ${{ runner.os }}-pnpm-store-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-nextjs
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile -r
+            - run: pnpm run lint
+            - run: pnpm run test
+            - run: pnpm run build
