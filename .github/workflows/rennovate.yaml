@@ -1,0 +1,54 @@
+name: Renovate
+on:
+  # Allows manual/automated ad-hoc trigger
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Override default log level'
+        required: false
+        default: 'info'
+        type: string
+      overrideSchedule:
+        description: 'Override all schedules'
+        required: false
+        default: 'false'
+        type: string
+  # Run twice in the early morning for initial and follow up steps (create pull request and merge)
+  schedule:
+    - cron: '30 9,11 * * *'
+concurrency: renovate
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.3
+      # Don't waste time starting Renovate if JSON is invalid
+      # - name: Validate Renovate JSON
+      #   run: jq type renovate.json
+
+      # - name: Get token
+      #   id: get_token
+      #   uses: tibdex/github-app-token@021a2405c7f990db57f5eae5397423dcc554159c # v1.7.0
+      #   with:
+      #     app_id: ${{ secrets.DEMO_RENOVATE_APP_ID }}
+      #     installation_id: ${{ secrets.DEMO_RENOVATE_INSTALL_ID }}
+      #     private_key: ${{ secrets.DEMO_RENOVATE_PRIVATE_KEY }}
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v39.0.1
+        env:
+          # Repository taken from variable to keep configuration file generic
+          RENOVATE_REPOSITORIES: ${{ github.repository }}
+          # Onboarding not needed for self hosted
+          #RENOVATE_ONBOARDING: 'false'
+          # Username for GitHub authentication (should match GitHub App name + [bot])
+          # RENOVATE_USERNAME: 'superseb-demo-renovate[bot]'
+          # Git commit author used, must match GitHub App
+          # RENOVATE_GIT_AUTHOR: 'superseb-demo-renovate <121964725+superseb-demo-renovate[bot]@users.noreply.github.com>'
+          # Use GitHub API to create commits (this allows for signed commits from GitHub App)
+          RENOVATE_PLATFORM_COMMIT: 'true'
+          # Override schedule if set
+          RENOVATE_FORCE: ${{ github.event.inputs.overrideSchedule == 'true' && '{''schedule'':null}' || '' }}
+          LOG_LEVEL: ${{ inputs.logLevel || 'info' }}
+        with:
+          token: ${{ secrets.RENOVATE_TOKEN }}
