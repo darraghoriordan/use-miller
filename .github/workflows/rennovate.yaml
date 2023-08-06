@@ -13,10 +13,11 @@ on:
                 required: false
                 default: "false"
                 type: string
-    # Run a few times in the morning to catch up with any decisions made in the issue
+    # Run a few times through the day to catch up with any decisions made in the issue
     # Run at odd times to avoid overlap with too many other workflows on GitHub Actions
+    # note github actions cron is in UTC so this is 7:18am, 12:18pm, 15:18pm in AEST.
     schedule:
-        - cron: "18 7,9,11 * * *"
+        - cron: "18 21,2,5 * * *"
 concurrency: renovate
 jobs:
     renovate:
