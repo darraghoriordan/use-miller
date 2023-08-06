@@ -43,7 +43,7 @@
         "@nrwl/node": "16.6.0",
         "@semantic-release/exec": "6.0.3",
         "@types/jest": "29.5.3",
-        "@types/node": "20.3.3",
+        "@types/node": "20.4.6",
         "@typescript-eslint/eslint-plugin": "5.62.0",
         "@typescript-eslint/parser": "5.62.0",
         "concurrently": "8.2.0",
