@@ -57,7 +57,7 @@
         "lerna": "7.1.4",
         "lint-staged": "13.2.3",
         "nx": "16.6.0",
-        "prettier": "3.0.0",
+        "prettier": "3.0.1",
         "rimraf": "5.0.1",
         "semantic-release": "21.0.7",
         "ts-jest": "29.1.1",

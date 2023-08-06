@@ -68,7 +68,7 @@
         "opentelemetry-instrumentation-undici": "0.1.1",
         "postcss": "8.4.27",
         "postcss-focus-visible": "9.0.0",
-        "prettier": "3.0.0",
+        "prettier": "3.0.1",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-hyper-tree": "0.3.12",
