@@ -1,3 +1,4 @@
+$schema: "https://renovatebot.com/schema/github-action.json"
 name: Renovate
 on:
     # Allows manual/automated ad-hoc trigger
@@ -13,7 +14,8 @@ on:
                 required: false
                 default: "false"
                 type: string
-    # Run twice in the early morning for initial and follow up steps (create pull request and merge)
+    # Run a few times in the morning to catch up with any decisions made in the issue
+    # Run at odd times to avoid overlap with too many other workflows on GitHub Actions
     schedule:
         - cron: "18 7,9,11 * * *"
 concurrency: renovate
@@ -22,30 +24,11 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
-            # Don't waste time starting Renovate if JSON is invalid
-            # - name: Validate Renovate JSON
-            #   run: jq type renovate.json
-
-            # - name: Get token
-            #   id: get_token
-            #   uses: tibdex/github-app-token@021a2405c7f990db57f5eae5397423dcc554159c # v1.7.0
-            #   with:
-            #     app_id: ${{ secrets.DEMO_RENOVATE_APP_ID }}
-            #     installation_id: ${{ secrets.DEMO_RENOVATE_INSTALL_ID }}
-            #     private_key: ${{ secrets.DEMO_RENOVATE_PRIVATE_KEY }}
+              uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
             - name: Self-hosted Renovate
-        uses: renovatebot/github-action@23a02fe7be9e93f857a953cc8162e57d2c8401ef # v39.0.1
+              uses: renovatebot/github-action@23a02fe7be9e93f857a953cc8162e57d2c8401ef # v39.0.1
               env:
-                  # Repository taken from variable to keep configuration file generic
                   RENOVATE_REPOSITORIES: ${{ github.repository }}
-                  # Onboarding not needed for self hosted
-                  #RENOVATE_ONBOARDING: 'false'
-                  # Username for GitHub authentication (should match GitHub App name + [bot])
-                  # RENOVATE_USERNAME: 'superseb-demo-renovate[bot]'
-                  # Git commit author used, must match GitHub App
-                  # RENOVATE_GIT_AUTHOR: 'superseb-demo-renovate <121964725+superseb-demo-renovate[bot]@users.noreply.github.com>'
-                  # Use GitHub API to create commits (this allows for signed commits from GitHub App)
                   RENOVATE_PLATFORM_COMMIT: "true"
                   # Override schedule if set
                   RENOVATE_FORCE: ${{ github.event.inputs.overrideSchedule == 'true' && '{''schedule'':null}' || '' }}
