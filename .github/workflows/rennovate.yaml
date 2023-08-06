@@ -1,4 +1,3 @@
-$schema: "https://renovatebot.com/schema/github-action.json"
 name: Renovate
 on:
     # Allows manual/automated ad-hoc trigger
