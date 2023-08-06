@@ -299,7 +299,7 @@ importers:
       eslint-plugin-prefer-arrow: 1.2.3
       eslint-plugin-promise: 6.1.1
       eslint-plugin-sonarjs: 0.19.0
-      eslint-plugin-unicorn: 47.0.0
+      eslint-plugin-unicorn: 48.0.1
       jest: 29.6.2
       jest-create-mock-instance: 2.0.0
       node-fetch: 3.3.2
@@ -342,7 +342,7 @@ importers:
       eslint-plugin-prefer-arrow: 1.2.3_eslint@8.46.0
       eslint-plugin-promise: 6.1.1_eslint@8.46.0
       eslint-plugin-sonarjs: 0.19.0_eslint@8.46.0
-      eslint-plugin-unicorn: 47.0.0_eslint@8.46.0
+      eslint-plugin-unicorn: 48.0.1_eslint@8.46.0
       jest: 29.6.2_gqamdsshf7ch2ypdvzrqbdkmqq
       jest-create-mock-instance: 2.0.0
       nx: 16.6.0
@@ -11056,31 +11056,6 @@ packages:
       - typescript
     dev: false
 
-  /eslint-plugin-unicorn/47.0.0_eslint@8.46.0:
-    resolution: {integrity: sha512-ivB3bKk7fDIeWOUmmMm9o3Ax9zbMz1Bsza/R2qm46ufw4T6VBFBaJIR1uN3pCKSmSXm8/9Nri8V+iUut1NhQGA==}
-    engines: {node: '>=16'}
-    peerDependencies:
-      eslint: '>=8.38.0'
-    dependencies:
-      '@babel/helper-validator-identifier': 7.22.5
-      '@eslint-community/eslint-utils': 4.4.0_eslint@8.46.0
-      ci-info: 3.8.0
-      clean-regexp: 1.0.0
-      eslint: 8.46.0
-      esquery: 1.5.0
-      indent-string: 4.0.0
-      is-builtin-module: 3.2.1
-      jsesc: 3.0.2
-      lodash: 4.17.21
-      pluralize: 8.0.0
-      read-pkg-up: 7.0.1
-      regexp-tree: 0.1.27
-      regjsparser: 0.10.0
-      safe-regex: 2.1.1
-      semver: 7.5.4
-      strip-indent: 3.0.0
-    dev: true
-
   /eslint-plugin-unicorn/48.0.1_eslint@8.46.0:
     resolution: {integrity: sha512-FW+4r20myG/DqFcCSzoumaddKBicIPeFnTrifon2mWIzlfyvzwyqZjqVP7m4Cqr/ZYisS2aiLghkUWaPg6vtCw==}
     engines: {node: '>=16'}
@@ -18578,12 +18553,6 @@ packages:
       call-bind: 1.0.2
       get-intrinsic: 1.2.1
       is-regex: 1.1.4
-
-  /safe-regex/2.1.1:
-    resolution: {integrity: sha512-rx+x8AMzKb5Q5lQ95Zoi6ZbJqwCLkqi3XuJXp5P3rT8OEc6sZCJG5AE5dU3lsgRr/F4Bs31jSlVN+j5KrsGu9A==}
-    dependencies:
-      regexp-tree: 0.1.27
-    dev: true
 
   /safe-stable-stringify/2.4.3:
     resolution: {integrity: sha512-e2bDA2WJT0wxseVd4lsDP4+3ONX6HpMXQa1ZhFQ7SU+GjvORCmShbCMltrtIDfkYhVHrOcPtj+KhmDBdPdZD1g==}
