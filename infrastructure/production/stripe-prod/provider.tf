@@ -2,7 +2,7 @@ terraform {
   required_providers {
     stripe = {
       source  = "lukasaron/stripe"
-      version = "1.6.0"
+      version = "1.7.7"
     }
   }
   # You don't need this if you're a solo dev. When you're ready you can create a
