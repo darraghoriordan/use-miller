@@ -5,7 +5,7 @@
     "private": true,
     "type": "module",
     "license": "UNLICENSED",
-    "packageManager": "pnpm@7.33.5",
+    "packageManager": "pnpm@7.33.6",
     "repository": {
         "type": "git",
         "url": "https://github.com/darraghoriordan/use-miller.git"
@@ -13,7 +13,7 @@
     "author": "Use Miller",
     "engines": {
         "node": ">=v18.17.0",
-        "pnpm": ">=7.33.5"
+        "pnpm": ">=7.33.6"
     },
     "scripts": {
         "clean": "rm -Rf ./dist/",
@@ -43,7 +43,7 @@
         "@nrwl/node": "16.6.0",
         "@semantic-release/exec": "6.0.3",
         "@types/jest": "29.5.3",
-        "@types/node": "20.4.6",
+        "@types/node": "20.4.8",
         "@typescript-eslint/eslint-plugin": "5.62.0",
         "@typescript-eslint/parser": "5.62.0",
         "concurrently": "8.2.0",
