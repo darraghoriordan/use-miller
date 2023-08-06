@@ -26,7 +26,7 @@ importers:
       lerna: 7.1.4
       lint-staged: 13.2.3
       nx: 16.6.0
-      prettier: 3.0.0
+      prettier: 3.0.1
       rimraf: 5.0.1
       semantic-release: 21.0.7
       ts-jest: 29.1.1
@@ -55,7 +55,7 @@ importers:
       lerna: 7.1.4
       lint-staged: 13.2.3
       nx: 16.6.0
-      prettier: 3.0.0
+      prettier: 3.0.1
       rimraf: 5.0.1
       semantic-release: 21.0.7
       ts-jest: 29.1.1_px357lxaiwli4einppitzywxda
@@ -304,7 +304,7 @@ importers:
       jest-create-mock-instance: 2.0.0
       node-fetch: 3.3.2
       nx: 16.6.0
-      prettier: 3.0.0
+      prettier: 3.0.1
       ts-jest: 29.1.1
       ts-loader: 9.4.4
       ts-node: 10.9.1
@@ -346,7 +346,7 @@ importers:
       jest: 29.6.2_dbnp3pl7aucvhzrbfokcmj4rgm
       jest-create-mock-instance: 2.0.0
       nx: 16.6.0
-      prettier: 3.0.0
+      prettier: 3.0.1
       ts-jest: 29.1.1_q353rkha3gxrggabbt7xvglbhy
       ts-loader: 9.4.4_wlox7xpecxj4rvkt6b6o7frtlu
       ts-node: 10.9.1_vjdgkrlpvzy57ywk3l7oo5hswi
@@ -413,7 +413,7 @@ importers:
       opentelemetry-instrumentation-undici: 0.1.1
       postcss: 8.4.27
       postcss-focus-visible: 9.0.0
-      prettier: 3.0.0
+      prettier: 3.0.1
       react: 18.2.0
       react-dom: 18.2.0
       react-hyper-tree: 0.3.12
@@ -490,7 +490,7 @@ importers:
       opentelemetry-instrumentation-undici: 0.1.1_undici@5.23.0
       postcss: 8.4.27
       postcss-focus-visible: 9.0.0_postcss@8.4.27
-      prettier: 3.0.0
+      prettier: 3.0.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-hyper-tree: 0.3.12_biqbaboplfbrettd7655fr4n2y
@@ -16677,16 +16677,10 @@ packages:
     engines: {node: '>=4'}
     dev: false
 
-  /prettier/3.0.0:
-    resolution: {integrity: sha512-zBf5eHpwHOGPC47h0zrPyNn+eAEIdEzfywMoYn2XPi0P44Zp0tSq64rq0xAREh4auw2cJZHo9QUob+NqCQky4g==}
-    engines: {node: '>=14'}
-    hasBin: true
-
   /prettier/3.0.1:
     resolution: {integrity: sha512-fcOWSnnpCrovBsmFZIGIy9UqK2FaI7Hqax+DIO0A9UxeVoY4iweyaFjS5TavZN97Hfehph0nhsZnjlVKzEQSrQ==}
     engines: {node: '>=14'}
     hasBin: true
-    dev: true
 
   /pretty-format/29.6.2:
     resolution: {integrity: sha512-1q0oC8eRveTg5nnBEWMXAU2qpv65Gnuf2eCQzSjxpWFkPaPARwqZZDGuNE0zPAZfTCHzIk3A8dIjwlQKKLphyg==}
