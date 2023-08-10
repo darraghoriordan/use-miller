@@ -14,7 +14,7 @@
         "@babel/core": "7.22.9",
         "@babel/plugin-transform-modules-commonjs": "7.22.5",
         "@babel/preset-env": "7.22.9",
-        "@darraghor/eslint-plugin-nestjs-typed": "4.0.2",
+        "@darraghor/eslint-plugin-nestjs-typed": "4.0.7",
         "@nrwl/eslint-plugin-nx": "16.6.0",
         "@nrwl/jest": "16.6.0",
         "@nrwl/linter": "16.6.0",
