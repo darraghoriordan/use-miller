@@ -66,7 +66,7 @@ importers:
     specifiers:
       '@babel/core': 7.22.9
       '@darraghor/eslint-plugin-nestjs-typed': 4.0.7
-      '@darraghor/nest-backend-libs': 2.34.0
+      '@darraghor/nest-backend-libs': 2.35.3
       '@mapbox/rehype-prism': 0.8.0
       '@nestjs/bull': 10.0.1
       '@nestjs/cache-manager': 2.1.0
@@ -165,7 +165,7 @@ importers:
       webpack: 5.88.2
     dependencies:
       '@babel/core': 7.22.9
-      '@darraghor/nest-backend-libs': 2.34.0_bgyw7fj6eizdy4hpoormljxhvi
+      '@darraghor/nest-backend-libs': 2.35.3_bgyw7fj6eizdy4hpoormljxhvi
       '@mapbox/rehype-prism': 0.8.0
       '@nestjs/bull': 10.0.1_7cw3pdh3qho757vjy3iae6ahzu
       '@nestjs/cache-manager': 2.1.0_ddeh6bpridwd5yx2f2s7gfpvbe
@@ -2222,9 +2222,9 @@ packages:
       - typescript
     dev: true
 
-  /@darraghor/nest-backend-libs/2.34.0_bgyw7fj6eizdy4hpoormljxhvi:
-    resolution: {integrity: sha512-KD5d/pEALdnpuBRuIvUCay9ENnNjTqJpJD7rXcorLSkA8hZtlXK5QR7xMG9+F+RMHehcP8DntiJiosyCEz4aoA==}
-    engines: {node: '>=18'}
+  /@darraghor/nest-backend-libs/2.35.3_bgyw7fj6eizdy4hpoormljxhvi:
+    resolution: {integrity: sha512-dasrqbuxE71VxISIp+cKGP17m8mA5TMJBjFLtFmKHFd9taBsyNT2WcsEuU1sP1xSAQhYXYVTAfeuF8CHGvszQw==}
+    engines: {node: '>=v18.17.0'}
     hasBin: true
     peerDependencies:
       '@nestjs/axios': 2.0.0
@@ -2245,7 +2245,7 @@ packages:
     dependencies:
       '@nestjs/axios': 2.0.0_th7i5l2qpwrnq5o3ir7dgmpxum
       '@nestjs/bull': 10.0.1_7cw3pdh3qho757vjy3iae6ahzu
-      '@nestjs/cache-manager': 2.0.1_ddeh6bpridwd5yx2f2s7gfpvbe
+      '@nestjs/cache-manager': 2.1.0_ddeh6bpridwd5yx2f2s7gfpvbe
       '@nestjs/common': 10.1.3_j3td4gnlgk75ora6o6suo62byy
       '@nestjs/config': 3.0.0_odz3pxxtydpap6sgjhrdybptni
       '@nestjs/core': 10.1.3_alwfjpj4xx2tarhsjnpuno4mna
@@ -2256,7 +2256,7 @@ packages:
       '@nestjs/terminus': 9.2.1_aos6g26oyy3tz6mj35vmxb5mqi
       '@nestjs/typeorm': 10.0.0_d7lzjbnm4df76iceamijzqqkei
       add: 2.0.6
-      auth0: 3.5.0
+      auth0: 3.6.0
       bull: 4.10.4
       cache-manager: 5.2.3
       cache-manager-redis-yet: 4.1.2
@@ -2269,19 +2269,19 @@ packages:
       jwks-rsa: 3.0.1
       nanoid: 4.0.2
       nestjs-pino: 3.3.0_mfpr52jvvnp56mojcztntnezlu
-      nodemailer: 6.9.3
+      nodemailer: 6.9.4
       passport: 0.6.0
       passport-headerapikey: 1.2.2
       passport-jwt: 4.0.1
       pino-http: 8.3.3
-      pino-pretty: 10.0.1
+      pino-pretty: 10.2.0
       redis: 4.6.7
       reflect-metadata: 0.1.13
       rimraf: 5.0.1
       rxjs: 7.8.1
-      stripe: 12.13.0
+      stripe: 12.16.0
       swagger-ui-express: 5.0.0_express@4.18.2
-      twitter-api-v2: 1.15.0
+      twitter-api-v2: 1.15.1
       typeorm: 0.3.17_pg@8.11.2+ts-node@10.9.1
     transitivePeerDependencies:
       - debug
@@ -3145,22 +3145,6 @@ packages:
       '@nestjs/core': 10.1.3_alwfjpj4xx2tarhsjnpuno4mna
       bull: 4.10.4
       tslib: 2.6.0
-    dev: false
-
-  /@nestjs/cache-manager/2.0.1_ddeh6bpridwd5yx2f2s7gfpvbe:
-    resolution: {integrity: sha512-UxDeuarskoSPVzLRl6SVNaUlGnwclhq48JCvQ/zu7W2RRaBqlxzfM8/CaRjrpSwC7/LVrLKv+f9EoAWYOvSULg==}
-    peerDependencies:
-      '@nestjs/common': ^9.0.0 || ^10.0.0
-      '@nestjs/core': ^9.0.0 || ^10.0.0
-      cache-manager: <=5
-      reflect-metadata: ^0.1.12
-      rxjs: ^7.0.0
-    dependencies:
-      '@nestjs/common': 10.1.3_j3td4gnlgk75ora6o6suo62byy
-      '@nestjs/core': 10.1.3_alwfjpj4xx2tarhsjnpuno4mna
-      cache-manager: 5.2.3
-      reflect-metadata: 0.1.13
-      rxjs: 7.8.1
     dev: false
 
   /@nestjs/cache-manager/2.1.0_ddeh6bpridwd5yx2f2s7gfpvbe:
@@ -7614,24 +7598,6 @@ packages:
   /atomic-sleep/1.0.0:
     resolution: {integrity: sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==}
     engines: {node: '>=8.0.0'}
-    dev: false
-
-  /auth0/3.5.0:
-    resolution: {integrity: sha512-uPe4tP2cNgpprgG8HPvwlBw31QGFY+tSIkQLT+F9zbSa0mZh4LwcGVXOghZZRoqauRFa0/nXMndbrRpFS/O0/A==}
-    engines: {node: '>=14'}
-    dependencies:
-      axios: 0.27.2
-      form-data: 3.0.1
-      jsonwebtoken: 9.0.1
-      jwks-rsa: 3.0.1
-      lru-memoizer: 2.2.0
-      rest-facade: 1.16.4
-      retry: 0.13.1
-      uuid: 9.0.0
-    transitivePeerDependencies:
-      - debug
-      - superagent-proxy
-      - supports-color
     dev: false
 
   /auth0/3.6.0:
@@ -15262,11 +15228,6 @@ packages:
   /node-releases/2.0.13:
     resolution: {integrity: sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==}
 
-  /nodemailer/6.9.3:
-    resolution: {integrity: sha512-fy9v3NgTzBngrMFkDsKEj0r02U7jm6XfC3b52eoNV+GCrGj+s8pt5OqhiJdWKuw51zCTdiNR/IUD1z33LIIGpg==}
-    engines: {node: '>=6.0.0'}
-    dev: false
-
   /nodemailer/6.9.4:
     resolution: {integrity: sha512-CXjQvrQZV4+6X5wP6ZIgdehJamI63MFoYFGGPtHudWym9qaEHDNdPzaj5bfMCvxG1vhAileSWW90q7nL0N36mA==}
     engines: {node: '>=6.0.0'}
@@ -16397,8 +16358,8 @@ packages:
       process-warning: 2.2.0
     dev: false
 
-  /pino-pretty/10.0.1:
-    resolution: {integrity: sha512-yrn00+jNpkvZX/NrPVCPIVHAfTDy3ahF0PND9tKqZk4j9s+loK8dpzrJj4dGb7i+WLuR50ussuTAiWoMWU+qeA==}
+  /pino-pretty/10.2.0:
+    resolution: {integrity: sha512-tRvpyEmGtc2D+Lr3FulIZ+R1baggQ4S3xD2Ar93KixFEDx6SEAUP3W5aYuEw1C73d6ROrNcB2IXLteW8itlwhA==}
     hasBin: true
     dependencies:
       colorette: 2.0.20
@@ -18379,8 +18340,8 @@ packages:
     resolution: {integrity: sha512-A21Xsm1XzUkK0qK1ZrytDUvqsQWict2Cykhvi0fBQntGG5JSprESasEyV1EZ/4CiR5WB5KjzLTrP/bO37B0wPg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  /stripe/12.13.0:
-    resolution: {integrity: sha512-mn7CxL71FCRWkQp33jcJ7+xfRF7HGzPYZlq2c87U+6kxL1qd7f/N3S1g1E5uaSWe83V5v3jN/IiWqg9y8+kWRw==}
+  /stripe/12.16.0:
+    resolution: {integrity: sha512-iwVkyZsS9KsWmEVK5qnbPeX/m94+Z3fXIRU7Q4iNBS2Zuj1spGIjLKMN3tejUs/ZZ2o7dCYFJvVdC2aZMYo8GA==}
     engines: {node: '>=12.*'}
     dependencies:
       '@types/node': 20.4.8
@@ -19177,8 +19138,8 @@ packages:
       safe-buffer: 5.2.1
     dev: false
 
-  /twitter-api-v2/1.15.0:
-    resolution: {integrity: sha512-Cqg3pIGhSwPyFBndpBrucdeNXecNFnYcXy3ixQ4brJHd/3k1CAtBVcX0e3s6jRYl/QIx5BmyGXS/SHEGtYZ3gw==}
+  /twitter-api-v2/1.15.1:
+    resolution: {integrity: sha512-KNxoJL+sldWMI3AooPGcNkbP8awQai93d9xxsTurVPuUo/qnOUR3iO0XZTGC5sezdejHHqNyTwBAgGGw948MDg==}
     dev: false
 
   /type-check/0.3.2:
