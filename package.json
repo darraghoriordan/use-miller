@@ -35,8 +35,8 @@
         "md:fe": "docker save dokku/use-miller:v1.0.0 | ssh dokku-as-darragh \"docker load\""
     },
     "dependencies": {
-        "@commitlint/cli": "17.6.7",
-        "@commitlint/config-conventional": "17.6.7",
+        "@commitlint/cli": "17.7.0",
+        "@commitlint/config-conventional": "17.7.0",
         "@nrwl/eslint-plugin-nx": "16.6.0",
         "@nrwl/jest": "16.6.0",
         "@nrwl/linter": "16.6.0",
@@ -44,8 +44,8 @@
         "@semantic-release/exec": "6.0.3",
         "@types/jest": "29.5.3",
         "@types/node": "20.4.9",
-        "@typescript-eslint/eslint-plugin": "6.2.1",
-        "@typescript-eslint/parser": "6.2.1",
+        "@typescript-eslint/eslint-plugin": "6.3.0",
+        "@typescript-eslint/parser": "6.3.0",
         "concurrently": "8.2.0",
         "dotenv": "16.3.1",
         "eslint": "8.46.0",
