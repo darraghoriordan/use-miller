@@ -35,7 +35,7 @@
         "md:fe": "docker save dokku/use-miller:v1.0.0 | ssh dokku-as-darragh \"docker load\""
     },
     "dependencies": {
-        "@commitlint/cli": "17.7.0",
+        "@commitlint/cli": "17.7.1",
         "@commitlint/config-conventional": "17.7.0",
         "@nrwl/eslint-plugin-nx": "16.6.0",
         "@nrwl/jest": "16.6.0",
@@ -53,7 +53,7 @@
         "husky": "8.0.3",
         "jest": "29.6.2",
         "jest-environment-jsdom": "29.6.2",
-        "knip": "2.19.1",
+        "knip": "2.19.2",
         "lerna": "7.1.5",
         "lint-staged": "13.2.3",
         "nx": "16.6.0",
