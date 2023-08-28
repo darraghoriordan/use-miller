@@ -18,7 +18,7 @@ const docContentDirectory = path.join(
     process.cwd(),
     "src",
     "docs",
-    "page-content"
+    "page-content",
 );
 export type Section = {
     sectionDisplayName: string;
@@ -65,26 +65,26 @@ export function getSortedPostsData(): {
     });
     // get a list of the directories at the top level
     const productDirectories = productLevelDirItems.filter((dirEntry) =>
-        dirEntry.isDirectory()
+        dirEntry.isDirectory(),
     );
     const result = [];
     for (const productDirectory of productDirectories) {
         const productContentDirectory = path.join(
             docContentDirectory,
-            productDirectory.name
+            productDirectory.name,
         );
         // now get the list of sections for this product
         const sectionLevelDirItems = fs.readdirSync(productContentDirectory, {
             withFileTypes: true,
         });
         const sectionDirectories = sectionLevelDirItems.filter((dirEntry) =>
-            dirEntry.isDirectory()
+            dirEntry.isDirectory(),
         );
         const allPostSections = sectionDirectories.map((sectionDirectory) => {
             // section path
             const sectionPath = path.join(
                 productContentDirectory,
-                sectionDirectory.name
+                sectionDirectory.name,
             );
             const sectionFiles = fs
                 .readdirSync(sectionPath, {
@@ -93,7 +93,7 @@ export function getSortedPostsData(): {
                 .filter((dirEntry) => dirEntry.isFile());
             return {
                 sectionDisplayName: toCapitalCase(
-                    sectionDirectory.name.replace(/-/g, " ")
+                    sectionDirectory.name.replace(/-/g, " "),
                 ),
                 sectionSlug: sectionDirectory.name,
                 pages: sectionFiles
@@ -104,12 +104,12 @@ export function getSortedPostsData(): {
                         // Read markdown file as string
                         const contentDocumentPath = path.join(
                             sectionPath,
-                            fileName.name
+                            fileName.name,
                         );
 
                         const fileContents = fs.readFileSync(
                             contentDocumentPath,
-                            "utf8"
+                            "utf8",
                         );
 
                         // Use gray-matter to parse the post metadata section
@@ -157,7 +157,7 @@ export async function getSinglePost({
         docContentDirectory,
         productKey!,
         sectionSlug!,
-        `${slug}.md`
+        `${slug}.md`,
     );
 
     const fileContents = fs.readFileSync(fullPath, "utf8");
@@ -179,7 +179,7 @@ export async function getSinglePost({
 
 export async function markdownToHtml(
     markdownSection: any,
-    filePath: string
+    filePath: string,
 ): Promise<string> {
     const inFile = new VFile({
         path: filePath,
@@ -187,12 +187,12 @@ export async function markdownToHtml(
     });
 
     const outFile = await unified()
-        .use(remarkParse)
-        .use(gfm)
-        .use(remarkEmbedImages)
-        .use(remarkRehype)
+        .use(remarkParse as never)
+        .use(gfm as never)
+        .use(remarkEmbedImages as never)
+        .use(remarkRehype as never)
         .use(rehypePrism)
-        .use(rehypeFormat)
+        .use(rehypeFormat as never)
         .use(rehypeStringify)
         .process(inFile as any);
 

@@ -13,14 +13,14 @@ export const getServerSideProps = withPageAuthRequired({
 });
 
 export async function customGetSSP(
-    context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
+    context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
     const atResponse = await getAccessToken(context.req, context.res, {
         scopes: ["openid", "email", "profile", "offline_access"],
     });
-
+    console.log(atResponse);
     const data = await getAccountIndexData(
-        atResponse.accessToken! // user can't be logged in
+        atResponse.accessToken!, // user can't be logged in
     );
     return {
         props: data,

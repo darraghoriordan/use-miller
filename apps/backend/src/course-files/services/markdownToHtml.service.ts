@@ -21,7 +21,7 @@ import { VFile } from "vfile";
 class MarkdownToHtmlService {
     async markdownToHtml(
         markdownSection: string,
-        filePath: string
+        filePath: string,
     ): Promise<string> {
         const inFile = new VFile({
             path: filePath,
@@ -29,13 +29,14 @@ class MarkdownToHtmlService {
         });
 
         const outFile = await unified()
-            .use(remarkParse)
-            .use(gfm)
-            .use(remarkEmbedImages)
-            .use(remarkRehype)
-            .use(rehypePrism)
-            .use(rehypeFormat)
+            .use(remarkParse as never)
+            .use(gfm as never)
+            .use(remarkEmbedImages as never)
+            .use(remarkRehype as never)
+            .use(rehypePrism as never)
+            .use(rehypeFormat as never)
             .use(rehypeStringify)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .process(inFile as any);
         return outFile.toString();
     }
