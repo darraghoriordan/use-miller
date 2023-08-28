@@ -4,19 +4,32 @@ import devShellLogo from "./logos/devShellLogo.webp";
 import millerStartLogo from "./logos/millerStart.png";
 import adminImage from "../miller-start-home/intro-media/dashboard.png";
 import codeImage from "../miller-start-home/intro-media/code.png";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { UserDto } from "@use-miller/shared-api-client";
 import { SingleProductCard } from "./SingleProductCard.jsx";
 import { ThemeColor } from "../../styles/themeColors.js";
 
+export interface HeroProduct {
+    colorVariant: ThemeColor;
+    title: string;
+    blurb: string;
+    benefits: string[];
+    image: StaticImageData;
+    learnMoreLink: string;
+    altLinkText: string;
+    altLink: string;
+    githubUrl?: string;
+}
+
 export function Hero({ user }: { user: UserDto }) {
-    const products = [
+    const products: HeroProduct[] = [
         {
             title: "Miller Dev Shell",
             blurb: "Say Goodbye to manual dev environment configuration",
             image: devShellLogo,
             learnMoreLink: "/dev-shell",
             altLinkText: "Preview the code now",
+
             altLink:
                 "/docs/dev-shell/reference/dev-shell-scripts/L1JFQURNRS5tZA==",
             benefits: [
@@ -33,6 +46,8 @@ export function Hero({ user }: { user: UserDto }) {
             blurb: "Local dev utilities to keep your business data safe",
             image: devToolsLogo,
             learnMoreLink: "/local-dev-tools",
+            githubUrl:
+                "https://github.com/darraghoriordan/ssh-tool-new-electron",
             altLinkText: "Download now",
             altLink: "/local-dev-tools#download",
             benefits: [
@@ -48,6 +63,7 @@ export function Hero({ user }: { user: UserDto }) {
             title: "Miller Start",
             blurb: "Master full-stack web development by example",
             image: millerStartLogo,
+            githubUrl: "https://github.com/darraghoriordan/use-miller",
             learnMoreLink: "/miller-start",
             altLinkText: "Preview the code now",
             altLink: "/docs/miller-start/reference/miller-web/L1JFQURNRS5tZA==",
@@ -109,6 +125,9 @@ export function Hero({ user }: { user: UserDto }) {
                         className="flex flex-col space-y-16 mb-32 mt-16 md:mt-16"
                         id="features"
                     >
+                        <h2 className="pt-8 leading-snug mx-auto max-w-2xl font-display text-4xl font-medium tracking-tight text-white md:mx-0">
+                            Our Tools
+                        </h2>
                         {products.map((product) => (
                             <SingleProductCard
                                 key={product.title}

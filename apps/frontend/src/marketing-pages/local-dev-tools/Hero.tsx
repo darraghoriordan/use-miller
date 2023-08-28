@@ -6,6 +6,7 @@ import timestamps from "./intro-media/timestamps.png";
 import Image from "next/image";
 import { UserDto } from "@use-miller/shared-api-client";
 import { CheckIcon } from "@heroicons/react/24/outline";
+import { GithubLink } from "../index-home/SingleProductCard.jsx";
 const version = "1.62.0";
 const winArm64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.exe`;
 const universalDownload = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-universal.dmg`;
@@ -94,7 +95,14 @@ export function Hero({ user }: { user: UserDto }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="mx-auto mt-48 flex gap-x-6 md:mx-0">
+                        <div className="mx-auto mt-20 flex gap-x-6 md:mx-0">
+                            <GithubLink
+                                githubUrl={
+                                    "https://github.com/darraghoriordan/ssh-tool-new-electron"
+                                }
+                            />
+                        </div>
+                        <div className="mx-auto mt-32 flex gap-x-6 md:mx-0">
                             <dl className="col-span-2 grid grid-cols-1 gap-x-8 gap-y-10 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:gap-y-16">
                                 {[
                                     ...topFeatures.map((tf) => (
@@ -139,6 +147,7 @@ export function Hero({ user }: { user: UserDto }) {
                                     </div>,
                                 ]}
                             </dl>
+                            d
                         </div>
                         <div className="mx-auto mt-10 flex gap-x-6 md:mx-0">
                             <StyledLink

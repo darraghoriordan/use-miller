@@ -43,14 +43,14 @@ function MobileNavIcon({ open }: { open: boolean }) {
                 d="M0 1H14M0 7H14M0 13H14"
                 className={clsx(
                     "origin-center transition",
-                    open && "scale-90 opacity-0"
+                    open && "scale-90 opacity-0",
                 )}
             />
             <path
                 d="M2 2L12 12M12 2L2 12"
                 className={clsx(
                     "origin-center transition",
-                    !open && "scale-90 opacity-0"
+                    !open && "scale-90 opacity-0",
                 )}
             />
         </svg>
@@ -258,7 +258,7 @@ export function Header({
                                                     "hover:shadow-lg",
                                                     "text-neutral-900",
                                                     "text-lg",
-                                                    "hover:text-white"
+                                                    "hover:text-white",
                                                 )}
                                             >
                                                 <div className="flex items-center">

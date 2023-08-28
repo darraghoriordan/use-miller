@@ -1,9 +1,20 @@
-import { StaticImageData } from "next/image.js";
 import StyledLink from "../../components/StyledLink.jsx";
-import { colorVariants, ThemeColor } from "../../styles/themeColors.js";
+import { colorVariants } from "../../styles/themeColors.js";
 import Image from "next/image";
 import clsx from "clsx";
+import { HeroProduct } from "./Hero.jsx";
+import { GitHubIcon } from "../../components/GithubIcon.jsx";
 
+export const GithubLink = ({ githubUrl }: { githubUrl: string }) => {
+    return (
+        <a href={githubUrl}>
+            <div className="flex items-center space-x-8 hover:underline underline-offset-4 text-white">
+                <GitHubIcon className="w-12 h-12 fill-white pr-3" />
+                View on GitHub
+            </div>
+        </a>
+    );
+};
 export const SingleProductCard = ({
     colorVariant,
     title,
@@ -13,22 +24,14 @@ export const SingleProductCard = ({
     learnMoreLink,
     altLinkText,
     altLink,
-}: {
-    colorVariant: ThemeColor;
-    title: string;
-    blurb: string;
-    benefits: string[];
-    image: StaticImageData;
-    learnMoreLink: string;
-    altLinkText: string;
-    altLink: string;
-}) => {
+    githubUrl,
+}: HeroProduct) => {
     return (
         <div
             className={clsx(
                 "p-8 overflow-hidden rounded-md text-light-accent bg-dark-accent hover:shadow-lg",
                 colorVariants[colorVariant].hoverShadow,
-                "group"
+                "group",
             )}
         >
             <div className="flex flex-col md:flex-row space-y-8 justify-between items-center">
@@ -44,7 +47,7 @@ export const SingleProductCard = ({
                     <h3 className={clsx("text-4xl font-medium ")}>{title}</h3>
                     <p
                         className={clsx(
-                            colorVariants[colorVariant].groupHoverForeground
+                            colorVariants[colorVariant].groupHoverForeground,
                         )}
                     >
                         {blurb}
@@ -69,6 +72,10 @@ export const SingleProductCard = ({
                         >
                             {altLinkText} &rarr;
                         </StyledLink>
+
+                        {githubUrl ? (
+                            <GithubLink githubUrl={githubUrl} />
+                        ) : null}
                     </div>
                 </div>
             </div>
