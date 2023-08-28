@@ -2,7 +2,7 @@
 FROM node:20-alpine as pnpm_base
 
 WORKDIR /app
-RUN npm i --global --no-update-notifier --no-fund pnpm@7
+RUN npm i --global --no-update-notifier --no-fund pnpm@8
 RUN apk add --no-cache g++ make py3-pip libc6-compat
 
 # run fetch in a separate step to avoid re-fetching deps on every change
