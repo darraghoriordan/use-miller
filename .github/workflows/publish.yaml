@@ -20,7 +20,7 @@ jobs:
                       ${{ secrets.NBL_DEPLOY_KEY }}
                       ${{ secrets.USEMILLER_DEPLOY_KEY }}
 
-            - uses: actions/setup-node@e33196f7422957bea03ed53f6fbb155025ffc7b8 # v3
+            - uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3
               with:
                   node-version: "18"
 
