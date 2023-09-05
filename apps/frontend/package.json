@@ -11,7 +11,7 @@
     },
     "browserslist": "defaults, not ie <= 11",
     "dependencies": {
-        "@auth0/nextjs-auth0": "2.7.0",
+        "@auth0/nextjs-auth0": "3.1.0",
         "@babel/core": "7.22.11",
         "@babel/plugin-syntax-flow": "^7.22.5",
         "@babel/plugin-transform-react-jsx": "^7.22.5",
@@ -73,7 +73,7 @@
         "react-dom": "18.2.0",
         "react-hyper-tree": "0.3.12",
         "react-resizable-panels": "0.0.55",
-        "rehype-format": "4.0.1",
+        "rehype-format": "5.0.0",
         "rehype-stringify": "10.0.0",
         "remark-embed-images": "3.1.0",
         "remark-gfm": "3.0.1",
