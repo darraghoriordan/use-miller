@@ -13,7 +13,7 @@
     "author": "Use Miller",
     "engines": {
         "node": ">=v18.17.1",
-        "pnpm": ">=8"
+        "pnpm": ">=8.7.1"
     },
     "scripts": {
         "clean": "rm -Rf ./dist/",
@@ -44,8 +44,8 @@
         "@semantic-release/exec": "6.0.3",
         "@types/jest": "29.5.4",
         "@types/node": "20.5.8",
-        "@typescript-eslint/eslint-plugin": "6.4.1",
-        "@typescript-eslint/parser": "6.4.1",
+        "@typescript-eslint/eslint-plugin": "6.5.0",
+        "@typescript-eslint/parser": "6.5.0",
         "concurrently": "8.2.1",
         "dotenv": "16.3.1",
         "eslint": "8.48.0",
@@ -53,8 +53,8 @@
         "husky": "8.0.3",
         "jest": "29.6.4",
         "jest-environment-jsdom": "29.6.4",
-        "knip": "2.20.2",
-        "lerna": "7.1.5",
+        "knip": "2.21.1",
+        "lerna": "7.2.0",
         "lint-staged": "14.0.1",
         "nx": "16.7.4",
         "prettier": "3.0.3",
