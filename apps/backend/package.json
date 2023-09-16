@@ -33,7 +33,7 @@
     },
     "dependencies": {
         "@babel/core": "7.22.19",
-        "@darraghor/nest-backend-libs": "2.37.0",
+        "@darraghor/nest-backend-libs": "2.38.0",
         "@mapbox/rehype-prism": "0.8.0",
         "@nestjs/bull": "10.0.1",
         "@nestjs/cache-manager": "2.1.0",
