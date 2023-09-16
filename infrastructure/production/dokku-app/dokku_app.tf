@@ -28,6 +28,7 @@ resource "dokku_app" "app" {
     AUTO_INSTALL_API_MODELS            = var.app_auto_install_api_models
     AUTH0_AUDIENCE                     = var.app_auth0_audience
     AUTH0_DOMAIN                       = var.app_auth0_domain
+    AUTH0_CLIENT_ID                    = var.app_auth0_clientId
     APP_TITLE                          = var.app_app_title
     APP_MODULE_ENTITY_PATH             = var.app_module_entity_path
     BACKEND_APP_URL                    = var.app_backend_app_url

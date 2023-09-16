@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Inject, Injectable, Logger } from "@nestjs/common";
 import { Octokit } from "@octokit/rest";
 import { OKTO_KIT } from "./GithubClientProvider.js";
@@ -10,7 +11,7 @@ export class GithubClientService {
     private readonly logger = new Logger(GithubClientService.name);
     constructor(
         @Inject(OKTO_KIT)
-        private readonly clientInstance: Octokit
+        private readonly clientInstance: Octokit,
     ) {
         this.logger.debug("Setting up github client");
     }
@@ -22,16 +23,15 @@ export class GithubClientService {
     }): Promise<void> {
         this.logger.debug(
             { repo: request.repo, username: request.username },
-            "Adding collaborator to repo"
+            "Adding collaborator to repo",
         );
         try {
-            const result = await this.clientInstance.rest.repos.addCollaborator(
-                request
-            );
+            const result =
+                await this.clientInstance.rest.repos.addCollaborator(request);
             this.logger.debug({ result: result.data }, "add result data");
             if (result.status !== 201) {
                 throw new Error(
-                    `Failed to add collaborator ${request.username} to ${request.owner}/${request.repo}`
+                    `Failed to add collaborator ${request.username} to ${request.owner}/${request.repo}`,
                 );
             }
         } catch (error: any) {
@@ -47,7 +47,7 @@ export class GithubClientService {
     }): Promise<boolean> {
         this.logger.debug(
             { repo: request.repo, username: request.username },
-            "Checking collaborator is in repo"
+            "Checking collaborator is in repo",
         );
         try {
             const ghResult =
@@ -55,7 +55,7 @@ export class GithubClientService {
             const hasCollaborator = ghResult.status === 204;
             this.logger.debug(
                 { hasCollaborator, result: ghResult },
-                "check result data"
+                "check result data",
             );
             return hasCollaborator;
         } catch (error: any) {
@@ -78,12 +78,12 @@ export class GithubClientService {
                 username: request.username,
                 client: this.clientInstance,
             },
-            "Removing collaborator from repo"
+            "Removing collaborator from repo",
         );
         try {
             const result =
                 await this.clientInstance.rest.repos.removeCollaborator(
-                    request
+                    request,
                 );
             this.logger.debug({ result: result.data }, "remove result data");
             return result.status === 204;

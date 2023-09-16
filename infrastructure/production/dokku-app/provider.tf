@@ -32,6 +32,10 @@ variable "app_auth0_domain" {
   type        = string
   description = "The auth0 domain for PROD account"
 }
+variable "app_auth0_clientId" {
+  type        = string
+  description = "The auth0 client id for PROD account"
+}
 
 variable "app_web_port" {
   type = string
