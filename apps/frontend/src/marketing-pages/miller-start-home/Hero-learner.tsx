@@ -211,7 +211,7 @@ export function Hero({ user }: { user: UserDto }) {
                                 color="violet"
                                 className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
                             >
-                                Pricing
+                                Try for free!
                             </StyledLink>
                             <StyledLink
                                 href={docsHref}
@@ -313,7 +313,7 @@ export function Hero({ user }: { user: UserDto }) {
                                 color="green"
                                 className="rounded-lg text-xl px-14 py-4 hover:shadow-lg"
                             >
-                                Pricing
+                                Try for free!
                             </StyledLink>
                             <StyledLink
                                 href={docsHref}

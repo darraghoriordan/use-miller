@@ -59,7 +59,7 @@ export function Hero({ user }: { user: UserDto }) {
         },
     ];
     const codeHref = `docs/dev-shell/reference/dev-shell-scripts/${btoa(
-        "/README.md"
+        "/README.md",
     )}`;
     const docsHref = `/docs/dev-shell/get-started/quick-start`;
     return (
@@ -141,7 +141,7 @@ export function Hero({ user }: { user: UserDto }) {
                                 color="violet"
                                 className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
                             >
-                                Pricing
+                                Buy DevShell now!
                             </StyledLink>
                             <StyledLink
                                 href={docsHref}
@@ -262,7 +262,7 @@ export function Hero({ user }: { user: UserDto }) {
                                 color="green"
                                 className="rounded-lg text-xl px-14 py-4 hover:shadow-lg"
                             >
-                                Pricing
+                                Buy DevShell now!
                             </StyledLink>
                             <StyledLink
                                 href={docsHref}

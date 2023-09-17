@@ -155,7 +155,7 @@ export function Hero({ user }: { user: UserDto }) {
                                 color="violet"
                                 className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
                             >
-                                Try for Free
+                                Try for free!
                             </StyledLink>
                             <StyledLink
                                 href={codeHref}
@@ -196,39 +196,45 @@ export function Hero({ user }: { user: UserDto }) {
                             Download right now and try it out. Buy a license
                             later if you find it useful.
                         </p>
-                        <h3 className="mt-8 leading-snug mx-auto max-w-2xl font-display text-2xl font-medium tracking-tight text-white md:mx-0">
-                            Mac
-                        </h3>
-                        <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
-                            Universal App (Apple Silicon & Intel) -{" "}
-                            <a
-                                href={universalDownload}
-                                className="underline underline-offset-2 font-semibold"
-                            >
-                                Download
-                            </a>
-                        </p>
-                        <h3 className="mt-8 leading-snug mx-auto max-w-2xl font-display text-2xl font-medium tracking-tight text-white md:mx-0">
-                            Windows
-                        </h3>
-                        <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
-                            Intel x64 -{" "}
-                            <a
-                                href={winX64Download}
-                                className="underline underline-offset-2 font-semibold"
-                            >
-                                Download
-                            </a>
-                        </p>
-                        <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
-                            Arm 64 -{" "}
-                            <a
-                                href={winArm64Download}
-                                className="underline underline-offset-2 font-semibold"
-                            >
-                                Download
-                            </a>
-                        </p>
+                        <div className="md:flex md:gap-x-8 mt-8 justify-stretch">
+                            <div className="border rounded-lg p-8 mb-8 md:mb-0">
+                                <h3 className="mb-8 leading-snug mx-auto max-w-2xl font-display text-2xl font-medium tracking-tight text-white md:mx-0">
+                                    Mac
+                                </h3>
+                                <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
+                                    Universal App (Apple Silicon & Intel) -{" "}
+                                    <a
+                                        href={universalDownload}
+                                        className="underline underline-offset-2 font-semibold"
+                                    >
+                                        Download Now
+                                    </a>
+                                </p>
+                            </div>
+                            <div className="border rounded-lg p-8">
+                                <h3 className="mb-8 leading-snug mx-auto max-w-2xl font-display text-2xl font-medium tracking-tight text-white md:mx-0">
+                                    Windows
+                                </h3>
+                                <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
+                                    Intel x64 -{" "}
+                                    <a
+                                        href={winX64Download}
+                                        className="underline underline-offset-2 font-semibold"
+                                    >
+                                        Download Now
+                                    </a>
+                                </p>
+                                <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
+                                    Arm 64 -{" "}
+                                    <a
+                                        href={winArm64Download}
+                                        className="underline underline-offset-2 font-semibold"
+                                    >
+                                        Download Now
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <div className="mt-16" id="">
                         <p className="max-w-4xl text-left font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
@@ -250,7 +256,7 @@ export function Hero({ user }: { user: UserDto }) {
                                 color="green"
                                 className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
                             >
-                                Buy Now
+                                Buy once, use forever.
                             </StyledLink>
                             <StyledLink
                                 href={codeHref}

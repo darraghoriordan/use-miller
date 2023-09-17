@@ -29,7 +29,7 @@ export function Pricing({ user }: { user: UserDto }) {
                 </div>
                 <div id="pricing" className="mt-16 text-gray-200 w-full">
                     <p className="my-8 max-w-4xl text-left font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
-                        Buy Now
+                        Buy once, use forever.
                     </p>
                     <p className="mt-4 text-left font-display text-lg font-medium tracking-tight ">
                         Simple pricing, pay once and use forever.

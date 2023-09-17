@@ -21,7 +21,8 @@ export const SingleProductCard = ({
     blurb,
     benefits,
     image,
-    learnMoreLink,
+    learnMoreLinkUrl,
+    learnMoreLinkText,
     altLinkText,
     altLink,
     githubUrl,
@@ -59,11 +60,11 @@ export const SingleProductCard = ({
                     </ul>
                     <div className="flex items-center space-x-8">
                         <StyledLink
-                            href={learnMoreLink}
+                            href={learnMoreLinkUrl}
                             color={colorVariant}
                             className={" border-white border"}
                         >
-                            Learn more &rarr;
+                            {learnMoreLinkText} &rarr;
                         </StyledLink>
                         <StyledLink
                             href={altLink}

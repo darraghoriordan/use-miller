@@ -15,7 +15,8 @@ export interface HeroProduct {
     blurb: string;
     benefits: string[];
     image: StaticImageData;
-    learnMoreLink: string;
+    learnMoreLinkUrl: string;
+    learnMoreLinkText: string;
     altLinkText: string;
     altLink: string;
     githubUrl?: string;
@@ -27,7 +28,8 @@ export function Hero({ user }: { user: UserDto }) {
             title: "Miller Dev Shell",
             blurb: "Say Goodbye to manual dev environment configuration",
             image: devShellLogo,
-            learnMoreLink: "/dev-shell",
+            learnMoreLinkUrl: "/dev-shell",
+            learnMoreLinkText: "Save hours with DevShell",
             altLinkText: "Preview the code now",
 
             altLink:
@@ -45,7 +47,9 @@ export function Hero({ user }: { user: UserDto }) {
             title: "Local Dev Tools",
             blurb: "Local dev utilities to keep your business data safe",
             image: devToolsLogo,
-            learnMoreLink: "/local-dev-tools",
+            learnMoreLinkUrl: "/local-dev-tools",
+            learnMoreLinkText: "Try dev tools for free!",
+
             githubUrl:
                 "https://github.com/darraghoriordan/ssh-tool-new-electron",
             altLinkText: "Download now",
@@ -64,7 +68,9 @@ export function Hero({ user }: { user: UserDto }) {
             blurb: "Master full-stack web development by example",
             image: millerStartLogo,
             githubUrl: "https://github.com/darraghoriordan/use-miller",
-            learnMoreLink: "/miller-start",
+            learnMoreLinkUrl: "/miller-start",
+            learnMoreLinkText: "Try Miller Start for free!",
+
             altLinkText: "Preview the code now",
             altLink: "/docs/miller-start/reference/miller-web/L1JFQURNRS5tZA==",
             benefits: [
@@ -98,9 +104,10 @@ export function Hero({ user }: { user: UserDto }) {
                                     Code Safer. <br></br>Code Faster.
                                 </h1>
                                 <p className="mx-auto mt-12 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
-                                    Miller makes dev tools that save you time so
-                                    you can focus on building your product and
-                                    helping your customers.
+                                    Hi! I'm Darragh, I make dev tools based on
+                                    my 20 years of experience that save you time
+                                    so you can focus on building your product
+                                    and helping your customers.
                                 </p>
                             </div>
                             <div className="intro-image-rotation md:relative w-1/2 md:w-full mt-20 md:mt-0 md:mb-0 hidden md:block">
@@ -126,7 +133,7 @@ export function Hero({ user }: { user: UserDto }) {
                         id="features"
                     >
                         <h2 className="pt-8 leading-snug mx-auto max-w-2xl font-display text-4xl font-medium tracking-tight text-white md:mx-0">
-                            Our Tools
+                            Check out the tools
                         </h2>
                         {products.map((product) => (
                             <SingleProductCard
