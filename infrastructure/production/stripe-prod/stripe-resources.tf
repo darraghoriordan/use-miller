@@ -9,19 +9,6 @@ resource "stripe_product" "miller_start_product" {
   }
 }
 
-resource "stripe_price" "miller_start_price" {
-  product     = stripe_product.miller_start_product.id
-  unit_amount = 24900
-  currency    = "usd"
-  recurring {
-    interval       = "year"
-    interval_count = 1
-    usage_type     = "licensed"
-  }
-  billing_scheme = "per_unit"
-  tax_behaviour  = "inclusive"
-}
-
 resource "stripe_product" "product_with_consult" {
   name                 = "Miller Start Consulting"
   description          = "Web product kit, 1 year of updates, 8h of consulting"
@@ -118,16 +105,11 @@ resource "stripe_portal_configuration" "portal_configuration" {
       default_allowed_updates = ["price", "quantity", "promotion_code"]
       proration_behavior      = "none"
       products {
-        product = stripe_product.miller_start_product.id
-        prices  = [stripe_price.miller_start_price.id]
+        product = stripe_product.product_with_consult.id
+        prices  = [stripe_price.miller_start_consult_price.id]
       }
     }
   }
-}
-
-output "miller_start_price_id" {
-  value     = stripe_price.miller_start_price.id
-  sensitive = false
 }
 
 output "miller_start_consult_price_id" {
