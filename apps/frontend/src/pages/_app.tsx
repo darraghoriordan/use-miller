@@ -8,6 +8,9 @@ import { useRouter } from "next/router.js";
 import Head from "next/head.js";
 
 import OtelClientSide from "./otel.jsx";
+import dynamic from "next/dynamic.js";
+
+const CrispWithNoSSR = dynamic(() => import("../components/CrispChat.js"));
 
 export default function App({ Component, pageProps }: any) {
     const [queryClient] = useState(() => new QueryClient());
@@ -15,12 +18,14 @@ export default function App({ Component, pageProps }: any) {
     const canonicalUrl = (
         `https://usemiller.dev` + (router.asPath === "/" ? "" : router.asPath)
     ).split("?")[0];
+
     return (
         <QueryClientProvider client={queryClient}>
             <UserProvider>
                 <Head>
                     <link rel="canonical" href={canonicalUrl} />
                 </Head>
+                <CrispWithNoSSR />
                 <OtelClientSide />
                 <NextProgress delay={300} options={{ showSpinner: true }} />
                 <Component {...pageProps} />

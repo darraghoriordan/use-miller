@@ -1,8 +1,5 @@
 import { Head, Html, Main, NextScript } from "next/document";
-import dynamic from "next/dynamic.js";
 import * as React from "react";
-
-const CrispWithNoSSR = dynamic(() => import("../components/CrispChat.js"));
 
 export default function Document(props: any) {
     return (
@@ -22,7 +19,7 @@ export default function Document(props: any) {
                     href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Lexend:wght@400;500&display=swap"
                 />
             </Head>
-            <CrispWithNoSSR />
+
             <body>
                 <Main />
                 <NextScript />
