@@ -271,6 +271,7 @@ export function Header({
                                 </Popover.Panel>
                             </Transition>
                         </Popover>
+                        <NavLink href={"/about"}>About Miller</NavLink>
                         <div className="hidden md:block">
                             {(isLoading || !user) && (
                                 <>

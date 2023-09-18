@@ -104,10 +104,21 @@ export function Hero({ user }: { user: UserDto }) {
                                     Code Safer. <br></br>Code Faster.
                                 </h1>
                                 <p className="mx-auto mt-12 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
-                                    Hi! I'm Darragh, I make dev tools based on
-                                    my 20 years of experience that save you time
-                                    so you can focus on building your product
-                                    and helping your customers.
+                                    Hi! I'm Darragh 👋, I've been a professional
+                                    software dev (and manager){" "}
+                                    <a
+                                        className="hover:underline"
+                                        href="https://www.darraghoriordan.com"
+                                    >
+                                        for the last 15 years
+                                    </a>{" "}
+                                    .
+                                </p>
+                                <p className="mx-auto mt-4 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
+                                    Miller is a collection of tools and services
+                                    I provide so you can save time, focus on
+                                    building your products and help your
+                                    customers faster.
                                 </p>
                             </div>
                             <div className="intro-image-rotation md:relative w-1/2 md:w-full mt-20 md:mt-0 md:mb-0 hidden md:block">
