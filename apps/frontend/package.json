@@ -96,6 +96,6 @@
         }
     },
     "devDependencies": {
-        "@types/node": "20.6.5"
+        "@types/node": "20.7.0"
     }
 }
