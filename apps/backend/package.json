@@ -87,7 +87,7 @@
         "remark-gfm": "3.0.1",
         "remark-parse": "10.0.2",
         "remark-rehype": "10.1.0",
-        "rimraf": "5.0.4",
+        "rimraf": "5.0.5",
         "rxjs": "7.8.1",
         "swagger-ui-express": "5.0.0",
         "to-vfile": "8.0.0",
