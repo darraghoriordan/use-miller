@@ -15,9 +15,9 @@
         "mill-init": "dist/miller-setup.js"
     },
     "devDependencies": {
-        "@babel/core": "7.22.20",
+        "@babel/core": "7.23.0",
         "@babel/preset-env": "7.22.20",
-        "@babel/preset-typescript": "7.22.15",
+        "@babel/preset-typescript": "7.23.0",
         "@types/figlet": "1.5.6",
         "@types/inquirer": "9.0.3",
         "@types/jest": "29.5.5",
