@@ -7,15 +7,17 @@ import Image from "next/image";
 import { UserDto } from "@use-miller/shared-api-client";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { GithubLink } from "../index-home/SingleProductCard.jsx";
-const version = "1.62.0";
+const version = "1.73.0";
 const winArm64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.exe`;
-const universalDownload = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-universal.dmg`;
+const macArm64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.dmg`;
+const macX64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-x64.dmg`;
 const winX64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-x64.exe`;
 
 export function Hero({ user }: { user: UserDto }) {
     const features = [
         "Offline encoding and decoding tools for base64, JWT and JSON",
-        "An AI powered ESLint rule generator [This tool uses an API]",
+        "An AI powered ESLint rule generator agent [Uses Open AI - Not local]",
+        "An AI powered 'Marketing Week' tool for builders and busy engineers",
         "A color converter with 'nearest tailwind color' and harmonious colors feature",
         "Encoders and decoders for Html and CSS Unicode characters, uri components",
         "A git url parser and generator that is aware of your local ssh aliases",
@@ -25,24 +27,19 @@ export function Hero({ user }: { user: UserDto }) {
     ];
     const topFeatures = [
         {
-            name: "Secure your data",
+            name: "All your dev tools in one place",
             description:
-                "Jwt decoding is very common these days but devs still use jwt.io to decode. You should never let an active access token leave your custody. Dev tools keeps your data safe.",
+                "Encoders, decoders, tailwind colors, git repository tools, time wrangling tools, string tools and more. All in one place.",
         },
         {
-            name: "Universal app",
-            description: "Get the same utilities on Mac and windows.",
-        },
-
-        {
-            name: "Simple offline tools",
+            name: "Powerful AI tools",
             description:
-                "Encoders, decoders and convertors galore! Sometimes you want to quickly check a timestamp's value in localtime or sort some strings in a locale aware way. Dev tools has you covered.",
+                "Bring your own Open AI API key and get powerful agents for ESLint generation and git repo aware work summaries for stand ups, reports or marketing.",
         },
         {
-            name: "Git repository tools",
+            name: "Universal license",
             description:
-                "If you work with multiple clients or git accounts you will find the git url parser and repo user summary tools very useful. Made for git power-users.",
+                "By a licence and use the tool on all your Mac and Windows machines.",
         },
     ];
     const codeHref = `/docs/local-dev-tools/get-started/quick-start`;
@@ -193,8 +190,15 @@ export function Hero({ user }: { user: UserDto }) {
                             Download Local Dev Tools (v{version})
                         </p>
                         <p className="mt-4 text-left font-display text-lg text-gray-200">
-                            Download right now and try it out. Buy a license
-                            later if you find it useful.
+                            Download for free Trial. Buy a license later if you
+                            find it useful. Source available{" "}
+                            <a
+                                className="hover:underline"
+                                href="https://github.com/darraghoriordan/ssh-tool-new-electron"
+                            >
+                                on Github
+                            </a>
+                            .
                         </p>
                         <div className="md:flex md:gap-x-8 mt-8 justify-stretch">
                             <div className="border rounded-lg p-8 mb-8 md:mb-0">
@@ -202,9 +206,18 @@ export function Hero({ user }: { user: UserDto }) {
                                     Mac
                                 </h3>
                                 <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
-                                    Universal App (Apple Silicon & Intel) -{" "}
+                                    Apple Silicon (Arm 64) -{" "}
                                     <a
-                                        href={universalDownload}
+                                        href={macArm64Download}
+                                        className="underline underline-offset-2 font-semibold"
+                                    >
+                                        Download Now
+                                    </a>
+                                </p>
+                                <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
+                                    Intel x64 Mac -{" "}
+                                    <a
+                                        href={macX64Download}
                                         className="underline underline-offset-2 font-semibold"
                                     >
                                         Download Now
