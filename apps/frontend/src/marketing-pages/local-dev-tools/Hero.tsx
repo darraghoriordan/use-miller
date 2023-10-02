@@ -7,7 +7,7 @@ import Image from "next/image";
 import { UserDto } from "@use-miller/shared-api-client";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { GithubLink } from "../index-home/SingleProductCard.jsx";
-const version = "1.73.4";
+const version = "1.73.5";
 const winArm64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.exe`;
 const macArm64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.dmg`;
 const macX64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-x64.dmg`;
@@ -17,7 +17,7 @@ export function Hero({ user }: { user: UserDto }) {
     const features = [
         "Offline encoding and decoding tools for base64, JWT and JSON",
         "An AI powered ESLint rule generator agent [Uses Open AI - Not local]",
-        "An AI powered 'Marketing Week' tool for builders and busy engineers",
+        "Save $1000's with an AI powered Marketing tool for builders and busy engineers",
         "A color converter with 'nearest tailwind color' and harmonious colors feature",
         "Encoders and decoders for Html and CSS Unicode characters, uri components",
         "A git url parser and generator that is aware of your local ssh aliases",
