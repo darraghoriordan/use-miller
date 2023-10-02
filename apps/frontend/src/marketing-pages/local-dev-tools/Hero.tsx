@@ -7,7 +7,7 @@ import Image from "next/image";
 import { UserDto } from "@use-miller/shared-api-client";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { GithubLink } from "../index-home/SingleProductCard.jsx";
-const version = "1.73.0";
+const version = "1.73.4";
 const winArm64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.exe`;
 const macArm64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.dmg`;
 const macX64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-x64.dmg`;
