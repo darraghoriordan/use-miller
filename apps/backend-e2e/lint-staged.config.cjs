@@ -8,7 +8,7 @@ module.exports = {
     "**/*.ts": (files) => {
         return [
             `prettier --write ${files.join(" ")}`,
-            `npx eslint -c .eslintrc.js --max-warnings 0 ${files.join(" ")}`,
+            `eslint -c .eslintrc.js --max-warnings 0 ${files.join(" ")}`,
         ];
     },
 };

@@ -24,7 +24,7 @@ import { UserOnboardingService } from "../services/user-onboarding.service.js";
 @ApiTags("User Onboarding")
 export class UserOnboardingController {
     constructor(
-        private readonly ghUserOnboardingService: UserOnboardingService
+        private readonly ghUserOnboardingService: UserOnboardingService,
     ) {}
 
     @Get("github-user/:orgUuid")
@@ -32,7 +32,7 @@ export class UserOnboardingController {
     @ApiOkResponse({ type: OrgGithubUser, isArray: true })
     async getAllForOrg(
         @Param("orgUuid") orgUuid: string,
-        @Request() request: RequestWithUser
+        @Request() request: RequestWithUser,
     ): Promise<OrgGithubUser[]> {
         return this.ghUserOnboardingService.get(orgUuid, request.user);
     }
@@ -42,11 +42,11 @@ export class UserOnboardingController {
     @ApiOkResponse({ type: OrgGithubUser })
     async addForOrg(
         @Body() requestBody: OrgGithubUserDto,
-        @Request() request: RequestWithUser
+        @Request() request: RequestWithUser,
     ): Promise<OrgGithubUser> {
         return this.ghUserOnboardingService.addOrgGithubUser(
             requestBody,
-            request.user
+            request.user,
         );
     }
 }
