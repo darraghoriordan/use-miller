@@ -186,8 +186,8 @@ importers:
         specifier: 4.0.2
         version: 4.0.2
       axios:
-        specifier: 1.5.1
-        version: 1.5.1
+        specifier: 1.6.0
+        version: 1.6.0
       bull:
         specifier: 4.11.5
         version: 4.11.5
@@ -455,8 +455,8 @@ importers:
         specifier: 6.8.0
         version: 6.8.0(eslint@8.51.0)(typescript@5.2.2)
       axios:
-        specifier: 1.5.1
-        version: 1.5.1
+        specifier: 1.6.0
+        version: 1.6.0
       babel-jest:
         specifier: 29.7.0
         version: 29.7.0(@babel/core@7.23.3)
@@ -2477,7 +2477,7 @@ packages:
       reflect-metadata: 0.1.13
       typeorm: 0.3.12
     dependencies:
-      '@nestjs/axios': 2.0.0(@nestjs/common@10.2.10)(axios@1.5.1)(reflect-metadata@0.1.13)(rxjs@7.8.1)
+      '@nestjs/axios': 2.0.0(@nestjs/common@10.2.10)(axios@1.6.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
       '@nestjs/bull': 10.0.1(@nestjs/common@10.2.10)(@nestjs/core@10.2.10)(bull@4.11.5)
       '@nestjs/cache-manager': 2.1.0(@nestjs/common@10.2.10)(@nestjs/core@10.2.10)(cache-manager@5.2.4)(reflect-metadata@0.1.13)(rxjs@7.8.1)
       '@nestjs/common': 10.2.10(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
@@ -3364,7 +3364,7 @@ packages:
     dev: false
     optional: true
 
-  /@nestjs/axios@2.0.0(@nestjs/common@10.2.10)(axios@1.5.1)(reflect-metadata@0.1.13)(rxjs@7.8.1):
+  /@nestjs/axios@2.0.0(@nestjs/common@10.2.10)(axios@1.6.0)(reflect-metadata@0.1.13)(rxjs@7.8.1):
     resolution: {integrity: sha512-F6oceoQLEn031uun8NiommeMkRIojQqVryxQy/mK7fx0CI0KbgkJL3SloCQcsOD+agoEnqKJKXZpEvL6FNswJg==}
     peerDependencies:
       '@nestjs/common': ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -3373,7 +3373,7 @@ packages:
       rxjs: ^6.0.0 || ^7.0.0
     dependencies:
       '@nestjs/common': 10.2.10(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
-      axios: 1.5.1
+      axios: 1.6.0
       reflect-metadata: 0.1.13
       rxjs: 7.8.1
     dev: false
@@ -3738,7 +3738,7 @@ packages:
       typeorm:
         optional: true
     dependencies:
-      '@nestjs/axios': 2.0.0(@nestjs/common@10.2.10)(axios@1.5.1)(reflect-metadata@0.1.13)(rxjs@7.8.1)
+      '@nestjs/axios': 2.0.0(@nestjs/common@10.2.10)(axios@1.6.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
       '@nestjs/common': 10.2.10(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
       '@nestjs/core': 10.2.10(@nestjs/common@10.2.10)(@nestjs/microservices@9.3.12)(@nestjs/platform-express@10.2.10)(reflect-metadata@0.1.13)(rxjs@7.8.1)
       '@nestjs/microservices': 9.3.12(@nestjs/common@10.2.10)(@nestjs/core@10.2.10)(cache-manager@5.2.4)(reflect-metadata@0.1.13)(rxjs@7.8.1)
@@ -8458,6 +8458,16 @@ packages:
 
   /axios@1.5.1:
     resolution: {integrity: sha512-Q28iYCWzNHjAm+yEAot5QaAMxhMghWLFVf7rRdwhUI+c2jix2DUXjAHXVi+s1ibs3mjPO/cCgbA++3BjD0vP/A==}
+    dependencies:
+      follow-redirects: 1.15.3
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
+  /axios@1.6.0:
+    resolution: {integrity: sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==}
     dependencies:
       follow-redirects: 1.15.3
       form-data: 4.0.0
@@ -16432,7 +16442,7 @@ packages:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.0-rc.46
       '@zkochan/js-yaml': 0.0.6
-      axios: 1.5.1
+      axios: 1.6.0
       chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
