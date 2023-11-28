@@ -240,8 +240,8 @@ importers:
         specifier: 0.1.13
         version: 0.1.13
       rehype-document:
-        specifier: 7.0.2
-        version: 7.0.2
+        specifier: 7.0.3
+        version: 7.0.3
       rehype-format:
         specifier: 5.0.0
         version: 5.0.0
@@ -7413,6 +7413,7 @@ packages:
 
   /abab@2.0.6:
     resolution: {integrity: sha512-j2afSsaIENvHZN2B8GOpF566vZ5WVk5opAiMTvWgaQT8DkbOqsTfvNAvHoRGU2zzP8cPoqys+xHTRDWW8L+/BA==}
+    deprecated: Use your platform's native atob() and btoa() methods instead
     dev: false
 
   /abbrev@1.1.1:
@@ -9707,6 +9708,7 @@ packages:
   /domexception@4.0.0:
     resolution: {integrity: sha512-A2is4PLG+eeSfoTMA95/s4pvAoSo2mKtiM5jlHkAVewmiO8ISFTFKZjH7UAM1Atli/OT/7JHOrJRJiMKUZKYBw==}
     engines: {node: '>=12'}
+    deprecated: Use your platform's native DOMException instead
     dependencies:
       webidl-conversions: 7.0.0
     dev: false
@@ -17433,8 +17435,8 @@ packages:
     dependencies:
       jsesc: 0.5.0
 
-  /rehype-document@7.0.2:
-    resolution: {integrity: sha512-7ih+zNlNNB5GwEdtd/h6FG1GEMb9xlJpIFovgoSMPVYJ8zernXyZ9cOsHCv6T2iHLgwy8ZgeIoH/8GGcbZmFww==}
+  /rehype-document@7.0.3:
+    resolution: {integrity: sha512-g5zq6i2FwWVBVdyVi0Jw/5MRvsHj3wuJCn+QeyOjm29QBpTG4r1iUElyH9GhfWx5fB27ZEApA53RdAiYGBb4zQ==}
     dependencies:
       '@types/hast': 3.0.1
       hastscript: 8.0.0
