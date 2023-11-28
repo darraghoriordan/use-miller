@@ -240,8 +240,8 @@ importers:
         specifier: 0.1.13
         version: 0.1.13
       rehype-document:
-        specifier: 7.0.2
-        version: 7.0.2
+        specifier: 7.0.3
+        version: 7.0.3
       rehype-format:
         specifier: 5.0.0
         version: 5.0.0
@@ -18369,8 +18369,8 @@ packages:
     dependencies:
       jsesc: 0.5.0
 
-  /rehype-document@7.0.2:
-    resolution: {integrity: sha512-7ih+zNlNNB5GwEdtd/h6FG1GEMb9xlJpIFovgoSMPVYJ8zernXyZ9cOsHCv6T2iHLgwy8ZgeIoH/8GGcbZmFww==}
+  /rehype-document@7.0.3:
+    resolution: {integrity: sha512-g5zq6i2FwWVBVdyVi0Jw/5MRvsHj3wuJCn+QeyOjm29QBpTG4r1iUElyH9GhfWx5fB27ZEApA53RdAiYGBb4zQ==}
     dependencies:
       '@types/hast': 3.0.1
       hastscript: 8.0.0
