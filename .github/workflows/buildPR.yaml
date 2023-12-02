@@ -1,5 +1,6 @@
 name: BuildPR
 on:
+    merge_group:
     pull_request:
         branches:
             - main
