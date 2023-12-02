@@ -33,7 +33,7 @@
     },
     "dependencies": {
         "@babel/core": "7.23.3",
-        "@darraghor/nest-backend-libs": "2.40.0",
+        "@darraghor/nest-backend-libs": "2.40.3",
         "@mapbox/rehype-prism": "0.8.0",
         "@nestjs/bull": "10.0.1",
         "@nestjs/cache-manager": "2.1.1",
@@ -62,7 +62,7 @@
         "@opentelemetry/sdk-trace-node": "1.17.1",
         "@opentelemetry/semantic-conventions": "1.17.1",
         "auth0": "4.0.2",
-        "axios": "1.6.0",
+        "axios": "1.6.2",
         "bull": "4.11.5",
         "cache-manager": "5.2.4",
         "cache-manager-redis-yet": "4.1.2",
@@ -97,7 +97,7 @@
         "webpack": "5.89.0"
     },
     "devDependencies": {
-        "@darraghor/eslint-plugin-nestjs-typed": "4.3.3",
+        "@darraghor/eslint-plugin-nestjs-typed": "4.3.6",
         "@nestjs/schematics": "10.0.3",
         "@nestjs/testing": "10.2.10",
         "@swc/cli": "0.1.63",
