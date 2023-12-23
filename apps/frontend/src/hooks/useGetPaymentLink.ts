@@ -5,10 +5,10 @@ import {
 import { useMutation } from "@tanstack/react-query";
 
 export function useGetPaymentLink() {
-    return useMutation(
-        ["getCheckoutSession"],
-        async (
-            variables: StripeCheckoutSessionRequestDto
+    return useMutation({
+        mutationKey: ["getCheckoutSession"],
+        mutationFn: async (
+            variables: StripeCheckoutSessionRequestDto,
         ): Promise<StripeCheckoutSessionResponseDto> => {
             const response = await fetch("/api/stripe/checkout-link", {
                 method: "POST",
@@ -21,6 +21,6 @@ export function useGetPaymentLink() {
                 (await response.json()) as StripeCheckoutSessionResponseDto;
 
             return result;
-        }
-    );
+        },
+    });
 }

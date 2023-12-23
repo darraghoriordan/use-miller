@@ -5,10 +5,10 @@ import {
 import { useMutation } from "@tanstack/react-query";
 
 export function useGetCustomerPortalSession() {
-    return useMutation(
-        ["getCustomerPortalSession"],
-        async (
-            variables: StripeCustomerPortalRequestDto
+    return useMutation({
+        mutationKey: ["getCustomerPortalSession"],
+        mutationFn: async (
+            variables: StripeCustomerPortalRequestDto,
         ): Promise<StripeCustomerPortalResponseDto> => {
             const response = await fetch("/api/stripe/customer-portal-link", {
                 method: "POST",
@@ -20,6 +20,6 @@ export function useGetCustomerPortalSession() {
             const result =
                 (await response.json()) as StripeCustomerPortalResponseDto;
             return result;
-        }
-    );
+        },
+    });
 }
