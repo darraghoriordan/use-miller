@@ -1,6 +1,5 @@
 import { Container } from "../../components/Container";
 import { UserDto } from "@use-miller/shared-api-client";
-import { BuyNowButton } from "../../components/BuyNowButton.jsx";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { SignUpBuyNowButton } from "../../components/SignupBuyNow.jsx";
 
