@@ -44,10 +44,11 @@ export function BuyNowButton({
     className?: string;
     text?: string;
 }) {
+    console.log("loading the button", user, productKey, color, className, text);
     const { mutateAsync } = useGetPaymentLink();
 
-    const orgUuid = user?.memberships?.find((m) =>
-        m.roles?.some((r) => r.name === "owner")
+    const orgUuid = user?.memberships?.find(
+        (m) => m.roles?.some((r) => r.name === "owner"),
     )?.organisation?.uuid;
 
     const product = productMapping.find((p) => p.productKey === productKey);
@@ -68,7 +69,7 @@ export function BuyNowButton({
             mode: product.mode,
             organisationUuid: orgUuid,
         });
-
+        console.log("link", link);
         window.location.href = link.stripeSessionUrl;
     };
 
@@ -78,7 +79,7 @@ export function BuyNowButton({
             color={color}
             className={clsx(
                 "rounded-lg text-xl px-14 py-4 hover:shadow-lg border-white",
-                className
+                className,
             )}
         >
             {text || "Buy now"}

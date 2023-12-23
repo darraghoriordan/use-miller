@@ -2,6 +2,7 @@ import { Container } from "../../components/Container";
 import { UserDto } from "@use-miller/shared-api-client";
 import { BuyNowButton } from "../../components/BuyNowButton.jsx";
 import { CheckIcon } from "@heroicons/react/24/outline";
+import { SignUpBuyNowButton } from "../../components/SignupBuyNow.jsx";
 
 const buyBenefits = [
     "Mac and Windows dev environment setup in 1 command",
@@ -49,7 +50,7 @@ export function Pricing({ user }: { user: UserDto }) {
                             $29<span className="text-base">USD</span>
                         </p>
                         <div className="mx-auto flex gap-x-6 md:mx-0 mb-10">
-                            <BuyNowButton
+                            <SignUpBuyNowButton
                                 user={user}
                                 productKey="dev-shell"
                                 color="cyan"
