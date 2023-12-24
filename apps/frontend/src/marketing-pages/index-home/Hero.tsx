@@ -2,8 +2,7 @@ import { Container } from "../../components/Container";
 import devToolsLogo from "./logos/devToolsLogo.png";
 import devShellLogo from "./logos/devShellLogo.webp";
 import millerStartLogo from "./logos/millerStart.png";
-import adminImage from "../miller-start-home/intro-media/dashboard.png";
-import codeImage from "../miller-start-home/intro-media/code.png";
+import homeHero from "../miller-start-home/intro-media/home-hero.jpg";
 import Image, { StaticImageData } from "next/image";
 import { UserDto } from "@use-miller/shared-api-client";
 import { SingleProductCard } from "./SingleProductCard.jsx";
@@ -101,39 +100,30 @@ export function Hero({ user }: { user: UserDto }) {
                         <div className="md:flex">
                             <div className="mr-8">
                                 <h1 className="leading-snug mx-auto max-w-2xl font-display text-6xl font-medium tracking-tight text-white md:mx-0">
-                                    Code Safer. <br></br>Code Faster.
+                                    Use Miller tools to be a more effective
+                                    developer
                                 </h1>
                                 <p className="mx-auto mt-12 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
-                                    Hi! I'm Darragh 👋, I've been a professional
-                                    software dev (and manager){" "}
-                                    <a
-                                        className="hover:underline"
-                                        href="https://www.darraghoriordan.com"
-                                    >
-                                        for the last 15 years
-                                    </a>{" "}
-                                    .
+                                    Hi! I'm Darragh 👋, I make all the tools
+                                    here.
                                 </p>
                                 <p className="mx-auto mt-4 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
-                                    Miller is a collection of tools and services
-                                    I provide so you can save time, focus on
-                                    building your products and help your
-                                    customers faster.
+                                    I've been a dev for 15 years, and I believe
+                                    every dev can be more effective with great
+                                    tools. These are mine.
+                                </p>
+                                <p className="mx-auto mt-4 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
+                                    Take a look around. Use the chat on the
+                                    bottom right if you have any questions!
                                 </p>
                             </div>
-                            <div className="intro-image-rotation md:relative w-1/2 md:w-full mt-20 md:mt-0 md:mb-0 hidden md:block">
+                            <div className="md:relative w-1/2 md:w-full mt-10 md:mt-0 md:mb-0 hidden md:block">
                                 <div>
                                     <Image
                                         priority
                                         alt="admin image"
-                                        src={adminImage}
-                                        className="md:max-w-md intro-image absolute md:-translate-y-16 md:translate-x-14 -translate-y-4 translate-x-2"
-                                    />
-                                    <Image
-                                        priority
-                                        alt="product image"
-                                        src={codeImage}
-                                        className="md:max-w-md intro-image absolute md:-translate-x-7 translate-x-7"
+                                        src={homeHero}
+                                        className="md:max-w-mlg "
                                     />
                                 </div>
                             </div>

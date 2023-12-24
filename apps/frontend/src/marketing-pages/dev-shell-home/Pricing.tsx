@@ -57,9 +57,10 @@ export function Pricing({ user }: { user: UserDto }) {
                                     className="w-full"
                                 />
                             </div>
-                            <p className="mt-3">
-                                I need an account to store your GitHub username
-                                for access to the repo.
+                            <p className="mt-6 text-sm">
+                                Why do you need to sign up? - I need an account
+                                to store and use your GitHub username for access
+                                to the repo.
                             </p>
                         </div>
                     </div>
