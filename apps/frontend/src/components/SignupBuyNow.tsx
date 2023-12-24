@@ -31,7 +31,7 @@ export function SignUpBuyNowButton({
                 color={color}
                 className={clsx(
                     "rounded-lg text-xl px-14 py-4 hover:shadow-lg border-white",
-                    className
+                    className,
                 )}
             >
                 {text || "Sign up and buy"}

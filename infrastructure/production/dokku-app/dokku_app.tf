@@ -12,7 +12,6 @@ resource "dokku_app" "frontend_app" {
     AUTH0_AUDIENCE              = var.frontend_app_auth0_audience
     OTEL_EXPORTER_OTLP_ENDPOINT = var.otel_exporter_otlp_endpoint
     OTEL_EXPORTER_OTLP_HEADERS  = var.frontend_app_otel_exporter_otlp_headers
-
   }
 
   domains = var.frontend_app_domains

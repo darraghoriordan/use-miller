@@ -6,7 +6,7 @@ export function TwitterCTA() {
                 href="https://twitter.com/darraghor"
                 className="underline underline-offset-2"
             >
-                @Darraghor
+                @darraghor
             </a>
         </p>
     );

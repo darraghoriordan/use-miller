@@ -19,7 +19,7 @@ const DynamicCodeExplorer = dynamic(
     {
         loading: () => <p>Loading Code...</p>,
         ssr: false,
-    }
+    },
 );
 
 export default function CodeFileHome({
@@ -39,7 +39,7 @@ export default function CodeFileHome({
 
     const setSelectedFile = (fileParam: string, projectKeyParam: string) => {
         router.push(
-            `/docs/${productKey}/reference/${projectKeyParam}/${fileParam}`
+            `/docs/${productKey}/reference/${projectKeyParam}/${fileParam}`,
         );
     };
 
@@ -85,7 +85,7 @@ export default function CodeFileHome({
                     // This is one of the hackiest things in the app. Harmless tho. Will fix later
                     // need to actually check that the users access to the product(s)
                     markdownFile?.data?.contents?.includes(
-                        "Purchase Notice"
+                        "Purchase Notice",
                     ) && (
                         <div className="bg-yellow-50 text-yellow-800">
                             <ExclamationTriangleIcon
@@ -98,7 +98,7 @@ export default function CodeFileHome({
                                 </span>
                                 It looks like you haven't purchased yet. You can
                                 explore the full project structure here, but you
-                                will see clipped code files. After purchasing
+                                will see scrambled code files. After purchasing
                                 you will see full file content here, and get
                                 full access on GitHub.
                             </span>

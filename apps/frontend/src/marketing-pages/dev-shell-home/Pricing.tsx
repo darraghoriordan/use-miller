@@ -48,13 +48,19 @@ export function Pricing({ user }: { user: UserDto }) {
                         <p className="text-6xl py-16 text-center">
                             $29<span className="text-base">USD</span>
                         </p>
-                        <div className="mx-auto flex gap-x-6 md:mx-0 mb-10">
-                            <SignUpBuyNowButton
-                                user={user}
-                                productKey="dev-shell"
-                                color="cyan"
-                                className="w-full"
-                            />
+                        <div className="flex flex-col gap-x-6  mb-10">
+                            <div className="mx-auto flex md:mx-0">
+                                <SignUpBuyNowButton
+                                    user={user}
+                                    productKey="dev-shell"
+                                    color="cyan"
+                                    className="w-full"
+                                />
+                            </div>
+                            <p className="mt-3">
+                                I need an account to store your GitHub username
+                                for access to the repo.
+                            </p>
                         </div>
                     </div>
                 </div>
