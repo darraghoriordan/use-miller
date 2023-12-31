@@ -130,6 +130,6 @@ output "app_auth0_prod_management_client_secret" {
   sensitive = true
 }
 output "auth0_client_secret" {
-  value     = auth0_client.frontend_spa_app.client_secret
+  value     = auth0_client_credentials.fe_spa_client_credentials.client_secret
   sensitive = true
 }

@@ -80,6 +80,12 @@ const searchFilesForTextAndReplace = async (
         dot: true,
         gitignore: true,
         ignore: [
+            "*.png",
+            "*.jpg",
+            "*.jpeg",
+            "*.gif",
+            "*.svg",
+            "*.ico",
             ".git/**/*",
             "node_modules/**/*",
             "dist/**/*",
@@ -91,7 +97,11 @@ const searchFilesForTextAndReplace = async (
         const fileContents = fs.readFileSync(file, "utf8");
         for (const { search, replace } of replacePatterns) {
             const regex = new RegExp(search, "g");
+            if (!regex.test(fileContents)) {
+                continue;
+            }
             const newFileContents = fileContents.replace(regex, replace);
+            console.log(`replacing ${search} with ${replace} in ${file}`);
             fs.writeFileSync(file, newFileContents);
         }
     });

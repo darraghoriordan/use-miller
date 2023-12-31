@@ -57,7 +57,6 @@ resource "auth0_resource_server" "backend_api_app" {
 resource "auth0_resource_server_scopes" "backend_api_app_scopes" {
   resource_server_identifier = auth0_resource_server.backend_api_app.identifier
 
-
   scopes {
     name        = "read:own"
     description = "Read own records"
@@ -86,8 +85,6 @@ resource "auth0_resource_server_scopes" "backend_api_app_scopes" {
 resource "auth0_role" "super_user_role" {
   name        = "SuperUserDeveloper"
   description = "This role is able to do everything"
-
-
 }
 
 resource "auth0_role_permissions" "backend_api_app_role_permissions" {
@@ -131,6 +128,7 @@ resource "auth0_user" "dev_test_basic_user" {
   email_verified  = true
   given_name      = "Basic"
   family_name     = "User"
+
 }
 
 resource "auth0_user" "dev_test_no_email_verified_user" {
@@ -141,6 +139,7 @@ resource "auth0_user" "dev_test_no_email_verified_user" {
   email_verified  = false
   given_name      = "NoEmail"
   family_name     = "Verified"
+
 }
 
 resource "auth0_user" "dev_test_user" {
@@ -185,7 +184,7 @@ output "app_auth0_dev_management_client_secret" {
   sensitive = true
 }
 output "auth0_client_secret" {
-  value     = auth0_client.frontend_spa_app.client_secret
+  value     = auth0_client_credentials.fe_spa_client_credentials.client_secret
   sensitive = true
 }
 output "test_user_username" {
