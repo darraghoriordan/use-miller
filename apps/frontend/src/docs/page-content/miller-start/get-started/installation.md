@@ -10,6 +10,8 @@ order: 20
 
 I recommend NOT forking the project on Github. Instead, create a new repo and copy the files over in to your new repo. Use diffs to see what has changed.
 
+There are a couple of ways to do this. You can create a new repo and then add use-miller as a remote and fetch the files from there.
+
 ```
 # in your new repo
 git remote add -f miller_repo https://github.com/darraghoriordan/use-miller.git
@@ -21,7 +23,7 @@ git remote rm miller_repo
 ## 2. Minimum requirements
 
 ```
-node >=18
+node >=20
 pnpm >=7.0.0
 docker desktop @ latest
 terraform >=0.14.0
@@ -29,7 +31,7 @@ terraform >=0.14.0
 
 ### Node versions and nvm
 
-As of writing, this the project uses node 18. I recommend using nvm to manage your node versions and the project has an .nvmrc to help with this.
+As of writing, this the project uses node 20. I recommend using nvm to manage your node versions and the project has an .nvmrc to help with this.
 
 Install nvm with
 
@@ -100,7 +102,7 @@ The script will prompt you for secrets from auth0 and stripe. See the following 
 
 ```bash
 # in the root run
-npm run mill:init
+pnpm run mill:init
 ```
 
 You can re-run mill:init at any time but it will overwrite `.env` files and these are not in git so you will lose any changes you have made that are not captured in the terraform output.

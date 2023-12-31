@@ -54,13 +54,14 @@ console.log(figlet.textSync("Miller/Web"));
 
 console.log(`Hi and welcome to the Miller / Web project setup!`);
 
-// try to read the default projectName from a file /project-setup/project-name.txt
-let defaultProjectName = "Use Miller";
-
-if (fs.existsSync("./libs/project-setup/project-name.txt")) {
-    defaultProjectName = fs.readFileSync(
-        "./libs/project-setup/project-name.txt",
-        "utf8"
+// try to read the default projectName from a file /project-setup/miller-settings.json
+let millerSettings = {
+    projectName: "Use Miller",
+    terraformSpacesBucket: "use-miller-bucket",
+};
+if (fs.existsSync("./libs/project-setup/miller-settings.json")) {
+    millerSettings = JSON.parse(
+        fs.readFileSync("./libs/project-setup/miller-settings.json", "utf8"),
     );
 }
 // now ask the user for the project name
@@ -68,7 +69,7 @@ const answers = await inquirer.default.prompt([
     {
         name: "projectName",
         message: "What is the name of the project?",
-        default: defaultProjectName,
+        default: millerSettings.projectName,
         validate: (input) => {
             console.log(input);
             if (input.length < 1) {
@@ -78,21 +79,28 @@ const answers = await inquirer.default.prompt([
             return true;
         },
     },
+    {
+        name: "terraformSpacesBucket",
+        message: "What is the name of the s3/spaces store?",
+        default: millerSettings.terraformSpacesBucket,
+        validate: (input) => {
+            console.log(input);
+            if (input.length < 1) {
+                return "Please enter a value";
+            }
+            return true;
+        },
+    },
 ]);
 const snakeCaseName = answers.projectName.toLowerCase().replace(" ", "-");
 const underscoreCaseName = answers.projectName.toLowerCase().replace(" ", "_");
 
-// has the name changed?
-if (defaultProjectName !== answers.projectName) {
-    // write the project name to a file so it can be read next time
-    fs.writeFileSync(
-        "./libs/project-setup/project-name.txt",
-        answers.projectName
-    );
+// has the project name changed?
+if (millerSettings.projectName !== answers.projectName) {
     // search and replace everything for a new project
 
     console.info(
-        `${os.EOL}Using project name(s): ${answers.projectName}, ${snakeCaseName}, ${underscoreCaseName}`
+        `${os.EOL}Using project name(s): ${answers.projectName}, ${snakeCaseName}, ${underscoreCaseName}`,
     );
     const replacePatterns = [
         {
@@ -111,12 +119,43 @@ if (defaultProjectName !== answers.projectName) {
             search: "Miller Dev Tools",
             replace: answers.projectName,
         },
+    ];
+    await searchFilesForTextAndReplace(replacePatterns);
+
+    millerSettings.projectName = answers.projectName;
+    // write the project name to a file so it can be read next time
+    fs.writeFileSync(
+        "./libs/project-setup/miller-settings.json",
+        JSON.stringify(millerSettings),
+    );
+}
+
+// has the s3 bucket name changed?
+if (millerSettings.terraformSpacesBucket !== answers.terraformSpacesBucket) {
+    console.info(
+        `${os.EOL}Using s3 bucket name:  ${answers.terraformSpacesBucket}`,
+    );
+    const replacePatterns = [
         {
             search: "darragh-com",
-            replace: answers.projectName,
+            replace: answers.terraformSpacesBucket,
         },
     ];
     await searchFilesForTextAndReplace(replacePatterns);
+
+    millerSettings.terraformSpacesBucket = answers.terraformSpacesBucket;
+    // write the project name to a file so it can be read next time
+    fs.writeFileSync(
+        "./libs/project-setup/miller-settings.json",
+        JSON.stringify(millerSettings),
+    );
+}
+
+if (process.argv.includes("--skip-terraform") || process.argv.includes("-st")) {
+    console.log(
+        `${os.EOL}Skipping terraform setup. You will need to manually setup auth0 and stripe`,
+    );
+    process.exit(0);
 }
 // -------------
 
@@ -130,11 +169,11 @@ const auth0TfRunParams: TerraformVariablesMapperParams<Auth0DevTerraformInputVar
         }=====================================================${os.EOL}${
             os.EOL
         }Next create a new dev ${chalk.magenta(
-            "https://auth0.com"
+            "https://auth0.com",
         )} tenant account and add a management API to it.${
             os.EOL
         }There are detailed instructions for this at ${chalk.magenta(
-            "https://registry.terraform.io/providers/auth0/auth0/latest/docs/guides/quickstart"
+            "https://registry.terraform.io/providers/auth0/auth0/latest/docs/guides/quickstart",
         )} (you only need the first "Create a Machine to Machine Application" section)${
             os.EOL
         }Enter the values from the tenant and management API below ${
@@ -202,11 +241,11 @@ const stripeTfRunParams: TerraformVariablesMapperParams<StripeTerraformInputVari
         }=====================================================${os.EOL}${
             os.EOL
         }Next create a new ${chalk.magenta(
-            "https://stripe.com"
+            "https://stripe.com",
         )} account and retrieve an api key and a webhook validation key.${
             os.EOL
         }There are detailed instructions for this ${chalk.magenta(
-            "in the README"
+            "in the README",
         )}${os.EOL}Enter the values from Stripe below${
             os.EOL
         }=====================================================${os.EOL}`,
@@ -338,7 +377,7 @@ swapEnvVars({
     },
 });
 const redisPort = `63${Math.floor(Math.random() * 10)}${Math.floor(
-    Math.random() * 10
+    Math.random() * 10,
 )}`;
 
 swapEnvVars({
@@ -349,7 +388,7 @@ swapEnvVars({
             auth0DevTerraformOutputVariables.app_auth0_dev_domain.value,
         COMPOSE_PROJECT_NAME: underscoreCaseName,
         APP_POSTGRES_PORT: `54${Math.floor(Math.random() * 10)}${Math.floor(
-            Math.random() * 10
+            Math.random() * 10,
         )}`,
         DOCKER_REDIS_PORT: redisPort,
         REDIS_URL: `"redis://:redis-pass@host.docker.internal:${redisPort}"`,
@@ -398,16 +437,16 @@ swapEnvVars({
 await runPnpmInstall("./", ["-recursive"]);
 
 console.log(
-    `${os.EOL}Setup complete. You have a configured auth0 instance for dev, the application has been configured with your auth0 details`
+    `${os.EOL}Setup complete. You have a configured auth0 instance for dev, the application has been configured with your auth0 details`,
 );
 console.log(
-    "The application has been configured with the name of your app and all env variables are configured"
+    "The application has been configured with the name of your app and all env variables are configured",
 );
 console.log(
-    "This script is re-runnable safely. You don't have to run it again, you can work with all projects directly now. Note that running the script will overwrite the same env vars. "
+    "This script is re-runnable safely. You don't have to run it again, you can work with all projects directly now. Note that running the script will overwrite the same env vars. ",
 );
 console.log(
     `${os.EOL}You can now run ${chalk.magenta(
-        "pnpm run mill:dev"
-    )} to run the app locally. (or run each app individually as you like)`
+        "pnpm run mill:dev",
+    )} to run the app locally. (or run each app individually as you like)`,
 );

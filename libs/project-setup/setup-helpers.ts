@@ -15,8 +15,8 @@ const swapEnvVars = (params: {
 }) => {
     console.log(
         chalk.magentaBright(
-            `Setting envvars for ${params.to} from ${params.from}`
-        )
+            `Setting envvars for ${params.to} from ${params.from}`,
+        ),
     );
     const newEnvVars = initialiseAndReadEnvVars(params.to, params.from);
 
@@ -56,7 +56,7 @@ const runPnpmInstall = async (projectRootPath: string, commands?: string[]) => {
 
 const writeTerraformVariables = (
     tfVarsPath: string,
-    values: { [key: string]: string }
+    values: { [key: string]: string },
 ) => {
     let fileContents = "";
     for (const [key, value] of Object.entries(values)) {
@@ -74,12 +74,13 @@ const searchFilesForTextAndReplace = async (
     replacePatterns: {
         search: string;
         replace: string;
-    }[]
+    }[],
 ) => {
     const files = await globby.globby(["**/*"], {
         dot: true,
         gitignore: true,
         ignore: [
+            ".git/**/*",
             "node_modules/**/*",
             "dist/**/*",
             "libs/project-setup/**/*",
@@ -107,7 +108,7 @@ const writeEnvVars = (envVars: { [key: string]: string }, envPath: string) => {
                 }
                 return `${key}=${envVars[key]}`;
             })
-            .join(os.EOL)
+            .join(os.EOL),
     );
 };
 

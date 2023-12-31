@@ -72,4 +72,5 @@ override.tf.json
 .terraformrc
 terraform.rc
 project-name.txt
+miller-settings.json
 code-repos
