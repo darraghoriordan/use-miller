@@ -83,6 +83,7 @@ resource "auth0_resource_server_scopes" "backend_api_app_scopes" {
   }
 }
 resource "auth0_role" "super_user_role" {
+  depends_on  = [auth0_resource_server_scopes.backend_api_app_scopes]
   name        = "SuperUserDeveloper"
   description = "This role is able to do everything"
 }
