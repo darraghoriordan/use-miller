@@ -16,11 +16,11 @@ resource "auth0_client" "frontend_spa_app" {
     "http://localhost:3000/miller-start/#pricing",
     "http://localhost:3000/dev-shell/#pricing",
   ]
-  oidc_conformant            = true
-  allowed_origins            = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
-  allowed_logout_urls        = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
-  web_origins                = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
-  token_endpoint_auth_method = "none"
+  oidc_conformant     = true
+  allowed_origins     = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
+  allowed_logout_urls = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
+  web_origins         = ["http://localhost:3000", "http://localhost:3001", "http://localhost"]
+
   grant_types = [
     "authorization_code",
     "implicit",
@@ -38,7 +38,11 @@ resource "auth0_client" "frontend_spa_app" {
     expiration_type = "expiring"
   }
 }
+resource "auth0_client_credentials" "fe_spa_client_credentials" {
+  client_id = auth0_client.frontend_spa_app.id
 
+  authentication_method = "none"
+}
 resource "auth0_resource_server" "backend_api_app" {
   name                                            = "Backend API"
   identifier                                      = "backend-api-audience"
@@ -49,36 +53,45 @@ resource "auth0_resource_server" "backend_api_app" {
   enforce_policies                                = true
   token_dialect                                   = "access_token_authz"
 
+}
+resource "auth0_resource_server_scopes" "backend_api_app_scopes" {
+  resource_server_identifier = auth0_resource_server.backend_api_app.identifier
+
+
   scopes {
-    value       = "read:own"
+    name        = "read:own"
     description = "Read own records"
   }
   scopes {
-    value       = "read:org"
+    name        = "read:org"
     description = "Read all organisation records"
   }
   scopes {
-    value       = "read:all"
+    name        = "read:all"
     description = "Read all records in the system (Super power!)"
   }
   scopes {
-    value       = "modify:own"
+    name        = "modify:own"
     description = "Modify own records"
   }
   scopes {
-    value       = "modify:org"
+    name        = "modify:org"
     description = "Modify all organisation records"
   }
   scopes {
-    value       = "modify:all"
+    name        = "modify:all"
     description = "Modify all records in the system (Super power!)"
   }
 }
-
 resource "auth0_role" "super_user_role" {
   name        = "SuperUserDeveloper"
   description = "This role is able to do everything"
 
+
+}
+
+resource "auth0_role_permissions" "backend_api_app_role_permissions" {
+  role_id = auth0_role.super_user_role.id
   permissions {
     name                       = "read:own"
     resource_server_identifier = auth0_resource_server.backend_api_app.identifier
@@ -104,7 +117,6 @@ resource "auth0_role" "super_user_role" {
     resource_server_identifier = auth0_resource_server.backend_api_app.identifier
   }
 }
-
 resource "random_password" "user_password" {
   length           = 16
   special          = true
@@ -139,7 +151,12 @@ resource "auth0_user" "dev_test_user" {
   given_name      = "Super"
   family_name     = "User"
   email_verified  = true
-  roles           = [auth0_role.super_user_role.id]
+
+}
+
+resource "auth0_user_roles" "dev_test_user_roles" {
+  user_id = auth0_user.dev_test_user.id
+  roles   = [auth0_role.super_user_role.id]
 }
 
 resource "random_string" "next_app_auth0_secret" {

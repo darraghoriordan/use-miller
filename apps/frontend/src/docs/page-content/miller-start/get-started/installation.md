@@ -117,11 +117,11 @@ When you are successful and have more users than the free tier, you'll be glad y
 
 ### Miller requirements for local development
 
-For local development and going to production you will need two separate auth0 tenants.
-
-It's ok to create `dev` for now and create production later on.
+For local development you only need 1 development tenant.
 
 At a minimum create a new tenant called `your-app-dev.auth0.com`.
+
+You can create the production tenant later on.
 
 ### Create a new Auth0 management API
 
