@@ -119,6 +119,23 @@ if (millerSettings.projectName !== answers.projectName) {
             search: "Miller Dev Tools",
             replace: answers.projectName,
         },
+        {
+            // prettier-ignore
+            search: `variable "app_stripe_fulfilment_gh_token" {
+                type        = string
+                sensitive   = true
+                description = "The gh token that gets written to an env var for fullfilment later"
+              }`,
+            replace: "",
+        },
+        {
+            // prettier-ignore
+            search: `output "app_stripe_fulfilment_gh_token" {
+                value     = var.app_stripe_fulfilment_gh_token
+                sensitive = true
+              }`,
+            replace: "",
+        },
     ];
     await searchFilesForTextAndReplace(replacePatterns);
 
@@ -386,6 +403,7 @@ swapEnvVars({
     replacementValues: {
         AUTH0_DOMAIN:
             auth0DevTerraformOutputVariables.app_auth0_dev_domain.value,
+        AUTH0_CLIENT_ID: auth0DevTerraformOutputVariables.auth0_client_id.value,
         COMPOSE_PROJECT_NAME: underscoreCaseName,
         APP_POSTGRES_PORT: `54${Math.floor(Math.random() * 10)}${Math.floor(
             Math.random() * 10,
@@ -404,7 +422,7 @@ swapEnvVars({
             stripeTerraformOutputVariables.app_stripe_webhook_verification_key
                 .value,
         SUPER_USER_IDS: `"${auth0DevTerraformOutputVariables.test_user_auth0_user_id.value}"`,
-        GITHUB_ACCESS_TOKEN: `"${stripeTerraformOutputVariables.app_stripe_fulfilment_gh_token.value}"`,
+        GITHUB_ACCESS_TOKEN: `"${stripeTerraformOutputVariables.app_stripe_fulfilment_gh_token?.value}"`,
     },
 });
 swapEnvVars({
