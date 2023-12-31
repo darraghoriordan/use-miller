@@ -8,9 +8,7 @@ order: 20
 
 ### GitHub forks
 
-I recommend NOT forking the project on Github. Instead, create a new repo and copy the files over in to your new repo. Use diffs to see what has changed.
-
-There are a couple of ways to do this. You can create a new repo and then add use-miller as a remote and fetch the files from there.
+I recommend NOT forking the project on Github. Instead, create a new repo and copy the files over in to your new repo. Use diffs like below to see what has changed on the miller repo.
 
 ```
 # in your new repo
