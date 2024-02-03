@@ -34,6 +34,6 @@
         "figlet": "1.7.0",
         "globby": "14.0.0",
         "inquirer": "9.2.12",
-        "vitest": "1.1.0"
+        "vitest": "1.2.2"
     }
 }
