@@ -13,14 +13,14 @@ jobs:
                   persist-credentials: false
               # we pull the repo course contents outside the docker build to avoid
               # putting ssh keys on the docker layers
-            - uses: webfactory/ssh-agent@d4b9b8ff72958532804b70bbe600ad43b36d5f2e # v0.8.0
+            - uses: webfactory/ssh-agent@dc588b651fe13675774614f8e6a936a468676387 # v0.9.0
               with:
                   ssh-private-key: |
                       ${{ secrets.MAC_SETUP_DEPLOY_KEY }}
                       ${{ secrets.NBL_DEPLOY_KEY }}
                       ${{ secrets.USEMILLER_DEPLOY_KEY }}
 
-            - uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4
+            - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
               with:
                   node-version: "18"
 
