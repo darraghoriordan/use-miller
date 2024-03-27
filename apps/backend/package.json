@@ -97,7 +97,7 @@
         "webpack": "5.90.1"
     },
     "devDependencies": {
-        "@darraghor/eslint-plugin-nestjs-typed": "4.5.0",
+        "@darraghor/eslint-plugin-nestjs-typed": "5.0.4",
         "@nestjs/schematics": "10.1.0",
         "@nestjs/testing": "10.3.1",
         "@swc/cli": "0.3.6",
@@ -111,8 +111,8 @@
         "@types/passport-jwt": "4.0.1",
         "@types/supertest": "6.0.2",
         "@types/unist": "3.0.2",
-        "@typescript-eslint/eslint-plugin": "6.20.0",
-        "@typescript-eslint/parser": "6.20.0",
+        "@typescript-eslint/eslint-plugin": "7.3.1",
+        "@typescript-eslint/parser": "7.3.1",
         "eslint": "8.56.0",
         "eslint-config-prettier": "9.1.0",
         "eslint-plugin-eslint-comments": "3.2.0",
