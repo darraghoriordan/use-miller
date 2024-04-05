@@ -40,7 +40,7 @@
         "@nrwl/eslint-plugin-nx": "18.0.3",
         "@nrwl/jest": "18.0.3",
         "@nrwl/linter": "18.0.3",
-        "@nrwl/node": "17.3.0",
+        "@nrwl/node": "18.2.2",
         "@semantic-release/exec": "6.0.3",
         "@types/jest": "29.5.12",
         "@types/node": "20.11.16",
