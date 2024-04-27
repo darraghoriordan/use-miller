@@ -1,5 +1,5 @@
 # A container with pnpm and python3 is required
-FROM node:21-alpine as pnpm_base
+FROM node:21.7.3-alpine as pnpm_base
 
 WORKDIR /app
 RUN npm i --global --no-update-notifier --no-fund pnpm@8
@@ -38,7 +38,7 @@ RUN --mount=type=ssh,id=usemiller git clone git@github.com:darraghoriordan/use-m
 RUN rm -rf /app/code-repos/use-miller/.git
 
 # Lean production image - only take pruned assets
-FROM node:21-alpine AS runner
+FROM node:21.7.3-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
