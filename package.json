@@ -5,7 +5,7 @@
     "private": true,
     "type": "module",
     "license": "UNLICENSED",
-    "packageManager": "pnpm@8.15.1",
+    "packageManager": "pnpm@8.15.8",
     "repository": {
         "type": "git",
         "url": "https://github.com/darraghoriordan/use-miller.git"
@@ -13,7 +13,7 @@
     "author": "Use Miller",
     "engines": {
         "node": ">=20.12.2",
-        "pnpm": ">=8.15.1"
+        "pnpm": ">=8.15.8"
     },
     "scripts": {
         "clean": "rm -Rf ./dist/",
@@ -37,13 +37,13 @@
     "dependencies": {
         "@commitlint/cli": "19.3.0",
         "@commitlint/config-conventional": "19.2.2",
-        "@nrwl/eslint-plugin-nx": "18.3.3",
-        "@nrwl/jest": "18.3.3",
-        "@nrwl/linter": "18.3.3",
-        "@nrwl/node": "18.3.3",
+        "@nrwl/eslint-plugin-nx": "18.3.5",
+        "@nrwl/jest": "18.3.5",
+        "@nrwl/linter": "18.3.5",
+        "@nrwl/node": "18.3.5",
         "@semantic-release/exec": "6.0.3",
         "@types/jest": "29.5.12",
-        "@types/node": "20.12.5",
+        "@types/node": "20.12.14",
         "@typescript-eslint/eslint-plugin": "7.7.1",
         "@typescript-eslint/parser": "7.7.1",
         "concurrently": "8.2.2",
@@ -53,16 +53,16 @@
         "husky": "9.0.11",
         "jest": "29.7.0",
         "jest-environment-jsdom": "29.7.0",
-        "knip": "5.10.0",
-        "lerna": "8.1.2",
-        "lint-staged": "15.2.2",
-        "nx": "18.3.3",
+        "knip": "5.10.1",
+        "lerna": "8.1.5",
+        "lint-staged": "15.2.7",
+        "nx": "18.3.5",
         "prettier": "3.2.5",
-        "rimraf": "5.0.5",
-        "semantic-release": "23.0.7",
-        "ts-jest": "29.1.2",
+        "rimraf": "5.0.7",
+        "semantic-release": "23.0.8",
+        "ts-jest": "29.1.5",
         "ts-node": "10.9.2",
-        "typescript": "5.4.4"
+        "typescript": "5.4.5"
     },
     "release": {
         "branches": [
