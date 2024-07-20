@@ -11,6 +11,6 @@
         "prepare": "pnpm build"
     },
     "devDependencies": {
-        "typescript": "^5.4.4"
+        "typescript": "^5.5.3"
     }
 }
