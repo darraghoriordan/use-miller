@@ -22,7 +22,7 @@
         "@nrwl/eslint-plugin-nx": "18.3.3",
         "@nrwl/jest": "18.3.3",
         "@nrwl/linter": "18.3.3",
-        "@nrwl/node": "18.3.3",
+        "@nrwl/node": "19.4.4",
         "@opentelemetry/api": "1.8.0",
         "@opentelemetry/auto-instrumentations-node": "0.44.0",
         "@opentelemetry/context-zone": "1.23.0",
