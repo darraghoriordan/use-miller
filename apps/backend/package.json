@@ -62,7 +62,7 @@
         "@opentelemetry/sdk-trace-node": "1.25.1",
         "@opentelemetry/semantic-conventions": "1.25.1",
         "auth0": "4.7.0",
-        "axios": "1.7.2",
+        "axios": "1.7.4",
         "bull": "4.15.1",
         "cache-manager": "5.7.3",
         "cache-manager-redis-yet": "5.1.3",
