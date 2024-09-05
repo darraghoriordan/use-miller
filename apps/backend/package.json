@@ -94,7 +94,7 @@
         "typeorm": "0.3.20",
         "unified": "11.0.5",
         "vfile": "6.0.2",
-        "webpack": "5.93.0"
+        "webpack": "5.94.0"
     },
     "devDependencies": {
         "@darraghor/eslint-plugin-nestjs-typed": "5.0.14",
