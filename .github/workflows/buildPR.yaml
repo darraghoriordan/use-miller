@@ -8,11 +8,11 @@ jobs:
     buildTest:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
+            - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
               with:
                   fetch-depth: 0
                   persist-credentials: false
-            - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
+            - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
               with:
                   node-version: "18"
 
@@ -27,7 +27,7 @@ jobs:
               shell: bash
               run: |
                   echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-            - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
+            - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4
               name: Setup pnpm cache
               with:
                   path: |
