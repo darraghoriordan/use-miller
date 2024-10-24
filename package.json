@@ -5,7 +5,7 @@
     "private": true,
     "type": "module",
     "license": "UNLICENSED",
-    "packageManager": "pnpm@8.15.1",
+    "packageManager": "pnpm@9.12.2",
     "repository": {
         "type": "git",
         "url": "https://github.com/darraghoriordan/use-miller.git"
@@ -13,7 +13,7 @@
     "author": "Use Miller",
     "engines": {
         "node": ">=20.12.2",
-        "pnpm": ">=8.15.1"
+        "pnpm": ">=9.12.2"
     },
     "scripts": {
         "clean": "rm -Rf ./dist/",
@@ -44,9 +44,9 @@
         "@semantic-release/exec": "6.0.3",
         "@types/jest": "29.5.12",
         "@types/node": "20.14.11",
-        "@typescript-eslint/eslint-plugin": "7.16.1",
-        "@typescript-eslint/parser": "7.16.1",
-        "concurrently": "8.2.2",
+        "@typescript-eslint/eslint-plugin": "8.11.0",
+        "@typescript-eslint/parser": "8.11.0",
+        "concurrently": "9.0.1",
         "dotenv": "16.4.5",
         "eslint": "9.1.1",
         "eslint-config-prettier": "9.1.0",
@@ -56,7 +56,7 @@
         "knip": "5.26.0",
         "lerna": "8.1.6",
         "lint-staged": "15.2.7",
-        "nx": "19.5.1",
+        "nx": "20.0.3",
         "prettier": "3.3.3",
         "rimraf": "6.0.1",
         "semantic-release": "24.0.0",
