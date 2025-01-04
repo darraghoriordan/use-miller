@@ -63,7 +63,7 @@
         "focus-visible": "5.2.0",
         "gray-matter": "4.0.3",
         "monaco-editor": "0.50.0",
-        "next": "14.2.5",
+        "next": "14.2.21",
         "next-progress": "2.3.1",
         "nx": "19.5.1",
         "opentelemetry-instrumentation-undici": "0.2.3",
