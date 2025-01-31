@@ -47,11 +47,11 @@ export function LeftMenu({
 
     return (
         <div className="flex">
-            <div className="flex flex-col flex-grow mr-8">
+            <div className="flex flex-col grow mr-8">
                 <h1
                     className={clsx(
                         `mb-8 font-bold uppercase`,
-                        colorVariants["green"].foreground
+                        colorVariants["green"].foreground,
                     )}
                 >
                     <Link
@@ -73,7 +73,7 @@ export function LeftMenu({
                                     item={item}
                                     isCurrent={isCurrentMenuItem(
                                         path.asPath,
-                                        item
+                                        item,
                                     )}
                                 />
                             ))}

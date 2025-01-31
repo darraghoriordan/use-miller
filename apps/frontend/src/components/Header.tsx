@@ -72,7 +72,7 @@ export const MobileNavigation = ({
     return (
         <Popover>
             <Popover.Button
-                className="relative z-10 flex h-8 w-8 items-center justify-center [&:not(:focus-visible)]:focus:outline-none"
+                className="relative z-10 flex h-8 w-8 items-center justify-center not-focus-visible:focus:outline-hidden"
                 aria-label="Toggle Navigation"
             >
                 {({ open }: { open: boolean }) => <MobileNavIcon open={open} />}
@@ -246,7 +246,7 @@ export function Header({
                                                 key={item.name}
                                                 href={`/${item.key}`}
                                                 className={clsx(
-                                                    `focus:outline-none focus:ring-2 focus:ring-offset-2 inline-flex items-center px-4 py-2 font-medium border border-transparent rounded-md`,
+                                                    `focus:outline-hidden focus:ring-2 focus:ring-offset-2 inline-flex items-center px-4 py-2 font-medium border border-transparent rounded-md`,
                                                     // "hover:bg-green-500/75",
                                                     colorVariants[color]
                                                         .topMenuHoverBackground,

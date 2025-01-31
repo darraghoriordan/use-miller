@@ -21,7 +21,7 @@ export type TreeLikeNode = {
 };
 
 function mapFileStructureToTreeNode(
-    fileStructure: FileStructureDto
+    fileStructure: FileStructureDto,
 ): TreeLikeNode {
     return {
         id: fileStructure.fileLocation,
@@ -77,14 +77,14 @@ const FileTree = (props: {
             const nodeData = node.data as TreeLikeNode;
             return (
                 <div
-                    className="flex items-center text-white outline-none cursor-pointer select-none"
+                    className="flex items-center text-white outline-hidden cursor-pointer select-none"
                     key={nodeData.id}
                     onClick={(evt) => {
                         onToggle(evt);
                         if (node.children?.length === 0) {
                             props.setSelectedFile(
                                 nodeData.fileLocation,
-                                props.projectKey
+                                props.projectKey,
                             );
                         }
                         tree.handlers.setSelected(node, true);
@@ -99,7 +99,7 @@ const FileTree = (props: {
                 </div>
             );
         },
-        [props.projectKey, props.setSelectedFile]
+        [props.projectKey, props.setSelectedFile],
     );
 
     const CustomFileIcon = ({ nodeProps }: { nodeProps: DefaultNodeProps }) => {
@@ -115,7 +115,7 @@ const FileTree = (props: {
 
         // custom Style
         const iconPath = `${VS_MATERIAL_ICONS}/${getIconForFile(
-            node.data.title
+            node.data.title,
         )}
                 `;
         return (

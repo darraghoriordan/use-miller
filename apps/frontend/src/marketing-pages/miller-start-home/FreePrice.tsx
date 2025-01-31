@@ -16,7 +16,7 @@ export function FreePrice({
                 {title}
             </p>
 
-            <div className="mt-8 font-semibold flex-grow  text-white">
+            <div className="mt-8 font-semibold grow  text-white">
                 <ul className="space-y-4">
                     {benefits.map((benefit, i) => (
                         <li className="flex items-center" key={i}>

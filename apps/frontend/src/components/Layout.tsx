@@ -26,7 +26,7 @@ export default function Layout({
                 headerTitle={headerTitle}
                 themeColor={themeColor}
             />
-            <main className="flex-grow">{children}</main>
+            <main className="grow">{children}</main>
             <Footer productKey={productKey} headerTitle={headerTitle} />
         </div>
     );

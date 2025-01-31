@@ -20,12 +20,12 @@ const StyledLink = ({
             href={href}
             target={target}
             className={clsx(
-                `focus:outline-none focus:ring-2 focus:ring-offset-2 flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm`,
+                `focus:outline-hidden focus:ring-2 focus:ring-offset-2 flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-xs`,
                 colorVariants[color].background,
                 colorVariants[color].hoverBackground,
                 colorVariants[color].hoverShadow,
                 colorVariants[color].hoverFocusRing,
-                className
+                className,
             )}
         >
             {children}
