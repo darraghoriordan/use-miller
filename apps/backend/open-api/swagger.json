@@ -11,7 +11,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "$ref": "#/components/schemas/HealthResponse"
                 }
               }
             }
@@ -32,29 +32,25 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "$ref": "#/components/schemas/HealthResponse"
                 }
               }
             }
           }
         },
-        "tags": [
-          "Application Support"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Application Support"
         ]
       }
     },
     "/is-super-admin": {
       "get": {
         "operationId": "AppController_getHelloSuperAdmin",
-        "summary": "",
-        "tags": [
-          "Application Support"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -62,7 +58,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "$ref": "#/components/schemas/HealthResponse"
                 }
               }
             }
@@ -72,6 +68,10 @@
           {
             "bearer": []
           }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
         ]
       }
     },
@@ -100,14 +100,15 @@
                       },
                       "additionalProperties": {
                         "type": "object",
+                        "required": [
+                          "status"
+                        ],
                         "properties": {
                           "status": {
                             "type": "string"
                           }
                         },
-                        "additionalProperties": {
-                          "type": "string"
-                        }
+                        "additionalProperties": true
                       },
                       "nullable": true
                     },
@@ -116,14 +117,15 @@
                       "example": {},
                       "additionalProperties": {
                         "type": "object",
+                        "required": [
+                          "status"
+                        ],
                         "properties": {
                           "status": {
                             "type": "string"
                           }
                         },
-                        "additionalProperties": {
-                          "type": "string"
-                        }
+                        "additionalProperties": true
                       },
                       "nullable": true
                     },
@@ -136,14 +138,15 @@
                       },
                       "additionalProperties": {
                         "type": "object",
+                        "required": [
+                          "status"
+                        ],
                         "properties": {
                           "status": {
                             "type": "string"
                           }
                         },
-                        "additionalProperties": {
-                          "type": "string"
-                        }
+                        "additionalProperties": true
                       }
                     }
                   }
@@ -171,14 +174,15 @@
                       },
                       "additionalProperties": {
                         "type": "object",
+                        "required": [
+                          "status"
+                        ],
                         "properties": {
                           "status": {
                             "type": "string"
                           }
                         },
-                        "additionalProperties": {
-                          "type": "string"
-                        }
+                        "additionalProperties": true
                       },
                       "nullable": true
                     },
@@ -192,14 +196,15 @@
                       },
                       "additionalProperties": {
                         "type": "object",
+                        "required": [
+                          "status"
+                        ],
                         "properties": {
                           "status": {
                             "type": "string"
                           }
                         },
-                        "additionalProperties": {
-                          "type": "string"
-                        }
+                        "additionalProperties": true
                       },
                       "nullable": true
                     },
@@ -216,14 +221,15 @@
                       },
                       "additionalProperties": {
                         "type": "object",
+                        "required": [
+                          "status"
+                        ],
                         "properties": {
                           "status": {
                             "type": "string"
                           }
                         },
-                        "additionalProperties": {
-                          "type": "string"
-                        }
+                        "additionalProperties": true
                       }
                     }
                   }
@@ -262,19 +268,18 @@
             }
           }
         },
-        "tags": [
-          "Users"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Users"
         ]
       },
       "patch": {
-        "operationId": "UserController_update",
-        "summary": "",
         "description": "Limited to Super Admin role or the user themselves.",
+        "operationId": "UserController_update",
         "parameters": [
           {
             "name": "uuid",
@@ -307,19 +312,19 @@
             }
           }
         },
-        "tags": [
-          "Users"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "summary": "",
+        "tags": [
+          "Users"
         ]
       },
       "delete": {
-        "operationId": "UserController_remove",
-        "summary": "",
         "description": "Limited to Super Admin role or the user themselves.",
+        "operationId": "UserController_remove",
         "parameters": [
           {
             "name": "uuid",
@@ -342,23 +347,20 @@
             }
           }
         },
-        "tags": [
-          "Users"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "summary": "",
+        "tags": [
+          "Users"
         ]
       }
     },
     "/user": {
       "get": {
         "operationId": "UserController_findAll",
-        "summary": "Get all users in the system. Limited to Super Admin role.",
-        "tags": [
-          "Users"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -379,6 +381,10 @@
           {
             "bearer": []
           }
+        ],
+        "summary": "Get all users in the system. Limited to Super Admin role.",
+        "tags": [
+          "SuperPower"
         ]
       }
     },
@@ -398,23 +404,19 @@
             }
           }
         },
-        "tags": [
-          "Email-client"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Email-client"
         ]
       }
     },
     "/email-client/peekalljobs": {
       "get": {
         "operationId": "EmailClientController_peekQueueJobs",
-        "summary": "",
-        "tags": [
-          "Email-client"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -435,16 +437,16 @@
           {
             "bearer": []
           }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
         ]
       }
     },
     "/email-client/peekfailedjobs": {
       "get": {
         "operationId": "EmailClientController_peekFailedQueueJobs",
-        "summary": "",
-        "tags": [
-          "Email-client"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -465,6 +467,10 @@
           {
             "bearer": []
           }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
         ]
       }
     },
@@ -493,13 +499,13 @@
             }
           }
         },
-        "tags": [
-          "Organisations"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Organisations"
         ]
       },
       "patch": {
@@ -536,13 +542,13 @@
             }
           }
         },
-        "tags": [
-          "Organisations"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Organisations"
         ]
       },
       "delete": {
@@ -569,13 +575,13 @@
             }
           }
         },
-        "tags": [
-          "Organisations"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Organisations"
         ]
       }
     },
@@ -598,13 +604,13 @@
             }
           }
         },
-        "tags": [
-          "Organisations"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Organisations"
         ]
       }
     },
@@ -636,13 +642,13 @@
             }
           }
         },
-        "tags": [
-          "Organisation Memberships"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Organisation Memberships"
         ]
       },
       "post": {
@@ -679,13 +685,13 @@
             }
           }
         },
-        "tags": [
-          "Organisation Memberships"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Organisation Memberships"
         ]
       }
     },
@@ -722,13 +728,13 @@
             }
           }
         },
-        "tags": [
-          "Organisation Memberships"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Organisation Memberships"
         ]
       }
     },
@@ -760,13 +766,13 @@
             }
           }
         },
-        "tags": [
-          "User Onboarding"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "User Onboarding"
         ]
       }
     },
@@ -796,13 +802,13 @@
             }
           }
         },
-        "tags": [
-          "User Onboarding"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "User Onboarding"
         ]
       }
     },
@@ -832,13 +838,13 @@
             }
           }
         },
-        "tags": [
-          "Payments"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Payments"
         ]
       }
     },
@@ -868,23 +874,19 @@
             }
           }
         },
-        "tags": [
-          "Payments"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Payments"
         ]
       }
     },
     "/payments/stripe/events": {
       "get": {
         "operationId": "StripeEventsController_getLastEvents",
-        "summary": "",
-        "tags": [
-          "Payments"
-        ],
         "parameters": [
           {
             "name": "skip",
@@ -922,6 +924,10 @@
           {
             "bearer": []
           }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
         ]
       }
     },
@@ -945,10 +951,6 @@
     "/payments/stripe/peekalljobs": {
       "get": {
         "operationId": "StripeWebhookController_peekQueueJobs",
-        "summary": "",
-        "tags": [
-          "Payments"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -969,16 +971,16 @@
           {
             "bearer": []
           }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
         ]
       }
     },
     "/payments/stripe/peekfailedjobs": {
       "get": {
         "operationId": "StripeWebhookController_peekFailedQueueJobs",
-        "summary": "",
-        "tags": [
-          "Payments"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -999,16 +1001,16 @@
           {
             "bearer": []
           }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
         ]
       }
     },
     "/subscriptions": {
       "get": {
         "operationId": "AllSubscriptionsController_findAll",
-        "summary": "",
-        "tags": [
-          "Organisation Subscriptions"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -1029,19 +1031,23 @@
           {
             "bearer": []
           }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
         ]
       }
     },
-    "/organisation/{orgId}/subscriptions": {
+    "/organisation/{orgUuid}/subscriptions": {
       "get": {
         "operationId": "OrganisationSubscriptionsController_findAll",
         "parameters": [
           {
-            "name": "orgId",
+            "name": "orgUuid",
             "required": true,
             "in": "path",
             "schema": {
-              "type": "number"
+              "type": "string"
             }
           }
         ],
@@ -1060,28 +1066,24 @@
             }
           }
         },
-        "tags": [
-          "Organisation Subscriptions"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Organisation Subscriptions"
         ]
       },
       "post": {
         "operationId": "OrganisationSubscriptionsController_addSubscription",
-        "summary": "",
-        "tags": [
-          "Organisation Subscriptions"
-        ],
         "parameters": [
           {
-            "name": "orgId",
+            "name": "orgUuid",
             "required": true,
             "in": "path",
             "schema": {
-              "type": "number"
+              "type": "string"
             }
           }
         ],
@@ -1114,23 +1116,23 @@
           {
             "bearer": []
           }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
         ]
       }
     },
-    "/organisation/{orgId}/subscriptions/{uuid}": {
+    "/organisation/{orgUuid}/subscriptions/{uuid}": {
       "delete": {
         "operationId": "OrganisationSubscriptionsController_deleteSubscription",
-        "summary": "",
-        "tags": [
-          "Organisation Subscriptions"
-        ],
         "parameters": [
           {
-            "name": "orgId",
+            "name": "orgUuid",
             "required": true,
             "in": "path",
             "schema": {
-              "type": "number"
+              "type": "string"
             }
           },
           {
@@ -1158,16 +1160,16 @@
           {
             "bearer": []
           }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
         ]
       }
     },
     "/payment-reference": {
       "get": {
         "operationId": "PaymentSessionReferenceController_findAll",
-        "summary": "",
-        "tags": [
-          "Payment references"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -1188,6 +1190,10 @@
           {
             "bearer": []
           }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
         ]
       }
     },
@@ -1270,13 +1276,13 @@
             }
           }
         },
-        "tags": [
-          "Project Files"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Project Files"
         ]
       }
     },
@@ -1321,13 +1327,13 @@
             }
           }
         },
-        "tags": [
-          "Project Files"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Project Files"
         ]
       }
     },
@@ -1505,10 +1511,6 @@
     "/super-powers/reset-database": {
       "post": {
         "operationId": "SuperPowersController_resetDatabase",
-        "summary": "",
-        "tags": [
-          "Application Support"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -1519,6 +1521,10 @@
           {
             "bearer": []
           }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
         ]
       }
     },
@@ -1540,13 +1546,13 @@
             "description": ""
           }
         },
-        "tags": [
-          "Invitations"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Invitations"
         ]
       }
     },
@@ -1578,13 +1584,13 @@
             }
           }
         },
-        "tags": [
-          "Invitations"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Invitations"
         ]
       }
     },
@@ -1614,13 +1620,13 @@
             }
           }
         },
-        "tags": [
-          "Invitations"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Invitations"
         ]
       }
     },
@@ -1649,13 +1655,13 @@
             }
           }
         },
-        "tags": [
-          "Invitations"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Invitations"
         ]
       }
     },
@@ -1678,13 +1684,13 @@
             }
           }
         },
-        "tags": [
-          "Organisation Subscriptions"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Organisation Subscriptions"
         ]
       },
       "post": {
@@ -1715,13 +1721,13 @@
             }
           }
         },
-        "tags": [
-          "Organisation Subscriptions"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Organisation Subscriptions"
         ]
       }
     },
@@ -1743,13 +1749,13 @@
             "description": ""
           }
         },
-        "tags": [
-          "Organisation Subscriptions"
-        ],
         "security": [
           {
             "bearer": []
           }
+        ],
+        "tags": [
+          "Organisation Subscriptions"
         ]
       }
     }
@@ -1771,6 +1777,17 @@
       }
     },
     "schemas": {
+      "HealthResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
       "OrganisationSubscriptionRecord": {
         "type": "object",
         "properties": {
@@ -1934,6 +1951,10 @@
             }
           },
           "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
             "format": "date-time",
             "type": "string"
           },
