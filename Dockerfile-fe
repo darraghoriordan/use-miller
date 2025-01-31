@@ -1,5 +1,5 @@
 # A container with pnpm and python3 is required
-FROM node:21-alpine as pnpm_base
+FROM node:21.7.3-alpine as pnpm_base
 
 WORKDIR /app
 RUN npm i --global --no-update-notifier --no-fund pnpm@8
@@ -24,7 +24,7 @@ RUN pnpm --filter='*frontend' build
 RUN pnpm --filter='*frontend' deploy pruned --prod
 
 # Production image - only take pruned assets
-FROM node:21-alpine AS runner
+FROM node:21.7.3-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 app
