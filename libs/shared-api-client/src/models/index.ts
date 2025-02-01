@@ -4,6 +4,7 @@ export * from './CreateInvitationDto';
 export * from './CreateUpdateMembershipDto';
 export * from './FileMetaDto';
 export * from './FileStructureDto';
+export * from './HealthResponse';
 export * from './InlineResponse200';
 export * from './InlineResponse503';
 export * from './Invitation';

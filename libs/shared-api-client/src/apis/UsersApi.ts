@@ -18,9 +18,6 @@ import {
     BooleanResult,
     BooleanResultFromJSON,
     BooleanResultToJSON,
-    User,
-    UserFromJSON,
-    UserToJSON,
     UserDto,
     UserDtoFromJSON,
     UserDtoToJSON,
@@ -46,20 +43,6 @@ export interface UserControllerUpdateRequest {
  * @interface UsersApiInterface
  */
 export interface UsersApiInterface {
-    /**
-     * 
-     * @summary Get all users in the system. Limited to Super Admin role.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UsersApiInterface
-     */
-    userControllerFindAllRaw(): Promise<runtime.ApiResponse<Array<User>>>;
-
-    /**
-     * Get all users in the system. Limited to Super Admin role.
-     */
-    userControllerFindAll(): Promise<Array<User>>;
-
     /**
      * 
      * @param {string} uuid 
@@ -108,40 +91,6 @@ export interface UsersApiInterface {
  * 
  */
 export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
-
-    /**
-     * Get all users in the system. Limited to Super Admin role.
-     */
-    async userControllerFindAllRaw(): Promise<runtime.ApiResponse<Array<User>>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/user`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(UserFromJSON));
-    }
-
-    /**
-     * Get all users in the system. Limited to Super Admin role.
-     */
-    async userControllerFindAll(): Promise<Array<User>> {
-        const response = await this.userControllerFindAllRaw();
-        return await response.value();
-    }
 
     /**
      */

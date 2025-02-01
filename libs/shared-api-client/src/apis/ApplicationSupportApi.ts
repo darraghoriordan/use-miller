@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    HealthResponse,
+    HealthResponseFromJSON,
+    HealthResponseToJSON,
     InlineResponse200,
     InlineResponse200FromJSON,
     InlineResponse200ToJSON,
@@ -36,23 +39,11 @@ export interface ApplicationSupportApiInterface {
      * @throws {RequiredError}
      * @memberof ApplicationSupportApiInterface
      */
-    appControllerGetHelloRaw(): Promise<runtime.ApiResponse<string>>;
+    appControllerGetHelloRaw(): Promise<runtime.ApiResponse<HealthResponse>>;
 
     /**
      */
-    appControllerGetHello(): Promise<string>;
-
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ApplicationSupportApiInterface
-     */
-    appControllerGetHelloAuthorizedRaw(): Promise<runtime.ApiResponse<string>>;
-
-    /**
-     */
-    appControllerGetHelloAuthorized(): Promise<string>;
+    appControllerGetHello(): Promise<HealthResponse>;
 
     /**
      * 
@@ -60,11 +51,11 @@ export interface ApplicationSupportApiInterface {
      * @throws {RequiredError}
      * @memberof ApplicationSupportApiInterface
      */
-    appControllerGetHelloSuperAdminRaw(): Promise<runtime.ApiResponse<string>>;
+    appControllerGetHelloAuthorizedRaw(): Promise<runtime.ApiResponse<HealthResponse>>;
 
     /**
      */
-    appControllerGetHelloSuperAdmin(): Promise<string>;
+    appControllerGetHelloAuthorized(): Promise<HealthResponse>;
 
     /**
      * 
@@ -78,18 +69,6 @@ export interface ApplicationSupportApiInterface {
      */
     healthControllerCheck(): Promise<InlineResponse200>;
 
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ApplicationSupportApiInterface
-     */
-    superPowersControllerResetDatabaseRaw(): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     */
-    superPowersControllerResetDatabase(): Promise<void>;
-
 }
 
 /**
@@ -99,7 +78,7 @@ export class ApplicationSupportApi extends runtime.BaseAPI implements Applicatio
 
     /**
      */
-    async appControllerGetHelloRaw(): Promise<runtime.ApiResponse<string>> {
+    async appControllerGetHelloRaw(): Promise<runtime.ApiResponse<HealthResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -111,19 +90,19 @@ export class ApplicationSupportApi extends runtime.BaseAPI implements Applicatio
             query: queryParameters,
         });
 
-        return new runtime.TextApiResponse(response) as any;
+        return new runtime.JSONApiResponse(response, (jsonValue) => HealthResponseFromJSON(jsonValue));
     }
 
     /**
      */
-    async appControllerGetHello(): Promise<string> {
+    async appControllerGetHello(): Promise<HealthResponse> {
         const response = await this.appControllerGetHelloRaw();
         return await response.value();
     }
 
     /**
      */
-    async appControllerGetHelloAuthorizedRaw(): Promise<runtime.ApiResponse<string>> {
+    async appControllerGetHelloAuthorizedRaw(): Promise<runtime.ApiResponse<HealthResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -143,45 +122,13 @@ export class ApplicationSupportApi extends runtime.BaseAPI implements Applicatio
             query: queryParameters,
         });
 
-        return new runtime.TextApiResponse(response) as any;
+        return new runtime.JSONApiResponse(response, (jsonValue) => HealthResponseFromJSON(jsonValue));
     }
 
     /**
      */
-    async appControllerGetHelloAuthorized(): Promise<string> {
+    async appControllerGetHelloAuthorized(): Promise<HealthResponse> {
         const response = await this.appControllerGetHelloAuthorizedRaw();
-        return await response.value();
-    }
-
-    /**
-     */
-    async appControllerGetHelloSuperAdminRaw(): Promise<runtime.ApiResponse<string>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/is-super-admin`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.TextApiResponse(response) as any;
-    }
-
-    /**
-     */
-    async appControllerGetHelloSuperAdmin(): Promise<string> {
-        const response = await this.appControllerGetHelloSuperAdminRaw();
         return await response.value();
     }
 
@@ -207,37 +154,6 @@ export class ApplicationSupportApi extends runtime.BaseAPI implements Applicatio
     async healthControllerCheck(): Promise<InlineResponse200> {
         const response = await this.healthControllerCheckRaw();
         return await response.value();
-    }
-
-    /**
-     */
-    async superPowersControllerResetDatabaseRaw(): Promise<runtime.ApiResponse<void>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/super-powers/reset-database`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async superPowersControllerResetDatabase(): Promise<void> {
-        await this.superPowersControllerResetDatabaseRaw();
     }
 
 }

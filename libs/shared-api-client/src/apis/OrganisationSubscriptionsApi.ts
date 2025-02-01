@@ -15,15 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
-    BooleanResult,
-    BooleanResultFromJSON,
-    BooleanResultToJSON,
     OrganisationSubscriptionRecord,
     OrganisationSubscriptionRecordFromJSON,
     OrganisationSubscriptionRecordToJSON,
-    SaveOrganisationSubscriptionRecordDto,
-    SaveOrganisationSubscriptionRecordDtoFromJSON,
-    SaveOrganisationSubscriptionRecordDtoToJSON,
     SaveSubscriptionAssetDto,
     SaveSubscriptionAssetDtoFromJSON,
     SaveSubscriptionAssetDtoToJSON,
@@ -32,18 +26,8 @@ import {
     SubscriptionAssetToJSON,
 } from '../models';
 
-export interface OrganisationSubscriptionsControllerAddSubscriptionRequest {
-    orgId: number;
-    saveOrganisationSubscriptionRecordDto: SaveOrganisationSubscriptionRecordDto;
-}
-
-export interface OrganisationSubscriptionsControllerDeleteSubscriptionRequest {
-    orgId: number;
-    uuid: string;
-}
-
 export interface OrganisationSubscriptionsControllerFindAllRequest {
-    orgId: number;
+    orgUuid: string;
 }
 
 export interface SubscriptionAssetsControllerAddAssetRecordRequest {
@@ -63,47 +47,7 @@ export interface SubscriptionAssetsControllerDeleteAssetRecordRequest {
 export interface OrganisationSubscriptionsApiInterface {
     /**
      * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrganisationSubscriptionsApiInterface
-     */
-    allSubscriptionsControllerFindAllRaw(): Promise<runtime.ApiResponse<Array<OrganisationSubscriptionRecord>>>;
-
-    /**
-     */
-    allSubscriptionsControllerFindAll(): Promise<Array<OrganisationSubscriptionRecord>>;
-
-    /**
-     * 
-     * @param {number} orgId 
-     * @param {SaveOrganisationSubscriptionRecordDto} saveOrganisationSubscriptionRecordDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrganisationSubscriptionsApiInterface
-     */
-    organisationSubscriptionsControllerAddSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerAddSubscriptionRequest): Promise<runtime.ApiResponse<Array<OrganisationSubscriptionRecord>>>;
-
-    /**
-     */
-    organisationSubscriptionsControllerAddSubscription(requestParameters: OrganisationSubscriptionsControllerAddSubscriptionRequest): Promise<Array<OrganisationSubscriptionRecord>>;
-
-    /**
-     * 
-     * @param {number} orgId 
-     * @param {string} uuid 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OrganisationSubscriptionsApiInterface
-     */
-    organisationSubscriptionsControllerDeleteSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerDeleteSubscriptionRequest): Promise<runtime.ApiResponse<BooleanResult>>;
-
-    /**
-     */
-    organisationSubscriptionsControllerDeleteSubscription(requestParameters: OrganisationSubscriptionsControllerDeleteSubscriptionRequest): Promise<BooleanResult>;
-
-    /**
-     * 
-     * @param {number} orgId 
+     * @param {string} orgUuid 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrganisationSubscriptionsApiInterface
@@ -161,124 +105,9 @@ export class OrganisationSubscriptionsApi extends runtime.BaseAPI implements Org
 
     /**
      */
-    async allSubscriptionsControllerFindAllRaw(): Promise<runtime.ApiResponse<Array<OrganisationSubscriptionRecord>>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/subscriptions`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(OrganisationSubscriptionRecordFromJSON));
-    }
-
-    /**
-     */
-    async allSubscriptionsControllerFindAll(): Promise<Array<OrganisationSubscriptionRecord>> {
-        const response = await this.allSubscriptionsControllerFindAllRaw();
-        return await response.value();
-    }
-
-    /**
-     */
-    async organisationSubscriptionsControllerAddSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerAddSubscriptionRequest): Promise<runtime.ApiResponse<Array<OrganisationSubscriptionRecord>>> {
-        if (requestParameters.orgId === null || requestParameters.orgId === undefined) {
-            throw new runtime.RequiredError('orgId','Required parameter requestParameters.orgId was null or undefined when calling organisationSubscriptionsControllerAddSubscription.');
-        }
-
-        if (requestParameters.saveOrganisationSubscriptionRecordDto === null || requestParameters.saveOrganisationSubscriptionRecordDto === undefined) {
-            throw new runtime.RequiredError('saveOrganisationSubscriptionRecordDto','Required parameter requestParameters.saveOrganisationSubscriptionRecordDto was null or undefined when calling organisationSubscriptionsControllerAddSubscription.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/organisation/{orgId}/subscriptions`.replace(`{${"orgId"}}`, encodeURIComponent(String(requestParameters.orgId))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: SaveOrganisationSubscriptionRecordDtoToJSON(requestParameters.saveOrganisationSubscriptionRecordDto),
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(OrganisationSubscriptionRecordFromJSON));
-    }
-
-    /**
-     */
-    async organisationSubscriptionsControllerAddSubscription(requestParameters: OrganisationSubscriptionsControllerAddSubscriptionRequest): Promise<Array<OrganisationSubscriptionRecord>> {
-        const response = await this.organisationSubscriptionsControllerAddSubscriptionRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     */
-    async organisationSubscriptionsControllerDeleteSubscriptionRaw(requestParameters: OrganisationSubscriptionsControllerDeleteSubscriptionRequest): Promise<runtime.ApiResponse<BooleanResult>> {
-        if (requestParameters.orgId === null || requestParameters.orgId === undefined) {
-            throw new runtime.RequiredError('orgId','Required parameter requestParameters.orgId was null or undefined when calling organisationSubscriptionsControllerDeleteSubscription.');
-        }
-
-        if (requestParameters.uuid === null || requestParameters.uuid === undefined) {
-            throw new runtime.RequiredError('uuid','Required parameter requestParameters.uuid was null or undefined when calling organisationSubscriptionsControllerDeleteSubscription.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = typeof token === 'function' ? token("bearer", []) : token;
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/organisation/{orgId}/subscriptions/{uuid}`.replace(`{${"orgId"}}`, encodeURIComponent(String(requestParameters.orgId))).replace(`{${"uuid"}}`, encodeURIComponent(String(requestParameters.uuid))),
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => BooleanResultFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async organisationSubscriptionsControllerDeleteSubscription(requestParameters: OrganisationSubscriptionsControllerDeleteSubscriptionRequest): Promise<BooleanResult> {
-        const response = await this.organisationSubscriptionsControllerDeleteSubscriptionRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     */
     async organisationSubscriptionsControllerFindAllRaw(requestParameters: OrganisationSubscriptionsControllerFindAllRequest): Promise<runtime.ApiResponse<Array<OrganisationSubscriptionRecord>>> {
-        if (requestParameters.orgId === null || requestParameters.orgId === undefined) {
-            throw new runtime.RequiredError('orgId','Required parameter requestParameters.orgId was null or undefined when calling organisationSubscriptionsControllerFindAll.');
+        if (requestParameters.orgUuid === null || requestParameters.orgUuid === undefined) {
+            throw new runtime.RequiredError('orgUuid','Required parameter requestParameters.orgUuid was null or undefined when calling organisationSubscriptionsControllerFindAll.');
         }
 
         const queryParameters: any = {};
@@ -294,7 +123,7 @@ export class OrganisationSubscriptionsApi extends runtime.BaseAPI implements Org
             }
         }
         const response = await this.request({
-            path: `/organisation/{orgId}/subscriptions`.replace(`{${"orgId"}}`, encodeURIComponent(String(requestParameters.orgId))),
+            path: `/organisation/{orgUuid}/subscriptions`.replace(`{${"orgUuid"}}`, encodeURIComponent(String(requestParameters.orgUuid))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

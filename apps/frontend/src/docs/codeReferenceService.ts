@@ -41,7 +41,7 @@ export async function getCodeExplorerData(
     productKey: string,
     projectKey: string,
     codeFile: string,
-    accessToken: string | null | undefined
+    accessToken: string | null | undefined,
 ): Promise<CodeExplorerData> {
     codeFile;
 
@@ -67,22 +67,27 @@ export async function getCodeExplorerData(
         apiClient = await getAnonymousApiInstance(
             ProjectFilesApi,
             process.env.NEXT_PUBLIC_API_BASE_PATH,
-            fetch
+            fetch,
         );
     } else {
         apiClient = await getAuthenticatedApiInstance(
             ProjectFilesApi,
             process.env.NEXT_PUBLIC_API_BASE_PATH,
             accessToken,
-            fetch
+            fetch,
         );
     }
-
-    const fileListPromise =
-        await apiClient.courseFilesControllerListProjectFiles({
+    let fileListPromise;
+    try {
+        fileListPromise = apiClient.courseFilesControllerListProjectFiles({
             productKey,
             projectKey,
         });
+    } catch (error) {
+        console.error("Error fetching file list", error);
+        throw error;
+    }
+
     let initialCodeFile: FileMetaDto;
     let initialMarkdownFilePromise: Promise<FileMetaDto>;
     if (!accessToken) {
@@ -112,6 +117,7 @@ export async function getCodeExplorerData(
                     initialCodeFile.nearestReadmeLocation || defaultCodeFile,
             });
     }
+    console.log("TO HERE");
     // maybe change this to settled later
     const [fileList, initialMarkdownFile] = await Promise.all([
         fileListPromise,
@@ -143,7 +149,7 @@ export async function getCodeExplorerData(
     };
 }
 export async function getCodeFileServerSideProps(
-    context: GetServerSidePropsContext
+    context: GetServerSidePropsContext,
 ) {
     const projectKey = context.params?.projectKey as string;
     const codeFile = context.params?.codeFile as string;
@@ -159,7 +165,7 @@ export async function getCodeFileServerSideProps(
     }
     if (!projectKey || !codeFile) {
         throw new Error(
-            "Missing projectKey or codeFile - params strike again!"
+            "Missing projectKey or codeFile - params strike again!",
         );
     }
 
@@ -167,7 +173,7 @@ export async function getCodeFileServerSideProps(
         productKey,
         projectKey,
         codeFile,
-        accessToken
+        accessToken,
     );
     const menuSections = await createMenu(productKey);
     const titles = mapTitles(productKey);
