@@ -12,7 +12,7 @@ export class CoursesMetaService {
     ) {}
 
     // probably should move this out of here at some stage
-    getProjectMetadata(): { [key: string]: ProductMeta } {
+    getProjectMetadata(): Record<string, ProductMeta> {
         return {
             ["miller-start"]: {
                 color: "red",
@@ -90,6 +90,7 @@ export class CoursesMetaService {
     }
     getOneProduct = (productKey: string): ProductMeta => {
         const foundProduct = this.getProjectMetadata()[productKey];
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!foundProduct) {
             throw new Error("Product not found");
         }

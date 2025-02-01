@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 
-export type ScramblePartitions = {
+export interface ScramblePartitions {
     clearPortion: { start: number; takeLines: number };
-};
+}
 
 @Injectable()
 export class FileScramblerService {
@@ -18,7 +18,7 @@ export class FileScramblerService {
         };
 
         const amountToTakeClear = Math.ceil(
-            numberOfLines * clearTextDisplayConfiguration.percentOfLinesToShow
+            numberOfLines * clearTextDisplayConfiguration.percentOfLinesToShow,
         );
 
         const clearPortion = {
@@ -33,18 +33,18 @@ export class FileScramblerService {
 
     scrambleCodeFile = (
         contents: string,
-        scrambleCharacters: string
+        scrambleCharacters: string,
     ): string => {
-        const lines = contents?.split("\n");
+        const lines = contents.split("\n");
         const partitions = this.getPartitions(lines.length);
 
         const clearPortion = lines.slice(
             partitions.clearPortion.start,
-            partitions.clearPortion.start + partitions.clearPortion.takeLines
+            partitions.clearPortion.start + partitions.clearPortion.takeLines,
         );
         // replace random non-whitespace characters with characters from scrambleCharacters
         const transitionPortion = lines.slice(
-            partitions.clearPortion.takeLines
+            partitions.clearPortion.takeLines,
         );
         console.log("clearPortion", clearPortion);
         console.log("transitionPortion", transitionPortion);
@@ -53,7 +53,7 @@ export class FileScramblerService {
                 (transitionPortion.length - lineNumber) /
                 transitionPortion.length;
 
-            const characters = [...line];
+            const characters = line.split("");
             const scrambledCharacters = characters.map((character) => {
                 // a regex to match whitespace - leave these alone
                 const whitespaceRegex = /\s/;
@@ -74,7 +74,7 @@ export class FileScramblerService {
                 }
 
                 const randomIndex = Math.floor(
-                    Math.random() * scrambleCharacters.length
+                    Math.random() * scrambleCharacters.length,
                 );
                 return scrambleCharacters[randomIndex];
             });
@@ -84,7 +84,6 @@ export class FileScramblerService {
         const result = [...clearPortion, ...scrambled].join("\n");
         console.log("result", result);
         const scrambleMessage =
-            // eslint-disable-next-line sonarjs/no-duplicate-string
             "\n#######################################################" +
             "\n#                       NOTICE                         " +
             "\n#######################################################" +
@@ -98,12 +97,12 @@ export class FileScramblerService {
     };
 
     trimCodeFile = (contents: string, demoUrl: string): string => {
-        const lines = contents?.split("\n");
+        const lines = contents.split("\n");
         const partitions = this.getPartitions(lines.length);
 
         const clearPortion = lines.slice(
             partitions.clearPortion.start,
-            partitions.clearPortion.start + partitions.clearPortion.takeLines
+            partitions.clearPortion.start + partitions.clearPortion.takeLines,
         );
         return (
             clearPortion.join("\n") +

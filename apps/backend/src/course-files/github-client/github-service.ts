@@ -29,6 +29,7 @@ export class GithubClientService {
             const result =
                 await this.clientInstance.rest.repos.addCollaborator(request);
             this.logger.debug({ result: result.data }, "add result data");
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (result.status !== 201) {
                 throw new Error(
                     `Failed to add collaborator ${request.username} to ${request.owner}/${request.repo}`,
@@ -52,6 +53,7 @@ export class GithubClientService {
         try {
             const ghResult =
                 await this.clientInstance.rest.repos.checkCollaborator(request);
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             const hasCollaborator = ghResult.status === 204;
             this.logger.debug(
                 { hasCollaborator, result: ghResult },
@@ -86,6 +88,7 @@ export class GithubClientService {
                     request,
                 );
             this.logger.debug({ result: result.data }, "remove result data");
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             return result.status === 204;
         } catch (error: any) {
             this.logger.error(error);

@@ -14,7 +14,7 @@ class PathMapperService {
         const decoded = Buffer.from(base64, "base64").toString("ascii");
 
         const joinedPath = path.join(rootPath, decoded);
-        if (joinedPath.indexOf(rootPath) !== 0) {
+        if (!joinedPath.startsWith(rootPath)) {
             // trying to break out of rootpath
             throw new Error("Invalid path detected");
         }

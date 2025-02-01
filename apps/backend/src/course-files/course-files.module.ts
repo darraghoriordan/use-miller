@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { CoreConfigModule, CoreModule } from "@darraghor/nest-backend-libs";
 import { Module } from "@nestjs/common";
 import { CourseFilesController } from "./controllers/course-files.controller.js";

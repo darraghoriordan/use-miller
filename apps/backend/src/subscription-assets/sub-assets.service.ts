@@ -11,22 +11,24 @@ export class SubscriptionAssetsService {
 
     constructor(
         @InjectRepository(SubscriptionAsset)
-        private subAssetRepo: Repository<SubscriptionAsset>
+        private subAssetRepo: Repository<SubscriptionAsset>,
     ) {}
 
     async deleteAsset(id: number): Promise<void> {
-        this.logger.debug(`Deleting subscription asset with id ${id}`);
+        this.logger.debug(
+            `Deleting subscription asset with id ${id.toString()}`,
+        );
         await this.subAssetRepo.delete({ id });
     }
     async saveAsset(
-        asset: SaveSubscriptionAssetDto
+        asset: SaveSubscriptionAssetDto,
     ): Promise<SubscriptionAsset> {
         this.logger.debug(`Saving subscription asset ${asset.internalSku}`);
         return this.subAssetRepo.save(asset);
     }
-    // eslint-disable-next-line @typescript-eslint/require-await
+
     async getSubscriptionAssets(
-        currentUser: RequestUser
+        currentUser: RequestUser,
     ): Promise<SubscriptionAsset[]> {
         return this.subAssetRepo.find({
             where: {

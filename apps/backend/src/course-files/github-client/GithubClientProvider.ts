@@ -6,9 +6,9 @@ export const OKTO_KIT = "OktokitClient";
 const logger = new Logger(OKTO_KIT);
 export const GithubClientProvider = {
     provide: OKTO_KIT,
+    // eslint-disable-next-line @typescript-eslint/require-await
     useFactory: async (
-        config: GithubClientConfigurationService
-        // eslint-disable-next-line @typescript-eslint/require-await
+        config: GithubClientConfigurationService,
     ): Promise<Octokit> => {
         const fullClient: Octokit = new Octokit({
             auth: config.accessToken,

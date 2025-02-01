@@ -1,4 +1,5 @@
-/* eslint-disable sonarjs/no-duplicate-string */
+/* eslint-disable @typescript-eslint/naming-convention */
+
 import { Injectable, NotFoundException } from "@nestjs/common";
 import path from "path";
 import fs from "fs";
@@ -11,9 +12,7 @@ import { FileVisibilityControlGuard } from "./file-visibility-guard.service.js";
 import { RequestUser } from "@darraghor/nest-backend-libs";
 
 export interface MatterResult {
-    data: {
-        [key: string]: unknown;
-    };
+    data: Record<string, unknown>;
     content: string;
     excerpt: string;
 }
@@ -22,7 +21,7 @@ export const firstQuarter = (
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     options: never,
 ): void => {
-    const lines = file.content?.split("\n");
+    const lines = file.content.split("\n");
     // for long docs a quarter is too much but less than 20 is too little
     const amountToTake = Math.max(
         Math.min(Math.floor(lines.length / 4), 20),
@@ -82,7 +81,7 @@ export class MarkdownFileService {
         const matterResult = matter(
             { content: fileContents },
             {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
                 excerpt: firstQuarter as any,
             },
         ) as MatterResult;
@@ -92,7 +91,7 @@ export class MarkdownFileService {
             demoPaths: projectMeta.demoPaths,
             productKey,
             isOpenSourceProject: projectMeta.isOpenSource,
-            lengthInLines: fileContents?.split("\n").length,
+            lengthInLines: fileContents.split("\n").length,
             maximumLines: 30,
             activeSubscriptionProductKeys: user?.activeSubscriptionProductKeys,
         });

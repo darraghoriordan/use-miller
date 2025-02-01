@@ -1,10 +1,10 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import { Injectable, NotFoundException } from "@nestjs/common";
 import path from "path";
 import fs from "fs";
 import { FileStructureDto } from "../dtos/FileStructureDto.js";
 import { FileMetaDto } from "../dtos/FileMetaDto.js";
 import { CoursesMetaService } from "./courses-meta.service.js";
+// eslint-disable-next-line @typescript-eslint/naming-convention
 import PathMapperService from "./pathMapper.service.js";
 import { CourseMetaDto } from "../dtos/CourseMetaDto.js";
 import { MarkdownFileService } from "./markdown-files.service.js";
@@ -33,9 +33,8 @@ export class CodeFilesService {
             courseMeta.rootLocation,
         );
 
-        const fileSystemNodes = await this.getSortedFileSystemNodes(
-            absolutePath,
-        );
+        const fileSystemNodes =
+            await this.getSortedFileSystemNodes(absolutePath);
         // and parse them
         for (const d of fileSystemNodes) {
             if (this.isIgnored(d.name)) continue;
@@ -116,7 +115,7 @@ export class CodeFilesService {
             name: projectMeta.rootNodeName,
             type: "folder",
             isOpen: true,
-            // eslint-disable-next-line unicorn/prefer-module
+
             fileLocation: "", // this is the root of the course
             children: [],
         };
@@ -217,7 +216,7 @@ export class CodeFilesService {
             projectMeta.rootLocation,
         );
         const nearestReadme =
-            this.findNearestReadme(fileLocation) || "README.md";
+            this.findNearestReadme(fileLocation) ?? "README.md";
 
         const fileContents = await this.readFromDisk(fileLocation);
         const fileName = path.basename(fileLocation);
@@ -232,7 +231,7 @@ export class CodeFilesService {
                 demoPaths: projectMeta.demoPaths,
                 fileLocation,
                 isOpenSourceProject: projectMeta.isOpenSource,
-                lengthInLines: fileContents?.split("\n").length,
+                lengthInLines: fileContents.split("\n").length,
                 activeSubscriptionProductKeys:
                     user?.activeSubscriptionProductKeys,
                 maximumLines: 8,

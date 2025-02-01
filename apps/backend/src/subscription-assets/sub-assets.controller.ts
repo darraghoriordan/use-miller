@@ -31,7 +31,7 @@ export class SubscriptionAssetsController {
     async getAssetsForOrg(
         @Request() request: RequestWithUser
     ): Promise<SubscriptionAsset[]> {
-        if (!request.user?.auth0UserId) {
+        if (!request.user.auth0UserId) {
             throw new Error("No user found on request");
         }
         return this.subAssetsService.getSubscriptionAssets(request.user);
@@ -45,7 +45,7 @@ export class SubscriptionAssetsController {
         @Body() asset: SaveSubscriptionAssetDto,
         @Request() request: RequestWithUser
     ): Promise<SubscriptionAsset> {
-        if (!request.user?.auth0UserId) {
+        if (!request.user.auth0UserId) {
             throw new Error("No user found on request");
         }
         return this.subAssetsService.saveAsset(asset);

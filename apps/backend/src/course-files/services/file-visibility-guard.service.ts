@@ -1,4 +1,4 @@
-/* eslint-disable sonarjs/no-duplicate-string */
+ 
 import { Injectable, Logger } from "@nestjs/common";
 import { minimatch } from "minimatch";
 
@@ -8,22 +8,22 @@ export class FileVisibilityControlGuard {
     shouldShowFullFile = ({
         fileLocation,
         demoPaths,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+         
         productKey,
         lengthInLines,
         maximumLines,
         isOpenSourceProject,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+         
         activeSubscriptionProductKeys,
     }: {
         fileLocation: string;
         demoPaths: string[];
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+         
         productKey: string;
         lengthInLines: number;
         maximumLines: number;
         isOpenSourceProject: boolean;
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+         
         activeSubscriptionProductKeys?: string[];
     }): boolean => {
         this.logger.debug(
@@ -58,7 +58,7 @@ export class FileVisibilityControlGuard {
 
         //otherwise some files are always visible e.g. "demo" areas
         const globs = demoPaths;
-        // eslint-disable-next-line sonarjs/prefer-immediate-return
+         
         const isMatch = globs.some((g) => minimatch(fileLocation, g));
         return isMatch;
     };
