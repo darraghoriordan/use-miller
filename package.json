@@ -5,15 +5,15 @@
     "private": true,
     "type": "module",
     "license": "UNLICENSED",
-    "packageManager": "pnpm@8.15.1",
+    "packageManager": "pnpm@10.4.1",
     "repository": {
         "type": "git",
         "url": "https://github.com/darraghoriordan/use-miller.git"
     },
     "author": "Use Miller",
     "engines": {
-        "node": ">=20.12.2",
-        "pnpm": ">=8.15.1"
+        "node": ">=22.14.0",
+        "pnpm": ">=10.4.1"
     },
     "scripts": {
         "clean": "rm -Rf ./dist/",
