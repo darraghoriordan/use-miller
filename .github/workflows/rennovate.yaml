@@ -26,7 +26,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
             - name: Self-hosted Renovate
-              uses: renovatebot/github-action@2e021d24483d81e77e0e902d0809adfbfff276fc # v40.1.10
+              uses: renovatebot/github-action@02f4fdeb479bbb229caa7ad82cb5e691c07e80b3 # v41.0.14
               env:
                   RENOVATE_REPOSITORIES: ${{ github.repository }}
                   RENOVATE_PLATFORM_COMMIT: "true"
