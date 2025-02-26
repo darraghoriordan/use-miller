@@ -22,13 +22,13 @@ jobs:
 
             - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
               with:
-                  node-version: "18"
+                  node-version-file: ".nvmrc"
 
             - uses: pnpm/action-setup@v2
               name: Install pnpm
               id: pnpm-install
               with:
-                  version: 8
+                  version: 9
                   run_install: false
             - name: Get pnpm store directory
               id: pnpm-cache

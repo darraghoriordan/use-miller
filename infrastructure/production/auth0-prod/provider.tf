@@ -8,11 +8,15 @@ terraform {
   # digital ocean spaces account and store your terraform state there safely
   # by doing a terraform init again
   backend "s3" {
-    endpoint                    = "https://sfo3.digitaloceanspaces.com/"
+    endpoints {
+      s3 = "https://sfo3.digitaloceanspaces.com/"
+    }
+
     bucket                      = "darragh-com"
     key                         = "miller-app-terraform-state/apps/use-miller-auth0-prod"
     region                      = "us-east-1"
     skip_credentials_validation = true
+    skip_requesting_account_id  = true
     skip_metadata_api_check     = true
     profile                     = "digitaloceanspaces-terraform"
   }
