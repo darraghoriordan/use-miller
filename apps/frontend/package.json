@@ -96,7 +96,7 @@
     },
     "devDependencies": {
         "@tailwindcss/postcss": "4.0.2",
-        "@types/node": "20.14.11",
+        "@types/node": "20.19.25",
         "tailwindcss": "4.0.0"
     }
 }

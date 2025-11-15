@@ -108,7 +108,7 @@
         "@types/eslint": "9.6.1",
         "@types/express": "5.0.0",
         "@types/jest": "29.5.14",
-        "@types/node": "20.14.11",
+        "@types/node": "20.19.25",
         "@types/nodemailer": "6.4.17",
         "@types/passport-jwt": "4.0.1",
         "@types/supertest": "6.0.2",

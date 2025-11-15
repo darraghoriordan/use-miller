@@ -21,7 +21,7 @@
         "@nrwl/node": "19.8.4",
         "@types/express": "5.0.0",
         "@types/jest": "29.5.14",
-        "@types/node": "20.14.11",
+        "@types/node": "20.19.25",
         "@types/node-fetch": "2.6.12",
         "@types/supertest": "6.0.2",
         "@typescript-eslint/eslint-plugin": "8.22.0",
