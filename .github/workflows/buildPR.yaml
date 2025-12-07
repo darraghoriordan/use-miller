@@ -8,11 +8,11 @@ jobs:
     buildTest:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
+            - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
               with:
                   fetch-depth: 0
                   persist-credentials: false
-            - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
+            - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
               with:
                   node-version-file: ".nvmrc"
 
@@ -20,14 +20,14 @@ jobs:
               name: Install pnpm
               id: pnpm-install
               with:
-                  version: 9
+                  version: 9.15.9
                   run_install: false
             - name: Get pnpm store directory
               id: pnpm-cache
               shell: bash
               run: |
                   echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-            - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
+            - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
               name: Setup pnpm cache
               with:
                   path: |
