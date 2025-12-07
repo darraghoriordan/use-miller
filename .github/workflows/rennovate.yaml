@@ -16,11 +16,12 @@ on:
     # Run a few times through the day to catch up with any decisions made in the issue
     # Run at odd times to avoid overlap with too many other workflows on GitHub Actions
     # note github actions cron is in UTC so this is 7:18am, 12:18pm, 15:18pm in AEST.
-    schedule:
-        - cron: "18 21,2,5 * * *"
+    # schedule:
+    #    - cron: "18 21,2,5 * * *"
 concurrency: renovate
 jobs:
     renovate:
+        if: false
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
