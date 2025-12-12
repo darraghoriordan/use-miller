@@ -41,7 +41,7 @@
         "@nestjs/common": "11.0.7",
         "@nestjs/config": "4.0.0",
         "@nestjs/core": "11.0.7",
-        "@nestjs/devtools-integration": "0.2.0",
+        "@nestjs/devtools-integration": "0.2.1",
         "@nestjs/passport": "11.0.5",
         "@nestjs/platform-express": "11.0.7",
         "@nestjs/swagger": "11.0.3",
