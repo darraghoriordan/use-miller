@@ -24,18 +24,21 @@ RUN pnpm install --offline
 FROM with_all_deps as builder
 RUN pnpm --filter='*backend-api' build
 RUN pnpm --filter='*backend-api' deploy pruned --prod
-# get the latest code files
-RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan -H github.com ghNestBackend ghMacSetup ghMiller >>~/.ssh/known_hosts
-# COPY ./libs/project-deploy/sshConfig.txt ~/.ssh/config
+# get the latest code files via HTTPS using GitHub token
 RUN mkdir -p /app/code-repos
 WORKDIR /app/code-repos
 
-RUN --mount=type=ssh,id=nestbackend git clone git@github.com:darraghoriordan/nest-backend-libs.git
-RUN rm -rf /app/code-repos/nest-backend-libs/.git
-RUN --mount=type=ssh,id=macsetup git clone git@github.com:darraghoriordan/mac-setup-script.git
-RUN rm -rf /app/code-repos/mac-setup-script/.git
-RUN --mount=type=ssh,id=usemiller git clone git@github.com:darraghoriordan/use-miller.git
-RUN rm -rf /app/code-repos/use-miller/.git
+RUN --mount=type=secret,id=github_token \
+    git clone https://$(cat /run/secrets/github_token)@github.com/darraghoriordan/nest-backend-libs.git && \
+    rm -rf /app/code-repos/nest-backend-libs/.git
+
+RUN --mount=type=secret,id=github_token \
+    git clone https://$(cat /run/secrets/github_token)@github.com/darraghoriordan/mac-setup-script.git && \
+    rm -rf /app/code-repos/mac-setup-script/.git
+
+RUN --mount=type=secret,id=github_token \
+    git clone https://$(cat /run/secrets/github_token)@github.com/darraghoriordan/use-miller.git && \
+    rm -rf /app/code-repos/use-miller/.git
 
 # Lean production image - only take pruned assets
 FROM node:21.7.3-alpine AS runner
