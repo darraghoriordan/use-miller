@@ -1,12 +1,15 @@
 module.exports = {
-    extends: ["plugin:@next/next/recommended", "plugin:tailwind/recommended"],
-    settings: {
-        next: {
-            rootDir: "apps/marketing/",
+    extends: ["next/core-web-vitals"],
+    parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: "module",
+        ecmaFeatures: {
+            jsx: true,
         },
     },
     rules: {
-        "@typescript-eslint/require-await": "error",
+        "@typescript-eslint/require-await": "off",
+        "react/no-unescaped-entities": "off",
     },
     ignorePatterns: [],
 };

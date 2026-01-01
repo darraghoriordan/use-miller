@@ -2,6 +2,38 @@ import { User } from "@use-miller/shared-api-client";
 import React from "react";
 import { useFormattedDate } from "../../hooks/useFormattedDate.js";
 
+const UserRow = ({ user }: { user: User }) => {
+    const createdDate = useFormattedDate(user.createdDate);
+
+    return (
+        <tr>
+            <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
+                {user.id}
+            </td>
+            <td className="py-4 pl-6 pr-3 text-sm font-medium text-white whitespace-nowrap sm:pl-0">
+                {user.givenName}
+            </td>
+            <td className="py-4 pl-6 pr-3 text-sm font-medium text-white whitespace-nowrap sm:pl-0">
+                {user.familyName}
+            </td>
+
+            <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
+                {user.email}
+            </td>
+            <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
+                {createdDate}
+            </td>
+
+            <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
+                {user.uuid}
+            </td>
+            <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
+                {user.auth0UserId}
+            </td>
+        </tr>
+    );
+};
+
 const UsersSuperAdmin = ({
     allUsers,
     title,
@@ -66,38 +98,9 @@ const UsersSuperAdmin = ({
                             </thead>
                             <tbody className="divide-y divide-gray-200">
                                 {allUsers &&
-                                    allUsers.map((user) => {
-                                        const createdDate = useFormattedDate(
-                                            user.createdDate
-                                        );
-                                        return (
-                                            <tr key={user.id}>
-                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
-                                                    {user.id}
-                                                </td>
-                                                <td className="py-4 pl-6 pr-3 text-sm font-medium text-white whitespace-nowrap sm:pl-0">
-                                                    {user.givenName}
-                                                </td>
-                                                <td className="py-4 pl-6 pr-3 text-sm font-medium text-white whitespace-nowrap sm:pl-0">
-                                                    {user.familyName}
-                                                </td>
-
-                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
-                                                    {user.email}
-                                                </td>
-                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
-                                                    {createdDate}
-                                                </td>
-
-                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
-                                                    {user.uuid}
-                                                </td>
-                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
-                                                    {user.auth0UserId}
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
+                                    allUsers.map((user) => (
+                                        <UserRow key={user.id} user={user} />
+                                    ))}
                             </tbody>
                         </table>
                     </div>

@@ -1,5 +1,4 @@
 // TODO: @mapbox/rehype-prism does not have typescript definition
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import rehypePrism from "@mapbox/rehype-prism";
 import fs from "fs";

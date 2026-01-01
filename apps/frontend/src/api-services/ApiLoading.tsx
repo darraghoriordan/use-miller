@@ -1,4 +1,3 @@
-/* eslint-disable tailwind/class-order */
 import * as React from "react";
 
 type ApiLoadingProps = {

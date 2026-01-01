@@ -64,6 +64,43 @@ const CustomerLink = ({ sp }: { sp: OrganisationSubscriptionRecord }) => {
     return <>{sp.paymentSystemCustomerId}</>;
 };
 
+const OrgSubRow = ({ sp }: { sp: OrganisationSubscriptionRecord }) => {
+    const createdDate = useFormattedDate(sp.createdDate);
+    const validUntil = useFormattedDate(sp.validUntil);
+
+    return (
+        <tr>
+            <td className="py-4 pl-6 pr-3 text-sm font-medium text-white whitespace-nowrap sm:pl-0">
+                {createdDate}
+            </td>
+            <td className="py-4 pl-6 pr-3 text-sm font-medium text-white whitespace-nowrap sm:pl-0">
+                {validUntil}
+            </td>
+            <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
+                {sp.productDisplayName}
+            </td>
+            <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
+                {sp.paymentSystemCustomerEmail}
+            </td>
+            <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
+                <CustomerLink sp={sp} />
+            </td>
+            <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
+                {sp.paymentSystemMode}
+            </td>
+            <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
+                {sp.paymentSystemName}
+            </td>
+            <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
+                <ProductLink sp={sp} />
+            </td>
+            <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
+                <TransactionLink sp={sp} />
+            </td>
+        </tr>
+    );
+};
+
 const OrgSubsSuperAdmin = ({
     allSubs,
     title,
@@ -139,47 +176,9 @@ const OrgSubsSuperAdmin = ({
                             </thead>
                             <tbody className="divide-y divide-gray-200">
                                 {allSubs &&
-                                    allSubs.map((sp) => {
-                                        const createdDate = useFormattedDate(
-                                            sp.createdDate
-                                        );
-                                        const validUntil = useFormattedDate(
-                                            sp.validUntil
-                                        );
-                                        return (
-                                            <tr key={sp.id}>
-                                                <td className="py-4 pl-6 pr-3 text-sm font-medium text-white whitespace-nowrap sm:pl-0">
-                                                    {createdDate}
-                                                </td>
-                                                <td className="py-4 pl-6 pr-3 text-sm font-medium text-white whitespace-nowrap sm:pl-0">
-                                                    {validUntil}
-                                                </td>
-                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
-                                                    {sp.productDisplayName}
-                                                </td>
-                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
-                                                    {
-                                                        sp.paymentSystemCustomerEmail
-                                                    }
-                                                </td>
-                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
-                                                    <CustomerLink sp={sp} />
-                                                </td>
-                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
-                                                    {sp.paymentSystemMode}
-                                                </td>
-                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
-                                                    {sp.paymentSystemName}
-                                                </td>
-                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
-                                                    <ProductLink sp={sp} />
-                                                </td>
-                                                <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
-                                                    <TransactionLink sp={sp} />
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
+                                    allSubs.map((sp) => (
+                                        <OrgSubRow key={sp.id} sp={sp} />
+                                    ))}
                             </tbody>
                         </table>
                     </div>

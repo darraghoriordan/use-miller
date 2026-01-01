@@ -1,6 +1,6 @@
 module.exports = {
     plugins: {
-        "@tailwindcss/postcss": {},
+        tailwindcss: {},
         "postcss-focus-visible": {
             replaceWith: "[data-focus-visible-added]",
         },

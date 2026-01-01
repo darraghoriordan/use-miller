@@ -1,6 +1,6 @@
-@import 'tailwindcss';
-
-@config '../../tailwind.config.js';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
@@ -11,13 +11,13 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
 }
 
 #__next {
@@ -33,7 +33,7 @@
 }
 
 .selected-node-wrapper {
-    @apply bg-zinc-700! rounded-md text-white;
+    @apply !bg-zinc-700 rounded-md text-white;
 }
 
 .selected-node-wrapper:focus-within {

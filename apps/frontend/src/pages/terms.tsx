@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Container } from "../components/Container.jsx";
 import Layout from "../components/Layout.jsx";
 
@@ -20,30 +21,30 @@ export default function Home() {
                     <ul>
                         <li>
                             Miller Start -{" "}
-                            <a
+                            <Link
                                 href="/docs/miller-start/support/license-terms"
                                 className=""
                             >
                                 License Terms
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             Dev Shell -{" "}
-                            <a
+                            <Link
                                 href="/docs/dev-shell/support/license-terms"
                                 className=""
                             >
                                 License Terms
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             Local Dev Tools -{" "}
-                            <a
+                            <Link
                                 href="/docs/local-dev-tools/support/license-terms"
                                 className=""
                             >
                                 License Terms
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </article>
