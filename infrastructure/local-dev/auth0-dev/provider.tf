@@ -1,7 +1,8 @@
 terraform {
   required_providers {
     auth0 = {
-      source = "auth0/auth0"
+      source  = "auth0/auth0"
+      version = "~> 1.37.0"
     }
   }
   # You don't need this if you're a solo dev. When you're ready you can create a

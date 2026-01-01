@@ -1,7 +1,8 @@
 terraform {
   required_providers {
     dokku = {
-      source = "aaronstillwell/dokku"
+      source  = "aaronstillwell/dokku"
+      version = "~> 0.5.3"
     }
   }
   # You don't need this if you're a solo dev. When you're ready you can create a
