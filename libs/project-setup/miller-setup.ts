@@ -41,6 +41,7 @@ export type StripeTerraformInputVariables = {
     app_stripe_customer_portal_return_url: { value: string };
     app_stripe_webhook_url: { value: string };
     app_stripe_webhook_verification_key: { value: string };
+    app_stripe_fulfilment_gh_token: { value: string };
 };
 export type StripeTerraformOutputVariables = {
     regular_price_id: { value: string };
@@ -67,6 +68,7 @@ if (fs.existsSync("./libs/project-setup/miller-settings.json")) {
 // now ask the user for the project name
 const answers = await inquirer.default.prompt([
     {
+        type: "input",
         name: "projectName",
         message: "What is the name of the project?",
         default: millerSettings.projectName,
@@ -80,6 +82,7 @@ const answers = await inquirer.default.prompt([
         },
     },
     {
+        type: "input",
         name: "terraformSpacesBucket",
         message: "What is the name of the s3/spaces store?",
         default: millerSettings.terraformSpacesBucket,
@@ -358,6 +361,17 @@ const stripeTfRunParams: TerraformVariablesMapperParams<StripeTerraformInputVari
                     if (input.length < 1) {
                         return "Enter the return url for the customer portal";
                     }
+                    if (input.includes(" ")) {
+                        return "Cannot contain spaces";
+                    }
+                    return true;
+                },
+            },
+            {
+                name: "app_stripe_fulfilment_gh_token",
+                default: "",
+                validate: (input) => {
+                    console.log(input);
                     if (input.includes(" ")) {
                         return "Cannot contain spaces";
                     }

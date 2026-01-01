@@ -11,6 +11,7 @@ export type TerraformVariablesMapperParams<T> = {
         name: keyof T;
         default: string;
         validate: (input: any) => boolean | string;
+        message?: string;
     }[];
 };
 // prettier-ignore
@@ -58,17 +59,19 @@ const runTfEnvVarMapping = async <T,U,>(
         existingVariableValues = newInitVars;
     }
 
-    const cliInputAnswers:T = await inquirer.default.prompt(
+    const cliInputAnswers = await inquirer.default.prompt(
         params.variables.map((variable) => {
             if (!existingVariableValues[variable.name]?.value){
                 console.log(chalk.yellowBright(`Variable ${String(variable.name)} not found. Using default value: ${variable.default}`))
             }
             return {
-            name: variable.name,
+            type: "input" as const,
+            name: variable.name as string,
+            message: variable.message ?? `Enter value for ${String(variable.name)}:`,
             default: existingVariableValues[variable.name]?.value ?? variable.default,
             validate: variable.validate,
         }})
-    );
+    ) as T;
 
     // the as here is a bit of a hack but the object is so generic it's not a big deal
     writeTerraformVariables(params.terraformVariablesPath, cliInputAnswers as { [key: string]: string; });
