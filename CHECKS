@@ -2,4 +2,4 @@ WAIT=30
 TIMEOUT=60
 ATTEMPTS=3
 
-/   Healthy and running
+/
