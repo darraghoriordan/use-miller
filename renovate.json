@@ -1,7 +1,7 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": ["github>darraghoriordan/renovate-config:base"],
-    "baseBranches": ["main"],
+    "baseBranchPatterns": ["main"],
     "packageRules": [
         {
             "description": "Pin tailwindcss to v3.x until Next.js fully supports v4 - remove this rule when upgrading to Next.js 15+",
