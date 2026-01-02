@@ -46,6 +46,3 @@ export const getAuthenticatedApiInstance = ({
     apiClient.use(authMiddleware);
     return apiClient;
 };
-
-// Type export for the API client
-export type ApiClient = ReturnType<typeof getAnonymousApiInstance>;

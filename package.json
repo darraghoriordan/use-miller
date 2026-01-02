@@ -15,7 +15,6 @@
         "node": ">=20.12.2",
         "pnpm": ">=10.27.0"
     },
-
     "scripts": {
         "clean": "rm -Rf ./dist/",
         "build": "pnpm run -r --parallel --filter=!*{backend-e2e,frontend}* build",
@@ -38,6 +37,8 @@
     "dependencies": {
         "@commitlint/cli": "20.3.0",
         "@commitlint/config-conventional": "20.3.0",
+        "@commitlint/format": "20.2.0",
+        "conventional-changelog-conventionalcommits": "9.1.0",
         "@semantic-release/exec": "7.1.0",
         "@types/node": "25.0.3",
         "@typescript-eslint/eslint-plugin": "8.51.0",
@@ -57,7 +58,6 @@
         "ts-node": "10.9.2",
         "typescript": "5.9.3"
     },
-
     "release": {
         "branches": [
             "main"

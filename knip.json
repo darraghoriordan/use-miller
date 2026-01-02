@@ -1,0 +1,117 @@
+{
+    "$schema": "https://unpkg.com/knip@5/schema.json",
+    "ignoreUnresolved": ["./preRun.ts", "./testing/preRun.ts"],
+    "workspaces": {
+        ".": {
+            "ignoreDependencies": [
+                "dotenv",
+                "eslint",
+                "eslint-config-prettier",
+                "lerna",
+                "nx",
+                "ts-node",
+                "@semantic-release/exec",
+                "@typescript-eslint/eslint-plugin",
+                "@typescript-eslint/parser"
+            ]
+        },
+        "apps/backend": {
+            "entry": [
+                "src/main.ts",
+                "src/instrumentation.ts",
+                "src/testing/preRun.ts",
+                "migrations/*.ts"
+            ],
+            "project": ["src/**/*.ts", "migrations/**/*.ts"],
+            "ignoreBinaries": ["stripe"],
+            "ignoreDependencies": [
+                "@babel/core",
+                "@keyv/redis",
+                "@nestjs/devtools-integration",
+                "@opentelemetry/exporter-trace-otlp-http",
+                "@opentelemetry/host-metrics",
+                "@opentelemetry/instrumentation-express",
+                "@opentelemetry/instrumentation-nestjs-core",
+                "@opentelemetry/instrumentation-pino",
+                "@opentelemetry/sdk-trace-base",
+                "@opentelemetry/sdk-trace-node",
+                "auth0",
+                "axios",
+                "date-fns",
+                "dotenv",
+                "express",
+                "jwks-rsa",
+                "nodemailer",
+                "passport",
+                "passport-jwt",
+                "rehype-document",
+                "swagger-ui-express",
+                "to-vfile",
+                "webpack",
+                "@nestjs/testing",
+                "supertest",
+                "ts-loader",
+                "tsconfig-paths",
+                "@eslint/eslintrc",
+                "@types/auth0",
+                "@types/eslint",
+                "@types/express",
+                "@types/nodemailer",
+                "@types/passport-jwt",
+                "@types/supertest",
+                "@types/unist",
+                "eslint-plugin-import",
+                "eslint-plugin-jsdoc",
+                "eslint-plugin-promise"
+            ]
+        },
+        "apps/backend-e2e": {
+            "entry": ["src/**/*.e2e-spec.ts", "src/preRun.ts"],
+            "project": ["src/**/*.ts"],
+            "ignoreDependencies": [
+                "@types/express",
+                "@types/node-fetch",
+                "@types/supertest",
+                "nx",
+                "ts-loader",
+                "ts-node",
+                "tsconfig-paths"
+            ]
+        },
+        "apps/frontend": {
+            "ignoreDependencies": [
+                "@babel/core",
+                "@babel/plugin-syntax-flow",
+                "@babel/plugin-transform-react-jsx",
+                "@opentelemetry/context-zone",
+                "@opentelemetry/sdk-trace-node",
+                "@typescript-eslint/eslint-plugin",
+                "@typescript-eslint/parser",
+                "eslint-plugin-import",
+                "eslint-plugin-jsx-a11y",
+                "eslint-plugin-react",
+                "eslint-plugin-react-hooks",
+                "nx",
+                "sharp",
+                "to-vfile",
+                "tslib",
+                "@eslint/eslintrc",
+                "@eslint/js",
+                "@next/eslint-plugin-next"
+            ]
+        },
+        "libs/project-setup": {
+            "entry": ["miller-setup.ts", "setup-terraform-project.ts"],
+            "project": ["*.ts"],
+            "ignoreDependencies": [
+                "@babel/core",
+                "@babel/preset-env",
+                "@babel/preset-typescript",
+                "@types/figlet",
+                "@types/inquirer",
+                "vite"
+            ]
+        }
+    },
+    "ignoreExportsUsedInFile": true
+}
