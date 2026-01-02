@@ -137,19 +137,16 @@ variable "app_stripe_redirects_base_url" {
 variable "frontend_app_auth0_secret" {
   type = string
 }
-variable "frontend_app_auth0_base_url" {
+variable "frontend_app_base_url" {
   type = string
 }
-variable "frontend_app_auth0_issuer_base_url" {
+variable "frontend_app_auth0_domain" {
   type = string
 }
 variable "frontend_app_auth0_client_secret" {
   type = string
 }
 variable "frontend_app_auth0_client_id" {
-  type = string
-}
-variable "frontend_app_auth0_scope" {
   type = string
 }
 variable "frontend_app_auth0_audience" {
