@@ -23,7 +23,7 @@ services:
             - PGDATA=/var/lib/postgresql/data/pgdata
     redis:
         container_name: ${COMPOSE_PROJECT_NAME}_redis
-        image: redis:7-alpine
+        image: redis:8-alpine
         restart: "no"
         deploy:
             resources:
