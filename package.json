@@ -15,6 +15,7 @@
         "node": ">=20.12.2",
         "pnpm": ">=10.27.0"
     },
+
     "scripts": {
         "clean": "rm -Rf ./dist/",
         "build": "pnpm run -r --parallel --filter=!*{backend-e2e,frontend}* build",
@@ -56,6 +57,7 @@
         "ts-node": "10.9.2",
         "typescript": "5.9.3"
     },
+
     "release": {
         "branches": [
             "main"
