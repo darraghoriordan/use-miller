@@ -29,7 +29,7 @@
         "dotenv": "17.2.3",
         "figlet": "1.9.4",
         "globby": "16.1.0",
-        "inquirer": "12.6.0",
+        "inquirer": "13.1.0",
         "vitest": "4.0.16"
     }
 }
