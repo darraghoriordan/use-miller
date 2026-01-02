@@ -1,15 +1,8 @@
 import type { NextRequest } from "next/server";
-import { auth0 } from "./src/lib/auth0";
+import { auth0 } from "./lib/auth0";
 
-export async function middleware(request: NextRequest) {
-    const authRes = await auth0.middleware(request);
-
-    // Let the Auth0 SDK handle /auth routes
-    if (request.nextUrl.pathname.startsWith("/auth")) {
-        return authRes;
-    }
-
-    return authRes;
+export default async function proxy(request: NextRequest) {
+    return await auth0.middleware(request);
 }
 
 export const config = {
