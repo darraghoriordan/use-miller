@@ -6,7 +6,7 @@
                 "name": "frontend health check",
                 "path": "/",
                 "attempts": 3,
-                "wait": 30,
+                "initialDelay": 30,
                 "timeout": 60
             }
         ]

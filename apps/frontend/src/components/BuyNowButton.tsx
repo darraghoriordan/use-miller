@@ -1,9 +1,9 @@
 import type { components } from "../shared/types/api-specs";
 type UserDto = components["schemas"]["UserDto"];
 import clsx from "clsx";
-import { ThemeColor } from "../styles/themeColors.js";
-import StyledButton from "./StyledButton.jsx";
-import { useGetPaymentLink } from "../hooks/useGetPaymentLink.js";
+import { ThemeColor } from "../styles/themeColors";
+import StyledButton from "./StyledButton";
+import { useGetPaymentLink } from "../hooks/useGetPaymentLink";
 
 // might pass this in as a param later
 const productMapping = [

@@ -6,7 +6,7 @@ import docsImage from "./intro-media/docs.png";
 import Image from "next/image";
 import type { components } from "../../shared/types/api-specs";
 type UserDto = components["schemas"]["UserDto"];
-import { BuyNowButton } from "../../components/BuyNowButton.jsx";
+import { BuyNowButton } from "../../components/BuyNowButton";
 
 export function Hero({ user }: { user: UserDto }) {
     const features = [

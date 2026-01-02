@@ -2,7 +2,7 @@ import { Container } from "../../components/Container";
 import type { components } from "../../shared/types/api-specs";
 type UserDto = components["schemas"]["UserDto"];
 import { CheckIcon } from "@heroicons/react/24/outline";
-import { SignUpBuyNowButton } from "../../components/SignupBuyNow.jsx";
+import { SignUpBuyNowButton } from "../../components/SignupBuyNow";
 
 const buyBenefits = [
     "Mac and Windows dev environment setup in 1 command",

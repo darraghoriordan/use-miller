@@ -1,14 +1,13 @@
-import { MenuSection } from "../../components/LeftMenu.jsx";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { MenuSection } from "../../components/LeftMenu";
 import type { components } from "../../shared/types/api-specs";
-import { LeftMenuWrappedContent } from "../../components/LeftMenuWrappedContent.jsx";
-import { superUserGetPaymentData } from "../../super-admin/services/superAdminData.js";
-import PaymentEventsSuperAdmin from "../../super-admin/components/PaymentEventsSuperAdmin.jsx";
+import { LeftMenuWrappedContent } from "../../components/LeftMenuWrappedContent";
+import { superUserGetPaymentData } from "../../super-admin/services/superAdminData";
+import PaymentEventsSuperAdmin from "../../super-admin/components/PaymentEventsSuperAdmin";
+import { auth0 } from "../../lib/auth0";
 
 type StripeCheckoutEvent = components["schemas"]["StripeCheckoutEvent"];
 
-export const getServerSideProps = withPageAuthRequired({
-    // returnTo: '/unauthorized',
+export const getServerSideProps = auth0.withPageAuthRequired({
     getServerSideProps: superUserGetPaymentData,
 });
 

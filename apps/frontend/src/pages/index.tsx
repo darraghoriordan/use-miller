@@ -1,6 +1,6 @@
 import { Hero } from "../marketing-pages/index-home/Hero";
-import Layout from "../components/Layout.jsx";
-import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps.js";
+import Layout from "../components/Layout";
+import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps";
 import type { components } from "../shared/types/api-specs";
 
 type UserDto = components["schemas"]["UserDto"];

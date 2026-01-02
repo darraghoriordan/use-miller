@@ -1,21 +1,24 @@
-import { getAccessToken } from "@auth0/nextjs-auth0";
 import { GetServerSidePropsContext, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { getAuthenticatedApiInstance } from "../../api-services/apiInstanceFactories.js";
+import { getAuthenticatedApiInstance } from "../../api-services/apiInstanceFactories";
+import { auth0 } from "../../lib/auth0";
 
-const superUserScopes = ["openid", "email", "profile", "offline_access"];
 export async function superUserGetUserData(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
-    const atResponse = await getAccessToken(context.req, context.res, {
-        scopes: superUserScopes,
-        authorizationParams: {
-            audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
-        },
-    });
+    const accessToken = await auth0.getAccessToken(context.req, context.res);
+    if (!accessToken?.token) {
+        return {
+            redirect: {
+                destination: "/auth/login",
+                permanent: false,
+            },
+        };
+    }
+
     const apiClient = getAuthenticatedApiInstance({
         apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-        authToken: atResponse.accessToken!,
+        authToken: accessToken.token,
         fetchApi: fetch,
     });
 
@@ -77,12 +80,19 @@ export const createMenu = () => {
 export async function superUserGetPaymentData(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
-    const atResponse = await getAccessToken(context.req, context.res, {
-        scopes: superUserScopes,
-    });
+    const accessToken = await auth0.getAccessToken(context.req, context.res);
+    if (!accessToken?.token) {
+        return {
+            redirect: {
+                destination: "/auth/login",
+                permanent: false,
+            },
+        };
+    }
+
     const apiClient = getAuthenticatedApiInstance({
         apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-        authToken: atResponse.accessToken!,
+        authToken: accessToken.token,
         fetchApi: fetch,
     });
 
@@ -118,12 +128,19 @@ export async function superUserGetPaymentData(
 export async function superUserGetSubscriptionsData(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
-    const atResponse = await getAccessToken(context.req, context.res, {
-        scopes: superUserScopes,
-    });
+    const accessToken = await auth0.getAccessToken(context.req, context.res);
+    if (!accessToken?.token) {
+        return {
+            redirect: {
+                destination: "/auth/login",
+                permanent: false,
+            },
+        };
+    }
+
     const apiClient = getAuthenticatedApiInstance({
         apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-        authToken: atResponse.accessToken!,
+        authToken: accessToken.token,
         fetchApi: fetch,
     });
 

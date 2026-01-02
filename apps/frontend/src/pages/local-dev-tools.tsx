@@ -1,9 +1,9 @@
 import { Hero } from "../marketing-pages/local-dev-tools/Hero";
-import Layout from "../components/Layout.jsx";
+import Layout from "../components/Layout";
 import { Pricing } from "../marketing-pages/local-dev-tools/Pricing";
 import type { components } from "../shared/types/api-specs";
-import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps.js";
-import { Container } from "../components/Container.jsx";
+import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps";
+import { Container } from "../components/Container";
 
 type UserDto = components["schemas"]["UserDto"];
 

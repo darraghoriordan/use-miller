@@ -1,5 +1,5 @@
 import { CheckIcon } from "@heroicons/react/24/outline";
-import { GoToGithub } from "../../components/GoToGithub.jsx";
+import { GoToGithub } from "../../components/GoToGithub";
 
 export function FreePrice({
     title,

@@ -1,9 +1,9 @@
 import { Hero } from "../marketing-pages/miller-start-home/Hero-learner";
-import Layout from "../components/Layout.jsx";
+import Layout from "../components/Layout";
 import { Pricing } from "../marketing-pages/miller-start-home/Pricing";
-import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps.js";
+import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps";
 import type { components } from "../shared/types/api-specs";
-import { Container } from "../components/Container.jsx";
+import { Container } from "../components/Container";
 
 type UserDto = components["schemas"]["UserDto"];
 

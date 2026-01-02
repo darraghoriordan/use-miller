@@ -1,5 +1,5 @@
-import { getAnonymousApiInstance } from "../../api-services/apiInstanceFactories.js";
-import { ApiOptions } from "../../api-services/ApiOptions.js";
+import { getAnonymousApiInstance } from "../../api-services/apiInstanceFactories";
+import { ApiOptions } from "../../api-services/ApiOptions";
 import type { components } from "../../shared/types/api-specs";
 
 type CourseMetaDto = components["schemas"]["CourseMetaDto"];

@@ -7,7 +7,7 @@ import Image from "next/image";
 import type { components } from "../../shared/types/api-specs";
 type UserDto = components["schemas"]["UserDto"];
 import { CheckIcon } from "@heroicons/react/24/outline";
-import { GithubLink } from "../index-home/SingleProductCard.jsx";
+import { GithubLink } from "../index-home/SingleProductCard";
 const version = "1.73.5";
 const winArm64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.exe`;
 const macArm64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.dmg`;

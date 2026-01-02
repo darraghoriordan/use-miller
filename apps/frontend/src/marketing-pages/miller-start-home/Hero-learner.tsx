@@ -7,7 +7,7 @@ import Image from "next/image";
 import type { components } from "../../shared/types/api-specs";
 type UserDto = components["schemas"]["UserDto"];
 import { CheckIcon } from "@heroicons/react/24/outline";
-import { GithubLink } from "../index-home/SingleProductCard.jsx";
+import { GithubLink } from "../index-home/SingleProductCard";
 
 export function Hero({ user }: { user: UserDto }) {
     const features = [

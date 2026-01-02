@@ -1,29 +1,33 @@
-import { getAccessToken, withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getAuthenticatedApiInstance } from "../../../api-services/apiInstanceFactories.js";
+import { getAuthenticatedApiInstance } from "../../../api-services/apiInstanceFactories";
 import type { components } from "../../../shared/types/api-specs";
+import { auth0 } from "../../../lib/auth0";
 
 type StripeCheckoutSessionRequestDto =
     components["schemas"]["StripeCheckoutSessionRequestDto"];
 
-export default withApiAuthRequired(getStripeCheckoutLink);
-
-export async function getStripeCheckoutLink(
+export default async function getStripeCheckoutLink(
     req: NextApiRequest,
     res: NextApiResponse,
 ) {
     try {
+        const session = await auth0.getSession(req);
+        if (!session) {
+            res.status(401).json({ error: "Not authenticated" });
+            return;
+        }
+
+        const accessToken = await auth0.getAccessToken(req, res);
+        if (!accessToken?.token) {
+            res.status(401).json({ error: "No access token" });
+            return;
+        }
+
         const requestBody = req.body as StripeCheckoutSessionRequestDto;
 
-        const atResponse = await getAccessToken(req, res, {
-            scopes: ["openid", "email", "profile", "offline_access"],
-        });
-        if (!atResponse.accessToken) {
-            throw new Error("No access token");
-        }
         const apiClient = getAuthenticatedApiInstance({
             apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-            authToken: atResponse.accessToken!,
+            authToken: accessToken.token,
             fetchApi: fetch,
         });
 

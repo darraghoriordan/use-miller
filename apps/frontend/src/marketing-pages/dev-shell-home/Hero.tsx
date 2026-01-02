@@ -6,7 +6,7 @@ import exaImage from "./intro-media/exa.png";
 import Image from "next/image";
 import type { components } from "../../shared/types/api-specs";
 type UserDto = components["schemas"]["UserDto"];
-import { TwitterCTA } from "../components/TwitterCTA.jsx";
+import { TwitterCTA } from "../components/TwitterCTA";
 import { CheckIcon } from "@heroicons/react/24/outline";
 
 export function Hero({ user }: { user: UserDto }) {

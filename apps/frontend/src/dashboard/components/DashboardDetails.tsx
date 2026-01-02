@@ -4,9 +4,9 @@ type OrganisationSubscriptionRecord =
     components["schemas"]["OrganisationSubscriptionRecord"];
 type SubscriptionAsset = components["schemas"]["SubscriptionAsset"];
 type UserDto = components["schemas"]["UserDto"];
-import { GithubUserForm } from "./GithubUserForm.jsx";
-import NoSubscriptions from "./NoSubscriptions.jsx";
-import { Subscriptions } from "./Subscriptions.jsx";
+import { GithubUserForm } from "./GithubUserForm";
+import NoSubscriptions from "./NoSubscriptions";
+import { Subscriptions } from "./Subscriptions";
 
 export const DashboardDetails = ({
     currentOrg,

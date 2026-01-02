@@ -2,11 +2,11 @@ import {
     FullDoc,
     getSinglePost,
     getStaticDocsPageSlugs,
-} from "../../../../docs/docParser.js";
-import { createMenu, mapTitles } from "../../../../docs/leftMenuGeneration.js";
-import { DocArticle } from "../../../../docs/components/DocArticle.jsx";
-import { MenuSection } from "../../../../components/LeftMenu.jsx";
-import { LeftMenuWrappedContent } from "../../../../components/LeftMenuWrappedContent.jsx";
+} from "../../../../docs/docParser";
+import { createMenu, mapTitles } from "../../../../docs/leftMenuGeneration";
+import { DocArticle } from "../../../../docs/components/DocArticle";
+import { MenuSection } from "../../../../components/LeftMenu";
+import { LeftMenuWrappedContent } from "../../../../components/LeftMenuWrappedContent";
 import { GetStaticPaths, GetStaticPathsContext } from "next";
 
 export async function getStaticProps({

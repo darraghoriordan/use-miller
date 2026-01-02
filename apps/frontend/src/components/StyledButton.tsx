@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { PropsWithChildren } from "react";
-import { colorVariants, ThemeColor } from "../styles/themeColors.js";
+import { colorVariants, ThemeColor } from "../styles/themeColors";
 
 const StyledButton = ({
     onClick,

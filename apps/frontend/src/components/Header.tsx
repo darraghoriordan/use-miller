@@ -4,10 +4,11 @@ import { Popover, Transition } from "@headlessui/react";
 import clsx from "clsx";
 import { Container } from "./Container";
 import { NavLink } from "./NavLink";
-import { UserProfile, useUser } from "@auth0/nextjs-auth0/client";
-import { colorVariants, ThemeColor } from "../styles/themeColors.js";
-import StyledHref from "./StyledHref.jsx";
-import { getSignUpUrl } from "./signupUrl.js";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { User } from "@auth0/nextjs-auth0/types";
+import { colorVariants, ThemeColor } from "../styles/themeColors";
+import StyledHref from "./StyledHref";
+import { getSignUpUrl } from "./signupUrl";
 import {
     ChevronDownIcon,
     CommandLineIcon,
@@ -63,7 +64,7 @@ export const MobileNavigation = ({
     signUpUri,
     docsPath,
 }: {
-    user: UserProfile | undefined;
+    user: User | undefined | null;
     productKey?: string;
     signUpUri: string;
     docsPath: string;

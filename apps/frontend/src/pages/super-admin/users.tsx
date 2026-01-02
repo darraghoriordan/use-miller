@@ -1,14 +1,13 @@
-import { MenuSection } from "../../components/LeftMenu.jsx";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { MenuSection } from "../../components/LeftMenu";
 import type { components } from "../../shared/types/api-specs";
-import { LeftMenuWrappedContent } from "../../components/LeftMenuWrappedContent.jsx";
-import UsersSuperAdmin from "../../super-admin/components/UsersSuperAdmin.jsx";
-import { superUserGetUserData } from "../../super-admin/services/superAdminData.js";
+import { LeftMenuWrappedContent } from "../../components/LeftMenuWrappedContent";
+import UsersSuperAdmin from "../../super-admin/components/UsersSuperAdmin";
+import { superUserGetUserData } from "../../super-admin/services/superAdminData";
+import { auth0 } from "../../lib/auth0";
 
 type User = components["schemas"]["User"];
 
-export const getServerSideProps = withPageAuthRequired({
-    // returnTo: '/unauthorized',
+export const getServerSideProps = auth0.withPageAuthRequired({
     getServerSideProps: superUserGetUserData,
 });
 

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { PropsWithChildren } from "react";
-import { colorVariants, ThemeColor } from "../styles/themeColors.js";
+import { colorVariants, ThemeColor } from "../styles/themeColors";
 
 const StyledLink = ({
     href,

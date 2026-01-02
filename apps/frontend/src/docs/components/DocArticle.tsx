@@ -1,4 +1,4 @@
-import { FullDoc } from "../docParser.js";
+import { FullDoc } from "../docParser";
 
 export const DocArticle = ({ article }: { article: FullDoc }) => {
     return (

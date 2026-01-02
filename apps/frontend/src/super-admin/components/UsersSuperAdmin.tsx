@@ -1,5 +1,5 @@
 import type { components } from "../../shared/types/api-specs";
-import { useFormattedDate } from "../../hooks/useFormattedDate.js";
+import { useFormattedDate } from "../../hooks/useFormattedDate";
 
 type User = components["schemas"]["User"];
 

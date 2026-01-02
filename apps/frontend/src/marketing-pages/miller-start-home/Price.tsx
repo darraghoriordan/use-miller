@@ -1,5 +1,5 @@
 import { CheckIcon } from "@heroicons/react/24/outline";
-import { SignUpBuyNowButton } from "../../components/SignupBuyNow.jsx";
+import { SignUpBuyNowButton } from "../../components/SignupBuyNow";
 import type { components } from "../../shared/types/api-specs";
 type UserDto = components["schemas"]["UserDto"];
 

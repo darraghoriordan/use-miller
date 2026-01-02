@@ -1,5 +1,5 @@
-import { getAuthenticatedApiInstance } from "../api-services/apiInstanceFactories.js";
-import { createMenu } from "./leftMenuGeneration.js";
+import { getAuthenticatedApiInstance } from "../api-services/apiInstanceFactories";
+import { createMenu } from "./leftMenuGeneration";
 
 export const getAccountIndexData = async (accessToken: string) => {
     const userData = await getUserData(accessToken);

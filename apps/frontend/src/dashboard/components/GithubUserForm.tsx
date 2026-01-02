@@ -1,7 +1,7 @@
 import type { components } from "../../shared/types/api-specs";
 type OrgGithubUserDto = components["schemas"]["OrgGithubUserDto"];
 import { useState } from "react";
-import StyledButton from "../../components/StyledButton.jsx";
+import StyledButton from "../../components/StyledButton";
 
 export const GithubUserForm = ({
     ghUsername,

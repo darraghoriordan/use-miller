@@ -1,28 +1,36 @@
-import { getAccessToken, withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getAuthenticatedApiInstance } from "../../../api-services/apiInstanceFactories.js";
+import { getAuthenticatedApiInstance } from "../../../api-services/apiInstanceFactories";
 import type { components } from "../../../shared/types/api-specs";
+import { auth0 } from "../../../lib/auth0";
 
 type StripeCustomerPortalRequestDto =
     components["schemas"]["StripeCustomerPortalRequestDto"];
 
-export default withApiAuthRequired(getStripeCustomerPortalLink);
-
 // there is a bit of misdirection here so we can use the
 // access token. We call the next api which in turn calls the
 // backend api
-export async function getStripeCustomerPortalLink(
+export default async function getStripeCustomerPortalLink(
     req: NextApiRequest,
     res: NextApiResponse,
 ) {
     try {
+        const session = await auth0.getSession(req);
+        if (!session) {
+            res.status(401).json({ error: "Not authenticated" });
+            return;
+        }
+
+        const accessToken = await auth0.getAccessToken(req, res);
+        if (!accessToken?.token) {
+            res.status(401).json({ error: "No access token" });
+            return;
+        }
+
         const requestBody = req.body as StripeCustomerPortalRequestDto;
-        const atResponse = await getAccessToken(req, res, {
-            scopes: ["openid", "email", "profile", "offline_access"],
-        });
+
         const apiClient = getAuthenticatedApiInstance({
             apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-            authToken: atResponse.accessToken!,
+            authToken: accessToken.token,
             fetchApi: fetch,
         });
 

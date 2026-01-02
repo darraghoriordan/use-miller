@@ -1,6 +1,6 @@
 import type { components } from "../../shared/types/api-specs";
 type User = components["schemas"]["User"];
-import { useFormattedDate } from "../../hooks/useFormattedDate.js";
+import { useFormattedDate } from "../../hooks/useFormattedDate";
 
 export const ProfileDetails = ({ currentUser }: { currentUser: User }) => {
     const formattedDate = useFormattedDate(currentUser?.createdDate);

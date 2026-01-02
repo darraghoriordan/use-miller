@@ -1,8 +1,8 @@
 import clsx from "clsx";
-import Link from "next/link.js";
-import { useRouter } from "next/router.js";
-import { colorVariants } from "../styles/themeColors.js";
-import { LeftMenuItem } from "./LeftMenuItem.js";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { colorVariants } from "../styles/themeColors";
+import { LeftMenuItem } from "./LeftMenuItem";
 
 export type MenuItem = {
     name: string;

@@ -6,8 +6,9 @@
                 "name": "backend health check",
                 "path": "/admin/health",
                 "attempts": 3,
-                "wait": 30,
-                "timeout": 60
+                "initialDelay": 30,
+                "timeout": 60,
+                "wait": 5
             }
         ]
     }

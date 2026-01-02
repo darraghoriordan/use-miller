@@ -2,8 +2,8 @@ import type { components } from "../../shared/types/api-specs";
 type OrganisationSubscriptionRecord =
     components["schemas"]["OrganisationSubscriptionRecord"];
 type SubscriptionAsset = components["schemas"]["SubscriptionAsset"];
-import { SingleProduct } from "./SingleProduct.jsx";
-import { SingleSubscription } from "./SingleSubscription.jsx";
+import { SingleProduct } from "./SingleProduct";
+import { SingleSubscription } from "./SingleSubscription";
 
 export const Subscriptions = ({
     subs,

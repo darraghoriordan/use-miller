@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
-import { LeftMenu, MenuSection } from "./LeftMenu.jsx";
-import { Container } from "./Container.jsx";
-import Layout from "./Layout.jsx";
+import { LeftMenu, MenuSection } from "./LeftMenu";
+import { Container } from "./Container";
+import Layout from "./Layout";
 
 export const LeftMenuWrappedContent = ({
     menuSections,

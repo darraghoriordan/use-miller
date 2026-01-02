@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { initInstrumentation } from "../otel/instrumentation.client.js";
+import { initInstrumentation } from "../otel/instrumentation.client";
 
 function OtelClientSide() {
     useEffect(() => {

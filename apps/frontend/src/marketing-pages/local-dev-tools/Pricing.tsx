@@ -1,8 +1,8 @@
 import { Container } from "../../components/Container";
-import dynamic from "next/dynamic.js";
+import dynamic from "next/dynamic";
 import type { components } from "../../shared/types/api-specs";
 type UserDto = components["schemas"]["UserDto"];
-import { TwitterCTA } from "../components/TwitterCTA.jsx";
+import { TwitterCTA } from "../components/TwitterCTA";
 import { CheckIcon } from "@heroicons/react/24/outline";
 
 const DynamicGumRoad = dynamic(() => import("../components/GumRoadWrapper"), {

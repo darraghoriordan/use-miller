@@ -1,5 +1,5 @@
-import { Container } from "../components/Container.jsx";
-import Layout from "../components/Layout.jsx";
+import { Container } from "../components/Container";
+import Layout from "../components/Layout";
 
 export default function Home() {
     const url = process.env.NEXT_PUBLIC_APP_BASE_PATH;

@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import SEO from "../components/SEO";
-import { ThemeColor } from "../styles/themeColors.js";
+import { ThemeColor } from "../styles/themeColors";
 
 export default function Layout({
     productKey,

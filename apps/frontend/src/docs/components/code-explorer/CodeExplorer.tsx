@@ -1,8 +1,8 @@
-import EditorWrapper from "./EditorWrapper.jsx";
-import FileTree from "./FileTree.jsx";
+import EditorWrapper from "./EditorWrapper";
+import FileTree from "./FileTree";
 import { Group, Panel } from "react-resizable-panels";
 import ResizeHandle from "./ResizeHandle";
-import MarkdownWrapper from "./MarkdownWrapper.jsx";
+import MarkdownWrapper from "./MarkdownWrapper";
 import type { components } from "../../../shared/types/api-specs";
 
 type FileMetaDto = components["schemas"]["FileMetaDto"];

@@ -1,9 +1,9 @@
-import { getAccessToken } from "@auth0/nextjs-auth0";
 import { GetServerSidePropsContext, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { getAuthenticatedApiInstance } from "../api-services/apiInstanceFactories.js";
-import { createMenu } from "./leftMenuGeneration.js";
+import { getAuthenticatedApiInstance } from "../api-services/apiInstanceFactories";
+import { createMenu } from "./leftMenuGeneration";
 import type { components } from "../shared/types/api-specs";
+import { auth0 } from "../lib/auth0";
 
 type Organisation = components["schemas"]["Organisation"];
 type OrganisationSubscriptionRecord =
@@ -14,21 +14,26 @@ type UserDto = components["schemas"]["UserDto"];
 export async function dashboardGetSspData(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
-    const atResponse = await getAccessToken(context.req, context.res, {
-        scopes: ["openid", "email", "profile", "offline_access"],
-    });
+    const accessToken = await auth0.getAccessToken(context.req, context.res);
+    if (!accessToken?.token) {
+        return {
+            redirect: {
+                destination: "/auth/login",
+                permanent: false,
+            },
+        };
+    }
+
     const orgUuid = context.params?.orgUuid
         ? (context.params?.orgUuid as string)
         : undefined;
 
-    const subAssets = await getCurrentUserSubscriptions(
-        atResponse.accessToken!,
-    );
-    const userData = await getCurrentUser(atResponse.accessToken!);
+    const subAssets = await getCurrentUserSubscriptions(accessToken.token);
+    const userData = await getCurrentUser(accessToken.token);
     const mappedProps = mapDataForIndexDashboard(userData, subAssets, orgUuid);
 
     const orgGhUsers = await getOrgGhUsernames(
-        atResponse.accessToken!,
+        accessToken.token,
         orgUuid || mappedProps.currentOrg.uuid,
     );
     // reduce the first 1 to a single string

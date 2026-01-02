@@ -1,10 +1,10 @@
 import type { components } from "../shared/types/api-specs";
 type UserDto = components["schemas"]["UserDto"];
 import clsx from "clsx";
-import { ThemeColor } from "../styles/themeColors.js";
-import { getSignUpUrl } from "./signupUrl.js";
-import StyledLink from "./StyledLink.jsx";
-import { BuyNowButton } from "./BuyNowButton.jsx";
+import { ThemeColor } from "../styles/themeColors";
+import { getSignUpUrl } from "./signupUrl";
+import StyledLink from "./StyledLink";
+import { BuyNowButton } from "./BuyNowButton";
 
 /**
  * Logged in users go to payment

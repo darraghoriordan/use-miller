@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import { ThemeColor } from "../styles/themeColors.js";
-import { getGithubUrl } from "./signupUrl.js";
-import StyledLink from "./StyledLink.jsx";
+import { ThemeColor } from "../styles/themeColors";
+import { getGithubUrl } from "./signupUrl";
+import StyledLink from "./StyledLink";
 
 export function GoToGithub({
     color,

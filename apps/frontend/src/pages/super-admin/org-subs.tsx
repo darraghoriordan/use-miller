@@ -1,15 +1,14 @@
-import { MenuSection } from "../../components/LeftMenu.jsx";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { MenuSection } from "../../components/LeftMenu";
 import type { components } from "../../shared/types/api-specs";
-import { LeftMenuWrappedContent } from "../../components/LeftMenuWrappedContent.jsx";
-import { superUserGetSubscriptionsData } from "../../super-admin/services/superAdminData.js";
-import OrgSubsSuperAdmin from "../../super-admin/components/OrgSubsSuperAdmin.jsx";
+import { LeftMenuWrappedContent } from "../../components/LeftMenuWrappedContent";
+import { superUserGetSubscriptionsData } from "../../super-admin/services/superAdminData";
+import OrgSubsSuperAdmin from "../../super-admin/components/OrgSubsSuperAdmin";
+import { auth0 } from "../../lib/auth0";
 
 type OrganisationSubscriptionRecord =
     components["schemas"]["OrganisationSubscriptionRecord"];
 
-export const getServerSideProps = withPageAuthRequired({
-    // returnTo: '/unauthorized',
+export const getServerSideProps = auth0.withPageAuthRequired({
     getServerSideProps: superUserGetSubscriptionsData,
 });
 

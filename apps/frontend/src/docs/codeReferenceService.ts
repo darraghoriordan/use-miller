@@ -1,11 +1,11 @@
 import type { components } from "../shared/types/api-specs";
 import { GetServerSidePropsContext } from "next";
-import { getAccessToken, getSession } from "@auth0/nextjs-auth0";
-import { createMenu, mapTitles } from "./leftMenuGeneration.js";
+import { getAccessToken } from "@auth0/nextjs-auth0";
+import { createMenu, mapTitles } from "./leftMenuGeneration";
 import {
     getAnonymousApiInstance,
     getAuthenticatedApiInstance,
-} from "../api-services/apiInstanceFactories.js";
+} from "../api-services/apiInstanceFactories";
 
 type FileMetaDto = components["schemas"]["FileMetaDto"];
 type FileStructureDto = components["schemas"]["FileStructureDto"];
@@ -219,13 +219,15 @@ export async function getCodeFileServerSideProps(
     const codeFile = context.params?.codeFile as string;
     const productKey = context.params?.productKey as string;
 
-    const session = await getSession(context.req, context.res);
     let accessToken = null;
-    if (session) {
-        const atResponse = await getAccessToken(context.req, context.res, {
-            scopes: ["openid", "email", "profile", "offline_access"],
+    try {
+        const atResponse = await getAccessToken({
+            scope: "openid email profile offline_access",
         });
-        accessToken = atResponse.accessToken;
+        accessToken = atResponse;
+    } catch {
+        // No session available, user is not authenticated
+        accessToken = null;
     }
     if (!projectKey || !codeFile) {
         throw new Error(

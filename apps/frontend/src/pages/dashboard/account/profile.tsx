@@ -1,29 +1,32 @@
-import { getAccessToken, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import type { components } from "../../../shared/types/api-specs";
 import { GetServerSidePropsContext, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { MenuSection } from "../../../components/LeftMenu.jsx";
-import { LeftMenuWrappedContent } from "../../../components/LeftMenuWrappedContent.jsx";
-import { getAccountIndexData } from "../../../dashboard/accountProfileDataService.js";
-import { ProfileDetails } from "../../../dashboard/components/ProfileDetails.jsx";
+import { MenuSection } from "../../../components/LeftMenu";
+import { LeftMenuWrappedContent } from "../../../components/LeftMenuWrappedContent";
+import { getAccountIndexData } from "../../../dashboard/accountProfileDataService";
+import { ProfileDetails } from "../../../dashboard/components/ProfileDetails";
+import { auth0 } from "../../../lib/auth0";
 
 type User = components["schemas"]["User"];
 
-export const getServerSideProps = withPageAuthRequired({
-    // returnTo: '/unauthorized',
+export const getServerSideProps = auth0.withPageAuthRequired({
     getServerSideProps: customGetSSP,
 });
 
 export async function customGetSSP(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
-    const atResponse = await getAccessToken(context.req, context.res, {
-        scopes: ["openid", "email", "profile", "offline_access"],
-    });
-    console.log(atResponse);
-    const data = await getAccountIndexData(
-        atResponse.accessToken!, // user can't be logged in
-    );
+    const accessToken = await auth0.getAccessToken(context.req, context.res);
+    if (!accessToken?.token) {
+        return {
+            redirect: {
+                destination: "/auth/login",
+                permanent: false,
+            },
+        };
+    }
+
+    const data = await getAccountIndexData(accessToken.token);
     return {
         props: data,
     };

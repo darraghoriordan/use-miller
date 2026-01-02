@@ -1,5 +1,5 @@
-import StyledLink from "../../components/StyledLink.jsx";
-import { colorVariants } from "../../styles/themeColors.js";
+import StyledLink from "../../components/StyledLink";
+import { colorVariants } from "../../styles/themeColors";
 
 export default function NoSubscriptions({
     productName,

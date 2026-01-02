@@ -1,9 +1,9 @@
-import { MenuSection } from "../../components/LeftMenu.jsx";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import { dashboardGetSspData } from "../../dashboard/dashboardDataService.js";
+import { MenuSection } from "../../components/LeftMenu";
+import { dashboardGetSspData } from "../../dashboard/dashboardDataService";
 import type { components } from "../../shared/types/api-specs";
-import { DashboardDetails } from "../../dashboard/components/DashboardDetails.jsx";
-import { LeftMenuWrappedContent } from "../../components/LeftMenuWrappedContent.jsx";
+import { DashboardDetails } from "../../dashboard/components/DashboardDetails";
+import { LeftMenuWrappedContent } from "../../components/LeftMenuWrappedContent";
+import { auth0 } from "../../lib/auth0";
 
 type Organisation = components["schemas"]["Organisation"];
 type OrganisationSubscriptionRecord =
@@ -11,8 +11,7 @@ type OrganisationSubscriptionRecord =
 type SubscriptionAsset = components["schemas"]["SubscriptionAsset"];
 type UserDto = components["schemas"]["UserDto"];
 
-export const getServerSideProps = withPageAuthRequired({
-    // returnTo: '/unauthorized',
+export const getServerSideProps = auth0.withPageAuthRequired({
     getServerSideProps: dashboardGetSspData,
 });
 

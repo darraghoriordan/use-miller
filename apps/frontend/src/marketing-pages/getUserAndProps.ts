@@ -1,12 +1,12 @@
-import { getAccessToken, getSession } from "@auth0/nextjs-auth0";
 import { GetServerSidePropsContext, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { getAuthenticatedApiInstance } from "../api-services/apiInstanceFactories.js";
+import { getAuthenticatedApiInstance } from "../api-services/apiInstanceFactories";
+import { auth0 } from "../lib/auth0";
 
 export async function getMarketingServerSideProps(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
-    const session = await getSession(context.req, context.res);
+    const session = await auth0.getSession(context.req);
     if (!session) {
         return {
             props: {
@@ -15,12 +15,21 @@ export async function getMarketingServerSideProps(
         };
     }
     try {
-        const atResponse = await getAccessToken(context.req, context.res, {
-            scopes: ["openid", "email", "profile", "offline_access"],
-        });
+        const accessToken = await auth0.getAccessToken(
+            context.req,
+            context.res,
+        );
+        if (!accessToken?.token) {
+            return {
+                props: {
+                    user: null,
+                },
+            };
+        }
+
         const apiClient = getAuthenticatedApiInstance({
             apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-            authToken: atResponse.accessToken!,
+            authToken: accessToken.token,
             fetchApi: fetch,
         });
 
@@ -43,7 +52,7 @@ export async function getMarketingServerSideProps(
         // log user out of auth0
         return {
             redirect: {
-                destination: "/api/auth/logout",
+                destination: "/auth/logout",
                 permanent: false,
             },
         };

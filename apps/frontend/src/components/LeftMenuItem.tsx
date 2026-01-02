@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import Link from "next/link.js";
-import { colorVariants } from "../styles/themeColors.js";
-import { MenuItem } from "./LeftMenu.js";
+import Link from "next/link";
+import { colorVariants } from "../styles/themeColors";
+import { MenuItem } from "./LeftMenu";
 
 export function LeftMenuItem({
     item,

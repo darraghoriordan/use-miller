@@ -1,23 +1,29 @@
-import { getAccessToken, withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getAuthenticatedApiInstance } from "../../../api-services/apiInstanceFactories.js";
+import { getAuthenticatedApiInstance } from "../../../api-services/apiInstanceFactories";
+import { auth0 } from "../../../lib/auth0";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
+        const session = await auth0.getSession(req);
+        if (!session) {
+            res.status(401).json({ error: "Not authenticated" });
+            return;
+        }
+
+        const accessToken = await auth0.getAccessToken(req, res);
+        if (!accessToken?.token) {
+            res.status(401).json({ error: "No access token" });
+            return;
+        }
+
         const { ghUsername, orgUuid } = req.body as {
             ghUsername: string;
             orgUuid: string;
         };
-        const atResponse = await getAccessToken(req, res, {
-            scopes: ["openid", "email", "profile", "offline_access"],
-        });
-        if (!atResponse.accessToken) {
-            throw new Error("No access token");
-        }
 
         const apiClient = getAuthenticatedApiInstance({
             apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-            authToken: atResponse.accessToken!,
+            authToken: accessToken.token,
             fetchApi: fetch,
         });
 
@@ -45,4 +51,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 };
 
-export default withApiAuthRequired(handler);
+export default handler;

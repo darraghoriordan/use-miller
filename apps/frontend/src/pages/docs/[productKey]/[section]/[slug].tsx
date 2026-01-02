@@ -1,10 +1,10 @@
 import {
     getStaticDocsPageSlugs,
     getSinglePost,
-} from "../../../../docs/docParser.js";
+} from "../../../../docs/docParser";
 
 import { GetStaticPaths } from "next";
-import { createMenu, mapTitles } from "../../../../docs/leftMenuGeneration.js";
+import { createMenu, mapTitles } from "../../../../docs/leftMenuGeneration";
 
 export async function getStaticProps({
     params,
@@ -36,4 +36,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return getStaticDocsPageSlugs();
 };
 
-export { default } from "./index.jsx";
+export { default } from "./index";

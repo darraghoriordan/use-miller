@@ -1,5 +1,5 @@
-import { Container } from "../components/Container.jsx";
-import Layout from "../components/Layout.jsx";
+import { Container } from "../components/Container";
+import Layout from "../components/Layout";
 import portraitImage from "../images/profile-pic.jpg";
 import Image from "next/image";
 

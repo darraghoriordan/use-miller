@@ -1,9 +1,9 @@
-import StyledLink from "../../components/StyledLink.jsx";
-import { colorVariants } from "../../styles/themeColors.js";
+import StyledLink from "../../components/StyledLink";
+import { colorVariants } from "../../styles/themeColors";
 import Image from "next/image";
 import clsx from "clsx";
-import { HeroProduct } from "./Hero.jsx";
-import { GitHubIcon } from "../../components/GithubIcon.jsx";
+import { HeroProduct } from "./Hero";
+import { GitHubIcon } from "../../components/GithubIcon";
 
 export const GithubLink = ({ githubUrl }: { githubUrl: string }) => {
     return (

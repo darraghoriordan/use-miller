@@ -1,13 +1,13 @@
 import { GetServerSidePropsContext } from "next";
-import { MenuSection } from "../../../../../components/LeftMenu.jsx";
+import { MenuSection } from "../../../../../components/LeftMenu";
 import {
     CodeExplorerData,
     getCodeFileServerSideProps,
-} from "../../../../../docs/codeReferenceService.js";
+} from "../../../../../docs/codeReferenceService";
 import dynamic from "next/dynamic";
 
-import { useRouter } from "next/router.js";
-import { LeftMenuWrappedContent } from "../../../../../components/LeftMenuWrappedContent.jsx";
+import { useRouter } from "next/router";
+import { LeftMenuWrappedContent } from "../../../../../components/LeftMenuWrappedContent";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {

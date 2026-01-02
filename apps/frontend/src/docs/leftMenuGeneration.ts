@@ -1,5 +1,5 @@
-import { MenuItem, MenuSection } from "../components/LeftMenu.jsx";
-import { getSortedPostsData } from "./docParser.js";
+import { MenuItem, MenuSection } from "../components/LeftMenu";
+import { getSortedPostsData } from "./docParser";
 
 export async function sortByCustomSlugMapping(
     menuSections: MenuSection[],

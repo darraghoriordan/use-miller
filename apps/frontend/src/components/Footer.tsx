@@ -1,6 +1,6 @@
 import { Container } from "./Container";
 import { NavLink } from "./NavLink";
-import StyledHref from "./StyledHref.jsx";
+import StyledHref from "./StyledHref";
 
 export function Footer({
     productKey,

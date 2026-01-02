@@ -1,6 +1,7 @@
 import Editor, { Monaco } from "@monaco-editor/react";
+import { typescript } from "monaco-editor";
 import type { components } from "../../../shared/types/api-specs";
-import Loading from "../../../components/Loading.jsx";
+import Loading from "../../../components/Loading";
 
 type FileMetaDto = components["schemas"]["FileMetaDto"];
 
@@ -12,8 +13,8 @@ const EditorWrapper = (props: {
     const firstContents = "// Welcome to Miller!";
     const { data, isError, isLoading } = props;
     function handleEditorWillMount(monaco: Monaco) {
-        monaco.languages.typescript.javascriptDefaults.setEagerModelSync(true);
-        monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        typescript.javascriptDefaults.setEagerModelSync(true);
+        typescript.typescriptDefaults.setDiagnosticsOptions({
             noSemanticValidation: true,
             noSyntaxValidation: false,
         });

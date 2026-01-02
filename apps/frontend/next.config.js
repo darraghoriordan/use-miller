@@ -2,27 +2,15 @@
 const nextConfig = {
     reactStrictMode: true,
     output: "standalone",
-    eslint: {
-        dirs: ["src"],
-        ignoreDuringBuilds: true, // lint doesnt match build lint
-    },
 
     experimental: {
         scrollRestoration: true,
     },
-    webpack: (config) => {
-        config.resolve.extensionAlias = {
-            ".js": [".ts", ".tsx", ".jsx", ".js"],
-            ".jsx": [".ts", ".tsx", ".jsx", ".js"],
-        };
-        config.resolve.fallback = {
-            // if you miss it, all the other options in fallback, specified
-            // by next.js will be dropped.
-            ...config.resolve.fallback,
-
-            fs: false, // the solution
-        };
-        return config;
+    // Add empty turbopack config to silence Turbopack warning
+    turbopack: {
+        resolveAlias: {
+            // Handle .js extension resolution for TypeScript files
+        },
     },
     async rewrites() {
         return [
