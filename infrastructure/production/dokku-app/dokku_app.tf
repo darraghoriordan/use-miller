@@ -4,11 +4,10 @@ resource "dokku_app" "frontend_app" {
   config_vars = {
     APP_BASE                    = "apps/frontend"
     AUTH0_SECRET                = var.frontend_app_auth0_secret
-    AUTH0_BASE_URL              = var.frontend_app_auth0_base_url
-    AUTH0_ISSUER_BASE_URL       = var.frontend_app_auth0_issuer_base_url
+    APP_BASE_URL                = var.frontend_app_base_url
+    AUTH0_DOMAIN                = var.frontend_app_auth0_domain
     AUTH0_CLIENT_SECRET         = var.frontend_app_auth0_client_secret
     AUTH0_CLIENT_ID             = var.frontend_app_auth0_client_id
-    AUTH0_SCOPE                 = var.frontend_app_auth0_scope
     AUTH0_AUDIENCE              = var.frontend_app_auth0_audience
     OTEL_EXPORTER_OTLP_ENDPOINT = var.otel_exporter_otlp_endpoint
     OTEL_EXPORTER_OTLP_HEADERS  = var.frontend_app_otel_exporter_otlp_headers
