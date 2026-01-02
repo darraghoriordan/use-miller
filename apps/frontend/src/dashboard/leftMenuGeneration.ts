@@ -20,7 +20,7 @@ export const createMenu = (userOrgs: { name: string; uuid: string }[]) => {
             },
             {
                 name: "Sign Out",
-                path: "/api/auth/logout",
+                path: "/auth/logout",
             },
         ],
     });

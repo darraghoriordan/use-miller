@@ -132,7 +132,7 @@ export const MobileNavigation = ({
                                 <hr className="m-2 border-slate-300/40" />
                                 <a
                                     className="block w-full p-2 py-4 text-xl font-bold"
-                                    href={"/api/auth/login"}
+                                    href={"/auth/login"}
                                 >
                                     Sign in
                                 </a>
@@ -276,7 +276,7 @@ export function Header({
                         <div className="hidden md:block">
                             {(isLoading || !user) && (
                                 <>
-                                    <StyledHref href={"/api/auth/login"}>
+                                    <StyledHref href={"/auth/login"}>
                                         Sign In
                                     </StyledHref>
                                 </>

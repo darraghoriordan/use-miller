@@ -8,13 +8,14 @@ resource "auth0_client" "frontend_spa_app" {
   description = "The frontend client application"
   app_type    = "spa"
   callbacks = ["https://usemiller.dev",
-    "https://usemiller.dev/api/auth/callback",
+    "https://usemiller.dev/auth/callback",
     "https://usemiller.dev/#pricing",
     "https://usemiller.dev/dashboard",
     "https://usemiller.dev/miller-start/#pricing",
     "https://usemiller.dev/dev-shell/#pricing",
   ]
   oidc_conformant     = true
+  cross_origin_auth   = true
   allowed_origins     = ["https://usemiller.dev", "https://www.usemiller.dev"]
   allowed_logout_urls = ["https://usemiller.dev", "https://www.usemiller.dev"]
   web_origins         = ["https://usemiller.dev", "https://www.usemiller.dev"]
