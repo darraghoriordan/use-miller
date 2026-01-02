@@ -194,6 +194,10 @@ dokku config:unset --no-restart use-miller DOKKU_PROXY_PORT_MAP
 # if using multiple docker files set the file
 dokku builder-dockerfile:set use-miller-frontend dockerfile-path Dockerfile-fe
 dokku builder-dockerfile:set use-miller dockerfile-path Dockerfile-be
+
+## if using a monorepo you can set config file paths
+dokku app-json:set use-miller appjson-path apps/backend/app.json
+dokku app-json:set use-miller-frontend appjson-path apps/frontend/app.json
 # you should try to deploy now
 # (on your dev machine)
 git remote add dokku dokku@YOURdokkuSERVER:use-miller

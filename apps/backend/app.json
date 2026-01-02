@@ -3,8 +3,8 @@
         "web": [
             {
                 "type": "startup",
-                "name": "web check",
-                "path": "/",
+                "name": "backend health check",
+                "path": "/admin/health",
                 "attempts": 3,
                 "wait": 30,
                 "timeout": 60
