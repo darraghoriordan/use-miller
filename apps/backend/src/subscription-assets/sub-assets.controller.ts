@@ -29,7 +29,7 @@ export class SubscriptionAssetsController {
     @UseGuards(DefaultAuthGuard)
     @ApiOkResponse({ type: SubscriptionAsset, isArray: true })
     async getAssetsForOrg(
-        @Request() request: RequestWithUser
+        @Request() request: RequestWithUser,
     ): Promise<SubscriptionAsset[]> {
         if (!request.user.auth0UserId) {
             throw new Error("No user found on request");
@@ -43,7 +43,7 @@ export class SubscriptionAssetsController {
     @ApiOkResponse({ type: SubscriptionAsset, isArray: true })
     async addAssetRecord(
         @Body() asset: SaveSubscriptionAssetDto,
-        @Request() request: RequestWithUser
+        @Request() request: RequestWithUser,
     ): Promise<SubscriptionAsset> {
         if (!request.user.auth0UserId) {
             throw new Error("No user found on request");

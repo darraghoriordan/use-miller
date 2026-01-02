@@ -16,7 +16,7 @@ export class SubscriptionEventHandlerService {
             {
                 job,
             },
-            "Handling queued item"
+            "Handling queued item",
         );
         await this.onboardingService.updateGithubAccess({
             productKey: job.data.productKey,

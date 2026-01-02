@@ -18,7 +18,7 @@ import { CacheInterceptor } from "@nestjs/cache-manager";
 export class OpenCourseFilesController {
     constructor(
         private readonly courseFileService: CodeFilesService,
-        private readonly markdownFileService: MarkdownFileService
+        private readonly markdownFileService: MarkdownFileService,
     ) {}
 
     @Get(":projectKey/contents/:b64Path")
@@ -27,12 +27,12 @@ export class OpenCourseFilesController {
     async getFile(
         @Param("projectKey") projectKey: string,
         @Param("b64Path") b64Path: string,
-        @Param("productKey") productKey: string
+        @Param("productKey") productKey: string,
     ): Promise<FileMetaDto> {
         return await this.courseFileService.getCodeFileContents(
             b64Path,
             productKey,
-            projectKey
+            projectKey,
         );
     }
 
@@ -42,12 +42,12 @@ export class OpenCourseFilesController {
     async getMarkdownFileAsHtml(
         @Param("projectKey") projectKey: string,
         @Param("markdownB64Path") markdownB64Path: string,
-        @Param("productKey") productKey: string
+        @Param("productKey") productKey: string,
     ): Promise<FileMetaDto> {
         return await this.markdownFileService.getMdFileAsHtml(
             markdownB64Path,
             productKey,
-            projectKey
+            projectKey,
         );
     }
 
@@ -57,12 +57,12 @@ export class OpenCourseFilesController {
     async getNearestHtmlReadmeForFile(
         @Param("projectKey") projectKey: string,
         @Param("b64Path") b64Path: string,
-        @Param("productKey") productKey: string
+        @Param("productKey") productKey: string,
     ): Promise<FileMetaDto> {
         return await this.courseFileService.getNearestHtmlReadmeForFile(
             b64Path,
             productKey,
-            projectKey
+            projectKey,
         );
     }
 }

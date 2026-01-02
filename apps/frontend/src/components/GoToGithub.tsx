@@ -21,7 +21,7 @@ export function GoToGithub({
             target="_blank"
             className={clsx(
                 "rounded-lg text-xl px-14 py-4 hover:shadow-lg border-white",
-                className
+                className,
             )}
         >
             {text || "View code on Github"}

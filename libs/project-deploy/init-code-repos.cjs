@@ -10,17 +10,17 @@ async function main() {
         await exec(
             "cd code-repos && git clone git@" +
                 process.argv[2] +
-                ":darraghoriordan/nest-backend-libs.git --depth 1"
+                ":darraghoriordan/nest-backend-libs.git --depth 1",
         );
         await exec(
             "cd code-repos && git clone git@" +
                 process.argv[2] +
-                ":darraghoriordan/mac-setup-script.git --depth 1"
+                ":darraghoriordan/mac-setup-script.git --depth 1",
         );
         await exec(
             "cd code-repos && git clone git@" +
                 process.argv[2] +
-                ":darraghoriordan/use-miller.git --depth 1"
+                ":darraghoriordan/use-miller.git --depth 1",
         );
         rimraf.sync("code-repos/nest-backend-libs/.git");
         rimraf.sync("code-repos/mac-setup-script/.git");

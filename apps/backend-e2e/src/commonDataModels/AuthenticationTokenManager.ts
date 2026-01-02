@@ -52,14 +52,14 @@ export class AuthenticationTokenManager {
             if (userConfig.token === "") {
                 userConfig.token =
                     await AuthenticationTokenManager.initSingleToken(
-                        userConfig
+                        userConfig,
                     );
             }
         }
     }
 
     private static async initSingleToken(
-        parameters: TestUserConfiguration
+        parameters: TestUserConfiguration,
     ): Promise<string> {
         try {
             if (!parameters.username) {
@@ -74,10 +74,9 @@ export class AuthenticationTokenManager {
             // eslint-disable-next-line prefer-const
             localToken = fs.existsSync(parameters.tokenPath)
                 ? new LocalApiTestToken(
-                       
                       JSON.parse(
-                          fs.readFileSync(parameters.tokenPath).toString()
-                      )
+                          fs.readFileSync(parameters.tokenPath).toString(),
+                      ),
                   )
                 : new LocalApiTestToken();
 
@@ -105,31 +104,28 @@ export class AuthenticationTokenManager {
                 };
                 const authPostResponse = await axios.request(options);
 
-                 
                 if (!authPostResponse.data.access_token) {
                     console.error("No access token returned from auth0", {
                         options,
-                         
+
                         body: authPostResponse.data,
                         status: authPostResponse.status,
-                         
+
                         requestHeaders: authPostResponse.headers,
                     });
                     throw new Error("No access token returned from auth0");
                 }
-                 
-                localToken.access_token =
-                     
-                    authPostResponse.data.access_token;
-                 
+
+                localToken.access_token = authPostResponse.data.access_token;
+
                 localToken.token_type = authPostResponse.data.token_type;
-                 
+
                 localToken.expires_in = authPostResponse.data.expires_in;
                 localToken.date_received = new Date();
 
                 fs.writeFileSync(
                     parameters.tokenPath,
-                    JSON.stringify(localToken)
+                    JSON.stringify(localToken),
                 );
 
                 console.log(`New token written to ${parameters.tokenPath}`);

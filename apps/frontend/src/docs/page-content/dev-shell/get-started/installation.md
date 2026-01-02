@@ -18,35 +18,35 @@ Please hit me up [on Twitter](https://twitter.com/darraghor) if you have any con
 
 The setup scripts will perform the following:
 
--   install rosetta
--   install XCode command line tools
--   install homebrew
--   install 60 tools and apps that i use from homebrew
--   install nvm
--   assign all text-like files to vscode
--   heaps of updates to default OS operation such as
-    -   Display full POSIX path as Finder window title
-    -   Keep folders on top when sorting by name
-    -   Avoid creating .DS_Store files on network or USB volumes
-    -   Enable snap-to-grid for icons on the desktop and in other icon views
-    -   Finder: show all filename extensions
-    -   Save to disk (not to iCloud) by default
-    -   Disable the warning when changing a file extension
-    -   Prevent Photos from opening automatically when devices are plugged in
--   setup github
--   set you dns to use google dns
--   set difftool to bcompare
--   install the pure terminal prompt
--   install the "Hack" nerd font
--   install latest version of zsh
--   install oh my zsh
--   write my preferred oh my zsh configuration and aliases with antigen
--   use homeshick to manage dotfiles
--   add docker local url to hosts
--   install vscode settings and extensions
--   symlink brew java for macos
--   clone my personal repositories from github
--   post a bunch of reminders for manual steps to take to finish configuring the computer
+- install rosetta
+- install XCode command line tools
+- install homebrew
+- install 60 tools and apps that i use from homebrew
+- install nvm
+- assign all text-like files to vscode
+- heaps of updates to default OS operation such as
+    - Display full POSIX path as Finder window title
+    - Keep folders on top when sorting by name
+    - Avoid creating .DS_Store files on network or USB volumes
+    - Enable snap-to-grid for icons on the desktop and in other icon views
+    - Finder: show all filename extensions
+    - Save to disk (not to iCloud) by default
+    - Disable the warning when changing a file extension
+    - Prevent Photos from opening automatically when devices are plugged in
+- setup github
+- set you dns to use google dns
+- set difftool to bcompare
+- install the pure terminal prompt
+- install the "Hack" nerd font
+- install latest version of zsh
+- install oh my zsh
+- write my preferred oh my zsh configuration and aliases with antigen
+- use homeshick to manage dotfiles
+- add docker local url to hosts
+- install vscode settings and extensions
+- symlink brew java for macos
+- clone my personal repositories from github
+- post a bunch of reminders for manual steps to take to finish configuring the computer
 
 Scripts are inspired by this and others: https://github.com/mathiasbynens/dotfiles/blob/main/.macos
 

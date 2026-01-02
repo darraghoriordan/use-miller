@@ -37,9 +37,9 @@ I don't really explain html, css, javascript in-depth here. If you're just learn
 
 Tl;dr - Miller is designed for
 
--   developers who have some prior-experience,
--   or devs who have finished a bootcamp and tutorials and want to continue their learning in a SaaS app.
--   anyone stuck with some aspect of getting a NodeJs or NextJs app up and running.
+- developers who have some prior-experience,
+- or devs who have finished a bootcamp and tutorials and want to continue their learning in a SaaS app.
+- anyone stuck with some aspect of getting a NodeJs or NextJs app up and running.
 
 ## Miller structure
 

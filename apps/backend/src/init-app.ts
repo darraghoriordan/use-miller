@@ -8,7 +8,7 @@ import { MainModule } from "./main.module.js";
 
 CoreModule.initApplication(MainModule, async (app: INestApplication) => {
     const configService: CoreConfigurationService = app.get(
-        CoreConfigurationService
+        CoreConfigurationService,
     );
 
     await app.listen(configService.webPort);

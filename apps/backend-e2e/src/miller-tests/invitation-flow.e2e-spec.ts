@@ -1,54 +1,45 @@
- 
- 
- 
 import {
-    InvitationsApi,
-    ApplicationSupportApi,
-    OrganisationsApi,
-    OrganisationMembershipsApi,
-} from "@use-miller/shared-api-client";
-import { ApiClientFactory } from "../commonDataModels/ApiClientFactory";
+    getAuthenticatedApiInstance,
+    throwIfError,
+    type ApiClient,
+} from "../commonDataModels/ApiClientFactory";
 import { TestUserAccounts } from "../commonDataModels/AuthenticationTokenManager";
 
 describe("When inviting users", () => {
-    const applicationSupportApi = ApiClientFactory.getAuthenticatedApiInstance(
-        ApplicationSupportApi,
-        TestUserAccounts.SUPER_USER
-    );
-    const orgsApi = ApiClientFactory.getAuthenticatedApiInstance(
-        OrganisationsApi,
-        TestUserAccounts.SUPER_USER
-    );
-    const invitationsApi = ApiClientFactory.getAuthenticatedApiInstance(
-        InvitationsApi,
-        TestUserAccounts.SUPER_USER
-    );
-    const membershipsApi = ApiClientFactory.getAuthenticatedApiInstance(
-        OrganisationMembershipsApi,
-        TestUserAccounts.SUPER_USER
+    const superUserApi: ApiClient = getAuthenticatedApiInstance(
+        TestUserAccounts.SUPER_USER,
     );
 
     it("Super user has an account with an organisation", async () => {
-        const response =
-            await applicationSupportApi.appControllerGetHelloSuperAdmin();
+        const { data: response, error } = await superUserApi.GET(
+            "/admin/health/is-super-admin",
+        );
+        throwIfError(error);
         expect(response).toEqual("Healthy and running");
 
-        const orgs = await orgsApi.organisationControllerFindAllForUser();
+        const { data: orgs, error: orgsError } =
+            await superUserApi.GET("/organisation");
+        throwIfError(orgsError);
         expect(orgs.length).toBe(1);
         expect(orgs[0].name).toEqual("Super's Organisation");
     });
 
     it("can invite a user to join org", async () => {
-        const orgs = await orgsApi.organisationControllerFindAllForUser();
+        const { data: orgs, error: orgsError } =
+            await superUserApi.GET("/organisation");
+        throwIfError(orgsError);
         try {
-            const createInvResponse =
-                await invitationsApi.invitationControllerCreate({
-                    createInvitationDto: {
+            const { data: createInvResponse, error } = await superUserApi.POST(
+                "/invitations",
+                {
+                    body: {
                         emailAddress: "some@email.com",
                         givenName: "NextUser",
                         organisationId: orgs[0].id,
                     },
-                });
+                },
+            );
+            throwIfError(error);
             expect(createInvResponse.acceptedOn).toBeUndefined();
             expect(createInvResponse.emailAddress).toBe("some@email.com");
             expect(createInvResponse.givenName).toBe("NextUser");
@@ -57,7 +48,7 @@ describe("When inviting users", () => {
             expect(createInvResponse.expiresOn).toBeDefined();
             expect(createInvResponse.organisationMembership).toBeDefined();
             expect(
-                createInvResponse.organisationMembership.roles?.[0]
+                createInvResponse.organisationMembership.roles?.[0],
             ).toMatchObject({
                 name: "invited",
             });
@@ -68,127 +59,156 @@ describe("When inviting users", () => {
     });
 
     it("Cannot invite the same user while existing invite is valid", async () => {
-        const orgs = await orgsApi.organisationControllerFindAllForUser();
+        const { data: orgs, error: orgsError } =
+            await superUserApi.GET("/organisation");
+        throwIfError(orgsError);
 
-        await expect(() =>
-            invitationsApi.invitationControllerCreate({
-                createInvitationDto: {
-                    emailAddress: "some@email.com",
-                    givenName: "NextUser",
-                    organisationId: orgs[0].id,
-                },
-            })
-        ).rejects.toMatchObject({ status: 400, statusText: "Bad Request" });
+        const { response } = await superUserApi.POST("/invitations", {
+            body: {
+                emailAddress: "some@email.com",
+                givenName: "NextUser",
+                organisationId: orgs[0].id,
+            },
+        });
+        expect(response.status).toBe(400);
+        expect(response.statusText).toBe("Bad Request");
     });
 
     it("Cannot accept invite if existing membership of organisation exists", async () => {
-        const orgs = await orgsApi.organisationControllerFindAllForUser();
-        const invitations =
-            await invitationsApi.invitationControllerGetAllForOrg({
-                orgId: orgs[0].uuid,
-            });
+        const { data: orgs, error: orgsError } =
+            await superUserApi.GET("/organisation");
+        throwIfError(orgsError);
+        const { data: invitations, error: invError } = await superUserApi.GET(
+            "/invitations/{orgId}",
+            {
+                params: { path: { orgId: orgs[0].uuid } },
+            },
+        );
+        throwIfError(invError);
         expect(invitations.length).toBe(1);
 
-        await expect(() =>
-            invitationsApi.invitationControllerAccept({
-                invitationId: invitations[0].uuid,
-            })
-        ).rejects.toMatchObject({ status: 400, statusText: "Bad Request" });
+        const { response } = await superUserApi.POST("/invitations/accept", {
+            params: { query: { invitationId: invitations[0].uuid } },
+        });
+        expect(response.status).toBe(400);
+        expect(response.statusText).toBe("Bad Request");
     });
 
     it("Users with non-verified emails are blocked from joining", async () => {
-        const orgs = await orgsApi.organisationControllerFindAllForUser();
-        const invitations =
-            await invitationsApi.invitationControllerGetAllForOrg({
-                orgId: orgs[0].uuid,
-            });
+        const { data: orgs, error: orgsError } =
+            await superUserApi.GET("/organisation");
+        throwIfError(orgsError);
+        const { data: invitations, error: invError } = await superUserApi.GET(
+            "/invitations/{orgId}",
+            {
+                params: { path: { orgId: orgs[0].uuid } },
+            },
+        );
+        throwIfError(invError);
 
         // get invitations api client for the non-verified user
-        const invitationsApiForNonVerifiedUser =
-            ApiClientFactory.getAuthenticatedApiInstance(
-                InvitationsApi,
-                TestUserAccounts.EMAIL_NOT_VERIFIED_USER
-            );
+        const nonVerifiedUserApi: ApiClient = getAuthenticatedApiInstance(
+            TestUserAccounts.EMAIL_NOT_VERIFIED_USER,
+        );
 
-        await expect(() =>
-            invitationsApiForNonVerifiedUser.invitationControllerAccept({
-                invitationId: invitations[0].uuid,
-            })
-        ).rejects.toMatchObject({
-            status: 400,
-            statusText: "Bad Request",
-        });
+        const { response } = await nonVerifiedUserApi.POST(
+            "/invitations/accept",
+            {
+                params: { query: { invitationId: invitations[0].uuid } },
+            },
+        );
+        expect(response.status).toBe(400);
+        expect(response.statusText).toBe("Bad Request");
     });
 
     it("Normal new user can accept invitation", async () => {
-        const orgs = await orgsApi.organisationControllerFindAllForUser();
-        const invitations =
-            await invitationsApi.invitationControllerGetAllForOrg({
-                orgId: orgs[0].uuid,
-            });
+        const { data: orgs, error: orgsError } =
+            await superUserApi.GET("/organisation");
+        throwIfError(orgsError);
+        const { data: invitations, error: invError } = await superUserApi.GET(
+            "/invitations/{orgId}",
+            {
+                params: { path: { orgId: orgs[0].uuid } },
+            },
+        );
+        throwIfError(invError);
 
         // get invitations api client for the normal user
-        const invitationsApiForNormalUser =
-            ApiClientFactory.getAuthenticatedApiInstance(
-                InvitationsApi,
-                TestUserAccounts.BASIC_USER
-            );
+        const normalUserApi: ApiClient = getAuthenticatedApiInstance(
+            TestUserAccounts.BASIC_USER,
+        );
 
         // accept the invitation
-        await invitationsApiForNormalUser.invitationControllerAccept({
-            invitationId: invitations[0].uuid,
-        });
-        const postInviteInvitations =
-            await invitationsApi.invitationControllerGetAllForOrg({
-                orgId: orgs[0].uuid,
+        const { error: acceptError } = await normalUserApi.POST(
+            "/invitations/accept",
+            {
+                params: { query: { invitationId: invitations[0].uuid } },
+            },
+        );
+        throwIfError(acceptError);
+
+        const { data: postInviteInvitations, error: postInvError } =
+            await superUserApi.GET("/invitations/{orgId}", {
+                params: { path: { orgId: orgs[0].uuid } },
             });
+        throwIfError(postInvError);
 
         expect(postInviteInvitations.length).toBe(1);
         expect(postInviteInvitations[0].acceptedOn).toBeDefined();
     });
 
     it("Normal new user cannot invite other users", async () => {
-        const orgs = await orgsApi.organisationControllerFindAllForUser();
+        const { data: orgs, error: orgsError } =
+            await superUserApi.GET("/organisation");
+        throwIfError(orgsError);
 
         // get invitations api client for the normal user
-        const invitationsApiForNormalUser =
-            ApiClientFactory.getAuthenticatedApiInstance(
-                InvitationsApi,
-                TestUserAccounts.BASIC_USER
-            );
+        const normalUserApi: ApiClient = getAuthenticatedApiInstance(
+            TestUserAccounts.BASIC_USER,
+        );
 
-        await expect(() =>
-            invitationsApiForNormalUser.invitationControllerCreate({
-                createInvitationDto: {
-                    emailAddress: "somenewperson@email.com",
-                    givenName: "NextUser",
-                    organisationId: orgs[0].id,
-                },
-            })
-        ).rejects.toMatchObject({
-            status: 403,
-            statusText: "Forbidden",
+        const { response } = await normalUserApi.POST("/invitations", {
+            body: {
+                emailAddress: "somenewperson@email.com",
+                givenName: "NextUser",
+                organisationId: orgs[0].id,
+            },
         });
+        expect(response.status).toBe(403);
+        expect(response.statusText).toBe("Forbidden");
     });
 
     it("Invited users membership can be removed", async () => {
-        const orgs = await orgsApi.organisationControllerFindAllForUser();
-        const memberships =
-            await membershipsApi.organisationMembershipsControllerFindAll({
-                orgUuid: orgs[0].uuid,
-            });
+        const { data: orgs, error: orgsError } =
+            await superUserApi.GET("/organisation");
+        throwIfError(orgsError);
+        const { data: memberships, error: memError } = await superUserApi.GET(
+            "/organisation/{orgUuid}/memberships",
+            {
+                params: { path: { orgUuid: orgs[0].uuid } },
+            },
+        );
+        throwIfError(memError);
         const nonOwner = memberships.filter((m) =>
-            m.roles?.some((r) => r.name !== "owner")
+            m.roles?.some((r) => r.name !== "owner"),
         );
         if (nonOwner.length !== 1) {
             //unexpected
             throw new Error("Unexpected number of non-owner memberships");
         }
-        const isRemoved =
-            await membershipsApi.organisationMembershipsControllerRemove({
-                orgUuid: orgs[0].uuid,
-                membershipUuid: nonOwner[0].uuid,
-            });
+        const { data: isRemoved, error: removeError } =
+            await superUserApi.DELETE(
+                "/organisation/{orgUuid}/memberships/{membershipUuid}",
+                {
+                    params: {
+                        path: {
+                            orgUuid: orgs[0].uuid,
+                            membershipUuid: nonOwner[0].uuid,
+                        },
+                    },
+                },
+            );
+        throwIfError(removeError);
         expect(isRemoved).toStrictEqual({ result: true });
     });
 });

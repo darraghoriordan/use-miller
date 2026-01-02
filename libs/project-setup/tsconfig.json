@@ -6,18 +6,8 @@
         "esModuleInterop": true,
         "moduleResolution": "Bundler",
         "outDir": "dist",
-        "types": [
-            "node",
-            "vitest/importMeta",
-            "vitest/globals"
-        ],
-        "lib": [
-            "es2022",
-            "DOM"
-        ],
+        "types": ["node", "vitest/importMeta", "vitest/globals"],
+        "lib": ["es2022", "DOM"]
     },
-    "exclude": [
-        "dist",
-        "node_modules"
-    ]
+    "exclude": ["dist", "node_modules"]
 }

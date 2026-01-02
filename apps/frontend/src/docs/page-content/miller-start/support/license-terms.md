@@ -23,33 +23,33 @@ The license grants permission up to 5 Employees and Contractors of the Licensee 
 
 ### Permissible Actions:
 
--   Use the download files to create unlimited End Products.
--   Use the download files to create unlimited End Products for unlimited Clients.
--   Use the download files to create End Products where the End Product is sold to End Users.
--   Use the download files to create End Products that are open source and freely available to End Users following review and approval by Darragh ORiordan.
--   Sell the End Products. The License will survive the sale of the End Product.
+- Use the download files to create unlimited End Products.
+- Use the download files to create unlimited End Products for unlimited Clients.
+- Use the download files to create End Products where the End Product is sold to End Users.
+- Use the download files to create End Products that are open source and freely available to End Users following review and approval by Darragh ORiordan.
+- Sell the End Products. The License will survive the sale of the End Product.
 
 ### Prohibited Actions:
 
--   Use the download files to create End Products that are designed to allow an End User to build their own End Products using the download files or derivatives of the download files.
--   Re-distribute the download files or derivatives of the download files separately from an End Product.
--   Use the download files to create End Products that are the property of any individual or entity other than the Licensee or Clients of the Licensee.
+- Use the download files to create End Products that are designed to allow an End User to build their own End Products using the download files or derivatives of the download files.
+- Re-distribute the download files or derivatives of the download files separately from an End Product.
+- Use the download files to create End Products that are the property of any individual or entity other than the Licensee or Clients of the Licensee.
 
 ## Example usage
 
 ### Examples of usage allowed by the license:
 
--   Creating a website for your company
--   Creating a website or web application for a client that will be owned by that client
--   Creating a commercial SaaS application (like an invoicing app for example) where end users have to pay a fee to use the application
--   Creating a commercial self-hosted web application that is sold to end users for a one-time fee
--   Creating a web application where the primary purpose is clearly not to simply re-distribute the download files (like a conference organization app that uses the download files for its UI for example)
+- Creating a website for your company
+- Creating a website or web application for a client that will be owned by that client
+- Creating a commercial SaaS application (like an invoicing app for example) where end users have to pay a fee to use the application
+- Creating a commercial self-hosted web application that is sold to end users for a one-time fee
+- Creating a web application where the primary purpose is clearly not to simply re-distribute the download files (like a conference organization app that uses the download files for its UI for example)
 
 ### Examples of use not allowed by the license:
 
--   Creating a theme or template using the download files and making it available either for sale for for free
--   You are not allowed to create a product that sells the codebase itself
--   Creating any End Product that is not the sole property of either your company or a client of your company. For example your employees/contractors can not use your company Miller Start license to build their own websites or side projects.
+- Creating a theme or template using the download files and making it available either for sale for for free
+- You are not allowed to create a product that sells the codebase itself
+- Creating any End Product that is not the sole property of either your company or a client of your company. For example your employees/contractors can not use your company Miller Start license to build their own websites or side projects.
 
 ## License Definitions
 

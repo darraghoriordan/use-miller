@@ -31,7 +31,7 @@ export async function getStaticProps({
     };
 }
 export const getStaticPaths: GetStaticPaths = async (
-    context: GetStaticPathsContext
+    context: GetStaticPathsContext,
 ) => {
     return getStaticDocsPageSlugs();
 };

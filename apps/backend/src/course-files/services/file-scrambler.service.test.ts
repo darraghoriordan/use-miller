@@ -54,7 +54,7 @@ describe("FileScramblerService", () => {
             "get partitions $lines lines",
             ({ lines, expected }) => {
                 expect(service.getPartitions(lines)).toMatchObject(expected);
-            }
+            },
         );
     });
 

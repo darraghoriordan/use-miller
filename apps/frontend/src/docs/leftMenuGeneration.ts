@@ -2,17 +2,17 @@ import { MenuItem, MenuSection } from "../components/LeftMenu.jsx";
 import { getSortedPostsData } from "./docParser.js";
 
 export async function sortByCustomSlugMapping(
-    menuSections: MenuSection[]
+    menuSections: MenuSection[],
 ): Promise<MenuSection[]> {
     const customOrderSections: MenuSection[] = [];
     const getStartedSection = menuSections.find(
-        (section) => section.slug === "get-started"
+        (section) => section.slug === "get-started",
     )!;
     if (getStartedSection) {
         customOrderSections.push(getStartedSection);
     }
     const refSection = menuSections.find(
-        (section) => section.slug === "reference"
+        (section) => section.slug === "reference",
     )!;
     if (refSection) {
         customOrderSections.push(refSection);
@@ -22,7 +22,7 @@ export async function sortByCustomSlugMapping(
         ...customOrderSections,
         ...menuSections.filter(
             (section) =>
-                !customOrderSections.some((s) => s.slug === section.slug)
+                !customOrderSections.some((s) => s.slug === section.slug),
         ),
     ];
 }
@@ -93,14 +93,14 @@ function getProjectMeta(productKey: string) {
 export async function createMenu(productKey: string): Promise<MenuSection[]> {
     if (fetch === undefined) {
         throw new Error(
-            "fetch is undefined. This should never happen but most likely you're using a very old browser or old nodeJS."
+            "fetch is undefined. This should never happen but most likely you're using a very old browser or old nodeJS.",
         );
     }
 
     const projects = getProjectMeta(productKey)?.projectMeta;
     // add all the docs that were found
     const postData = getSortedPostsData().find(
-        (p) => p.productKey === productKey
+        (p) => p.productKey === productKey,
     )?.sections;
     const allMenuItems =
         postData?.map((section) => {

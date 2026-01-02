@@ -1,12 +1,15 @@
-import { EmailClientApi } from "@use-miller/shared-api-client";
-import { ApiClientFactory } from "../commonDataModels/ApiClientFactory";
+import {
+    getAuthenticatedApiInstance,
+    throwIfError,
+    type ApiClient,
+} from "../commonDataModels/ApiClientFactory";
 
 describe("When using the email client", () => {
-    const emailClientApi =
-        ApiClientFactory.getAuthenticatedApiInstance(EmailClientApi);
+    const api: ApiClient = getAuthenticatedApiInstance();
 
     it("I can verify the email settings", async () => {
-        const result = await emailClientApi.emailClientControllerVerify();
+        const { data: result, error } = await api.GET("/email-client/verify");
+        throwIfError(error);
 
         expect(result.result).toBe(true);
     }, 20_000);

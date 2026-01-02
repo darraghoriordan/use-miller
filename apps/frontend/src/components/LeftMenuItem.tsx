@@ -18,7 +18,7 @@ export function LeftMenuItem({
                 {
                     [colorVariants["green"].backgroundShade]: isCurrent,
                     ["rounded-md"]: isCurrent,
-                }
+                },
             )}
         >
             <Link

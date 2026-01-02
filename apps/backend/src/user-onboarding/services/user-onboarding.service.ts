@@ -21,13 +21,13 @@ export class UserOnboardingService {
         private readonly orgGhUserRepo: Repository<OrgGithubUser>,
         @InjectRepository(OrganisationSubscriptionRecord)
         private readonly orgSubscriptionRepo: Repository<OrganisationSubscriptionRecord>,
-        private ghService: GithubClientService
+        private ghService: GithubClientService,
     ) {}
     private readonly logger = new Logger(UserOnboardingService.name);
 
     public async get(
         orgUuid: string,
-        currentUser: RequestUser
+        currentUser: RequestUser,
     ): Promise<OrgGithubUser[]> {
         this.isOwner(currentUser, orgUuid);
         return this.orgGhUserRepo.find({
@@ -39,7 +39,7 @@ export class UserOnboardingService {
 
     public async addOrgGithubUser(
         request: OrgGithubUserDto,
-        currentUser: RequestUser
+        currentUser: RequestUser,
     ): Promise<OrgGithubUser> {
         // check the user is an owner of the org
         this.isOwner(currentUser, request.orgUuid);
@@ -50,7 +50,7 @@ export class UserOnboardingService {
         });
         if (existing.length > 0) {
             throw new ForbiddenException(
-                "You have already added a github user to this organisation. Contact support to change"
+                "You have already added a github user to this organisation. Contact support to change",
             );
         }
         const ghUserEntity = this.orgGhUserRepo.create(request);
@@ -77,7 +77,7 @@ export class UserOnboardingService {
 
     public async removeOrgGithubUser(
         request: OrgGithubUserDto,
-        currentUser: RequestUser
+        currentUser: RequestUser,
     ): Promise<OrgGithubUser> {
         // check the user is an owner of the org
         this.isOwner(currentUser, request.orgUuid);
@@ -89,7 +89,7 @@ export class UserOnboardingService {
         });
         if (existing.length === 0) {
             throw new NotFoundException(
-                "Couldn't find the github user you are trying to remove. Contact support to change"
+                "Couldn't find the github user you are trying to remove. Contact support to change",
             );
         }
 
@@ -123,7 +123,7 @@ export class UserOnboardingService {
             {
                 accessRequest,
             },
-            "Updating gh access"
+            "Updating gh access",
         );
         // check the customer has access to the product(s)
         const orgGhUsers = await this.orgGhUserRepo.find({
@@ -134,7 +134,7 @@ export class UserOnboardingService {
         // ensure access has been granted or removed
         const requests = this.mapRepoRequests(
             accessRequest.productKey,
-            orgGhUsers.map((u) => u.ghUsername)
+            orgGhUsers.map((u) => u.ghUsername),
         );
 
         for (const r of requests) {
@@ -154,19 +154,19 @@ export class UserOnboardingService {
         const isOwner = currentUser.memberships?.some(
             (m) =>
                 m.organisation.uuid === orgUuid &&
-                m.roles?.some((r) => r.name === "owner")
+                m.roles?.some((r) => r.name === "owner"),
         );
         this.logger.debug({ currentUser }, "Adding github user to org");
         if (!isOwner) {
             throw new ForbiddenException(
-                "You must be the organisation owner to add a github user"
+                "You must be the organisation owner to add a github user",
             );
         }
     }
 
     private mapRepoRequests(
         productKey: string,
-        usernames: string[]
+        usernames: string[],
     ): {
         owner: string;
         repo: string;
@@ -187,7 +187,7 @@ export class UserOnboardingService {
                             owner: "darraghoriordan",
                             repo: "use-miller",
                             username: u,
-                        }
+                        },
                     );
                 }
                 break;

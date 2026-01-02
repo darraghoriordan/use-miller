@@ -5,14 +5,8 @@
             "type": "node",
             "request": "launch",
             "name": "Debug Nest Framework",
-            "args": [
-                "${workspaceFolder}/backend/src/main.ts"
-            ],
-            "runtimeArgs": [
-                "--nolazy",
-                "-r",
-                "ts-node/register"
-            ],
+            "args": ["${workspaceFolder}/backend/src/main.ts"],
+            "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
             "sourceMaps": true,
             "cwd": "${workspaceRoot}/backend",
             "protocol": "inspector"
@@ -22,9 +16,7 @@
             "request": "launch",
             "name": "Jest Debug All",
             "program": "${workspaceFolder}/node_modules/.bin/jest",
-            "args": [
-                "--runInBand"
-            ],
+            "args": ["--runInBand"],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "disableOptimisticBPs": true,
@@ -37,11 +29,7 @@
             "request": "launch",
             "name": "Jest Debug Current File",
             "program": "${workspaceFolder}/node_modules/.bin/jest",
-            "args": [
-                "${fileBasenameNoExtension}",
-                "--coverage",
-                "false"
-            ],
+            "args": ["${fileBasenameNoExtension}", "--coverage", "false"],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "disableOptimisticBPs": true,

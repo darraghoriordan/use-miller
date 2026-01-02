@@ -27,7 +27,7 @@ export async function getStaticProps({
                 ...titles,
                 menuSections,
                 article,
-            })
+            }),
         ),
     };
 }

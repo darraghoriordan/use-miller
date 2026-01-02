@@ -6,11 +6,10 @@ import {
 dotenv.config();
 // This is a hack for tests
 import { TextEncoder, TextDecoder } from "util";
-import { ApiClientFactory } from "./commonDataModels/ApiClientFactory";
-import { ApplicationSupportApi } from "@use-miller/shared-api-client";
- 
+import { getAuthenticatedApiInstance } from "./commonDataModels/ApiClientFactory";
+
 global.TextEncoder = TextEncoder as any;
- 
+
 global.TextDecoder = TextDecoder as any;
 // End of hack
 
@@ -18,11 +17,12 @@ global.TextDecoder = TextDecoder as any;
 await AuthenticationTokenManager.init();
 
 // resets the database to a known state
-const superUserAppSupportApi = ApiClientFactory.getAuthenticatedApiInstance(
-    ApplicationSupportApi,
-    TestUserAccounts.SUPER_USER
-);
+const superUserApi = getAuthenticatedApiInstance(TestUserAccounts.SUPER_USER);
 
-await superUserAppSupportApi.superPowersControllerResetDatabase();
+const { error } = await superUserApi.POST("/super-powers/reset-database");
+if (error) {
+    console.error("Failed to reset database:", error);
+    throw new Error("Failed to reset database");
+}
 
 export {};

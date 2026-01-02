@@ -23,5 +23,5 @@
             "directory": "./apps/backend-e2e",
             "changeProcessCWD": true
         }
-    ],
+    ]
 }

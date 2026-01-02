@@ -8,7 +8,11 @@ import tseslint, { parser } from "typescript-eslint";
 
 export default tseslint.config(
     {
-        ignores: ["**/.eslintrc.js", "**/dist", "**/node_modules"],
+        ignores: [
+            "**/dist",
+            "**/node_modules",
+            "**/shared/types/api-specs.d.ts",
+        ],
     },
     eslint.configs.recommended,
     tseslint.configs.strictTypeChecked,

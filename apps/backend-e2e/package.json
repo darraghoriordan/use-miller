@@ -8,7 +8,8 @@
     "scripts": {
         "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
         "test:e": "vitest run",
-        "test": "echo \"Did you mean to run 'test:e'?\" && exit 0"
+        "test": "echo \"Did you mean to run 'test:e'?\" && exit 0",
+        "gen:api": "openapi-typescript ../backend/open-api/swagger.json -o ./src/shared/types/api-specs.d.ts"
     },
     "devDependencies": {
         "@darraghor/eslint-plugin-nestjs-typed": "7.1.8",
@@ -23,6 +24,7 @@
         "eslint-plugin-unicorn": "59.0.1",
         "globals": "16.2.0",
         "nx": "21.3.3",
+        "openapi-typescript": "7.10.1",
         "prettier": "3.7.4",
         "ts-loader": "9.5.4",
         "ts-node": "10.9.2",
@@ -32,8 +34,8 @@
         "vitest": "3.2.4"
     },
     "dependencies": {
-        "@use-miller/shared-api-client": "workspace:*",
         "dotenv": "16.4.7",
-        "node-fetch": "3.3.2"
+        "node-fetch": "3.3.2",
+        "openapi-fetch": "0.15.0"
     }
 }

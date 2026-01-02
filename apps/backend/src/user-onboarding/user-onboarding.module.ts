@@ -26,5 +26,4 @@ import { UserOnboardingService } from "./services/user-onboarding.service.js";
     providers: [UserOnboardingService, SubscriptionEventHandlerService],
     exports: [],
 })
- 
 export class UserOnboardingModule {}

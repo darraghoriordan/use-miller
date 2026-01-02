@@ -61,8 +61,8 @@ You should add an ssh certificate to digital ocean. This is so that you can avoi
 
 Create a new ssh certificate locally on your development machine if you don't already have one.
 
--   Creating an ssh cert on Mac, linux: https://docs.digitalocean.com/products/droplets/how-to/add-ssh-keys/create-with-openssh/
--   Creating an ssh cert on Windows: https://docs.digitalocean.com/products/droplets/how-to/add-ssh-keys/create-with-putty/
+- Creating an ssh cert on Mac, linux: https://docs.digitalocean.com/products/droplets/how-to/add-ssh-keys/create-with-openssh/
+- Creating an ssh cert on Windows: https://docs.digitalocean.com/products/droplets/how-to/add-ssh-keys/create-with-putty/
 
 add the path to the public certificate to the `infrastructure/production/digitalocean-hosting/terraform.tfvars` file.
 

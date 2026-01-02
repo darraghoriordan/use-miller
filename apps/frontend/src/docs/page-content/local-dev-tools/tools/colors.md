@@ -8,11 +8,11 @@ This tool converts colors between different formats.
 
 It shows you the nearest TailwindCSS color to your color.
 
--   hex
--   rgb
--   hsl
--   css names
--   and more...
+- hex
+- rgb
+- hsl
+- css names
+- and more...
 
 ![Colors](images/colors.png)
 

@@ -21,24 +21,24 @@ Darragh ORiordan grants you an ongoing, non-exclusive personal license to **use*
 
 ### Permissible Actions:
 
--   Use the download files on your own personal computers.
+- Use the download files on your own personal computers.
 
 ### Prohibited Actions:
 
--   Re-distribute the download files or derivatives of the download files.
--   Including the download files in End Products that are the property of any individual or entity other than the Licensee or Clients of the Licensee.
+- Re-distribute the download files or derivatives of the download files.
+- Including the download files in End Products that are the property of any individual or entity other than the Licensee or Clients of the Licensee.
 
 ## Example usage
 
 ### Examples of usage allowed by the license:
 
--   Enhancing the shell on your PC and Mac computers at home
--   Providing scripts for configuring computers in your company
+- Enhancing the shell on your PC and Mac computers at home
+- Providing scripts for configuring computers in your company
 
 ### Examples of use not allowed by the license:
 
--   You are not allowed to create a product that sells the codebase itself
--   You are not allowed to redistribute the codebase in an open source repository
+- You are not allowed to create a product that sells the codebase itself
+- You are not allowed to redistribute the codebase in an open source repository
 
 ## License Definitions
 

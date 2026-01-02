@@ -13,7 +13,7 @@ export default class UserDiscriminatedCacheInterceptor extends CacheInterceptor 
             .switchToHttp()
             .getRequest<RequestWithUser>();
 
-        const userUuid = httpContext.user?.uuid || "anonymous";
+        const userUuid = httpContext.user.uuid || "anonymous";
         const cacheKey = `${userUuid}${httpContext.method}${httpContext.url}`;
         this.logger.debug({ cacheKey }, "Using cache key");
         return cacheKey;

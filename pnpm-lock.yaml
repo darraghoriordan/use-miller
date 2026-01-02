@@ -375,15 +375,15 @@ importers:
 
   apps/backend-e2e:
     dependencies:
-      '@use-miller/shared-api-client':
-        specifier: workspace:*
-        version: link:../../libs/shared-api-client
       dotenv:
         specifier: 16.4.7
         version: 16.4.7
       node-fetch:
         specifier: 3.3.2
         version: 3.3.2
+      openapi-fetch:
+        specifier: 0.15.0
+        version: 0.15.0
     devDependencies:
       '@darraghor/eslint-plugin-nestjs-typed':
         specifier: 7.1.8
@@ -421,6 +421,9 @@ importers:
       nx:
         specifier: 21.3.3
         version: 21.3.3(@swc/core@1.11.29(@swc/helpers@0.5.18))
+      openapi-typescript:
+        specifier: 7.10.1
+        version: 7.10.1(typescript@5.8.3)
       prettier:
         specifier: 3.7.4
         version: 3.7.4

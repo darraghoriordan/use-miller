@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useCallback, useEffect } from "react";
 import type { components } from "../../../shared/types/api-specs";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
@@ -101,6 +102,7 @@ const FileTree = (props: {
                 </div>
             );
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [props.projectKey, props.setSelectedFile],
     );
 

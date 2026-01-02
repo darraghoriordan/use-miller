@@ -1,4 +1,3 @@
- 
 import { Injectable, Logger } from "@nestjs/common";
 import { minimatch } from "minimatch";
 
@@ -8,22 +7,22 @@ export class FileVisibilityControlGuard {
     shouldShowFullFile = ({
         fileLocation,
         demoPaths,
-         
+
         productKey,
         lengthInLines,
         maximumLines,
         isOpenSourceProject,
-         
+
         activeSubscriptionProductKeys,
     }: {
         fileLocation: string;
         demoPaths: string[];
-         
+
         productKey: string;
         lengthInLines: number;
         maximumLines: number;
         isOpenSourceProject: boolean;
-         
+
         activeSubscriptionProductKeys?: string[];
     }): boolean => {
         this.logger.debug(
@@ -58,7 +57,7 @@ export class FileVisibilityControlGuard {
 
         //otherwise some files are always visible e.g. "demo" areas
         const globs = demoPaths;
-         
+
         const isMatch = globs.some((g) => minimatch(fileLocation, g));
         return isMatch;
     };

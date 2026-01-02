@@ -1,55 +1,50 @@
-import {
-    BaseAPI,
-    Configuration,
-    EmailClientApi,
-    UsersApi,
-    ApplicationSupportApi,
-} from "@use-miller/shared-api-client";
+import createClient, { type Middleware } from "openapi-fetch";
+import type { paths } from "../shared/types/api-specs";
 import {
     AuthenticationTokenManager,
     TestUserAccounts,
 } from "./AuthenticationTokenManager";
 import fetch from "node-fetch";
 
-export class ApiClientFactory {
-    static contentType = "content-type";
-    static jsonType = "application/json";
+export const getAuthenticatedApiInstance = (
+    userType: TestUserAccounts = TestUserAccounts.BASIC_USER,
+) => {
+    const apiClient = createClient<paths>({
+        baseUrl: process.env.TEST_API_URL,
+        // node-fetch is needed for Node.js environments
+        fetch: fetch as unknown as typeof globalThis.fetch,
+    });
 
-    public static getAllAuthenticated(): {
-        applicationSupportApi: ApplicationSupportApi;
-        userApi: UsersApi;
-        emailClientApi: EmailClientApi;
-    } {
-        return {
-            applicationSupportApi: ApiClientFactory.getAuthenticatedApiInstance(
-                ApplicationSupportApi
-            ),
-            userApi: ApiClientFactory.getAuthenticatedApiInstance(UsersApi),
-            emailClientApi:
-                ApiClientFactory.getAuthenticatedApiInstance<EmailClientApi>(
-                    EmailClientApi
-                ),
-        };
-    }
-    public static getAuthenticatedApiInstance<T extends BaseAPI>(
-        apiService: new (apiConfig: Configuration) => T,
-        userType: TestUserAccounts = TestUserAccounts.BASIC_USER
-    ) {
-        const apiConfig = new Configuration({
-            basePath: process.env.TEST_API_URL,
-            accessToken: AuthenticationTokenManager.getAccessToken(userType),
-             
-            fetchApi: fetch as any,
-        });
-        return new apiService(apiConfig);
-    }
+    const authMiddleware: Middleware = {
+        onRequest({ request }) {
+            request.headers.set(
+                "Authorization",
+                `Bearer ${AuthenticationTokenManager.getAccessToken(userType)}`,
+            );
+            return request;
+        },
+    };
 
-    public static getUnAuthenticatedApiInstance<T extends BaseAPI>(apiService: new (apiConfig: Configuration) => T) {
-        const apiConfig = new Configuration({
-            basePath: process.env.TEST_API_URL,
-             
-            fetchApi: fetch as any,
-        });
-        return new apiService(apiConfig);
+    apiClient.use(authMiddleware);
+    return apiClient;
+};
+
+export const getUnAuthenticatedApiInstance = () => {
+    return createClient<paths>({
+        baseUrl: process.env.TEST_API_URL,
+        fetch: fetch as unknown as typeof globalThis.fetch,
+    });
+};
+
+export type ApiClient = ReturnType<typeof getAuthenticatedApiInstance>;
+
+/**
+ * Helper to throw API errors as Error objects (for ESLint @typescript-eslint/only-throw-error)
+ */
+export function throwIfError(
+    error: unknown,
+): asserts error is undefined | null {
+    if (error) {
+        throw new Error(JSON.stringify(error));
     }
 }
