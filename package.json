@@ -19,7 +19,7 @@
         "clean": "rm -Rf ./dist/",
         "build": "pnpm run -r --parallel --filter=!*{backend-e2e,frontend}* build",
         "test": "pnpm run -r --parallel --filter=!*{backend-e2e,frontend}* test",
-        "lint": "pnpm run -r --parallel --filter=!*{backend-e2e,frontend}* lint",
+        "lint": "pnpm run -r --parallel lint",
         "mill:dev": "cd apps/backend && npm run up -d && cd ../.. && concurrently \"cd apps/frontend && npm run start\" \"cd apps/backend && npm run start\"",
         "start:be:prod": "cd apps/backend && npm run start:prod",
         "prettier": "prettier --write src/*",
