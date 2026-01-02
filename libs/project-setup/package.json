@@ -15,21 +15,21 @@
         "mill-init": "dist/miller-setup.js"
     },
     "devDependencies": {
-        "@babel/core": "7.27.4",
-        "@babel/preset-env": "7.27.2",
-        "@babel/preset-typescript": "7.27.1",
+        "@babel/core": "7.28.5",
+        "@babel/preset-env": "7.28.5",
+        "@babel/preset-typescript": "7.28.5",
         "@types/figlet": "1.7.0",
-        "@types/inquirer": "9.0.7",
+        "@types/inquirer": "9.0.9",
         "@types/node": "22.16.0",
-        "typescript": "5.8.3",
-        "vite": "6.3.5"
+        "typescript": "5.9.3",
+        "vite": "7.3.0"
     },
     "dependencies": {
-        "chalk": "5.4.1",
-        "dotenv": "16.4.7",
-        "figlet": "1.8.0",
-        "globby": "14.1.0",
+        "chalk": "5.6.2",
+        "dotenv": "17.2.3",
+        "figlet": "1.9.4",
+        "globby": "16.1.0",
         "inquirer": "12.6.0",
-        "vitest": "3.2.4"
+        "vitest": "4.0.16"
     }
 }

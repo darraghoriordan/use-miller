@@ -2,11 +2,12 @@ import unicorn from "eslint-plugin-unicorn";
 import eslintNestJs from "@darraghor/eslint-plugin-nestjs-typed";
 import sonarjs from "eslint-plugin-sonarjs";
 import globals from "globals";
+import { defineConfig } from "eslint/config";
 // @ts-check
 import eslint from "@eslint/js";
 import tseslint, { parser } from "typescript-eslint";
 
-export default tseslint.config(
+export default defineConfig(
     {
         ignores: [
             "**/dist",

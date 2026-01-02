@@ -6,6 +6,7 @@ import globals from "globals";
 import eslint from "@eslint/js";
 import tseslint, { parser } from "typescript-eslint";
 
+// eslint-disable-next-line @typescript-eslint/no-deprecated -- config() is correct for typescript-eslint 8.x
 export default tseslint.config(
     {
         ignores: ["**/.eslintrc.cjs", "**/dist", "**/node_modules"],
