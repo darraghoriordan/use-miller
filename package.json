@@ -47,7 +47,7 @@
         "eslint-config-prettier": "10.1.8",
         "husky": "9.1.7",
         "knip": "5.79.0",
-        "lerna": "8.2.2",
+        "lerna": "9.0.3",
         "lint-staged": "16.2.7",
         "nx": "22.3.3",
         "prettier": "3.7.4",
