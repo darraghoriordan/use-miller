@@ -75,8 +75,8 @@ importers:
         specifier: 7.28.5
         version: 7.28.5
       '@darraghor/nest-backend-libs':
-        specifier: 4.0.5
-        version: 4.0.5(3efec777809643ff255bc8faf4ad8ad9)
+        specifier: 4.0.6
+        version: 4.0.6(3efec777809643ff255bc8faf4ad8ad9)
       '@mapbox/rehype-prism':
         specifier: 0.9.0
         version: 0.9.0
@@ -1513,8 +1513,8 @@ packages:
       class-validator: '*'
       eslint: '>=9.18.0'
 
-  '@darraghor/nest-backend-libs@4.0.5':
-    resolution: {integrity: sha512-1fpO2+WFI/FIVhyGvzgF8WcXGIJR84FgoZOanaZ4JB+/3uIChlWKuCU6huqE+KSjwgrap4ZjxEPjUE7BZFDqUw==}
+  '@darraghor/nest-backend-libs@4.0.6':
+    resolution: {integrity: sha512-bHf4Mmy4ZFOmBaTcmU83h0fILC6VOK3XLC4BtXaXKIWbswdLr7VPPGlLKKqRlm4lA+M159ooaEOi/p+VyrrVuQ==}
     engines: {node: '>=22.13.1'}
     hasBin: true
     peerDependencies:
@@ -12269,7 +12269,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@darraghor/nest-backend-libs@4.0.5(3efec777809643ff255bc8faf4ad8ad9)':
+  '@darraghor/nest-backend-libs@4.0.6(3efec777809643ff255bc8faf4ad8ad9)':
     dependencies:
       '@keyv/redis': 5.1.5(keyv@5.5.5)
       '@nestjs/axios': 4.0.1(@nestjs/common@11.1.11(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.2))(axios@1.13.2)(rxjs@7.8.2)
