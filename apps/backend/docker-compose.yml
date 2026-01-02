@@ -4,7 +4,7 @@
 services:
     db:
         container_name: ${COMPOSE_PROJECT_NAME}_postgres
-        image: postgres:14.11-alpine
+        image: postgres:14.20-alpine
         restart: "no"
         deploy:
             resources:
