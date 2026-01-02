@@ -3,11 +3,10 @@ import sdkNode from "@opentelemetry/sdk-node";
 const { NodeSDK } = sdkNode;
 
 import otelResource from "@opentelemetry/resources";
-const { Resource } = otelResource;
+const { resourceFromAttributes } = otelResource;
 
 import otelSemConv from "@opentelemetry/semantic-conventions";
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-const { SemanticResourceAttributes } = otelSemConv;
+const { ATTR_SERVICE_NAME } = otelSemConv;
 
 import otelAiNode from "@opentelemetry/auto-instrumentations-node";
 const { getNodeAutoInstrumentations } = otelAiNode;
@@ -27,8 +26,8 @@ export const initTelemetry = async (): Promise<void> => {
     });
 
     const sdk = new NodeSDK({
-        resource: new Resource({
-            [SemanticResourceAttributes.SERVICE_NAME]: "backend-app",
+        resource: resourceFromAttributes({
+            [ATTR_SERVICE_NAME]: "backend-app",
         }),
         metricReader,
         instrumentations: getNodeAutoInstrumentations({

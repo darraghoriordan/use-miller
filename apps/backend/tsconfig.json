@@ -20,12 +20,11 @@
         "esModuleInterop": true,
         "inlineSources": false,
         "target": "ES2022",
-        "lib": [
-            "es2022"
-        ],
+        "lib": ["es2022"],
         "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "./dist",
-        "baseUrl": "./"
+        "baseUrl": "./",
+        "types": ["vitest/globals", "node"]
     }
 }

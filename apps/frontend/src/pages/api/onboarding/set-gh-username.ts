@@ -1,5 +1,4 @@
 import { getAccessToken, withApiAuthRequired } from "@auth0/nextjs-auth0";
-import { UserOnboardingApi } from "@use-miller/shared-api-client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getAuthenticatedApiInstance } from "../../../api-services/apiInstanceFactories.js";
 
@@ -16,19 +15,25 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             throw new Error("No access token");
         }
 
-        const apiClient = await getAuthenticatedApiInstance(
-            UserOnboardingApi,
-            process.env.NEXT_PUBLIC_API_BASE_PATH!,
-            atResponse.accessToken!,
-            fetch
+        const apiClient = getAuthenticatedApiInstance({
+            apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
+            authToken: atResponse.accessToken!,
+            fetchApi: fetch,
+        });
+
+        const { data, error } = await apiClient.POST(
+            "/onboarding/github-user",
+            {
+                body: {
+                    ghUsername,
+                    orgUuid,
+                },
+            },
         );
 
-        const data = await apiClient.userOnboardingControllerAddForOrg({
-            orgGithubUserDto: {
-                ghUsername,
-                orgUuid,
-            },
-        });
+        if (error || !data) {
+            throw new Error("Failed to add github user");
+        }
 
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");

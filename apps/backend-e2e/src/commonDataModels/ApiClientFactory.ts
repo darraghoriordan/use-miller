@@ -32,26 +32,22 @@ export class ApiClientFactory {
         };
     }
     public static getAuthenticatedApiInstance<T extends BaseAPI>(
-        apiService: {
-            new (apiConfig: Configuration): T;
-        },
+        apiService: new (apiConfig: Configuration) => T,
         userType: TestUserAccounts = TestUserAccounts.BASIC_USER
     ) {
         const apiConfig = new Configuration({
             basePath: process.env.TEST_API_URL,
             accessToken: AuthenticationTokenManager.getAccessToken(userType),
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+             
             fetchApi: fetch as any,
         });
         return new apiService(apiConfig);
     }
 
-    public static getUnAuthenticatedApiInstance<T extends BaseAPI>(apiService: {
-        new (apiConfig: Configuration): T;
-    }) {
+    public static getUnAuthenticatedApiInstance<T extends BaseAPI>(apiService: new (apiConfig: Configuration) => T) {
         const apiConfig = new Configuration({
             basePath: process.env.TEST_API_URL,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+             
             fetchApi: fetch as any,
         });
         return new apiService(apiConfig);

@@ -1,9 +1,11 @@
 import { Hero } from "../marketing-pages/local-dev-tools/Hero";
 import Layout from "../components/Layout.jsx";
 import { Pricing } from "../marketing-pages/local-dev-tools/Pricing";
-import { UserDto } from "@use-miller/shared-api-client";
+import type { components } from "../shared/types/api-specs";
 import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps.js";
 import { Container } from "../components/Container.jsx";
+
+type UserDto = components["schemas"]["UserDto"];
 
 export const getServerSideProps = getMarketingServerSideProps;
 

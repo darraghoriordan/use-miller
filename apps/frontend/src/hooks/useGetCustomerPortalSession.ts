@@ -1,8 +1,10 @@
-import {
-    StripeCustomerPortalRequestDto,
-    StripeCustomerPortalResponseDto,
-} from "@use-miller/shared-api-client";
+import type { components } from "../shared/types/api-specs";
 import { useMutation } from "@tanstack/react-query";
+
+type StripeCustomerPortalRequestDto =
+    components["schemas"]["StripeCustomerPortalRequestDto"];
+type StripeCustomerPortalResponseDto =
+    components["schemas"]["StripeCustomerPortalResponseDto"];
 
 export function useGetCustomerPortalSession() {
     return useMutation({

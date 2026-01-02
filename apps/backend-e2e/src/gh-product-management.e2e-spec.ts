@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+ 
+ 
 import {
     OrganisationSubscriptionRecord,
     OrganisationSubscriptionsApi,
@@ -99,7 +99,7 @@ describe("When a customer has purchased a product", () => {
             results.push(isDeleted);
         }
 
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+         
         for (const r of results) {
             expect(r.result).toBe(true);
         }

@@ -4,7 +4,8 @@ import codeImage from "./intro-media/code.png";
 import dashboardImage from "./intro-media/dashboard.png";
 import docsImage from "./intro-media/docs.png";
 import Image from "next/image";
-import { UserDto } from "@use-miller/shared-api-client";
+import type { components } from "../../shared/types/api-specs";
+type UserDto = components["schemas"]["UserDto"];
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { GithubLink } from "../index-home/SingleProductCard.jsx";
 

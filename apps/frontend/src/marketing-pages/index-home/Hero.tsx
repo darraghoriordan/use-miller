@@ -4,7 +4,8 @@ import devShellLogo from "./logos/devShellLogo.webp";
 import millerStartLogo from "./logos/millerStart.png";
 import homeHero from "../miller-start-home/intro-media/home-hero.jpg";
 import Image, { StaticImageData } from "next/image";
-import { UserDto } from "@use-miller/shared-api-client";
+import type { components } from "../../shared/types/api-specs";
+type UserDto = components["schemas"]["UserDto"];
 import { SingleProductCard } from "./SingleProductCard.jsx";
 import { ThemeColor } from "../../styles/themeColors.js";
 

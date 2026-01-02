@@ -1,9 +1,11 @@
 import { MenuSection } from "../../components/LeftMenu.jsx";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import { User } from "@use-miller/shared-api-client";
+import type { components } from "../../shared/types/api-specs";
 import { LeftMenuWrappedContent } from "../../components/LeftMenuWrappedContent.jsx";
 import UsersSuperAdmin from "../../super-admin/components/UsersSuperAdmin.jsx";
 import { superUserGetUserData } from "../../super-admin/services/superAdminData.js";
+
+type User = components["schemas"]["User"];
 
 export const getServerSideProps = withPageAuthRequired({
     // returnTo: '/unauthorized',

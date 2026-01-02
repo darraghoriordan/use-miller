@@ -1,9 +1,11 @@
 import { MenuSection } from "../../components/LeftMenu.jsx";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import { StripeCheckoutEvent } from "@use-miller/shared-api-client";
+import type { components } from "../../shared/types/api-specs";
 import { LeftMenuWrappedContent } from "../../components/LeftMenuWrappedContent.jsx";
 import { superUserGetPaymentData } from "../../super-admin/services/superAdminData.js";
 import PaymentEventsSuperAdmin from "../../super-admin/components/PaymentEventsSuperAdmin.jsx";
+
+type StripeCheckoutEvent = components["schemas"]["StripeCheckoutEvent"];
 
 export const getServerSideProps = withPageAuthRequired({
     // returnTo: '/unauthorized',

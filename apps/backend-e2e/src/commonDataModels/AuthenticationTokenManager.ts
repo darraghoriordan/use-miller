@@ -9,13 +9,13 @@ export enum TestUserAccounts {
     BASIC_USER = "BasicUser",
     EMAIL_NOT_VERIFIED_USER = "EmailNotVerifiedUser",
 }
-export type TestUserConfiguration = {
+export interface TestUserConfiguration {
     tokenPath: string;
     username: string;
     password: string;
     accountType: TestUserAccounts;
     token: string;
-};
+}
 export class AuthenticationTokenManager {
     static getAccessToken(userType: TestUserAccounts): string {
         return this.userConfiguration.find((x) => x.accountType === userType)!
@@ -74,7 +74,7 @@ export class AuthenticationTokenManager {
             // eslint-disable-next-line prefer-const
             localToken = fs.existsSync(parameters.tokenPath)
                 ? new LocalApiTestToken(
-                      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                       
                       JSON.parse(
                           fs.readFileSync(parameters.tokenPath).toString()
                       )
@@ -105,25 +105,25 @@ export class AuthenticationTokenManager {
                 };
                 const authPostResponse = await axios.request(options);
 
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                 
                 if (!authPostResponse.data.access_token) {
                     console.error("No access token returned from auth0", {
                         options,
-                        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                         
                         body: authPostResponse.data,
                         status: authPostResponse.status,
-                        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                         
                         requestHeaders: authPostResponse.headers,
                     });
                     throw new Error("No access token returned from auth0");
                 }
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                 
                 localToken.access_token =
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                     
                     authPostResponse.data.access_token;
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+                 
                 localToken.token_type = authPostResponse.data.token_type;
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+                 
                 localToken.expires_in = authPostResponse.data.expires_in;
                 localToken.date_received = new Date();
 

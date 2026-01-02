@@ -1,4 +1,3 @@
-import { UsersApi } from "@use-miller/shared-api-client";
 import { getAuthenticatedApiInstance } from "../api-services/apiInstanceFactories.js";
 import { createMenu } from "./leftMenuGeneration.js";
 
@@ -12,7 +11,7 @@ export const getAccountIndexData = async (accessToken: string) => {
                 uuid: membership.organisation.uuid,
             },
         ],
-        [] as { name: string; uuid: string }[]
+        [] as { name: string; uuid: string }[],
     );
     // org data permissions are enforced on the server
     // so we can just return the data
@@ -25,14 +24,19 @@ export const getAccountIndexData = async (accessToken: string) => {
 };
 
 export const getUserData = async (accessToken: string) => {
-    const apiClient = await getAuthenticatedApiInstance(
-        UsersApi,
-        process.env.NEXT_PUBLIC_API_BASE_PATH,
-        accessToken,
-        fetch
-    );
-    const userData = await apiClient.userControllerFindOne({
-        uuid: "me",
+    const apiClient = getAuthenticatedApiInstance({
+        apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
+        authToken: accessToken,
+        fetchApi: fetch,
     });
-    return userData;
+
+    const { data, error } = await apiClient.GET("/user/{uuid}", {
+        params: { path: { uuid: "me" } },
+    });
+
+    if (error || !data) {
+        throw new Error("Failed to fetch user data");
+    }
+
+    return data;
 };

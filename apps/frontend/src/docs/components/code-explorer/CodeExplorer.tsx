@@ -1,9 +1,12 @@
 import EditorWrapper from "./EditorWrapper.jsx";
 import FileTree from "./FileTree.jsx";
-import { PanelGroup, Panel } from "react-resizable-panels";
+import { Group, Panel } from "react-resizable-panels";
 import ResizeHandle from "./ResizeHandle";
 import MarkdownWrapper from "./MarkdownWrapper.jsx";
-import { FileMetaDto, FileStructureDto } from "@use-miller/shared-api-client";
+import type { components } from "../../../shared/types/api-specs";
+
+type FileMetaDto = components["schemas"]["FileMetaDto"];
+type FileStructureDto = components["schemas"]["FileStructureDto"];
 
 export default function CodeExplorer({
     markdownFile,
@@ -36,7 +39,7 @@ export default function CodeExplorer({
     projectKey: string;
 }) {
     return (
-        <PanelGroup direction="horizontal" className="overflow-scroll">
+        <Group orientation="horizontal" className="overflow-scroll">
             <Panel defaultSize={20} minSize={5} style={{ display: "flex" }}>
                 {fileList.data && (
                     <FileTree
@@ -78,6 +81,6 @@ export default function CodeExplorer({
                     error={markdownFile.error}
                 ></MarkdownWrapper>
             </Panel>
-        </PanelGroup>
+        </Group>
     );
 }

@@ -1,6 +1,7 @@
-import { StripeCheckoutEvent } from "@use-miller/shared-api-client";
-import React from "react";
+import type { components } from "../../shared/types/api-specs";
 import { useFormattedDate } from "../../hooks/useFormattedDate.js";
+
+type StripeCheckoutEvent = components["schemas"]["StripeCheckoutEvent"];
 
 const PaymentEventRow = ({ sp }: { sp: StripeCheckoutEvent }) => {
     const createdDate = useFormattedDate(sp.createdDate);

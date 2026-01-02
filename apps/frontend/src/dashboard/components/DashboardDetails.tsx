@@ -1,9 +1,9 @@
-import {
-    Organisation,
-    OrganisationSubscriptionRecord,
-    SubscriptionAsset,
-    UserDto,
-} from "@use-miller/shared-api-client";
+import type { components } from "../../shared/types/api-specs";
+type Organisation = components["schemas"]["Organisation"];
+type OrganisationSubscriptionRecord =
+    components["schemas"]["OrganisationSubscriptionRecord"];
+type SubscriptionAsset = components["schemas"]["SubscriptionAsset"];
+type UserDto = components["schemas"]["UserDto"];
 import { GithubUserForm } from "./GithubUserForm.jsx";
 import NoSubscriptions from "./NoSubscriptions.jsx";
 import { Subscriptions } from "./Subscriptions.jsx";
@@ -24,7 +24,7 @@ export const DashboardDetails = ({
     const isOwner = currentUser.memberships.some(
         (m) =>
             m.organisationId === currentOrg.id &&
-            m.roles?.some((r) => r.name === "owner")
+            m.roles?.some((r) => r.name === "owner"),
     );
     let subsComponent = <Subscriptions subs={subs} subAssets={subAssets} />;
 

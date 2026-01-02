@@ -1,7 +1,7 @@
-import {
-    OrganisationSubscriptionRecord,
-    SubscriptionAsset,
-} from "@use-miller/shared-api-client";
+import type { components } from "../../shared/types/api-specs";
+type OrganisationSubscriptionRecord =
+    components["schemas"]["OrganisationSubscriptionRecord"];
+type SubscriptionAsset = components["schemas"]["SubscriptionAsset"];
 import { useFormattedDate } from "../../hooks/useFormattedDate.js";
 import { colorVariants } from "../../styles/themeColors.js";
 import ManageBillingLink from "./ManageBillingLink.jsx";

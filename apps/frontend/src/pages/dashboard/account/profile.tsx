@@ -1,11 +1,13 @@
 import { getAccessToken, withPageAuthRequired } from "@auth0/nextjs-auth0";
-import { User } from "@use-miller/shared-api-client";
+import type { components } from "../../../shared/types/api-specs";
 import { GetServerSidePropsContext, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { MenuSection } from "../../../components/LeftMenu.jsx";
 import { LeftMenuWrappedContent } from "../../../components/LeftMenuWrappedContent.jsx";
 import { getAccountIndexData } from "../../../dashboard/accountProfileDataService.js";
 import { ProfileDetails } from "../../../dashboard/components/ProfileDetails.jsx";
+
+type User = components["schemas"]["User"];
 
 export const getServerSideProps = withPageAuthRequired({
     // returnTo: '/unauthorized',

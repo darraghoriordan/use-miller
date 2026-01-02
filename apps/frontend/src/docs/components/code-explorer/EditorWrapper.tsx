@@ -1,6 +1,8 @@
 import Editor, { Monaco } from "@monaco-editor/react";
-import { FileMetaDto } from "@use-miller/shared-api-client";
+import type { components } from "../../../shared/types/api-specs";
 import Loading from "../../../components/Loading.jsx";
+
+type FileMetaDto = components["schemas"]["FileMetaDto"];
 
 const EditorWrapper = (props: {
     isError: boolean;

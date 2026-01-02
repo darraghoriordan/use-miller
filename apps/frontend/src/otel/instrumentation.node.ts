@@ -1,7 +1,7 @@
 import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
 import { NodeSDK } from "@opentelemetry/sdk-node";
-import { Resource } from "@opentelemetry/resources";
-import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
+import { resourceFromAttributes } from "@opentelemetry/resources";
+import { ATTR_SERVICE_NAME } from "@opentelemetry/semantic-conventions";
 import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
 import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-grpc";
 
@@ -13,14 +13,18 @@ const metricReader = new PeriodicExportingMetricReader({
 });
 
 const sdk = new NodeSDK({
-    resource: new Resource({
-        [SemanticResourceAttributes.SERVICE_NAME]: "next-app",
+    resource: resourceFromAttributes({
+        [ATTR_SERVICE_NAME]: "next-app",
     }),
-    metricReader,
+    metricReaders: [metricReader],
     instrumentations: [
         ...getNodeAutoInstrumentations({
             "@opentelemetry/instrumentation-fs": {
                 enabled: false, // very noisy
+            },
+            // Disable instrumentations that require optional dependencies
+            "@opentelemetry/instrumentation-winston": {
+                enabled: false,
             },
         }),
     ],
@@ -31,7 +35,7 @@ function shutdown() {
     sdk.shutdown()
         .then(
             () => console.log("SDK shut down successfully"),
-            (err) => console.log("Error shutting down SDK", err)
+            (err) => console.log("Error shutting down SDK", err),
         )
         .finally(() => process.exit(0));
 }

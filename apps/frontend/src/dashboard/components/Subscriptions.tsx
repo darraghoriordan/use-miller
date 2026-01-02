@@ -1,7 +1,7 @@
-import {
-    OrganisationSubscriptionRecord,
-    SubscriptionAsset,
-} from "@use-miller/shared-api-client";
+import type { components } from "../../shared/types/api-specs";
+type OrganisationSubscriptionRecord =
+    components["schemas"]["OrganisationSubscriptionRecord"];
+type SubscriptionAsset = components["schemas"]["SubscriptionAsset"];
 import { SingleProduct } from "./SingleProduct.jsx";
 import { SingleSubscription } from "./SingleSubscription.jsx";
 
@@ -21,7 +21,7 @@ export const Subscriptions = ({
             <div className="mt-16 mb-32 flex flex-col space-y-8">
                 {subs.map((sub) => {
                     const singleSubAssets = subAssets?.filter(
-                        (sa) => sa.internalSku === sub.internalSku
+                        (sa) => sa.internalSku === sub.internalSku,
                     );
                     const isSubscription =
                         sub.paymentSystemMode === "subscription";

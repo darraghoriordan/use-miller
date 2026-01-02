@@ -8,9 +8,9 @@ dotenv.config();
 import { TextEncoder, TextDecoder } from "util";
 import { ApiClientFactory } from "./commonDataModels/ApiClientFactory";
 import { ApplicationSupportApi } from "@use-miller/shared-api-client";
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+ 
 global.TextEncoder = TextEncoder as any;
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+ 
 global.TextDecoder = TextDecoder as any;
 // End of hack
 

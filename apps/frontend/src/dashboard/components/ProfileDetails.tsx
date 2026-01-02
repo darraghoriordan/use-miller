@@ -1,4 +1,5 @@
-import { User } from "@use-miller/shared-api-client";
+import type { components } from "../../shared/types/api-specs";
+type User = components["schemas"]["User"];
 import { useFormattedDate } from "../../hooks/useFormattedDate.js";
 
 export const ProfileDetails = ({ currentUser }: { currentUser: User }) => {

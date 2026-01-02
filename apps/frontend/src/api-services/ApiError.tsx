@@ -4,10 +4,7 @@ type ApiErrorProps = {
     message?: string;
     children?: React.ReactNode;
 };
-const ApiError: FunctionComponent<ApiErrorProps> = ({
-    message,
-    children,
-}): JSX.Element => {
+const ApiError: FunctionComponent<ApiErrorProps> = ({ message, children }) => {
     return (
         <div className="flex items-end justify-center px-4 pt-4 pb-20 text-center md:min-h-screen sm:block sm:p-0">
             <span

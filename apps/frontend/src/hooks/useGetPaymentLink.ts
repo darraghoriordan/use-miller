@@ -1,7 +1,8 @@
-import {
-    StripeCheckoutSessionRequestDto,
-    StripeCheckoutSessionResponseDto,
-} from "@use-miller/shared-api-client";
+import type { components } from "../shared/types/api-specs";
+type StripeCheckoutSessionRequestDto =
+    components["schemas"]["StripeCheckoutSessionRequestDto"];
+type StripeCheckoutSessionResponseDto =
+    components["schemas"]["StripeCheckoutSessionResponseDto"];
 import { useMutation } from "@tanstack/react-query";
 
 export function useGetPaymentLink() {

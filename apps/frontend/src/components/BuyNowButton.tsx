@@ -1,4 +1,5 @@
-import { UserDto } from "@use-miller/shared-api-client";
+import type { components } from "../shared/types/api-specs";
+type UserDto = components["schemas"]["UserDto"];
 import clsx from "clsx";
 import { ThemeColor } from "../styles/themeColors.js";
 import StyledButton from "./StyledButton.jsx";
@@ -47,8 +48,8 @@ export function BuyNowButton({
     console.log("loading the button", user, productKey, color, className, text);
     const { mutateAsync } = useGetPaymentLink();
 
-    const orgUuid = user?.memberships?.find(
-        (m) => m.roles?.some((r) => r.name === "owner"),
+    const orgUuid = user?.memberships?.find((m) =>
+        m.roles?.some((r) => r.name === "owner"),
     )?.organisation?.uuid;
 
     const product = productMapping.find((p) => p.productKey === productKey);

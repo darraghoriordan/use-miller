@@ -4,27 +4,27 @@
     "baseBranchPatterns": ["main"],
     "packageRules": [
         {
-            "description": "Pin tailwindcss to v3.x until Next.js fully supports v4 - remove this rule when upgrading to Next.js 15+",
+            "description": "Pin Next.js to v15.x - v16 requires Turbopack migration (all .js imports to .ts). Rule auto-expires when manually upgraded past v15.",
+            "matchPackageNames": ["next"],
+            "matchCurrentVersion": ">=15.0.0 <16.0.0",
+            "allowedVersions": "<16.0.0"
+        },
+        {
+            "description": "Pin tailwindcss to v3.x - v4 requires manual migration (codemod crashes). Rule auto-expires when manually upgraded past v3.",
             "matchPackageNames": ["tailwindcss"],
             "matchCurrentVersion": ">=3.0.0 <4.0.0",
             "allowedVersions": "<4.0.0"
         },
         {
-            "description": "Pin @tailwindcss/postcss out - not needed for tailwind v3 - remove this rule when upgrading to tailwind v4",
+            "description": "Pin @tailwindcss/postcss - not needed for tailwind v3. Rule auto-expires when tailwind is upgraded to v4.",
             "matchPackageNames": ["@tailwindcss/postcss"],
             "enabled": false
         },
         {
-            "description": "Pin eslint to v8.x until Next.js 14 is upgraded - remove this rule when upgrading to Next.js 15+",
-            "matchPackageNames": ["eslint"],
-            "matchCurrentVersion": ">=8.0.0 <9.0.0",
-            "allowedVersions": "<9.0.0"
-        },
-        {
-            "description": "Pin eslint-config-next to match Next.js version - remove this rule when upgrading Next.js",
-            "matchPackageNames": ["eslint-config-next"],
-            "matchCurrentVersion": ">=14.0.0 <15.0.0",
-            "allowedVersions": "<15.0.0"
+            "description": "Pin @auth0/nextjs-auth0 to v3.x - v4 requires App Router (project uses Pages Router). Rule auto-expires when manually upgraded past v3.",
+            "matchPackageNames": ["@auth0/nextjs-auth0"],
+            "matchCurrentVersion": ">=3.0.0 <4.0.0",
+            "allowedVersions": "<4.0.0"
         }
     ]
 }

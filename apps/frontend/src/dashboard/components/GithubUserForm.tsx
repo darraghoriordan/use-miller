@@ -1,4 +1,5 @@
-import { OrgGithubUserDto } from "@use-miller/shared-api-client";
+import type { components } from "../../shared/types/api-specs";
+type OrgGithubUserDto = components["schemas"]["OrgGithubUserDto"];
 import { useState } from "react";
 import StyledButton from "../../components/StyledButton.jsx";
 
@@ -35,7 +36,7 @@ export const GithubUserForm = ({
         // Send the form data to our forms API on Vercel and get a response.
         const response = await fetch(
             `/api/onboarding/set-gh-username`,
-            options
+            options,
         );
 
         // Get the response data from server as JSON.

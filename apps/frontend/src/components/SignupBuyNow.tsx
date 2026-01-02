@@ -1,4 +1,5 @@
-import { UserDto } from "@use-miller/shared-api-client";
+import type { components } from "../shared/types/api-specs";
+type UserDto = components["schemas"]["UserDto"];
 import clsx from "clsx";
 import { ThemeColor } from "../styles/themeColors.js";
 import { getSignUpUrl } from "./signupUrl.js";

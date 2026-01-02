@@ -1,6 +1,7 @@
-import { User } from "@use-miller/shared-api-client";
-import React from "react";
+import type { components } from "../../shared/types/api-specs";
 import { useFormattedDate } from "../../hooks/useFormattedDate.js";
+
+type User = components["schemas"]["User"];
 
 const UserRow = ({ user }: { user: User }) => {
     const createdDate = useFormattedDate(user.createdDate);

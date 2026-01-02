@@ -27,22 +27,22 @@ export interface InlineResponse200 {
     status?: string;
     /**
      * 
-     * @type {{ [key: string]: { [key: string]: object; }; }}
+     * @type {{ [key: string]: { [key: string]: string; }; }}
      * @memberof InlineResponse200
      */
-    info?: { [key: string]: { [key: string]: object; }; } | null;
+    info?: { [key: string]: { [key: string]: string; }; } | null;
     /**
      * 
-     * @type {{ [key: string]: { [key: string]: object; }; }}
+     * @type {{ [key: string]: { [key: string]: string; }; }}
      * @memberof InlineResponse200
      */
-    error?: { [key: string]: { [key: string]: object; }; } | null;
+    error?: { [key: string]: { [key: string]: string; }; } | null;
     /**
      * 
-     * @type {{ [key: string]: { [key: string]: object; }; }}
+     * @type {{ [key: string]: { [key: string]: string; }; }}
      * @memberof InlineResponse200
      */
-    details?: { [key: string]: { [key: string]: object; }; };
+    details?: { [key: string]: { [key: string]: string; }; };
 }
 
 export function InlineResponse200FromJSON(json: any): InlineResponse200 {

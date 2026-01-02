@@ -1,6 +1,7 @@
 import { Container } from "../../components/Container";
 import dynamic from "next/dynamic.js";
-import { UserDto } from "@use-miller/shared-api-client";
+import type { components } from "../../shared/types/api-specs";
+type UserDto = components["schemas"]["UserDto"];
 import { TwitterCTA } from "../components/TwitterCTA.jsx";
 import { CheckIcon } from "@heroicons/react/24/outline";
 

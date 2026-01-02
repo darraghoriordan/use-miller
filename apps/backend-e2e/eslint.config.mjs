@@ -8,7 +8,7 @@ import tseslint, { parser } from "typescript-eslint";
 
 export default tseslint.config(
     {
-        ignores: ["**/.eslintrc.cjs", "**/dist", "**/node_modules"],
+        ignores: ["**/.eslintrc.js", "**/dist", "**/node_modules"],
     },
     eslint.configs.recommended,
     tseslint.configs.strictTypeChecked,
@@ -18,6 +18,7 @@ export default tseslint.config(
         languageOptions: {
             globals: {
                 ...globals.node,
+                ...globals.jest,
             },
 
             parser,
@@ -43,11 +44,23 @@ export default tseslint.config(
         files: ["**/*.ts"],
         rules: {
             "@typescript-eslint/no-extraneous-class": "off",
+            "@typescript-eslint/no-explicit-any": "off",
+            "@typescript-eslint/no-unsafe-call": "off",
+            "@typescript-eslint/no-unsafe-return": "off",
+            "@typescript-eslint/no-unsafe-member-access": "off",
+            "@typescript-eslint/no-unsafe-assignment": "off",
+            "@typescript-eslint/no-unsafe-argument": "off",
+            "@typescript-eslint/prefer-nullish-coalescing": "off",
+            "@typescript-eslint/no-unnecessary-condition": "off",
             "@typescript-eslint/naming-convention": [
                 "error",
                 {
                     selector: "default",
                     format: ["camelCase"],
+                },
+                {
+                    selector: "import",
+                    format: ["camelCase", "PascalCase"],
                 },
                 {
                     selector: "variable",

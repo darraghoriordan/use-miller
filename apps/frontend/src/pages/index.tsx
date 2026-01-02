@@ -1,7 +1,9 @@
 import { Hero } from "../marketing-pages/index-home/Hero";
 import Layout from "../components/Layout.jsx";
 import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps.js";
-import { UserDto } from "@use-miller/shared-api-client";
+import type { components } from "../shared/types/api-specs";
+
+type UserDto = components["schemas"]["UserDto"];
 
 export const getServerSideProps = getMarketingServerSideProps;
 

@@ -1,6 +1,8 @@
-import { OrganisationSubscriptionRecord } from "@use-miller/shared-api-client";
-import React from "react";
+import type { components } from "../../shared/types/api-specs";
 import { useFormattedDate } from "../../hooks/useFormattedDate.js";
+
+type OrganisationSubscriptionRecord =
+    components["schemas"]["OrganisationSubscriptionRecord"];
 
 const ProductLink = ({ sp }: { sp: OrganisationSubscriptionRecord }) => {
     if (sp.paymentSystemName === "stripe") {

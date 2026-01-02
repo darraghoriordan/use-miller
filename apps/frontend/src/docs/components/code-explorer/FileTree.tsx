@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { FileStructureDto } from "@use-miller/shared-api-client";
+import type { components } from "../../../shared/types/api-specs";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { getIconForFile } from "vscode-material-icon-theme-js";
 import Tree, {
@@ -7,6 +7,8 @@ import Tree, {
     treeHandlers,
     useTreeState,
 } from "react-hyper-tree";
+
+type FileStructureDto = components["schemas"]["FileStructureDto"];
 
 const VS_MATERIAL_ICONS =
     "https://cdn.jsdelivr.net/gh/PKief/vscode-material-icon-theme@master/icons";

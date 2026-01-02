@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+ 
+ 
 import {
     Organisation,
     OrganisationMembershipsApi,
@@ -126,14 +126,14 @@ describe("When getting a user the first time", () => {
                     {
                         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                         orgId: org!.id,
-                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                         
                         uuid: subscription.uuid,
                     }
                 );
             results.push(isDeleted);
         }
 
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+         
         for (const r of results) {
             expect(r.result).toBe(true);
         }

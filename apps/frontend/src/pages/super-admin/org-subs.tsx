@@ -1,9 +1,12 @@
 import { MenuSection } from "../../components/LeftMenu.jsx";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import { OrganisationSubscriptionRecord } from "@use-miller/shared-api-client";
+import type { components } from "../../shared/types/api-specs";
 import { LeftMenuWrappedContent } from "../../components/LeftMenuWrappedContent.jsx";
 import { superUserGetSubscriptionsData } from "../../super-admin/services/superAdminData.js";
 import OrgSubsSuperAdmin from "../../super-admin/components/OrgSubsSuperAdmin.jsx";
+
+type OrganisationSubscriptionRecord =
+    components["schemas"]["OrganisationSubscriptionRecord"];
 
 export const getServerSideProps = withPageAuthRequired({
     // returnTo: '/unauthorized',

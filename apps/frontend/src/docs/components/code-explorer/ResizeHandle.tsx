@@ -1,4 +1,4 @@
-import { PanelResizeHandle } from "react-resizable-panels";
+import { Separator } from "react-resizable-panels";
 export default function ResizeHandle({
     className,
     id,
@@ -7,7 +7,7 @@ export default function ResizeHandle({
     id?: string;
 }) {
     return (
-        <PanelResizeHandle
+        <Separator
             className={`flex items-stretch justify-between outline-hidden p-[.5rem] flex-[0_0_1.1rem] leading-[1.5em] ${className}`}
             id={id}
         >
@@ -28,6 +28,6 @@ export default function ResizeHandle({
                     ></path>
                 </svg>
             </div>
-        </PanelResizeHandle>
+        </Separator>
     );
 }

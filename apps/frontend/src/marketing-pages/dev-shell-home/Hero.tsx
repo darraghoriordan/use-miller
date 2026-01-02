@@ -4,7 +4,8 @@ import batImage from "./intro-media/bat.png";
 import diffImage from "./intro-media/diff.png";
 import exaImage from "./intro-media/exa.png";
 import Image from "next/image";
-import { UserDto } from "@use-miller/shared-api-client";
+import type { components } from "../../shared/types/api-specs";
+type UserDto = components["schemas"]["UserDto"];
 import { TwitterCTA } from "../components/TwitterCTA.jsx";
 import { CheckIcon } from "@heroicons/react/24/outline";
 

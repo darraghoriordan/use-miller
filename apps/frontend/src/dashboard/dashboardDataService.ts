@@ -1,20 +1,18 @@
 import { getAccessToken } from "@auth0/nextjs-auth0";
-import {
-    Organisation,
-    OrganisationSubscriptionRecord,
-    OrganisationSubscriptionsApi,
-    SubscriptionAsset,
-    UserDto,
-    UserOnboardingApi,
-    UsersApi,
-} from "@use-miller/shared-api-client";
 import { GetServerSidePropsContext, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { getAuthenticatedApiInstance } from "../api-services/apiInstanceFactories.js";
 import { createMenu } from "./leftMenuGeneration.js";
+import type { components } from "../shared/types/api-specs";
+
+type Organisation = components["schemas"]["Organisation"];
+type OrganisationSubscriptionRecord =
+    components["schemas"]["OrganisationSubscriptionRecord"];
+type SubscriptionAsset = components["schemas"]["SubscriptionAsset"];
+type UserDto = components["schemas"]["UserDto"];
 
 export async function dashboardGetSspData(
-    context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
+    context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
     const atResponse = await getAccessToken(context.req, context.res, {
         scopes: ["openid", "email", "profile", "offline_access"],
@@ -24,21 +22,21 @@ export async function dashboardGetSspData(
         : undefined;
 
     const subAssets = await getCurrentUserSubscriptions(
-        atResponse.accessToken!
+        atResponse.accessToken!,
     );
     const userData = await getCurrentUser(atResponse.accessToken!);
     const mappedProps = mapDataForIndexDashboard(userData, subAssets, orgUuid);
 
     const orgGhUsers = await getOrgGhUsernames(
         atResponse.accessToken!,
-        orgUuid || mappedProps.currentOrg.uuid
+        orgUuid || mappedProps.currentOrg.uuid,
     );
     // reduce the first 1 to a single string
     const firstUsername = orgGhUsers[0]?.ghUsername;
 
     return {
         props: JSON.parse(
-            JSON.stringify({ ...mappedProps, ghUsername: firstUsername })
+            JSON.stringify({ ...mappedProps, ghUsername: firstUsername }),
         ),
     };
 }
@@ -46,7 +44,7 @@ export async function dashboardGetSspData(
 export const mapDataForIndexDashboard = (
     userData: UserDto,
     subAssets: SubscriptionAsset[],
-    currentOrgUuid?: string
+    currentOrgUuid?: string,
 ) => {
     const userOrgs = userData.memberships.reduce(
         (acc, membership) => [
@@ -57,7 +55,7 @@ export const mapDataForIndexDashboard = (
                 id: membership.organisation.id,
             },
         ],
-        [] as { name: string; uuid: string; id: number }[]
+        [] as { name: string; uuid: string; id: number }[],
     );
 
     // org data permissions are enforced on the server
@@ -72,7 +70,7 @@ export const mapDataForIndexDashboard = (
     const menuSections = createMenu(userOrgs);
     const subscriptions =
         userData.memberships.find(
-            (m) => m.organisation.uuid === currentOrgInstance.uuid
+            (m) => m.organisation.uuid === currentOrgInstance.uuid,
         )?.organisation?.subscriptionRecords || [];
 
     return JSON.parse(
@@ -82,7 +80,7 @@ export const mapDataForIndexDashboard = (
             currentUser: userData,
             subAssets,
             currentOrg: currentOrgInstance,
-        })
+        }),
     ) as unknown as {
         menuSections: {
             name: string;
@@ -100,39 +98,59 @@ export const mapDataForIndexDashboard = (
 };
 
 export const getCurrentUser = async (accessToken: string) => {
-    const apiClient = await getAuthenticatedApiInstance(
-        UsersApi,
-        process.env.NEXT_PUBLIC_API_BASE_PATH,
-        accessToken,
-        fetch
-    );
-    const userData = await apiClient.userControllerFindOne({
-        uuid: "me",
+    const apiClient = getAuthenticatedApiInstance({
+        apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
+        authToken: accessToken,
+        fetchApi: fetch,
     });
-    return userData;
+
+    const { data, error } = await apiClient.GET("/user/{uuid}", {
+        params: { path: { uuid: "me" } },
+    });
+
+    if (error || !data) {
+        throw new Error("Failed to fetch user data");
+    }
+
+    return data;
 };
 
 export const getCurrentUserSubscriptions = async (accessToken: string) => {
-    const apiClient = await getAuthenticatedApiInstance(
-        OrganisationSubscriptionsApi,
-        process.env.NEXT_PUBLIC_API_BASE_PATH,
-        accessToken,
-        fetch
-    );
-    const d = await apiClient.subscriptionAssetsControllerGetAssetsForOrg();
-    return d;
+    const apiClient = getAuthenticatedApiInstance({
+        apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
+        authToken: accessToken,
+        fetchApi: fetch,
+    });
+
+    const { data, error } = await apiClient.GET("/subscription-assets");
+
+    if (error || !data) {
+        throw new Error("Failed to fetch subscription assets");
+    }
+
+    return data;
 };
 
 export const getOrgGhUsernames = async (
     accessToken: string,
-    orgUuid: string
+    orgUuid: string,
 ) => {
-    const apiClient = await getAuthenticatedApiInstance(
-        UserOnboardingApi,
-        process.env.NEXT_PUBLIC_API_BASE_PATH,
-        accessToken,
-        fetch
+    const apiClient = getAuthenticatedApiInstance({
+        apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
+        authToken: accessToken,
+        fetchApi: fetch,
+    });
+
+    const { data, error } = await apiClient.GET(
+        "/onboarding/github-user/{orgUuid}",
+        {
+            params: { path: { orgUuid } },
+        },
     );
-    const d = await apiClient.userOnboardingControllerGetAllForOrg({ orgUuid });
-    return d;
+
+    if (error || !data) {
+        throw new Error("Failed to fetch github users");
+    }
+
+    return data;
 };

@@ -1,8 +1,4 @@
-import {
-    ProjectFilesApi,
-    FileMetaDto,
-    FileStructureDto,
-} from "@use-miller/shared-api-client";
+import type { components } from "../shared/types/api-specs";
 import { GetServerSidePropsContext } from "next";
 import { getAccessToken, getSession } from "@auth0/nextjs-auth0";
 import { createMenu, mapTitles } from "./leftMenuGeneration.js";
@@ -10,7 +6,9 @@ import {
     getAnonymousApiInstance,
     getAuthenticatedApiInstance,
 } from "../api-services/apiInstanceFactories.js";
-//import { getAllCourses } from "./courses/useGetAllCourses.js";
+
+type FileMetaDto = components["schemas"]["FileMetaDto"];
+type FileStructureDto = components["schemas"]["FileStructureDto"];
 
 export type CodeExplorerData = {
     slug: string;
@@ -43,8 +41,6 @@ export async function getCodeExplorerData(
     codeFile: string,
     accessToken: string | null | undefined,
 ): Promise<CodeExplorerData> {
-    codeFile;
-
     if (
         !projectKey ||
         projectKey === "index" ||
@@ -62,68 +58,136 @@ export async function getCodeExplorerData(
     ) {
         codeFile = defaultCodeFile;
     }
-    let apiClient: ProjectFilesApi;
-    if (!accessToken) {
-        apiClient = await getAnonymousApiInstance(
-            ProjectFilesApi,
-            process.env.NEXT_PUBLIC_API_BASE_PATH,
-            fetch,
+
+    const apiBase = process.env.NEXT_PUBLIC_API_BASE_PATH || "";
+    const apiClient = accessToken
+        ? getAuthenticatedApiInstance({
+              apiBase,
+              authToken: accessToken,
+              fetchApi: fetch,
+          })
+        : getAnonymousApiInstance({ apiBase, fetchApi: fetch });
+
+    // Fetch file list
+    const fileListResponse = await apiClient.GET(
+        "/project-files/{productKey}/{projectKey}",
+        {
+            params: {
+                path: {
+                    productKey,
+                    projectKey,
+                },
+            },
+        },
+    );
+
+    if (!fileListResponse.data) {
+        console.error(
+            "Error fetching file list for",
+            { productKey, projectKey, apiBase },
+            fileListResponse.error,
         );
-    } else {
-        apiClient = await getAuthenticatedApiInstance(
-            ProjectFilesApi,
-            process.env.NEXT_PUBLIC_API_BASE_PATH,
-            accessToken,
-            fetch,
+        throw new Error(
+            `Failed to fetch file list for ${productKey}/${projectKey}: ${JSON.stringify(fileListResponse.error)}`,
         );
-    }
-    let fileListPromise;
-    try {
-        fileListPromise = apiClient.courseFilesControllerListProjectFiles({
-            productKey,
-            projectKey,
-        });
-    } catch (error) {
-        console.error("Error fetching file list", error);
-        throw error;
     }
 
+    // Fetch initial code file - use open endpoint for anonymous, authenticated endpoint for logged in
     let initialCodeFile: FileMetaDto;
-    let initialMarkdownFilePromise: Promise<FileMetaDto>;
+    let initialMarkdownFile: FileMetaDto;
+
     if (!accessToken) {
-        initialCodeFile = await apiClient.openCourseFilesControllerGetFile({
-            productKey,
-            projectKey,
-            b64Path: codeFile,
-        });
-        initialMarkdownFilePromise =
-            apiClient.openCourseFilesControllerGetMarkdownFileAsHtml({
-                productKey,
-                projectKey,
-                markdownB64Path:
-                    initialCodeFile.nearestReadmeLocation || defaultCodeFile,
-            });
+        // Anonymous user - use open endpoints
+        const codeFileResponse = await apiClient.GET(
+            "/project-files/{productKey}/open/{projectKey}/contents/{b64Path}",
+            {
+                params: {
+                    path: {
+                        productKey,
+                        projectKey,
+                        b64Path: codeFile,
+                    },
+                },
+            },
+        );
+
+        if (!codeFileResponse.data) {
+            console.error("Error fetching code file", codeFileResponse);
+            throw new Error("Failed to fetch code file");
+        }
+
+        initialCodeFile = codeFileResponse.data;
+
+        const markdownResponse = await apiClient.GET(
+            "/project-files/{productKey}/open/{projectKey}/contents-markdown/{markdownB64Path}",
+            {
+                params: {
+                    path: {
+                        productKey,
+                        projectKey,
+                        markdownB64Path:
+                            initialCodeFile.nearestReadmeLocation ||
+                            defaultCodeFile,
+                    },
+                },
+            },
+        );
+
+        if (!markdownResponse.data) {
+            console.error("Error fetching markdown file", markdownResponse);
+            throw new Error("Failed to fetch markdown file");
+        }
+
+        initialMarkdownFile = markdownResponse.data;
     } else {
-        initialCodeFile = await apiClient.courseFilesControllerGetFile({
-            productKey,
-            projectKey,
-            b64Path: codeFile,
-        });
-        initialMarkdownFilePromise =
-            apiClient.courseFilesControllerGetMarkdownFileAsHtml({
-                productKey,
-                projectKey,
-                markdownB64Path:
-                    initialCodeFile.nearestReadmeLocation || defaultCodeFile,
-            });
+        // Authenticated user - use protected endpoints
+        const codeFileResponse = await apiClient.GET(
+            "/project-files/{productKey}/{projectKey}/contents/{b64Path}",
+            {
+                params: {
+                    path: {
+                        productKey,
+                        projectKey,
+                        b64Path: codeFile,
+                    },
+                },
+            },
+        );
+
+        if (!codeFileResponse.data) {
+            console.error("Error fetching code file", codeFileResponse);
+            throw new Error("Failed to fetch code file");
+        }
+
+        initialCodeFile = codeFileResponse.data;
+
+        const markdownResponse = await apiClient.GET(
+            "/project-files/{productKey}/{projectKey}/contents-markdown/{markdownB64Path}",
+            {
+                params: {
+                    path: {
+                        productKey,
+                        projectKey,
+                        markdownB64Path:
+                            initialCodeFile.nearestReadmeLocation ||
+                            defaultCodeFile,
+                    },
+                },
+            },
+        );
+
+        if (!markdownResponse.data) {
+            console.error("Error fetching markdown file", markdownResponse);
+            throw new Error("Failed to fetch markdown file");
+        }
+
+        initialMarkdownFile = markdownResponse.data;
     }
-    console.log("TO HERE");
-    // maybe change this to settled later
-    const [fileList, initialMarkdownFile] = await Promise.all([
-        fileListPromise,
-        initialMarkdownFilePromise,
-    ]);
-    const serialisedFileList = JSON.parse(JSON.stringify(fileList));
+
+    const serialisedFileList = JSON.parse(
+        JSON.stringify(fileListResponse.data),
+    );
+
     return {
         slug: projectKey,
         fileList: {
@@ -132,7 +196,6 @@ export async function getCodeExplorerData(
             isError: false,
             error: null,
         },
-
         initialCodeFile: {
             data: initialCodeFile,
             isLoading: false,
@@ -148,6 +211,7 @@ export async function getCodeExplorerData(
         selectedFile: codeFile,
     };
 }
+
 export async function getCodeFileServerSideProps(
     context: GetServerSidePropsContext,
 ) {
@@ -184,6 +248,6 @@ export async function getCodeFileServerSideProps(
             menuSections,
             codeExplorerData,
             ...titles,
-        }, // will be passed to the page component as props
+        },
     };
 }

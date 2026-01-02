@@ -1,4 +1,3 @@
-import { SuperPowerApi } from "@use-miller/shared-api-client";
 import { getAccessToken } from "@auth0/nextjs-auth0";
 import { GetServerSidePropsContext, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
@@ -14,26 +13,36 @@ export async function superUserGetUserData(
             audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
         },
     });
-    const apiClient = await getAuthenticatedApiInstance(
-        SuperPowerApi,
-        process.env.NEXT_PUBLIC_API_BASE_PATH!,
-        atResponse.accessToken!,
-        fetch,
-    );
-    const [allUsers, menuSections] = await Promise.allSettled([
-        apiClient.userControllerFindAll(),
+    const apiClient = getAuthenticatedApiInstance({
+        apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
+        authToken: atResponse.accessToken!,
+        fetchApi: fetch,
+    });
+
+    const [usersResult, menuSections] = await Promise.allSettled([
+        apiClient.GET("/user"),
         createMenu(),
     ]);
-    if (allUsers.status === "rejected" || menuSections.status === "rejected") {
+
+    if (
+        usersResult.status === "rejected" ||
+        menuSections.status === "rejected"
+    ) {
         throw new Error(
-            "Failed to get data:" + (allUsers as PromiseRejectedResult).reason!,
+            "Failed to get data:" +
+                (usersResult as PromiseRejectedResult).reason!,
         );
+    }
+
+    const { data: allUsers, error } = usersResult.value;
+    if (error || !allUsers) {
+        throw new Error("Failed to fetch users");
     }
 
     return {
         props: JSON.parse(
             JSON.stringify({
-                allUsers: allUsers.value,
+                allUsers,
                 menuSections: menuSections.value,
             }),
         ),
@@ -71,28 +80,35 @@ export async function superUserGetPaymentData(
     const atResponse = await getAccessToken(context.req, context.res, {
         scopes: superUserScopes,
     });
-    const apiClient = await getAuthenticatedApiInstance(
-        SuperPowerApi,
-        process.env.NEXT_PUBLIC_API_BASE_PATH!,
-        atResponse.accessToken!,
-        fetch,
-    );
+    const apiClient = getAuthenticatedApiInstance({
+        apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
+        authToken: atResponse.accessToken!,
+        fetchApi: fetch,
+    });
 
-    const [allData, menuSections] = await Promise.allSettled([
-        apiClient.stripeEventsControllerGetLastEvents({
-            skip: 0,
-            take: 20,
+    const [paymentResult, menuSections] = await Promise.allSettled([
+        apiClient.GET("/payments/stripe/events", {
+            params: { query: { skip: 0, take: 20 } },
         }),
         createMenu(),
     ]);
-    if (allData.status === "rejected" || menuSections.status === "rejected") {
+
+    if (
+        paymentResult.status === "rejected" ||
+        menuSections.status === "rejected"
+    ) {
         throw new Error("Failed to get data");
+    }
+
+    const { data: allData, error } = paymentResult.value;
+    if (error || !allData) {
+        throw new Error("Failed to fetch payment events");
     }
 
     return {
         props: JSON.parse(
             JSON.stringify({
-                allData: allData.value,
+                allData,
                 menuSections: menuSections.value,
             }),
         ),
@@ -105,25 +121,33 @@ export async function superUserGetSubscriptionsData(
     const atResponse = await getAccessToken(context.req, context.res, {
         scopes: superUserScopes,
     });
-    const apiClient = await getAuthenticatedApiInstance(
-        SuperPowerApi,
-        process.env.NEXT_PUBLIC_API_BASE_PATH!,
-        atResponse.accessToken!,
-        fetch,
-    );
+    const apiClient = getAuthenticatedApiInstance({
+        apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
+        authToken: atResponse.accessToken!,
+        fetchApi: fetch,
+    });
 
-    const [orgSubs, menuSections] = await Promise.allSettled([
-        apiClient.allSubscriptionsControllerFindAll(),
+    const [subsResult, menuSections] = await Promise.allSettled([
+        apiClient.GET("/subscriptions"),
         createMenu(),
     ]);
-    if (orgSubs.status === "rejected" || menuSections.status === "rejected") {
+
+    if (
+        subsResult.status === "rejected" ||
+        menuSections.status === "rejected"
+    ) {
         throw new Error("Failed to get data");
+    }
+
+    const { data: orgSubs, error } = subsResult.value;
+    if (error || !orgSubs) {
+        throw new Error("Failed to fetch subscriptions");
     }
 
     return {
         props: JSON.parse(
             JSON.stringify({
-                allSubs: orgSubs.value,
+                allSubs: orgSubs,
                 menuSections: menuSections.value,
             }),
         ),

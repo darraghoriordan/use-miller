@@ -4,7 +4,8 @@ import codeImage from "./intro-media/code.png";
 import dashboardImage from "./intro-media/dashboard.png";
 import docsImage from "./intro-media/docs.png";
 import Image from "next/image";
-import { UserDto } from "@use-miller/shared-api-client";
+import type { components } from "../../shared/types/api-specs";
+type UserDto = components["schemas"]["UserDto"];
 import { BuyNowButton } from "../../components/BuyNowButton.jsx";
 
 export function Hero({ user }: { user: UserDto }) {
@@ -23,7 +24,7 @@ export function Hero({ user }: { user: UserDto }) {
         "and more...",
     ];
     const docsLink = `docs/miller-start/reference/miller-web/${btoa(
-        "/README.md"
+        "/README.md",
     )}`;
     return (
         <Container className="pt-20 text-left">

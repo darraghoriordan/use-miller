@@ -1,5 +1,6 @@
 import { Container } from "../../components/Container";
-import { UserDto } from "@use-miller/shared-api-client";
+import type { components } from "../../shared/types/api-specs";
+type UserDto = components["schemas"]["UserDto"];
 import { TwitterCTA } from "../components/TwitterCTA.jsx";
 import { Price } from "./Price.jsx";
 import { FreePrice } from "./FreePrice.jsx";
