@@ -281,8 +281,8 @@ importers:
         injected: true
     devDependencies:
       '@darraghor/eslint-plugin-nestjs-typed':
-        specifier: 7.1.8
-        version: 7.1.8(@typescript-eslint/parser@8.51.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(class-validator@0.14.3)(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+        specifier: 7.1.9
+        version: 7.1.9(@typescript-eslint/parser@8.51.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(class-validator@0.14.3)(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       '@eslint/eslintrc':
         specifier: 3.3.3
         version: 3.3.3
@@ -390,8 +390,8 @@ importers:
         version: 0.15.0
     devDependencies:
       '@darraghor/eslint-plugin-nestjs-typed':
-        specifier: 7.1.8
-        version: 7.1.8(@typescript-eslint/parser@8.51.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(class-validator@0.14.3)(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+        specifier: 7.1.9
+        version: 7.1.9(@typescript-eslint/parser@8.51.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(class-validator@0.14.3)(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       '@eslint/js':
         specifier: 9.39.2
         version: 9.39.2
@@ -1518,8 +1518,8 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@darraghor/eslint-plugin-nestjs-typed@7.1.8':
-    resolution: {integrity: sha512-TE7LczQSdXaNTFVb7eO9mbv5E5Af2Hv1lbo7VB4T4FW9RwZeQbOl7Tpig9xfDgpzB14eXEMxqPsJdnCrhcVkRg==}
+  '@darraghor/eslint-plugin-nestjs-typed@7.1.9':
+    resolution: {integrity: sha512-LXcDQO4bILCqfYNGz4oYmAsy6qRC6+GLjZJKfakd3fr1mVrsMey2FFqEXq9W3LLM5a6HboQl1sUyQKwQ1EqeoA==}
     engines: {node: '>=24.12.0'}
     peerDependencies:
       '@typescript-eslint/parser': ^7.0.0 || ^8.0.0
@@ -12060,7 +12060,7 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@darraghor/eslint-plugin-nestjs-typed@7.1.8(@typescript-eslint/parser@8.51.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(class-validator@0.14.3)(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)':
+  '@darraghor/eslint-plugin-nestjs-typed@7.1.9(@typescript-eslint/parser@8.51.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(class-validator@0.14.3)(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/parser': 8.51.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       '@typescript-eslint/scope-manager': 8.51.0
