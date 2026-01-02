@@ -34,6 +34,7 @@ USER app
 COPY --chown=app:app --from=builder /app/apps/frontend/.next/standalone src/
 COPY --chown=app:app --from=builder /app/apps/frontend/public src/apps/frontend/public
 COPY --chown=app:app --from=builder /app/apps/frontend/.next/static src/apps/frontend/.next/static
+COPY --chown=app:app --from=builder /app/apps/frontend/app.json app.json
 # COPY --chown=app:app --from=builder /app/pruned/node_modules node_modules
 EXPOSE 5000
 ENV PORT 5000
