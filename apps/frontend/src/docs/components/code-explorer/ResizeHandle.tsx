@@ -13,7 +13,7 @@ export default function ResizeHandle({
         >
             <div className="relative flex-1 rounded-[.75rem]">
                 <svg
-                    className="absolute hidden text-blue-400 w-[1rem] h-[1rem] fill-zinc-200 top-[calc(50%-0.5rem)] left-[calc(50%-0.5rem)]"
+                    className="absolute hidden text-blue-400 w-4 h-4 fill-zinc-200 top-[calc(50%-0.5rem)] left-[calc(50%-0.5rem)]"
                     viewBox="0 0 24 24"
                 >
                     <path
