@@ -52,7 +52,7 @@ export default function CodeExplorer({
                     />
                 )}
             </Panel>
-            <ResizeHandle className="bg-dark-shade" />
+            <ResizeHandle className="bg-security-darker" />
             <Panel
                 defaultSize={40}
                 minSize={40}
@@ -68,7 +68,7 @@ export default function CodeExplorer({
                     isError={codeFile.isError}
                 />
             </Panel>
-            <ResizeHandle className="bg-dark-shade" />
+            <ResizeHandle className="bg-security-darker" />
             <Panel
                 defaultSize={40}
                 minSize={20}

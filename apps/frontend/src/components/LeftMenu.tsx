@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { colorVariants } from "../styles/themeColors";
+import { colorVariants, ThemeColor } from "../styles/themeColors";
 import { LeftMenuItem } from "./LeftMenuItem";
 
 export type MenuItem = {
@@ -38,10 +38,12 @@ export function LeftMenu({
     menuSections,
     header,
     headerHref,
+    productColor = "primary",
 }: {
     menuSections: MenuSection[];
     header: string;
     headerHref?: string;
+    productColor?: ThemeColor;
 }) {
     const path = useRouter();
 
@@ -50,12 +52,12 @@ export function LeftMenu({
             <div className="flex flex-col grow mr-8">
                 <h1
                     className={clsx(
-                        `mb-8 font-bold uppercase`,
-                        colorVariants["green"].foreground,
+                        "mb-8 font-display font-bold uppercase tracking-wider text-sm",
+                        colorVariants[productColor].foreground,
                     )}
                 >
                     <Link
-                        className="hover:cursor-pointer"
+                        className="hover:cursor-pointer transition-opacity hover:opacity-80"
                         href={headerHref || "#"}
                     >
                         {header}
@@ -63,10 +65,10 @@ export function LeftMenu({
                 </h1>
                 {menuSections?.map((section) => (
                     <div key={section.name}>
-                        <h3 className="mb-2 mt-4 font-bold text-white uppercase ">
+                        <h3 className="mb-2 mt-6 font-mono text-xs font-semibold text-security-light uppercase tracking-wider">
                             {section.name}
                         </h3>
-                        <ul className="mr-4">
+                        <ul className="mr-4 space-y-1">
                             {section.items.map((item) => (
                                 <LeftMenuItem
                                     key={item.path}
@@ -75,6 +77,7 @@ export function LeftMenu({
                                         path.asPath,
                                         item,
                                     )}
+                                    productColor={productColor}
                                 />
                             ))}
                         </ul>
@@ -83,10 +86,11 @@ export function LeftMenu({
             </div>
             <div className="flex flex-col">
                 <div
-                    style={{
-                        background: "linear-gradient(#56d364, #00bcd4)",
-                    }}
-                    className="h-full w-[2px]"
+                    className={clsx(
+                        "h-full w-px",
+                        colorVariants[productColor].background,
+                        "opacity-50",
+                    )}
                 >
                     &nbsp;
                 </div>

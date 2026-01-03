@@ -11,9 +11,9 @@ const MarkdownWrapper = (props: {
 
     if (isError) {
         return (
-            <div className="inset-0 z-10 overflow-hidden">
+            <div className="inset-0 z-10 overflow-hidden bg-security-dark">
                 <div className="flex flex-col items-center justify-center min-h-full p-8 mt-8 text-center space-y-8">
-                    <div className="max-w-lg text-lg text-white">
+                    <div className="max-w-lg text-lg text-security-text">
                         {`Error loading file content ${error}`}
                     </div>
                 </div>
@@ -27,14 +27,14 @@ const MarkdownWrapper = (props: {
     return (
         <>
             {/* don't make the parent of this a div, it breaks the flex col stretch from the parent */}
-            <div className="flex bg-dark-mid max-h-full">
-                <div className="inline-block px-4 py-2 text-sm text-orange-300 border-b border-orange-300 bg-dark-shade">
+            <div className="flex bg-security-dark border-b border-security-border max-h-full">
+                <div className="inline-block px-4 py-2 text-sm font-mono text-accent border-b-2 border-accent bg-security-darker">
                     Notes for section
                 </div>
             </div>
-            <div className="overflow-x-hidden overflow-y-scroll flex flex-col flex-auto code-scroll max-h-full">
+            <div className="overflow-x-hidden overflow-y-scroll flex flex-col flex-auto code-scroll max-h-full bg-security-dark">
                 <article
-                    className="mx-4 mt-2 mb-4 prose prose-sm prose-invert max-w-none max-h-full"
+                    className="mx-4 mt-2 mb-4 prose prose-sm prose-docs max-w-none max-h-full"
                     dangerouslySetInnerHTML={{
                         __html: data || firstContents,
                     }}

@@ -37,9 +37,9 @@ const EditorWrapper = (props: {
 
     if (isError) {
         return (
-            <div className="inset-0 z-10 overflow-hidden">
+            <div className="inset-0 z-10 overflow-hidden bg-security-dark">
                 <div className="flex flex-col items-center justify-center min-h-full p-8 mt-8 text-center space-y-8">
-                    <div className="max-w-lg text-lg text-white">
+                    <div className="max-w-lg text-lg text-security-text">
                         {`Error loading file content`}
                     </div>
                 </div>
@@ -52,8 +52,8 @@ const EditorWrapper = (props: {
 
     return (
         <>
-            <div className="flex bg-dark-mid">
-                <div className="inline-block px-4 py-2 text-sm text-orange-300 border-b border-orange-300 bg-dark-shade">
+            <div className="flex bg-security-dark border-b border-security-border">
+                <div className="inline-block px-4 py-2 text-sm font-mono text-accent border-b-2 border-accent bg-security-darker">
                     {data ? data.fileName : "Welcome.txt"}
                 </div>
             </div>

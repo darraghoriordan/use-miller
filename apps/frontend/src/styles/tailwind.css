@@ -330,6 +330,151 @@
 }
 
 /* ========================================
+   DOCUMENTATION PROSE STYLES
+   ======================================== */
+
+/* Custom prose styling for documentation pages */
+.prose-docs {
+    /* Base text color */
+    color: #a1a1a6; /* security-text */
+}
+
+.prose-docs h1,
+.prose-docs h2,
+.prose-docs h3,
+.prose-docs h4,
+.prose-docs h5,
+.prose-docs h6 {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    color: #e8e8ed; /* security-light */
+    font-weight: 600;
+}
+
+.prose-docs h2 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #2a2a2c; /* security-border */
+}
+
+.prose-docs h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.prose-docs p {
+    color: #a1a1a6; /* security-text */
+    line-height: 1.75;
+}
+
+.prose-docs a {
+    color: #00ff88; /* accent */
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.prose-docs a:hover {
+    color: #00cc6a; /* accent-dim */
+    text-decoration: underline;
+}
+
+.prose-docs strong {
+    color: #e8e8ed; /* security-light */
+    font-weight: 600;
+}
+
+.prose-docs code:not(pre code) {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    background-color: #141415; /* security-dark */
+    color: #00ff88; /* accent */
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+.prose-docs pre {
+    background-color: #101011; /* security-darker */
+    border: 1px solid #2a2a2c; /* security-border */
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+.prose-docs pre code {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    background: transparent;
+    color: #e8e8ed; /* security-light */
+    padding: 0;
+    font-size: 0.875rem;
+    line-height: 1.7;
+}
+
+.prose-docs blockquote {
+    border-left: 3px solid #00ff88; /* accent */
+    background-color: rgba(0, 255, 136, 0.05);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.prose-docs blockquote p {
+    color: #a1a1a6; /* security-text */
+    margin: 0;
+}
+
+.prose-docs ul,
+.prose-docs ol {
+    color: #a1a1a6; /* security-text */
+    padding-left: 1.5rem;
+}
+
+.prose-docs li {
+    margin-bottom: 0.5rem;
+}
+
+.prose-docs li::marker {
+    color: #6b6b6f; /* security-muted */
+}
+
+.prose-docs hr {
+    border-color: #2a2a2c; /* security-border */
+    margin: 2rem 0;
+}
+
+.prose-docs img {
+    border-radius: 0.5rem;
+    border: 1px solid #2a2a2c; /* security-border */
+}
+
+.prose-docs table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.prose-docs th {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    color: #e8e8ed; /* security-light */
+    background-color: #141415; /* security-dark */
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #2a2a2c; /* security-border */
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.prose-docs td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #1c1c1e; /* security-mid */
+    color: #a1a1a6; /* security-text */
+}
+
+.prose-docs tr:hover td {
+    background-color: rgba(42, 42, 44, 0.3);
+}
+
+/* ========================================
    BUTTON STATES
    ======================================== */
 

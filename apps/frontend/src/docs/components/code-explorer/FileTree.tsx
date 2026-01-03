@@ -80,7 +80,7 @@ const FileTree = (props: {
             const nodeData = node.data as TreeLikeNode;
             return (
                 <div
-                    className="flex items-center text-white outline-hidden cursor-pointer select-none"
+                    className="flex items-center text-security-text hover:text-security-light outline-hidden cursor-pointer select-none transition-colors"
                     key={nodeData.id}
                     onClick={(evt) => {
                         onToggle(evt);
@@ -98,7 +98,9 @@ const FileTree = (props: {
                             nodeProps: { node, onToggle, onSelect },
                         })}
                     </div>
-                    <div className="ml-2 text-white">{nodeData.title}</div>
+                    <div className="ml-2 text-sm font-mono">
+                        {nodeData.title}
+                    </div>
                 </div>
             );
         },
@@ -111,10 +113,10 @@ const FileTree = (props: {
 
         // is it a folder?
         if (node.children && node.children.length > 0 && !node.isOpened()) {
-            return <ChevronRightIcon className="w-3 h-3 text-white" />;
+            return <ChevronRightIcon className="w-3 h-3 text-security-muted" />;
         }
         if (node.children && node.children.length > 0 && node.isOpened()) {
-            return <ChevronDownIcon className="w-3 h-3 text-white" />;
+            return <ChevronDownIcon className="w-3 h-3 text-security-muted" />;
         }
 
         // custom Style
@@ -137,7 +139,7 @@ const FileTree = (props: {
     // }
 
     return (
-        <div className="px-2 pt-2 bg-dark-mid whitespace-nowrap overflow-x-hidden overflow-y-scroll flex flex-auto code-scroll">
+        <div className="px-2 pt-2 bg-security-dark whitespace-nowrap overflow-x-hidden overflow-y-scroll flex flex-auto code-scroll">
             <Tree
                 {...required}
                 {...handlers}
