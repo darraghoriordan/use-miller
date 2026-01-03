@@ -1,6 +1,6 @@
+import Link from "next/link";
 import { Container } from "./Container";
-import { NavLink } from "./NavLink";
-import StyledHref from "./StyledHref";
+import { GitHubIcon } from "./GithubIcon";
 
 export function Footer({
     productKey,
@@ -9,61 +9,102 @@ export function Footer({
     productKey?: string;
     headerTitle?: string;
 }) {
+    const currentYear = new Date().getFullYear();
+
     return (
-        <footer className="">
-            <div className="py-6">
-                <Container className="">
-                    <p className="text-center text-3xl text-white">
-                        {headerTitle || `Miller Dev Tools`}
-                    </p>
-                    <nav className="mt-10 text-sm" aria-label="quick links">
-                        <div className="-my-1 flex justify-center gap-x-6">
+        <footer className="border-t border-security-border/50 bg-security-darker">
+            <Container>
+                <div className="py-8 md:py-12">
+                    {/* Main footer content */}
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                        {/* Brand and author */}
+                        <div className="flex flex-col gap-2">
+                            <Link
+                                href="/"
+                                className="font-mono text-lg text-security-light hover:text-accent transition-colors"
+                            >
+                                <span className="text-accent">{">"}</span>{" "}
+                                {headerTitle || "MILLER_"}
+                            </Link>
+                            <p className="text-sm text-security-muted">
+                                Built by{" "}
+                                <Link
+                                    href="/about"
+                                    className="text-security-text hover:text-accent transition-colors"
+                                >
+                                    Darragh O'Riordan
+                                </Link>
+                            </p>
+                        </div>
+
+                        {/* Links */}
+                        <div className="flex flex-wrap items-center gap-6 text-sm">
                             {productKey && (
                                 <>
-                                    <NavLink href={`/${productKey}/#features`}>
+                                    <Link
+                                        href={`/${productKey}/#features`}
+                                        className="font-mono text-security-text hover:text-accent transition-colors"
+                                    >
                                         Features
-                                    </NavLink>
-                                    <NavLink href={`/${productKey}/#pricing`}>
+                                    </Link>
+                                    <Link
+                                        href={`/${productKey}/#pricing`}
+                                        className="font-mono text-security-text hover:text-accent transition-colors"
+                                    >
                                         Pricing
-                                    </NavLink>
-                                    <StyledHref
+                                    </Link>
+                                    <Link
                                         href={`/docs/${productKey}/get-started/quick-start`}
+                                        className="font-mono text-security-text hover:text-accent transition-colors"
                                     >
                                         Docs
-                                    </StyledHref>
+                                    </Link>
+                                    <span className="text-security-border">
+                                        |
+                                    </span>
                                 </>
                             )}
+                            <a
+                                href="https://github.com/darraghoriordan"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 text-security-text hover:text-accent transition-colors"
+                            >
+                                <GitHubIcon className="h-4 w-4 fill-current" />
+                                <span className="font-mono">GitHub</span>
+                            </a>
                         </div>
-                    </nav>
-                </Container>
-            </div>
-            <div className="flex w-full flex-col bg-[#161b22] py-4 text-left sm:flex-row-reverse sm:justify-between">
-                <Container className="mx-0 md:mx-auto">
-                    <div className="mt-2 flex w-full items-center space-x-4">
-                        <p className="text-sm text-slate-500">
-                            &copy; {new Date().getFullYear()} Miller Dev Tools
-                        </p>
-                        <NavLink
-                            href="/terms"
-                            className="hover:bg-transparent hover:text-white text-white hover:underline hover:underline-offset-4"
-                        >
-                            Terms
-                        </NavLink>
-                        <NavLink
-                            href="/privacy"
-                            className="hover:bg-transparent hover:text-white text-white hover:underline hover:underline-offset-4"
-                        >
-                            Privacy
-                        </NavLink>
-                        <NavLink
-                            href="/about"
-                            className="hover:bg-transparent hover:text-white text-white hover:underline hover:underline-offset-4"
-                        >
-                            About Miller
-                        </NavLink>
                     </div>
-                </Container>
-            </div>
+
+                    {/* Bottom bar */}
+                    <div className="mt-8 pt-6 border-t border-security-border/50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <p className="font-mono text-xs text-security-muted">
+                            &copy; {currentYear} Miller Dev Tools. All rights
+                            reserved.
+                        </p>
+                        <div className="flex items-center gap-6 text-xs">
+                            <Link
+                                href="/terms"
+                                className="font-mono text-security-muted hover:text-security-text transition-colors"
+                            >
+                                Terms
+                            </Link>
+                            <Link
+                                href="/privacy"
+                                className="font-mono text-security-muted hover:text-security-text transition-colors"
+                            >
+                                Privacy
+                            </Link>
+                            <Link
+                                href="/about"
+                                className="font-mono text-security-muted hover:text-security-text transition-colors"
+                            >
+                                About
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </Container>
         </footer>
     );
 }

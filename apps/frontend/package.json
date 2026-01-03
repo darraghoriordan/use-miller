@@ -52,6 +52,7 @@
         "eslint-plugin-react": "7.37.5",
         "eslint-plugin-react-hooks": "^7.0.1",
         "focus-visible": "5.2.1",
+        "framer-motion": "12.23.26",
         "gray-matter": "4.0.3",
         "monaco-editor": "0.55.1",
         "next": "16.1.1",

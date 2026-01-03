@@ -1,4 +1,4 @@
-import { Fragment, PropsWithChildren } from "react";
+import { Fragment } from "react";
 import Link from "next/link";
 import { Popover, Transition } from "@headlessui/react";
 import clsx from "clsx";
@@ -7,24 +7,27 @@ import { NavLink } from "./NavLink";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { User } from "@auth0/nextjs-auth0/types";
 import { colorVariants, ThemeColor } from "../styles/themeColors";
-import StyledHref from "./StyledHref";
 import { getSignUpUrl } from "./signupUrl";
 import {
     ChevronDownIcon,
     CommandLineIcon,
     RocketLaunchIcon,
     WrenchIcon,
+    ShieldCheckIcon,
 } from "@heroicons/react/24/outline";
 
 function MobileNavLink({
     href,
     children,
-}: { href: string } & PropsWithChildren) {
+}: {
+    href: string;
+    children: React.ReactNode;
+}) {
     return (
         <Popover.Button
             as={Link}
             href={href}
-            className="block w-full p-2 py-4 text-xl font-bold"
+            className="block w-full p-3 font-mono text-sm text-security-light hover:text-accent hover:bg-security-mid rounded-md transition-colors"
         >
             {children}
         </Popover.Button>
@@ -35,7 +38,7 @@ function MobileNavIcon({ open }: { open: boolean }) {
     return (
         <svg
             aria-hidden="true"
-            className="h-3.5 w-3.5 overflow-visible stroke-gray-300"
+            className="h-4 w-4 overflow-visible stroke-security-light"
             fill="none"
             strokeWidth={2}
             strokeLinecap="round"
@@ -58,6 +61,39 @@ function MobileNavIcon({ open }: { open: boolean }) {
     );
 }
 
+const products = [
+    {
+        icon: CommandLineIcon,
+        key: "dev-shell",
+        name: "Dev Shell",
+        description: "Reproducible dev environments",
+        color: "devshell" as ThemeColor,
+    },
+    {
+        icon: WrenchIcon,
+        key: "local-dev-tools",
+        name: "Local Dev Tools",
+        description: "Offline utilities for devs",
+        color: "localtools" as ThemeColor,
+    },
+    {
+        icon: RocketLaunchIcon,
+        key: "miller-start",
+        name: "Miller Start",
+        description: "Security-first NestJS template",
+        color: "millerstart" as ThemeColor,
+    },
+    {
+        icon: ShieldCheckIcon,
+        key: "eslint-plugin-nestjs-typed",
+        name: "ESLint Plugin",
+        description: "Free & open source",
+        color: "eslint" as ThemeColor,
+        external:
+            "https://github.com/darraghoriordan/eslint-plugin-nestjs-typed",
+    },
+];
+
 export const MobileNavigation = ({
     user,
     productKey,
@@ -69,11 +105,10 @@ export const MobileNavigation = ({
     signUpUri: string;
     docsPath: string;
 }) => {
-    //const { user, isLoading } = useUser();
     return (
         <Popover>
             <Popover.Button
-                className="relative z-10 flex h-8 w-8 items-center justify-center not-focus-visible:focus:outline-hidden"
+                className="relative z-10 flex h-10 w-10 items-center justify-center rounded-md border border-security-border hover:border-accent/50 transition-colors not-focus-visible:focus:outline-hidden"
                 aria-label="Toggle Navigation"
             >
                 {({ open }: { open: boolean }) => <MobileNavIcon open={open} />}
@@ -88,7 +123,7 @@ export const MobileNavigation = ({
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <Popover.Overlay className="fixed inset-0 bg-slate-100/10" />
+                    <Popover.Overlay className="fixed inset-0 bg-security-black/80 backdrop-blur-sm" />
                 </Transition.Child>
                 <Transition.Child
                     as={Fragment}
@@ -101,10 +136,38 @@ export const MobileNavigation = ({
                 >
                     <Popover.Panel
                         as="div"
-                        className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
+                        className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-lg bg-security-dark border border-security-border p-4 shadow-terminal"
                     >
+                        <div className="mb-4 pb-4 border-b border-security-border">
+                            <span className="font-mono text-xs uppercase tracking-wider text-security-muted">
+                                Products
+                            </span>
+                        </div>
+
+                        {products.map((item) =>
+                            item.external ? (
+                                <a
+                                    key={item.name}
+                                    href={item.external}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block w-full p-3 font-mono text-sm text-security-light hover:text-accent hover:bg-security-mid rounded-md transition-colors"
+                                >
+                                    {item.name}
+                                </a>
+                            ) : (
+                                <MobileNavLink
+                                    key={item.name}
+                                    href={`/${item.key}`}
+                                >
+                                    {item.name}
+                                </MobileNavLink>
+                            ),
+                        )}
+
                         {productKey && (
                             <>
+                                <div className="my-4 border-t border-security-border" />
                                 <MobileNavLink
                                     href={`/${productKey}/#features`}
                                 >
@@ -119,25 +182,22 @@ export const MobileNavigation = ({
                             </>
                         )}
 
-                        {user && (
-                            <MobileNavLink href={"/dashboard"}>
-                                Dashboard
-                            </MobileNavLink>
-                        )}
-                        {!user && (
-                            <>
-                                <MobileNavLink href={signUpUri}>
-                                    Get Started
+                        <div className="mt-4 pt-4 border-t border-security-border">
+                            {user ? (
+                                <MobileNavLink href="/dashboard">
+                                    Dashboard
                                 </MobileNavLink>
-                                <hr className="m-2 border-slate-300/40" />
-                                <a
-                                    className="block w-full p-2 py-4 text-xl font-bold"
-                                    href={"/auth/login"}
-                                >
-                                    Sign in
-                                </a>
-                            </>
-                        )}
+                            ) : (
+                                <>
+                                    <a
+                                        href="/auth/login"
+                                        className="block w-full p-3 font-mono text-sm text-accent hover:bg-accent/10 rounded-md transition-colors"
+                                    >
+                                        Sign in
+                                    </a>
+                                </>
+                            )}
+                        </div>
                     </Popover.Panel>
                 </Transition.Child>
             </Transition.Root>
@@ -159,51 +219,33 @@ export function Header({
         productKey,
     });
     const docsPath = `/docs/${productKey}/get-started/quick-start`;
-    const color = themeColor || "green";
+
     return (
-        <header className="pt-6 pb-10">
+        <header className="relative z-50 border-b border-security-border/50">
             <Container>
-                <nav className="relative z-50 flex justify-between">
-                    <div className="flex items-center md:hidden md:gap-x-12">
-                        {(isLoading || !user) && (
-                            <StyledHref href={signUpUri}>
-                                Get started
-                                <span className="hidden lg:inline">today</span>
-                            </StyledHref>
-                        )}
-                    </div>
-                    <div className="flex items-center md:gap-x-12">
+                <nav className="flex items-center justify-between py-4">
+                    {/* Logo / Brand */}
+                    <div className="flex items-center gap-3">
                         <Link
                             href="/"
                             aria-label="Home"
-                            className="text-xl md:text-3xl text-white"
+                            className="group flex items-center gap-2"
                         >
-                            {headerTitle || `Miller Dev Tools`}
+                            <span className="font-mono text-lg md:text-xl text-security-light group-hover:text-accent transition-colors">
+                                <span className="text-accent">{">"}</span>{" "}
+                                {headerTitle || "MILLER_"}
+                            </span>
                         </Link>
                     </div>
-                    {productKey && (
-                        <div className="hidden md:flex items-center gap-x-4 md:gap-x-4">
-                            <NavLink
-                                href={`/${productKey}/#features`}
-                                className={
-                                    colorVariants["green"].hoverBackground
-                                }
-                            >
-                                Features
-                            </NavLink>
-                            <NavLink href={`/${productKey}/#pricing`}>
-                                Pricing
-                            </NavLink>
-                            <NavLink href={docsPath}>Docs</NavLink>
-                        </div>
-                    )}
 
-                    <div className="flex items-center gap-x-5 md:gap-x-8">
+                    {/* Desktop Navigation */}
+                    <div className="hidden md:flex items-center gap-1">
+                        {/* Products Dropdown */}
                         <Popover className="relative">
-                            <Popover.Button className="inline-flex items-center rounded-lg py-1 px-2 text-sm text-white hover:bg-slate-100 hover:text-slate-900 md:text-lg">
+                            <Popover.Button className="inline-flex items-center gap-1 px-3 py-2 font-mono text-sm text-security-text hover:text-accent rounded-md transition-colors focus:outline-none">
                                 <span>Products</span>
                                 <ChevronDownIcon
-                                    className="ml-2 h-5 w-5"
+                                    className="h-4 w-4"
                                     aria-hidden="true"
                                 />
                             </Popover.Button>
@@ -217,76 +259,113 @@ export function Header({
                                 leaveFrom="opacity-100 translate-y-0"
                                 leaveTo="opacity-0 translate-y-1"
                             >
-                                <Popover.Panel className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-min -translate-x-1/2 px-4">
-                                    <div className="w-64 space-y-4 shrink rounded-xl bg-white p-4 text-lg font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
-                                        {[
-                                            {
-                                                icon: (
-                                                    <CommandLineIcon className="h-6 w-6 mr-4" />
-                                                ),
-                                                key: "dev-shell",
-                                                name: "Dev Shell",
-                                            },
-                                            {
-                                                icon: (
-                                                    <RocketLaunchIcon className="h-6 w-6 mr-4" />
-                                                ),
-                                                key: "miller-start",
-                                                name: "Miller Start",
-                                            },
-
-                                            {
-                                                icon: (
-                                                    <WrenchIcon className="h-6 w-6 mr-4" />
-                                                ),
-                                                key: "local-dev-tools",
-                                                name: "Local Dev Tools",
-                                            },
-                                        ].map((item) => (
-                                            <a
-                                                key={item.name}
-                                                href={`/${item.key}`}
-                                                className={clsx(
-                                                    `focus:outline-hidden focus:ring-2 focus:ring-offset-2 inline-flex items-center px-4 py-2 font-medium border border-transparent rounded-md`,
-                                                    // "hover:bg-green-500/75",
-                                                    colorVariants[color]
-                                                        .topMenuHoverBackground,
-                                                    colorVariants[color]
-                                                        .hoverShadow,
-                                                    colorVariants[color]
-                                                        .hoverFocusRing,
-                                                    "w-full",
-                                                    "hover:shadow-lg",
-                                                    "text-neutral-900",
-                                                    "text-lg",
-                                                    "hover:text-white",
-                                                )}
-                                            >
-                                                <div className="flex items-center">
-                                                    {item.icon}
-                                                    {item.name}
+                                <Popover.Panel className="absolute right-0 z-10 mt-3 w-72 rounded-lg bg-security-dark border border-security-border shadow-terminal overflow-hidden">
+                                    <div className="px-4 py-3 border-b border-security-border">
+                                        <span className="font-mono text-xs uppercase tracking-wider text-security-muted">
+                                            Products
+                                        </span>
+                                    </div>
+                                    <div className="p-2">
+                                        {products.map((item) => {
+                                            const Icon = item.icon;
+                                            const content = (
+                                                <div className="flex items-start gap-3 p-3 rounded-md hover:bg-security-mid transition-colors group">
+                                                    <Icon
+                                                        className={clsx(
+                                                            "h-5 w-5 mt-0.5 transition-colors",
+                                                            colorVariants[
+                                                                item.color
+                                                            ].foreground,
+                                                        )}
+                                                    />
+                                                    <div>
+                                                        <div className="font-mono text-sm text-security-light group-hover:text-accent transition-colors">
+                                                            {item.name}
+                                                        </div>
+                                                        <div className="text-xs text-security-muted mt-0.5">
+                                                            {item.description}
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </a>
-                                        ))}
+                                            );
+
+                                            return item.external ? (
+                                                <a
+                                                    key={item.name}
+                                                    href={item.external}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    {content}
+                                                </a>
+                                            ) : (
+                                                <Link
+                                                    key={item.name}
+                                                    href={`/${item.key}`}
+                                                >
+                                                    {content}
+                                                </Link>
+                                            );
+                                        })}
                                     </div>
                                 </Popover.Panel>
                             </Transition>
                         </Popover>
-                        <NavLink href={"/about"}>About Miller</NavLink>
-                        <div className="hidden md:block">
-                            {(isLoading || !user) && (
-                                <>
-                                    <StyledHref href={"/auth/login"}>
-                                        Sign In
-                                    </StyledHref>
-                                </>
-                            )}
-                            {user && (
-                                <NavLink href={"/dashboard"}>Dashboard</NavLink>
+
+                        {/* Product-specific links */}
+                        {productKey && (
+                            <>
+                                <NavLink
+                                    href={`/${productKey}/#features`}
+                                    className="px-3 py-2 font-mono text-sm text-security-text hover:text-accent rounded-md transition-colors"
+                                >
+                                    Features
+                                </NavLink>
+                                <NavLink
+                                    href={`/${productKey}/#pricing`}
+                                    className="px-3 py-2 font-mono text-sm text-security-text hover:text-accent rounded-md transition-colors"
+                                >
+                                    Pricing
+                                </NavLink>
+                                <NavLink
+                                    href={docsPath}
+                                    className="px-3 py-2 font-mono text-sm text-security-text hover:text-accent rounded-md transition-colors"
+                                >
+                                    Docs
+                                </NavLink>
+                            </>
+                        )}
+
+                        <NavLink
+                            href="/about"
+                            className="px-3 py-2 font-mono text-sm text-security-text hover:text-accent rounded-md transition-colors"
+                        >
+                            About
+                        </NavLink>
+                    </div>
+
+                    {/* Right side - Auth */}
+                    <div className="flex items-center gap-3">
+                        <div className="hidden md:flex items-center gap-2">
+                            {isLoading ? null : user ? (
+                                <Link
+                                    href="/dashboard"
+                                    className="inline-flex items-center px-4 py-2 font-mono text-sm text-security-light border border-security-border rounded-md hover:border-accent/50 hover:text-accent transition-all"
+                                >
+                                    Dashboard
+                                </Link>
+                            ) : (
+                                <a
+                                    href="/auth/login"
+                                    className="inline-flex items-center px-4 py-2 font-mono text-sm bg-accent text-security-black rounded-md hover:bg-accent-dim transition-all"
+                                >
+                                    Sign In
+                                </a>
                             )}
                         </div>
 
-                        <div className="-mr-1 md:hidden">
+                        {/* Mobile menu button */}
+                        <div className="md:hidden">
                             {!isLoading && (
                                 <MobileNavigation
                                     signUpUri={signUpUri}

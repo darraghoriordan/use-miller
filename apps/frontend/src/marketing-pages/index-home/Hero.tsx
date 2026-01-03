@@ -1,151 +1,203 @@
+"use client";
+
 import { Container } from "../../components/Container";
-import devToolsLogo from "./logos/devToolsLogo.png";
-import devShellLogo from "./logos/devShellLogo.webp";
-import millerStartLogo from "./logos/millerStart.png";
-import homeHero from "../miller-start-home/intro-media/home-hero.jpg";
-import Image, { StaticImageData } from "next/image";
-import type { components } from "../../shared/types/api-specs";
-type UserDto = components["schemas"]["UserDto"];
+import { GitHubIcon } from "../../components/GithubIcon";
+import {
+    TypewriterText,
+    AnimatedHeadline,
+    FadeInOnScroll,
+    StaggerContainer,
+    StaggerItem,
+    ScanLine,
+} from "../../components/Animations";
+import { TrustBadges } from "../../components/SecurityBadge";
 import { SingleProductCard } from "./SingleProductCard";
+import { EslintPluginSection } from "./EslintPluginSection";
 import { ThemeColor } from "../../styles/themeColors";
+import type { components } from "../../shared/types/api-specs";
+import {
+    TerminalWindow,
+    TerminalPrompt,
+} from "../../components/TerminalWindow";
+import Link from "next/link";
+
+type UserDto = components["schemas"]["UserDto"];
 
 export interface HeroProduct {
     colorVariant: ThemeColor;
     title: string;
     blurb: string;
     benefits: string[];
-    image: StaticImageData;
     learnMoreLinkUrl: string;
     learnMoreLinkText: string;
     altLinkText: string;
     altLink: string;
     githubUrl?: string;
+    stars?: number;
 }
 
 export function Hero({ user }: { user: UserDto }) {
     const products: HeroProduct[] = [
         {
-            title: "Miller Dev Shell",
-            blurb: "Say Goodbye to manual dev environment configuration",
-            image: devShellLogo,
+            title: "Dev Shell",
+            blurb: "Reproducible, auditable dev environments",
             learnMoreLinkUrl: "/dev-shell",
-            learnMoreLinkText: "Save hours with DevShell",
-            altLinkText: "Preview the code now",
-
+            learnMoreLinkText: "Explore Dev Shell",
+            altLinkText: "Preview source",
             altLink:
                 "/docs/dev-shell/reference/dev-shell-scripts/L1JFQURNRS5tZA==",
             benefits: [
-                "Set up a new machine in minutes, not hours",
-                "Well tested, re-runnable configuration scripts",
-                "50+ of the best modern developer tools, pre-configured",
-                "Designed for a consistent shell on Mac and Windows WSL",
-                "Perpetual licence and updates",
+                "Set up a new machine in minutes with tested scripts",
+                "50+ pre-configured modern developer tools",
+                "Consistent shell experience on Mac and Windows WSL",
+                "Full source code access - customize to your needs",
             ],
-            colorVariant: "green" as ThemeColor,
+            colorVariant: "devshell",
         },
         {
             title: "Local Dev Tools",
-            blurb: "Local dev utilities to keep your business data safe",
-            image: devToolsLogo,
+            blurb: "Keep your data local. Zero cloud dependencies.",
             learnMoreLinkUrl: "/local-dev-tools",
-            learnMoreLinkText: "Try dev tools for free!",
-
+            learnMoreLinkText: "Try free",
             githubUrl:
                 "https://github.com/darraghoriordan/ssh-tool-new-electron",
             altLinkText: "Download now",
             altLink: "/local-dev-tools#download",
             benefits: [
-                "Keep your business data safe from random tools websites",
-                "Local utilities for Git repository management",
-                "Not a SaaS! - Perpetual licence and ownership",
-                "Universal app - Mac and Windows",
+                "Offline utilities for Git, SSH, and development",
+                "Your business data never leaves your machine",
+                "Universal app for Mac and Windows",
+                "Perpetual license - not a SaaS subscription",
             ],
-            colorVariant: "cyan" as ThemeColor,
+            colorVariant: "localtools",
         },
         {
-            colorVariant: "violet" as ThemeColor,
             title: "Miller Start",
-            blurb: "Master full-stack web development by example",
-            image: millerStartLogo,
+            blurb: "Security-first NestJS template with hardened defaults",
             githubUrl: "https://github.com/darraghoriordan/use-miller",
             learnMoreLinkUrl: "/miller-start",
-            learnMoreLinkText: "Try Miller Start for free!",
-
-            altLinkText: "Preview the code now",
+            learnMoreLinkText: "Explore template",
+            altLinkText: "Preview source",
             altLink: "/docs/miller-start/reference/miller-web/L1JFQURNRS5tZA==",
+            stars: 50,
             benefits: [
-                "Become a pro with NextJs, NestJs, tailwind, PostgreSQL, Redis and more",
-                "Accelerate your product development with a fully featured, full-stack app starter",
-                "Setup a new full-stack app in minutes with scripts and terraform",
-                "Advance your learning from beginner tutorials",
+                "Full-stack NestJS + Next.js + PostgreSQL starter",
+                "Auth0, Stripe, and OpenTelemetry pre-configured",
+                "Security best practices built-in from day one",
+                "Complete with Terraform infrastructure scripts",
             ],
+            colorVariant: "millerstart",
         },
     ];
 
     return (
-        <Container className="pt-20 text-left ">
-            <div className="flex ">
-                <div className="flex flex-col">
-                    <div
-                        style={{
-                            background:
-                                "linear-gradient(#d2a8ff, #a371f7 10%, #196c2e 70%, #2ea043 80%, #56d364)",
-                        }}
-                        className="mr-4 h-full w-[2px] lg:mr-12"
-                    >
-                        &nbsp;
-                    </div>
-                </div>
-                <div>
-                    <div id="hero">
-                        <div className="md:flex">
-                            <div className="mr-8">
-                                <h1 className="leading-snug mx-auto max-w-2xl font-display text-6xl font-medium tracking-tight text-white md:mx-0">
-                                    Use Miller tools to be a more effective
-                                    developer
-                                </h1>
-                                <p className="mx-auto mt-12 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
-                                    Hi! I'm Darragh 👋, I make all the tools
-                                    here.
-                                </p>
-                                <p className="mx-auto mt-4 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
-                                    I've been a dev for 15 years, and I believe
-                                    every dev can be more effective with great
-                                    tools. These are mine.
-                                </p>
-                                <p className="mx-auto mt-4 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
-                                    Take a look around. Use the chat on the
-                                    bottom right if you have any questions!
-                                </p>
-                            </div>
-                            <div className="md:relative w-1/2 md:w-full mt-10 md:mt-0 md:mb-0 hidden md:block">
-                                <div>
-                                    <Image
-                                        priority
-                                        alt="admin image"
-                                        src={homeHero}
-                                        className="md:max-w-mlg "
-                                    />
-                                </div>
-                            </div>
+        <div className="relative overflow-hidden">
+            {/* Background effects */}
+            <div className="absolute inset-0 bg-grid opacity-30" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-security-black" />
+            <ScanLine />
+
+            <Container className="relative pt-16 md:pt-24 pb-16">
+                {/* Hero Section */}
+                <div className="max-w-4xl">
+                    <AnimatedHeadline delay={0.1}>
+                        <div className="mb-6">
+                            <span className="font-mono text-sm text-accent uppercase tracking-wider">
+                                Secure Developer Tools
+                            </span>
                         </div>
-                    </div>
-                    <div
-                        className="flex flex-col space-y-16 mb-32 mt-16 md:mt-16"
-                        id="features"
-                    >
-                        <h2 className="pt-8 leading-snug mx-auto max-w-2xl font-display text-4xl font-medium tracking-tight text-white md:mx-0">
-                            Check out the tools
-                        </h2>
-                        {products.map((product) => (
-                            <SingleProductCard
-                                key={product.title}
-                                {...product}
-                            />
-                        ))}
-                    </div>
+                    </AnimatedHeadline>
+
+                    <AnimatedHeadline delay={0.2}>
+                        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-security-light leading-tight tracking-tight">
+                            <span className="hidden md:inline">
+                                <TypewriterText
+                                    text="Build with confidence."
+                                    speed={60}
+                                    delay={500}
+                                />
+                            </span>
+                            <span className="md:hidden">
+                                Build with confidence.
+                            </span>
+                        </h1>
+                    </AnimatedHeadline>
+
+                    <AnimatedHeadline delay={0.4}>
+                        <p className="mt-6 text-lg md:text-xl text-security-text max-w-2xl leading-relaxed">
+                            Developer tools for security-conscious teams.
+                            Local-first processing, open source transparency,
+                            and zero data collection.
+                        </p>
+                    </AnimatedHeadline>
+
+                    <AnimatedHeadline delay={0.6}>
+                        <div className="mt-8">
+                            <TrustBadges />
+                        </div>
+                    </AnimatedHeadline>
+
+                    <AnimatedHeadline delay={0.8}>
+                        <div className="mt-10 flex flex-wrap items-center gap-4">
+                            <Link
+                                href="#products"
+                                className="inline-flex items-center px-6 py-3 font-mono text-sm bg-accent text-security-black rounded-md hover:bg-accent-dim transition-all hover:shadow-glow"
+                            >
+                                Explore Tools
+                                <span className="ml-2">↓</span>
+                            </Link>
+                            <a
+                                href="https://github.com/darraghoriordan"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-6 py-3 font-mono text-sm text-security-light border border-security-border rounded-md hover:border-accent/50 hover:text-accent transition-all"
+                            >
+                                <GitHubIcon className="h-4 w-4 fill-current" />
+                                View on GitHub
+                            </a>
+                        </div>
+                    </AnimatedHeadline>
                 </div>
-            </div>
-        </Container>
+
+                {/* Terminal Demo */}
+                <FadeInOnScroll
+                    delay={0.2}
+                    className="mt-16 md:mt-24 max-w-3xl"
+                >
+                    <TerminalWindow title="~/projects">
+                        <TerminalPrompt
+                            command="miller-dev --init"
+                            output={`[OK] Security audit passed
+[OK] Dependencies verified
+[OK] Environment configured
+[OK] Ready for development`}
+                        />
+                    </TerminalWindow>
+                </FadeInOnScroll>
+
+                {/* Products Section */}
+                <section id="products" className="mt-24 md:mt-32">
+                    <FadeInOnScroll>
+                        <div className="flex items-center gap-4 mb-12">
+                            <h2 className="font-display text-2xl md:text-3xl text-security-light">
+                                Products
+                            </h2>
+                            <div className="h-px flex-1 bg-security-border" />
+                        </div>
+                    </FadeInOnScroll>
+
+                    <StaggerContainer className="space-y-8" staggerDelay={0.15}>
+                        {products.map((product) => (
+                            <StaggerItem key={product.title}>
+                                <SingleProductCard {...product} />
+                            </StaggerItem>
+                        ))}
+                    </StaggerContainer>
+                </section>
+
+                {/* ESLint Plugin Section - Free & Open Source */}
+                <EslintPluginSection />
+            </Container>
+        </div>
     );
 }

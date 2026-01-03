@@ -1,13 +1,23 @@
+"use client";
+
 import StyledLink from "../../components/StyledLink";
 import { Container } from "../../components/Container";
-import giturlsImage from "./intro-media/giturls.png";
-import jwt from "./intro-media/jwt.png";
-import timestamps from "./intro-media/timestamps.png";
-import Image from "next/image";
-import type { components } from "../../shared/types/api-specs";
-type UserDto = components["schemas"]["UserDto"];
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { GithubLink } from "../index-home/SingleProductCard";
+import {
+    FadeInOnScroll,
+    AnimatedHeadline,
+    StaggerContainer,
+    StaggerItem,
+    ScanLine,
+} from "../../components/Animations";
+import { AppWindow } from "../../components/AppWindow";
+import { JwtDecoderDemo } from "./JwtDecoderDemo";
+import { SecurityBadge } from "../../components/SecurityBadge";
+import type { components } from "../../shared/types/api-specs";
+
+type UserDto = components["schemas"]["UserDto"];
+
 const version = "1.73.5";
 const winArm64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.exe`;
 const macArm64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.dmg`;
@@ -24,8 +34,9 @@ export function Hero({ user }: { user: UserDto }) {
         "A git url parser and generator that is aware of your local ssh aliases",
         "A git repo summary tool to verify user name is consistent across ssh alias related repos",
         "A tool to quickly parse and map timestamps in different formats, local and UTC",
-        "String tools - A case converter and an internationalisation aware string sorter. Simple, but better than most online tools",
+        "String tools - A case converter and an internationalisation aware string sorter",
     ];
+
     const topFeatures = [
         {
             name: "All your dev tools in one place",
@@ -35,254 +46,332 @@ export function Hero({ user }: { user: UserDto }) {
         {
             name: "Powerful AI tools",
             description:
-                "Bring your own Open AI API key and get powerful agents for ESLint generation and git repo aware work summaries for stand ups, reports or marketing.",
+                "Bring your own Open AI API key and get powerful agents for ESLint generation and git repo aware work summaries.",
         },
         {
             name: "Universal license",
             description:
-                "By a licence and use the tool on all your Mac and Windows machines.",
+                "Buy a licence and use the tool on all your Mac and Windows machines.",
+        },
+        {
+            name: "Open source",
+            description:
+                "Dev tools is open source and you can contribute on GitHub.",
         },
     ];
-    const codeHref = `/docs/local-dev-tools/get-started/quick-start`;
+
+    const docsHref = `/docs/local-dev-tools/get-started/quick-start`;
+
     return (
-        <Container className="pt-20 text-left">
-            <div className="flex">
-                <div className="flex flex-col">
-                    <div
-                        style={{
-                            background:
-                                "linear-gradient(#d2a8ff, #a371f7 10%, #196c2e 70%, #2ea043 80%, #56d364)",
-                        }}
-                        className="mr-4 h-full w-[2px] lg:mr-12"
-                    >
-                        &nbsp;
-                    </div>
-                </div>
-                <div>
-                    <div id="hero">
-                        <div className="md:flex" id="features">
-                            <div className="mr-8">
-                                <h1 className="leading-snug mx-auto max-w-2xl font-display text-6xl font-medium tracking-tight text-white md:mx-0">
-                                    Control your data with local dev utilities
-                                </h1>
-                                <p className="mx-auto mt-6 max-w-2xl text-left text-lg text-gray-400 md:mx-0">
-                                    Offline utilities for developers, keep your
-                                    business data safe and local.
-                                </p>
-                            </div>
-                            <div className="intro-image-rotation md:relative w-1/2 md:w-full mt-20 mb-32 md:mt-0 md:mb-0">
-                                <div>
-                                    <Image
-                                        priority
-                                        alt="admin image"
-                                        src={timestamps}
-                                        className="intro-image absolute md:-translate-y-16 md:translate-x-14 -translate-y-4 translate-x-2"
-                                    />
-                                    <Image
-                                        priority
-                                        alt="product image"
-                                        src={giturlsImage}
-                                        className="intro-image absolute md:-translate-x-7 translate-x-7"
-                                    />
-                                    <Image
-                                        priority
-                                        alt="code image"
-                                        src={jwt}
-                                        className="intro-image md:translate-x-8 md:translate-y-32 translate-y-8"
-                                    />
-                                </div>
-                            </div>
+        <div className="relative overflow-hidden">
+            {/* Background effects */}
+            <div className="absolute inset-0 bg-grid opacity-30" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-security-black" />
+            <ScanLine />
+
+            <Container className="relative pt-16 md:pt-24 pb-16">
+                {/* Hero Section */}
+                <div className="max-w-4xl">
+                    <AnimatedHeadline delay={0.1}>
+                        <div className="mb-6 flex items-center gap-3">
+                            <span className="font-mono text-sm text-product-localtools uppercase tracking-wider">
+                                Offline Utilities
+                            </span>
                         </div>
-                        <div className="mx-auto mt-20 flex gap-x-6 md:mx-0">
-                            <GithubLink
-                                githubUrl={
-                                    "https://github.com/darraghoriordan/ssh-tool-new-electron"
-                                }
-                            />
+                    </AnimatedHeadline>
+
+                    <AnimatedHeadline delay={0.2}>
+                        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl text-security-light leading-tight tracking-tight">
+                            Control your data with local dev utilities
+                        </h1>
+                    </AnimatedHeadline>
+
+                    <AnimatedHeadline delay={0.4}>
+                        <p className="mt-6 text-lg md:text-xl text-security-text max-w-2xl leading-relaxed">
+                            Offline utilities for developers. Keep your business
+                            data safe and local. No data leaves your machine.
+                        </p>
+                    </AnimatedHeadline>
+
+                    <AnimatedHeadline delay={0.5}>
+                        <div className="mt-6 flex flex-wrap items-center gap-3">
+                            <SecurityBadge icon="lock" variant="accent">
+                                100% Offline
+                            </SecurityBadge>
+                            <SecurityBadge icon="shield" variant="accent">
+                                Data Never Leaves
+                            </SecurityBadge>
+                            <SecurityBadge icon="code" variant="accent">
+                                Open Source
+                            </SecurityBadge>
                         </div>
-                        <div className="mx-auto mt-32 flex gap-x-6 md:mx-0">
-                            <dl className="col-span-2 grid grid-cols-1 gap-x-8 gap-y-10 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:gap-y-16">
-                                {[
-                                    ...topFeatures.map((tf) => (
-                                        <div
-                                            key={tf.name}
-                                            className="relative pl-9 "
-                                        >
-                                            <dt className="font-semibold text-white">
-                                                <CheckIcon
-                                                    className="absolute left-0 top-1 h-5 w-5 text-green-500"
-                                                    aria-hidden="true"
-                                                />
-                                                {tf.name}
-                                            </dt>
-                                            <dd className="mt-2  text-gray-400">
-                                                {tf.description}
-                                            </dd>
-                                        </div>
-                                    )),
-                                    <div
-                                        key={"open-source"}
-                                        className="relative pl-9 "
-                                    >
-                                        <dt className="font-semibold text-white">
-                                            <CheckIcon
-                                                className="absolute left-0 top-1 h-5 w-5 text-green-500"
-                                                aria-hidden="true"
-                                            />
-                                            {"Open source"}
-                                        </dt>
-                                        <dd className="mt-2  text-gray-400">
-                                            Dev tools is open source and you can
-                                            contribute on{" "}
-                                            <a
-                                                className="underline underline-offset-2"
-                                                target="_blank"
-                                                href="https://github.com/darraghoriordan/ssh-tool-new-electron"
-                                            >
-                                                GitHub
-                                            </a>
-                                        </dd>
-                                    </div>,
-                                ]}
-                            </dl>
-                            d
+                    </AnimatedHeadline>
+
+                    <AnimatedHeadline delay={0.6}>
+                        <div className="mt-8">
+                            <GithubLink githubUrl="https://github.com/darraghoriordan/ssh-tool-new-electron" />
                         </div>
-                        <div className="mx-auto mt-10 flex gap-x-6 md:mx-0">
+                    </AnimatedHeadline>
+
+                    <AnimatedHeadline delay={0.7}>
+                        <div className="mt-8 flex flex-wrap items-center gap-4">
                             <StyledLink
-                                href={"#download"}
-                                color="violet"
-                                className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
+                                href="#download"
+                                color="localtools"
+                                className="text-base px-8 py-3"
                             >
-                                Try for free!
+                                Try for free
                             </StyledLink>
                             <StyledLink
-                                href={codeHref}
-                                color="violet"
-                                className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg border-white border"
+                                href={docsHref}
+                                color="localtools"
+                                variant="outline"
+                                className="text-base px-8 py-3"
                             >
                                 Read the docs
                             </StyledLink>
                         </div>
-                    </div>
-                    <div className="mt-16" id="download">
-                        <p className="mb-8 max-w-4xl text-left font-display text-4xl font-medium tracking-tight text-white">
-                            What are Local Dev Tools?
-                        </p>
-                        <p className="mt-4 text-left font-display text-lg text-gray-200">
-                            Local dev tools are a collection of safe, offline
-                            utilities for developers. You can paste in your
-                            company's or client's data safely in to tools for
-                            tasks like JWT decoding, list sorting and uri
-                            encoding.
-                        </p>
-                        <p className="mt-4 text-left font-display text-lg text-gray-200">
-                            The tools work offline so you can use your business
-                            data with confidence rather than using random
-                            websites. The tools work on both Mac and Windows.
-                        </p>
-                        <p className="mt-4 text-left font-display text-lg text-gray-200">
-                            Any online tools use your API keys (e.g.
-                            OpenAI/ChatGPT) and never transmit data to a
-                            UseMiller server.
-                        </p>
-                    </div>
-                    <div className="mt-16">
-                        <p className="mb-8 max-w-4xl text-left font-display text-4xl font-medium tracking-tight text-white">
-                            Download Local Dev Tools (v{version})
-                        </p>
-                        <p className="mt-4 text-left font-display text-lg text-gray-200">
-                            Download for free Trial. Buy a license later if you
-                            find it useful. Source available{" "}
-                            <a
-                                className="hover:underline"
-                                href="https://github.com/darraghoriordan/ssh-tool-new-electron"
-                            >
-                                on Github
-                            </a>
-                            .
-                        </p>
-                        <div className="md:flex md:gap-x-8 mt-8 justify-stretch">
-                            <div className="border rounded-lg p-8 mb-8 md:mb-0">
-                                <h3 className="mb-8 leading-snug mx-auto max-w-2xl font-display text-2xl font-medium tracking-tight text-white md:mx-0">
-                                    Mac
-                                </h3>
-                                <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
-                                    Apple Silicon (Arm 64) -{" "}
-                                    <a
-                                        href={macArm64Download}
-                                        className="underline underline-offset-2 font-semibold"
-                                    >
-                                        Download Now
-                                    </a>
-                                </p>
-                                <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
-                                    Intel x64 Mac -{" "}
-                                    <a
-                                        href={macX64Download}
-                                        className="underline underline-offset-2 font-semibold"
-                                    >
-                                        Download Now
-                                    </a>
-                                </p>
-                            </div>
-                            <div className="border rounded-lg p-8">
-                                <h3 className="mb-8 leading-snug mx-auto max-w-2xl font-display text-2xl font-medium tracking-tight text-white md:mx-0">
-                                    Windows
-                                </h3>
-                                <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
-                                    Intel x64 -{" "}
-                                    <a
-                                        href={winX64Download}
-                                        className="underline underline-offset-2 font-semibold"
-                                    >
-                                        Download Now
-                                    </a>
-                                </p>
-                                <p className="mt-4 text-left font-display text-lg tracking-tight text-gray-200">
-                                    Arm 64 -{" "}
-                                    <a
-                                        href={winArm64Download}
-                                        className="underline underline-offset-2 font-semibold"
-                                    >
-                                        Download Now
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="mt-16" id="">
-                        <p className="max-w-4xl text-left font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
-                            What you get
-                        </p>
-                        <ul>
-                            {features.map((feature, key) => (
-                                <li
-                                    key={key}
-                                    className="mt-4 ml-8 list-disc text-lg text-gray-200"
-                                >
-                                    {feature}
-                                </li>
-                            ))}
-                        </ul>
-                        <div className="mx-auto mt-10 flex gap-x-6 md:mx-0">
-                            <StyledLink
-                                href="/local-dev-tools/#pricing"
-                                color="green"
-                                className="rounded-lg  text-xl px-14 py-4 hover:shadow-lg"
-                            >
-                                Buy once, use forever.
-                            </StyledLink>
-                            <StyledLink
-                                href={codeHref}
-                                color="green"
-                                className="rounded-lg text-xl px-14 py-4 hover:shadow-lg border-white border"
-                            >
-                                View the docs
-                            </StyledLink>
-                        </div>
-                    </div>
+                    </AnimatedHeadline>
                 </div>
-            </div>
-        </Container>
+
+                {/* App Demo */}
+                <FadeInOnScroll
+                    delay={0.2}
+                    className="mt-16 md:mt-20 max-w-2xl"
+                >
+                    <AppWindow title="Local Dev Tools">
+                        <JwtDecoderDemo />
+                    </AppWindow>
+                </FadeInOnScroll>
+
+                {/* Features Grid */}
+                <section id="features" className="mt-24 md:mt-32">
+                    <FadeInOnScroll>
+                        <h2 className="font-display text-2xl md:text-3xl text-security-light mb-12">
+                            What's included
+                        </h2>
+                    </FadeInOnScroll>
+
+                    <StaggerContainer
+                        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                        staggerDelay={0.1}
+                    >
+                        {topFeatures.map((feature) => (
+                            <StaggerItem key={feature.name}>
+                                <div className="p-6 bg-security-dark border border-security-border rounded-lg hover:border-product-localtools/50 transition-colors">
+                                    <div className="flex items-start gap-3">
+                                        <CheckIcon className="h-5 w-5 text-product-localtools flex-shrink-0 mt-0.5" />
+                                        <div>
+                                            <h3 className="font-display text-lg text-security-light mb-2">
+                                                {feature.name}
+                                            </h3>
+                                            <p className="text-sm text-security-text">
+                                                {feature.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </StaggerItem>
+                        ))}
+                    </StaggerContainer>
+                </section>
+
+                {/* What is Local Dev Tools */}
+                <FadeInOnScroll className="mt-24">
+                    <div className="max-w-3xl">
+                        <h2 className="font-display text-2xl md:text-3xl text-security-light mb-6">
+                            What are Local Dev Tools?
+                        </h2>
+                        <div className="space-y-4 text-security-text">
+                            <p>
+                                Local dev tools are a collection of safe,
+                                offline utilities for developers. You can paste
+                                in your company's or client's data safely into
+                                tools for tasks like JWT decoding, list sorting
+                                and uri encoding.
+                            </p>
+                            <p>
+                                The tools work offline so you can use your
+                                business data with confidence rather than using
+                                random websites. The tools work on both Mac and
+                                Windows.
+                            </p>
+                            <p>
+                                Any online tools use your API keys (e.g.
+                                OpenAI/ChatGPT) and never transmit data to a
+                                UseMiller server.
+                            </p>
+                        </div>
+                    </div>
+                </FadeInOnScroll>
+
+                {/* Download Section */}
+                <FadeInOnScroll className="mt-24" id="download">
+                    <h2 className="font-display text-2xl md:text-3xl text-security-light mb-6">
+                        Download Local Dev Tools (v{version})
+                    </h2>
+                    <p className="text-security-text mb-8">
+                        Download for free Trial. Buy a license later if you find
+                        it useful. Source available{" "}
+                        <a
+                            className="text-product-localtools hover:underline"
+                            href="https://github.com/darraghoriordan/ssh-tool-new-electron"
+                        >
+                            on Github
+                        </a>
+                        .
+                    </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Mac Downloads */}
+                        <div className="p-6 bg-security-dark border border-security-border rounded-lg">
+                            <h3 className="font-display text-xl text-security-light mb-6 flex items-center gap-2">
+                                <svg
+                                    className="w-5 h-5"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                >
+                                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                                </svg>
+                                Mac
+                            </h3>
+                            <div className="space-y-4">
+                                <a
+                                    href={macArm64Download}
+                                    className="flex items-center justify-between p-4 border border-security-border rounded-lg hover:border-product-localtools/50 hover:bg-security-dark/50 transition-colors group"
+                                >
+                                    <div>
+                                        <div className="text-security-light font-medium">
+                                            Apple Silicon (Arm64)
+                                        </div>
+                                        <div className="text-sm text-security-muted">
+                                            M1/M2/M3 Macs
+                                        </div>
+                                    </div>
+                                    <SecurityBadge
+                                        icon="download"
+                                        variant="accent"
+                                    >
+                                        .dmg
+                                    </SecurityBadge>
+                                </a>
+                                <a
+                                    href={macX64Download}
+                                    className="flex items-center justify-between p-4 border border-security-border rounded-lg hover:border-product-localtools/50 hover:bg-security-dark/50 transition-colors group"
+                                >
+                                    <div>
+                                        <div className="text-security-light font-medium">
+                                            Intel x64
+                                        </div>
+                                        <div className="text-sm text-security-muted">
+                                            Older Intel Macs
+                                        </div>
+                                    </div>
+                                    <SecurityBadge
+                                        icon="download"
+                                        variant="accent"
+                                    >
+                                        .dmg
+                                    </SecurityBadge>
+                                </a>
+                            </div>
+                        </div>
+
+                        {/* Windows Downloads */}
+                        <div className="p-6 bg-security-dark border border-security-border rounded-lg">
+                            <h3 className="font-display text-xl text-security-light mb-6 flex items-center gap-2">
+                                <svg
+                                    className="w-5 h-5"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                >
+                                    <path d="M3 12V6.75l6-1.32v6.48L3 12zm17-9v8.75l-10 .15V5.21L20 3zM3 13l6 .09v6.81l-6-1.15V13zm17 .25V22l-10-1.91V13.1l10 .15z" />
+                                </svg>
+                                Windows
+                            </h3>
+                            <div className="space-y-4">
+                                <a
+                                    href={winX64Download}
+                                    className="flex items-center justify-between p-4 border border-security-border rounded-lg hover:border-product-localtools/50 hover:bg-security-dark/50 transition-colors group"
+                                >
+                                    <div>
+                                        <div className="text-security-light font-medium">
+                                            Intel x64
+                                        </div>
+                                        <div className="text-sm text-security-muted">
+                                            Most Windows PCs
+                                        </div>
+                                    </div>
+                                    <SecurityBadge
+                                        icon="download"
+                                        variant="accent"
+                                    >
+                                        .exe
+                                    </SecurityBadge>
+                                </a>
+                                <a
+                                    href={winArm64Download}
+                                    className="flex items-center justify-between p-4 border border-security-border rounded-lg hover:border-product-localtools/50 hover:bg-security-dark/50 transition-colors group"
+                                >
+                                    <div>
+                                        <div className="text-security-light font-medium">
+                                            Arm64
+                                        </div>
+                                        <div className="text-sm text-security-muted">
+                                            ARM-based Windows
+                                        </div>
+                                    </div>
+                                    <SecurityBadge
+                                        icon="download"
+                                        variant="accent"
+                                    >
+                                        .exe
+                                    </SecurityBadge>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </FadeInOnScroll>
+
+                {/* Full Features List */}
+                <FadeInOnScroll className="mt-24">
+                    <h2 className="font-display text-2xl md:text-3xl text-security-light mb-8">
+                        Everything you get
+                    </h2>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {features.map((feature, i) => (
+                            <li
+                                key={i}
+                                className="flex items-start gap-2 text-security-text"
+                            >
+                                <CheckIcon className="h-4 w-4 text-product-localtools flex-shrink-0 mt-1" />
+                                <span className="text-sm">{feature}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </FadeInOnScroll>
+
+                {/* CTA */}
+                <FadeInOnScroll className="mt-16">
+                    <div className="flex flex-wrap items-center gap-4">
+                        <StyledLink
+                            href="/local-dev-tools/#pricing"
+                            color="localtools"
+                            className="text-base px-8 py-3"
+                        >
+                            Buy once, use forever
+                        </StyledLink>
+                        <StyledLink
+                            href={docsHref}
+                            color="localtools"
+                            variant="outline"
+                            className="text-base px-8 py-3"
+                        >
+                            View the docs
+                        </StyledLink>
+                    </div>
+                </FadeInOnScroll>
+            </Container>
+        </div>
     );
 }

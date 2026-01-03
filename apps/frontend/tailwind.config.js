@@ -8,63 +8,47 @@ module.exports = {
     ],
 
     variants: {
-        animation: ["motion-safe"],
+        animation: ["motion-safe", "motion-reduce"],
     },
     safelist: [
-        "focus:ring-amber-400",
-        "hover:shadow-amber-500/30",
-        "text-amber-500",
-        "bg-amber-500",
-        "hover:text-amber-500",
-        "hover:bg-amber-600",
-        "hover:bg-amber-500/75",
-        "group-hover:text-amber-500",
-
-        "focus:ring-red-400",
-        "hover:shadow-red-500/30",
-        "text-red-500",
-        "bg-red-500",
-        "hover:text-red-500",
-        "hover:bg-red-600",
-        "hover:bg-red-500/75",
-        "group-hover:text-red-500",
-
-        "hover:shadow-green-500/30",
-        "focus:ring-green-400",
-        "bg-green-500/30",
-        "text-green-500",
-        "bg-green-500",
-        "hover:text-green-500",
-        "hover:bg-green-600",
-        "hover:bg-green-500/75",
-        "group-hover:text-green-500",
-
-        "focus:ring-cyan-400",
-        "hover:shadow-cyan-500/30",
-        "text-cyan-500",
-        "bg-cyan-500",
-        "hover:text-cyan-500",
-        "hover:bg-cyan-600",
-        "hover:bg-cyan-500/75",
-        "group-hover:text-cyan-500",
-
-        "focus:ring-violet-400",
-        "hover:shadow-violet-500/30",
-        "text-violet-500",
-        "bg-violet-500",
-        "hover:text-violet-500",
-        "hover:bg-violet-600",
-        "hover:bg-violet-500/75",
-        "group-hover:text-violet-500",
-
-        "focus:ring-pink-400",
-        "hover:shadow-pink-500/30",
-        "text-pink-500",
-        "bg-pink-500",
-        "hover:text-pink-500",
-        "hover:bg-pink-600",
-        "hover:bg-pink-500/75",
-        "group-hover:text-pink-500",
+        // Primary accent
+        "text-accent",
+        "bg-accent",
+        "border-accent",
+        "hover:bg-accent-dim",
+        "hover:text-accent",
+        "hover:border-accent",
+        "focus:ring-accent",
+        "shadow-accent/20",
+        "shadow-accent/30",
+        // Product colors - DevShell (muted teal-green)
+        "text-product-devshell",
+        "bg-product-devshell",
+        "border-product-devshell",
+        "hover:text-product-devshell",
+        "hover:bg-product-devshell/20",
+        "group-hover:text-product-devshell",
+        // Product colors - Local Tools (muted cyan)
+        "text-product-localtools",
+        "bg-product-localtools",
+        "border-product-localtools",
+        "hover:text-product-localtools",
+        "hover:bg-product-localtools/20",
+        "group-hover:text-product-localtools",
+        // Product colors - Miller Start (muted violet)
+        "text-product-millerstart",
+        "bg-product-millerstart",
+        "border-product-millerstart",
+        "hover:text-product-millerstart",
+        "hover:bg-product-millerstart/20",
+        "group-hover:text-product-millerstart",
+        // Product colors - ESLint (muted amber)
+        "text-product-eslint",
+        "bg-product-eslint",
+        "border-product-eslint",
+        "hover:text-product-eslint",
+        "hover:bg-product-eslint/20",
+        "group-hover:text-product-eslint",
     ],
     theme: {
         fontSize: {
@@ -75,40 +59,125 @@ module.exports = {
             xl: ["1.25rem", { lineHeight: "2rem" }],
             "2xl": ["1.5rem", { lineHeight: "2rem" }],
             "3xl": ["2rem", { lineHeight: "2.5rem" }],
-            "4xl": ["2.5rem", { lineHeight: "3.5rem" }],
+            "4xl": ["2.5rem", { lineHeight: "3rem" }],
             "5xl": ["3rem", { lineHeight: "3.5rem" }],
-            "6xl": ["3.75rem", { lineHeight: "1" }],
+            "6xl": ["3.75rem", { lineHeight: "1.1" }],
             "7xl": ["4.5rem", { lineHeight: "1.1" }],
             "8xl": ["6rem", { lineHeight: "1" }],
             "9xl": ["8rem", { lineHeight: "1" }],
         },
         extend: {
             colors: {
-                "light-shade": "#F8FAF4", // ivory white
-                "light-accent": "#C5C5C5", // darkish-green-(text)
-                "main-brand": "#21CD9C", // bright-green
-                "dark-accent": "#282828", // vs code highlight
-                "dark-mid": "#212122", // vs code explorer
-                "dark-shade": "#1E1E1E", // vscode editor dark
+                // Base monochrome - security dark theme
+                "security-black": "#0A0A0B",
+                "security-darker": "#101011",
+                "security-dark": "#141415",
+                "security-mid": "#1C1C1E",
+                "security-border": "#2A2A2C",
+                "security-muted": "#6B6B6F",
+                "security-text": "#A1A1A6",
+                "security-light": "#E8E8ED",
+
+                // Primary accent - security green (terminal/matrix aesthetic)
+                accent: "#00FF88",
+                "accent-dim": "#00CC6A",
+                "accent-muted": "rgba(0, 255, 136, 0.15)",
+
+                // Muted product colors (desaturated for professional look)
+                "product-devshell": "#4A9B7C",
+                "product-localtools": "#5B8A9A",
+                "product-millerstart": "#8B7BA3",
+                "product-eslint": "#9B8A5B",
+
+                // Semantic colors
+                warning: "#FFB800",
+                error: "#FF4444",
+
+                // Legacy colors (keep for gradual migration)
+                "light-shade": "#F8FAF4",
+                "light-accent": "#C5C5C5",
+                "main-brand": "#00FF88",
+                "dark-accent": "#1C1C1E",
+                "dark-mid": "#141415",
+                "dark-shade": "#0A0A0B",
             },
             animation: {
-                fadeIn: "fadeIn 2s ease-in forwards",
+                fadeIn: "fadeIn 0.6s ease-out forwards",
+                fadeInUp: "fadeInUp 0.6s ease-out forwards",
+                fadeInDown: "fadeInDown 0.6s ease-out forwards",
+                blink: "blink 1s step-end infinite",
+                typewriter: "typewriter 2s steps(20) forwards",
+                "glow-pulse": "glow-pulse 2s ease-in-out infinite",
+                scan: "scan 8s linear infinite",
+                "slide-up": "slideUp 0.5s ease-out forwards",
+                float: "float 6s ease-in-out infinite",
             },
             keyframes: {
                 fadeIn: {
-                    "0%": { opacity: 0 },
-                    "100%": { opacity: 1 },
+                    "0%": { opacity: "0" },
+                    "100%": { opacity: "1" },
+                },
+                fadeInUp: {
+                    "0%": { opacity: "0", transform: "translateY(20px)" },
+                    "100%": { opacity: "1", transform: "translateY(0)" },
+                },
+                fadeInDown: {
+                    "0%": { opacity: "0", transform: "translateY(-20px)" },
+                    "100%": { opacity: "1", transform: "translateY(0)" },
+                },
+                blink: {
+                    "0%, 100%": { opacity: "1" },
+                    "50%": { opacity: "0" },
+                },
+                typewriter: {
+                    "0%": { width: "0" },
+                    "100%": { width: "100%" },
+                },
+                "glow-pulse": {
+                    "0%, 100%": {
+                        boxShadow: "0 0 20px rgba(0, 255, 136, 0.15)",
+                    },
+                    "50%": { boxShadow: "0 0 40px rgba(0, 255, 136, 0.3)" },
+                },
+                scan: {
+                    "0%": { transform: "translateY(-100%)" },
+                    "100%": { transform: "translateY(100vh)" },
+                },
+                slideUp: {
+                    "0%": { opacity: "0", transform: "translateY(30px)" },
+                    "100%": { opacity: "1", transform: "translateY(0)" },
+                },
+                float: {
+                    "0%, 100%": { transform: "translateY(0px)" },
+                    "50%": { transform: "translateY(-10px)" },
                 },
             },
             borderRadius: {
                 "4xl": "2rem",
             },
             fontFamily: {
-                sans: ["Inter", ...defaultTheme.fontFamily.sans],
-                display: ["Lexend", ...defaultTheme.fontFamily.sans],
+                sans: ["IBM Plex Sans", ...defaultTheme.fontFamily.sans],
+                display: ["JetBrains Mono", ...defaultTheme.fontFamily.mono],
+                mono: ["JetBrains Mono", ...defaultTheme.fontFamily.mono],
             },
             maxWidth: {
                 "2xl": "40rem",
+            },
+            backgroundImage: {
+                "grid-pattern":
+                    "linear-gradient(rgba(42, 42, 44, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(42, 42, 44, 0.4) 1px, transparent 1px)",
+                "gradient-radial":
+                    "radial-gradient(ellipse at center, var(--tw-gradient-stops))",
+            },
+            backgroundSize: {
+                grid: "40px 40px",
+            },
+            boxShadow: {
+                glow: "0 0 20px rgba(0, 255, 136, 0.2)",
+                "glow-lg": "0 0 40px rgba(0, 255, 136, 0.3)",
+                "glow-xl": "0 0 60px rgba(0, 255, 136, 0.4)",
+                terminal:
+                    "0 0 0 1px rgba(42, 42, 44, 1), 0 25px 50px -12px rgba(0, 0, 0, 0.5)",
             },
         },
     },

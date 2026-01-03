@@ -1,69 +1,259 @@
-export type ThemeColor = "green" | "cyan" | "amber" | "red" | "violet" | "pink";
-export const colorVariants = {
+export type ThemeColor =
+    | "primary"
+    | "devshell"
+    | "localtools"
+    | "millerstart"
+    | "eslint"
+    // Legacy colors for backward compatibility
+    | "green"
+    | "cyan"
+    | "amber"
+    | "red"
+    | "violet"
+    | "pink";
+
+interface ColorVariant {
+    foreground: string;
+    background: string;
+    hoverBackground: string;
+    hoverForeground: string;
+    border: string;
+    hoverBorder: string;
+    focusRing: string;
+    glow: string;
+    hoverGlow: string;
+    backgroundMuted: string;
+    groupHoverForeground: string;
+    // Legacy properties
+    hoverShadow: string;
+    hoverFocusRing: string;
+    backgroundShade: string;
+    topMenuHoverBackground: string;
+}
+
+export const colorVariants: Record<ThemeColor, ColorVariant> = {
+    // Primary accent (security green)
+    primary: {
+        foreground: "text-accent",
+        background: "bg-accent",
+        hoverBackground: "hover:bg-accent-dim",
+        hoverForeground: "hover:text-accent",
+        border: "border-accent/30",
+        hoverBorder: "hover:border-accent",
+        focusRing: "focus:ring-accent/50",
+        glow: "shadow-glow",
+        hoverGlow: "hover:shadow-glow-lg",
+        backgroundMuted: "bg-accent-muted",
+        groupHoverForeground: "group-hover:text-accent",
+        hoverShadow: "hover:shadow-glow",
+        hoverFocusRing: "focus:ring-accent/50",
+        backgroundShade: "bg-accent-muted",
+        topMenuHoverBackground: "hover:bg-accent/20",
+    },
+
+    // Product: Dev Shell (muted teal-green)
+    devshell: {
+        foreground: "text-product-devshell",
+        background: "bg-product-devshell",
+        hoverBackground: "hover:bg-product-devshell/20",
+        hoverForeground: "hover:text-product-devshell",
+        border: "border-product-devshell/30",
+        hoverBorder: "hover:border-product-devshell",
+        focusRing: "focus:ring-product-devshell/50",
+        glow: "shadow-[0_0_20px_rgba(74,155,124,0.2)]",
+        hoverGlow: "hover:shadow-[0_0_30px_rgba(74,155,124,0.3)]",
+        backgroundMuted: "bg-product-devshell/10",
+        groupHoverForeground: "group-hover:text-product-devshell",
+        hoverShadow: "hover:shadow-[0_0_20px_rgba(74,155,124,0.3)]",
+        hoverFocusRing: "focus:ring-product-devshell/50",
+        backgroundShade: "bg-product-devshell/10",
+        topMenuHoverBackground: "hover:bg-product-devshell/20",
+    },
+
+    // Product: Local Dev Tools (muted cyan)
+    localtools: {
+        foreground: "text-product-localtools",
+        background: "bg-product-localtools",
+        hoverBackground: "hover:bg-product-localtools/20",
+        hoverForeground: "hover:text-product-localtools",
+        border: "border-product-localtools/30",
+        hoverBorder: "hover:border-product-localtools",
+        focusRing: "focus:ring-product-localtools/50",
+        glow: "shadow-[0_0_20px_rgba(91,138,154,0.2)]",
+        hoverGlow: "hover:shadow-[0_0_30px_rgba(91,138,154,0.3)]",
+        backgroundMuted: "bg-product-localtools/10",
+        groupHoverForeground: "group-hover:text-product-localtools",
+        hoverShadow: "hover:shadow-[0_0_20px_rgba(91,138,154,0.3)]",
+        hoverFocusRing: "focus:ring-product-localtools/50",
+        backgroundShade: "bg-product-localtools/10",
+        topMenuHoverBackground: "hover:bg-product-localtools/20",
+    },
+
+    // Product: Miller Start (muted violet)
+    millerstart: {
+        foreground: "text-product-millerstart",
+        background: "bg-product-millerstart",
+        hoverBackground: "hover:bg-product-millerstart/20",
+        hoverForeground: "hover:text-product-millerstart",
+        border: "border-product-millerstart/30",
+        hoverBorder: "hover:border-product-millerstart",
+        focusRing: "focus:ring-product-millerstart/50",
+        glow: "shadow-[0_0_20px_rgba(139,123,163,0.2)]",
+        hoverGlow: "hover:shadow-[0_0_30px_rgba(139,123,163,0.3)]",
+        backgroundMuted: "bg-product-millerstart/10",
+        groupHoverForeground: "group-hover:text-product-millerstart",
+        hoverShadow: "hover:shadow-[0_0_20px_rgba(139,123,163,0.3)]",
+        hoverFocusRing: "focus:ring-product-millerstart/50",
+        backgroundShade: "bg-product-millerstart/10",
+        topMenuHoverBackground: "hover:bg-product-millerstart/20",
+    },
+
+    // Product: ESLint Plugin (muted amber)
+    eslint: {
+        foreground: "text-product-eslint",
+        background: "bg-product-eslint",
+        hoverBackground: "hover:bg-product-eslint/20",
+        hoverForeground: "hover:text-product-eslint",
+        border: "border-product-eslint/30",
+        hoverBorder: "hover:border-product-eslint",
+        focusRing: "focus:ring-product-eslint/50",
+        glow: "shadow-[0_0_20px_rgba(155,138,91,0.2)]",
+        hoverGlow: "hover:shadow-[0_0_30px_rgba(155,138,91,0.3)]",
+        backgroundMuted: "bg-product-eslint/10",
+        groupHoverForeground: "group-hover:text-product-eslint",
+        hoverShadow: "hover:shadow-[0_0_20px_rgba(155,138,91,0.3)]",
+        hoverFocusRing: "focus:ring-product-eslint/50",
+        backgroundShade: "bg-product-eslint/10",
+        topMenuHoverBackground: "hover:bg-product-eslint/20",
+    },
+
+    // Legacy: green -> primary
     green: {
-        hoverShadow: "hover:shadow-green-500/30",
-        backgroundShade: "bg-green-500/30",
-        hoverFocusRing: "focus:ring-green-400",
-        foreground: "text-green-500",
-        background: "bg-green-500",
-        hoverForeground: "hover:text-green-500",
-        hoverBackground: "hover:bg-green-600",
-        topMenuHoverBackground: "hover:bg-green-500/75",
-        groupHoverForeground: "group-hover:text-green-500",
+        foreground: "text-accent",
+        background: "bg-accent",
+        hoverBackground: "hover:bg-accent-dim",
+        hoverForeground: "hover:text-accent",
+        border: "border-accent/30",
+        hoverBorder: "hover:border-accent",
+        focusRing: "focus:ring-accent/50",
+        glow: "shadow-glow",
+        hoverGlow: "hover:shadow-glow-lg",
+        backgroundMuted: "bg-accent-muted",
+        groupHoverForeground: "group-hover:text-accent",
+        hoverShadow: "hover:shadow-glow",
+        hoverFocusRing: "focus:ring-accent/50",
+        backgroundShade: "bg-accent-muted",
+        topMenuHoverBackground: "hover:bg-accent/20",
     },
-    red: {
-        hoverFocusRing: "focus:ring-red-400",
-        backgroundShade: "bg-red-500/30",
-        hoverShadow: "hover:shadow-red-500/30",
-        foreground: "text-red-500",
-        background: "bg-red-500",
-        hoverForeground: "hover:text-red-500",
-        hoverBackground: "hover:bg-red-600",
-        topMenuHoverBackground: "hover:bg-red-500/75",
-        groupHoverForeground: "group-hover:text-red-500",
-    },
-    amber: {
-        hoverFocusRing: "focus:ring-amber-400",
-        backgroundShade: "bg-amber-500/30",
-        hoverShadow: "hover:shadow-amber-500/30",
-        foreground: "text-amber-500",
-        background: "bg-amber-500",
-        hoverForeground: "hover:text-amber-500",
-        hoverBackground: "hover:bg-amber-600",
-        topMenuHoverBackground: "hover:bg-amber-500/75",
-        groupHoverForeground: "group-hover:text-amber-500",
-    },
+
+    // Legacy: cyan -> localtools
     cyan: {
-        hoverFocusRing: "focus:ring-cyan-400",
-        backgroundShade: "bg-cyan-500/30",
-        hoverShadow: "hover:shadow-cyan-500/30",
-        foreground: "text-cyan-500",
-        background: "bg-cyan-500",
-        hoverForeground: "hover:text-cyan-500",
-        hoverBackground: "hover:bg-cyan-600",
-        topMenuHoverBackground: "hover:bg-cyan-500/75",
-        groupHoverForeground: "group-hover:text-cyan-500",
+        foreground: "text-product-localtools",
+        background: "bg-product-localtools",
+        hoverBackground: "hover:bg-product-localtools/20",
+        hoverForeground: "hover:text-product-localtools",
+        border: "border-product-localtools/30",
+        hoverBorder: "hover:border-product-localtools",
+        focusRing: "focus:ring-product-localtools/50",
+        glow: "shadow-[0_0_20px_rgba(91,138,154,0.2)]",
+        hoverGlow: "hover:shadow-[0_0_30px_rgba(91,138,154,0.3)]",
+        backgroundMuted: "bg-product-localtools/10",
+        groupHoverForeground: "group-hover:text-product-localtools",
+        hoverShadow: "hover:shadow-[0_0_20px_rgba(91,138,154,0.3)]",
+        hoverFocusRing: "focus:ring-product-localtools/50",
+        backgroundShade: "bg-product-localtools/10",
+        topMenuHoverBackground: "hover:bg-product-localtools/20",
     },
+
+    // Legacy: violet -> millerstart
     violet: {
-        hoverFocusRing: "focus:ring-violet-400",
-        backgroundShade: "bg-violet-500/30",
-        hoverShadow: "hover:shadow-violet-500/30",
-        foreground: "text-violet-500",
-        background: "bg-violet-500",
-        hoverForeground: "hover:text-violet-500",
-        hoverBackground: "hover:bg-violet-600",
-        topMenuHoverBackground: "hover:bg-violet-500/75",
-        groupHoverForeground: "group-hover:text-violet-500",
+        foreground: "text-product-millerstart",
+        background: "bg-product-millerstart",
+        hoverBackground: "hover:bg-product-millerstart/20",
+        hoverForeground: "hover:text-product-millerstart",
+        border: "border-product-millerstart/30",
+        hoverBorder: "hover:border-product-millerstart",
+        focusRing: "focus:ring-product-millerstart/50",
+        glow: "shadow-[0_0_20px_rgba(139,123,163,0.2)]",
+        hoverGlow: "hover:shadow-[0_0_30px_rgba(139,123,163,0.3)]",
+        backgroundMuted: "bg-product-millerstart/10",
+        groupHoverForeground: "group-hover:text-product-millerstart",
+        hoverShadow: "hover:shadow-[0_0_20px_rgba(139,123,163,0.3)]",
+        hoverFocusRing: "focus:ring-product-millerstart/50",
+        backgroundShade: "bg-product-millerstart/10",
+        topMenuHoverBackground: "hover:bg-product-millerstart/20",
     },
+
+    // Legacy: amber -> eslint
+    amber: {
+        foreground: "text-product-eslint",
+        background: "bg-product-eslint",
+        hoverBackground: "hover:bg-product-eslint/20",
+        hoverForeground: "hover:text-product-eslint",
+        border: "border-product-eslint/30",
+        hoverBorder: "hover:border-product-eslint",
+        focusRing: "focus:ring-product-eslint/50",
+        glow: "shadow-[0_0_20px_rgba(155,138,91,0.2)]",
+        hoverGlow: "hover:shadow-[0_0_30px_rgba(155,138,91,0.3)]",
+        backgroundMuted: "bg-product-eslint/10",
+        groupHoverForeground: "group-hover:text-product-eslint",
+        hoverShadow: "hover:shadow-[0_0_20px_rgba(155,138,91,0.3)]",
+        hoverFocusRing: "focus:ring-product-eslint/50",
+        backgroundShade: "bg-product-eslint/10",
+        topMenuHoverBackground: "hover:bg-product-eslint/20",
+    },
+
+    // Legacy: red -> error state
+    red: {
+        foreground: "text-error",
+        background: "bg-error",
+        hoverBackground: "hover:bg-error/80",
+        hoverForeground: "hover:text-error",
+        border: "border-error/30",
+        hoverBorder: "hover:border-error",
+        focusRing: "focus:ring-error/50",
+        glow: "shadow-[0_0_20px_rgba(255,68,68,0.2)]",
+        hoverGlow: "hover:shadow-[0_0_30px_rgba(255,68,68,0.3)]",
+        backgroundMuted: "bg-error/10",
+        groupHoverForeground: "group-hover:text-error",
+        hoverShadow: "hover:shadow-[0_0_20px_rgba(255,68,68,0.3)]",
+        hoverFocusRing: "focus:ring-error/50",
+        backgroundShade: "bg-error/10",
+        topMenuHoverBackground: "hover:bg-error/20",
+    },
+
+    // Legacy: pink -> millerstart
     pink: {
-        hoverFocusRing: "focus:ring-pink-400",
-        backgroundShade: "bg-pink-500/30",
-        hoverShadow: "hover:shadow-pink-500/30",
-        foreground: "text-pink-500",
-        background: "bg-pink-500",
-        hoverForeground: "hover:text-pink-500",
-        hoverBackground: "hover:bg-pink-600",
-        topMenuHoverBackground: "hover:bg-pink-500/75",
-        groupHoverForeground: "group-hover:text-pink-500",
+        foreground: "text-product-millerstart",
+        background: "bg-product-millerstart",
+        hoverBackground: "hover:bg-product-millerstart/20",
+        hoverForeground: "hover:text-product-millerstart",
+        border: "border-product-millerstart/30",
+        hoverBorder: "hover:border-product-millerstart",
+        focusRing: "focus:ring-product-millerstart/50",
+        glow: "shadow-[0_0_20px_rgba(139,123,163,0.2)]",
+        hoverGlow: "hover:shadow-[0_0_30px_rgba(139,123,163,0.3)]",
+        backgroundMuted: "bg-product-millerstart/10",
+        groupHoverForeground: "group-hover:text-product-millerstart",
+        hoverShadow: "hover:shadow-[0_0_20px_rgba(139,123,163,0.3)]",
+        hoverFocusRing: "focus:ring-product-millerstart/50",
+        backgroundShade: "bg-product-millerstart/10",
+        topMenuHoverBackground: "hover:bg-product-millerstart/20",
     },
+};
+
+// Helper to get product color from product key
+export const getProductColor = (productKey: string | undefined): ThemeColor => {
+    switch (productKey) {
+        case "dev-shell":
+            return "devshell";
+        case "local-dev-tools":
+            return "localtools";
+        case "miller-start":
+            return "millerstart";
+        case "eslint-plugin":
+            return "eslint";
+        default:
+            return "primary";
+    }
 };

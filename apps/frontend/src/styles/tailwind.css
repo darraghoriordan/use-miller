@@ -1,32 +1,11 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-@config '../../tailwind.config.js';
+@config "../../tailwind.config.js";
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
   looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
-}
-
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
 */
 @layer base {
     *,
@@ -34,7 +13,12 @@
     ::before,
     ::backdrop,
     ::file-selector-button {
-        border-color: var(--color-gray-200, currentColor);
+        border-color: var(--color-security-border, currentcolor);
+    }
+
+    /* Default body styles */
+    body {
+        @apply bg-security-black text-security-light;
     }
 }
 
@@ -42,24 +26,265 @@
     min-height: 100%;
 }
 
+/* ========================================
+   TERMINAL / CODE AESTHETIC
+   ======================================== */
+
+/* Terminal window styling */
+.terminal-window {
+    @apply bg-security-dark border border-security-border rounded-lg overflow-hidden;
+    box-shadow:
+        0 0 0 1px rgba(42, 42, 44, 1),
+        0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.terminal-header {
+    @apply flex items-center gap-2 px-4 py-3 bg-security-darker border-b border-security-border;
+}
+
+.terminal-dot {
+    @apply w-3 h-3 rounded-full;
+}
+
+.terminal-dot-red {
+    @apply bg-red-500/60;
+}
+
+.terminal-dot-yellow {
+    @apply bg-yellow-500/60;
+}
+
+.terminal-dot-green {
+    @apply bg-green-500/60;
+}
+
+.terminal-title {
+    @apply ml-2 font-mono text-sm text-security-muted;
+}
+
+.terminal-body {
+    @apply p-6;
+}
+
+/* Cursor blink effect */
+.cursor-blink {
+    @apply inline-block w-2 h-5 bg-accent ml-1;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ========================================
+   GRID & BACKGROUND PATTERNS
+   ======================================== */
+
+/* Grid background pattern - desktop only for performance */
+.bg-grid {
+    background-image:
+        linear-gradient(rgba(42, 42, 44, 0.4) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(42, 42, 44, 0.4) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+@media (max-width: 768px) {
+    .bg-grid {
+        background-image: none;
+    }
+}
+
+/* Scanline overlay effect */
+.scanlines::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.05) 2px,
+        rgba(0, 0, 0, 0.05) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Radial glow background */
+.bg-glow-radial {
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 255, 136, 0.05) 0%,
+        transparent 70%
+    );
+}
+
+/* ========================================
+   GLOW EFFECTS
+   ======================================== */
+
+.glow-card {
+    @apply relative bg-security-dark border border-security-border rounded-lg transition-all duration-300;
+}
+
+.glow-card:hover {
+    @apply border-accent/50;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.15);
+}
+
+.glow-text {
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
+.glow-border {
+    box-shadow:
+        0 0 0 1px rgba(0, 255, 136, 0.3),
+        0 0 20px rgba(0, 255, 136, 0.1);
+}
+
+/* ========================================
+   ANIMATION UTILITIES
+   ======================================== */
+
+/* Staggered fade-in for children */
+.stagger-children > * {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.stagger-children > *:nth-child(1) {
+    animation-delay: 0.1s;
+}
+.stagger-children > *:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.stagger-children > *:nth-child(3) {
+    animation-delay: 0.3s;
+}
+.stagger-children > *:nth-child(4) {
+    animation-delay: 0.4s;
+}
+.stagger-children > *:nth-child(5) {
+    animation-delay: 0.5s;
+}
+.stagger-children > *:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scanning line animation - desktop only, GPU accelerated, fully isolated */
+.scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 255, 136, 0.5),
+        transparent
+    );
+    animation: scan 8s linear infinite;
+    pointer-events: none;
+    /* GPU compositing and isolation to prevent repaint propagation */
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    contain: layout style paint;
+    isolation: isolate;
+}
+
+@keyframes scan {
+    0% {
+        transform: translateY(-2px);
+        opacity: 0;
+    }
+    5% {
+        opacity: 1;
+    }
+    95% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .scan-line {
+        display: none;
+    }
+}
+
+/* Float animation */
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Pulse glow */
+.animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(0, 255, 136, 0.15);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(0, 255, 136, 0.3);
+    }
+}
+
+/* ========================================
+   LEGACY / MONACO EDITOR STYLES
+   ======================================== */
+
 .intro-image-rotation {
     transform: perspective(1260px) rotateY(-20.2deg) rotateX(10.6deg) scale(1);
 }
 
 .intro-image {
-    box-shadow: 0 2px 50px 0 rgb(68 125 232 / 50%);
+    box-shadow: 0 2px 50px 0 rgba(0, 255, 136, 0.3);
 }
 
 .selected-node-wrapper {
-    @apply bg-zinc-700! rounded-md text-white;
+    @apply bg-security-mid! rounded-md text-security-light;
 }
 
 .selected-node-wrapper:focus-within {
-    @apply bg-zinc-700 rounded-md text-white;
+    @apply bg-security-mid rounded-md text-security-light;
 }
 
 :not(.selected-node-wrapper).node-wrapper:hover {
-    @apply bg-zinc-700 rounded-md text-white;
+    @apply bg-security-mid rounded-md text-security-light;
 }
 
 .node-wrapper {
@@ -69,16 +294,86 @@
 .code-scroll::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    background-color: #f5f5f5;
+    background-color: #141415;
 }
 
 .code-scroll::-webkit-scrollbar {
     width: 12px;
-    background-color: #f5f5f5;
+    background-color: #141415;
 }
 
 .code-scroll::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #555;
+    background-color: #2a2a2c;
+}
+
+/* ========================================
+   TYPOGRAPHY UTILITIES
+   ======================================== */
+
+/* Monospace display text */
+.font-display {
+    font-feature-settings:
+        "ss01" on,
+        "ss02" on;
+}
+
+/* Security/terminal text styling */
+.text-terminal {
+    @apply font-mono text-accent;
+}
+
+/* Muted label style */
+.text-label {
+    @apply font-mono text-xs uppercase tracking-wider text-security-muted;
+}
+
+/* ========================================
+   BUTTON STATES
+   ======================================== */
+
+.btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 font-mono text-sm font-medium 
+           bg-accent text-security-black rounded-md border border-transparent
+           transition-all duration-200
+           hover:bg-accent-dim hover:shadow-glow
+           focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-security-black;
+}
+
+.btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 font-mono text-sm font-medium 
+           bg-transparent text-security-light rounded-md border border-security-border
+           transition-all duration-200
+           hover:border-accent/50 hover:text-accent hover:shadow-glow
+           focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-security-black;
+}
+
+.btn-ghost {
+    @apply inline-flex items-center justify-center px-4 py-2 font-mono text-sm font-medium 
+           bg-transparent text-security-text rounded-md
+           transition-all duration-200
+           hover:text-accent hover:bg-accent/10
+           focus:outline-none focus:ring-2 focus:ring-accent/50;
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .scan-line,
+    .cursor-blink,
+    .animate-float,
+    .animate-glow-pulse {
+        animation: none !important;
+    }
 }
