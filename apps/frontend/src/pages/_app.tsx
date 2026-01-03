@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }: any) {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <Auth0Provider>
+            <Auth0Provider user={pageProps.user}>
                 <Head>
                     <link rel="canonical" href={canonicalUrl} />
                 </Head>

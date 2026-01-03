@@ -10,7 +10,7 @@ resource "auth0_tenant" "prod_tenant" {
 resource "auth0_client" "frontend_spa_app" {
   name        = "Use Miller Web App"
   description = "The frontend client application"
-  app_type    = "spa"
+  app_type    = "regular_web"
   callbacks = ["https://usemiller.dev",
     "https://usemiller.dev/auth/callback",
     "https://usemiller.dev/#pricing",
@@ -43,7 +43,7 @@ resource "auth0_client" "frontend_spa_app" {
 resource "auth0_client_credentials" "fe_spa_client_credentials" {
   client_id = auth0_client.frontend_spa_app.id
 
-  authentication_method = "none"
+  authentication_method = "client_secret_post"
 }
 resource "auth0_resource_server" "backend_api_app" {
   name                                            = "Backend API"

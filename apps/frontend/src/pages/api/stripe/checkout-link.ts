@@ -6,17 +6,11 @@ import { auth0 } from "../../../lib/auth0";
 type StripeCheckoutSessionRequestDto =
     components["schemas"]["StripeCheckoutSessionRequestDto"];
 
-export default async function getStripeCheckoutLink(
+export default auth0.withApiAuthRequired(async function getStripeCheckoutLink(
     req: NextApiRequest,
     res: NextApiResponse,
 ) {
     try {
-        const session = await auth0.getSession(req);
-        if (!session) {
-            res.status(401).json({ error: "Not authenticated" });
-            return;
-        }
-
         const accessToken = await auth0.getAccessToken(req, res);
         if (!accessToken?.token) {
             res.status(401).json({ error: "No access token" });
@@ -51,4 +45,4 @@ export default async function getStripeCheckoutLink(
             error instanceof Error ? error.message : "Internal server error";
         res.status(500).json({ error: message });
     }
-}
+});

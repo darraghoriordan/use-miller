@@ -1,6 +1,6 @@
 import type { components } from "../shared/types/api-specs";
 import { GetServerSidePropsContext } from "next";
-import { getAccessToken } from "@auth0/nextjs-auth0";
+import { auth0 } from "../lib/auth0";
 import { createMenu, mapTitles } from "./leftMenuGeneration";
 import {
     getAnonymousApiInstance,
@@ -219,12 +219,10 @@ export async function getCodeFileServerSideProps(
     const codeFile = context.params?.codeFile as string;
     const productKey = context.params?.productKey as string;
 
-    let accessToken = null;
+    let accessToken: string | null = null;
     try {
-        const atResponse = await getAccessToken({
-            scope: "openid email profile offline_access",
-        });
-        accessToken = atResponse;
+        const atResponse = await auth0.getAccessToken(context.req, context.res);
+        accessToken = atResponse?.token ?? null;
     } catch {
         // No session available, user is not authenticated
         accessToken = null;
