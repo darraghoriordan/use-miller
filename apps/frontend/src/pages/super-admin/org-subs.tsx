@@ -1,16 +1,13 @@
 import { MenuSection } from "../../components/LeftMenu";
 import type { components } from "../../shared/types/api-specs";
 import { LeftMenuWrappedContent } from "../../components/LeftMenuWrappedContent";
-import { superUserGetSubscriptionsData } from "../../super-admin/services/superAdminData";
+import { getSubscriptionsServerSideProps } from "../../super-admin/services/superAdminData";
 import OrgSubsSuperAdmin from "../../super-admin/components/OrgSubsSuperAdmin";
-import { auth0 } from "../../lib/auth0";
 
 type OrganisationSubscriptionRecord =
     components["schemas"]["OrganisationSubscriptionRecord"];
 
-export const getServerSideProps = auth0.withPageAuthRequired({
-    getServerSideProps: superUserGetSubscriptionsData,
-});
+export const getServerSideProps = getSubscriptionsServerSideProps;
 
 export default function Home({
     menuSections,

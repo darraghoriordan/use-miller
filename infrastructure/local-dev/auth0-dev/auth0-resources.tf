@@ -8,7 +8,7 @@ resource "auth0_tenant" "dev_tenant" {
 }
 
 resource "auth0_client" "frontend_spa_app" {
-  name        = "Frontend App"
+  name        = "Use Miller Web App (Local Dev)"
   description = "The frontend client application"
   app_type    = "spa"
   callbacks = ["http://localhost:3000",

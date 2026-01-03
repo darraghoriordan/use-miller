@@ -1,7 +1,2 @@
-import { dashboardGetSspData } from "../../dashboard/dashboardDataService";
-import { auth0 } from "../../lib/auth0";
-
-export const getServerSideProps = auth0.withPageAuthRequired({
-    getServerSideProps: dashboardGetSspData,
-});
+export { getServerSideProps } from "../../dashboard/dashboardDataService";
 export { default } from "./index";

@@ -8,7 +8,7 @@ resource "auth0_tenant" "prod_tenant" {
 }
 
 resource "auth0_client" "frontend_spa_app" {
-  name        = "Frontend App"
+  name        = "Use Miller Web App"
   description = "The frontend client application"
   app_type    = "spa"
   callbacks = ["https://usemiller.dev",

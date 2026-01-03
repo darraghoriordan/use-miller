@@ -3,7 +3,19 @@ import { ParsedUrlQuery } from "querystring";
 import { getAuthenticatedApiInstance } from "../../api-services/apiInstanceFactories";
 import { auth0 } from "../../lib/auth0";
 
-export async function superUserGetUserData(
+export const getUsersServerSideProps = auth0.withPageAuthRequired({
+    getServerSideProps: superUserGetUserData,
+});
+
+export const getPaymentEventsServerSideProps = auth0.withPageAuthRequired({
+    getServerSideProps: superUserGetPaymentData,
+});
+
+export const getSubscriptionsServerSideProps = auth0.withPageAuthRequired({
+    getServerSideProps: superUserGetSubscriptionsData,
+});
+
+async function superUserGetUserData(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
     const accessToken = await auth0.getAccessToken(context.req, context.res);
@@ -77,7 +89,7 @@ export const createMenu = () => {
     return menuSections;
 };
 
-export async function superUserGetPaymentData(
+async function superUserGetPaymentData(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
     const accessToken = await auth0.getAccessToken(context.req, context.res);
@@ -125,7 +137,7 @@ export async function superUserGetPaymentData(
     };
 }
 
-export async function superUserGetSubscriptionsData(
+async function superUserGetSubscriptionsData(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
     const accessToken = await auth0.getAccessToken(context.req, context.res);

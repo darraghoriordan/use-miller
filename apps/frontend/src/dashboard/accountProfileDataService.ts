@@ -1,5 +1,31 @@
+import { GetServerSidePropsContext, PreviewData } from "next";
+import { ParsedUrlQuery } from "querystring";
 import { getAuthenticatedApiInstance } from "../api-services/apiInstanceFactories";
 import { createMenu } from "./leftMenuGeneration";
+import { auth0 } from "../lib/auth0";
+
+export const getServerSideProps = auth0.withPageAuthRequired({
+    getServerSideProps: profileGetSspData,
+});
+
+async function profileGetSspData(
+    context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
+) {
+    const accessToken = await auth0.getAccessToken(context.req, context.res);
+    if (!accessToken?.token) {
+        return {
+            redirect: {
+                destination: "/auth/login",
+                permanent: false,
+            },
+        };
+    }
+
+    const data = await getAccountIndexData(accessToken.token);
+    return {
+        props: data,
+    };
+}
 
 export const getAccountIndexData = async (accessToken: string) => {
     const userData = await getUserData(accessToken);

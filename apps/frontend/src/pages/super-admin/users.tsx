@@ -2,14 +2,11 @@ import { MenuSection } from "../../components/LeftMenu";
 import type { components } from "../../shared/types/api-specs";
 import { LeftMenuWrappedContent } from "../../components/LeftMenuWrappedContent";
 import UsersSuperAdmin from "../../super-admin/components/UsersSuperAdmin";
-import { superUserGetUserData } from "../../super-admin/services/superAdminData";
-import { auth0 } from "../../lib/auth0";
+import { getUsersServerSideProps } from "../../super-admin/services/superAdminData";
 
 type User = components["schemas"]["User"];
 
-export const getServerSideProps = auth0.withPageAuthRequired({
-    getServerSideProps: superUserGetUserData,
-});
+export const getServerSideProps = getUsersServerSideProps;
 
 export default function Home({
     menuSections,

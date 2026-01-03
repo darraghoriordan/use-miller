@@ -11,7 +11,11 @@ type OrganisationSubscriptionRecord =
 type SubscriptionAsset = components["schemas"]["SubscriptionAsset"];
 type UserDto = components["schemas"]["UserDto"];
 
-export async function dashboardGetSspData(
+export const getServerSideProps = auth0.withPageAuthRequired({
+    getServerSideProps: dashboardGetSspData,
+});
+
+async function dashboardGetSspData(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
     const accessToken = await auth0.getAccessToken(context.req, context.res);
