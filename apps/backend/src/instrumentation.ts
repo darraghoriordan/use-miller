@@ -29,7 +29,7 @@ export const initTelemetry = async (): Promise<void> => {
         resource: resourceFromAttributes({
             [ATTR_SERVICE_NAME]: "backend-app",
         }),
-        metricReader,
+        metricReaders: [metricReader],
         instrumentations: getNodeAutoInstrumentations({
             "@opentelemetry/instrumentation-fs": {
                 enabled: false, // very noisy
