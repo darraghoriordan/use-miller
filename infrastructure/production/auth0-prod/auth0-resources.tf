@@ -1,6 +1,10 @@
 resource "auth0_tenant" "prod_tenant" {
   friendly_name     = "Use Miller Dev Tools"
   default_directory = "Username-Password-Authentication"
+
+  oidc_logout {
+    rp_logout_end_session_endpoint_discovery = true
+  }
 }
 
 resource "auth0_client" "frontend_spa_app" {
