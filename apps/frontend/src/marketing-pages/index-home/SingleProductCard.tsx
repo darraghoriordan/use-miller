@@ -122,11 +122,11 @@ export const SingleProductCard = ({
                                 <span className="text-security-muted">$</span>{" "}
                                 <span className="text-accent">
                                     {title === "Dev Shell" &&
-                                        "./setup.sh --install"}
+                                        "./sharedSetup.sh --install"}
                                     {title === "Local Dev Tools" &&
-                                        "local-dev-tools --start"}
+                                        "open -a LocalDevTools.app"}
                                     {title === "Miller Start" &&
-                                        "pnpm create miller-app"}
+                                        "pnpm run mill:init"}
                                 </span>
                             </div>
                             <div className="mt-2 font-mono text-xs text-security-muted">
@@ -136,7 +136,7 @@ export const SingleProductCard = ({
                                         <div>[OK] Installing packages...</div>
                                         <div>[OK] Configuring shell...</div>
                                         <div className="text-accent">
-                                            [DONE] Ready!
+                                            [DONE] Shell Ready!
                                         </div>
                                     </>
                                 )}
@@ -145,15 +145,15 @@ export const SingleProductCard = ({
                                         <div>[OK] Loading utilities...</div>
                                         <div>[OK] No network required</div>
                                         <div className="text-accent">
-                                            [SECURE] Running locally
+                                            [DONE] Running locally
                                         </div>
                                     </>
                                 )}
                                 {title === "Miller Start" && (
                                     <>
-                                        <div>[OK] Cloning template...</div>
+                                        <div>[OK] Syncing terraform...</div>
                                         <div>[OK] Installing deps...</div>
-                                        <div>[OK] Security audit passed</div>
+                                        <div>[OK] Configuring stripe...</div>
                                         <div className="text-accent">
                                             [DONE] Project ready!
                                         </div>

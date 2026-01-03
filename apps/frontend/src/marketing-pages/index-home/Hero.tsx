@@ -166,10 +166,11 @@ export function Hero({ user }: { user: UserDto }) {
                 >
                     <TerminalWindow title="~/projects">
                         <TerminalPrompt
-                            command="miller-dev --init"
-                            output={`[OK] Security audit passed
-[OK] Dependencies verified
-[OK] Environment configured
+                            command="pnpm run mill:init"
+                            output={`[OK] Terraform Synced
+[OK] Dependencies installed
+[OK] Stripe configured
+[OK] Organization setup complete
 [OK] Ready for development`}
                         />
                     </TerminalWindow>

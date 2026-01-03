@@ -156,7 +156,7 @@ export function Hero({ user }: { user: UserDto }) {
                 >
                     <TerminalWindow title="~/devshell">
                         <TerminalPrompt
-                            command="./setup.sh"
+                            command="./sharedSetup.sh"
                             output={`[DETECT] macOS detected
 [INSTALL] Installing homebrew packages...
 [CONFIG] Setting up zsh + antigen...
