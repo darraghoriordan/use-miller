@@ -812,6 +812,49 @@
         ]
       }
     },
+    "/onboarding/github-user/{orgUuid}/{ghUserId}": {
+      "delete": {
+        "operationId": "UserOnboardingController_removeForOrg",
+        "parameters": [
+          {
+            "name": "orgUuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ghUserId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "User Onboarding"
+        ]
+      }
+    },
     "/payments/stripe/checkout-session": {
       "post": {
         "operationId": "StripeCheckoutController_createCheckoutSession",
@@ -2268,7 +2311,9 @@
         "type": "object",
         "properties": {
           "ghUsername": {
-            "type": "string"
+            "type": "string",
+            "description": "GitHub username (1-39 chars, alphanumeric and hyphens)",
+            "example": "octocat"
           },
           "orgUuid": {
             "type": "string"

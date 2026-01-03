@@ -1,7 +1,6 @@
 import {
     CoreModule,
     OrganisationSubscriptionRecord,
-    SmtpEmailClientModule,
     SubActivationQueueModule,
 } from "@darraghor/nest-backend-libs";
 import { Module } from "@nestjs/common";
@@ -12,8 +11,6 @@ import { SubscriptionEventHandlerService } from "./services/subscription-event-h
 import { UserOnboardingController } from "./controllers/user-onboarding.controller.js";
 
 import { UserOnboardingService } from "./services/user-onboarding.service.js";
-import { ConfigModule, ConfigService } from "@nestjs/config";
-import { createSmtpEmailConfig } from "../config/library.config.js";
 
 @Module({
     imports: [
@@ -24,11 +21,6 @@ import { createSmtpEmailConfig } from "../config/library.config.js";
         ]),
         GithubAccountModule,
         SubActivationQueueModule,
-        SmtpEmailClientModule.forRootAsync({
-            imports: [ConfigModule],
-            inject: [ConfigService],
-            useFactory: createSmtpEmailConfig,
-        }),
     ],
     controllers: [UserOnboardingController],
     providers: [UserOnboardingService, SubscriptionEventHandlerService],
