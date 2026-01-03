@@ -11,5 +11,5 @@ CoreModule.initApplication(MainModule, async (app: INestApplication) => {
         CoreConfigurationService,
     );
 
-    await app.listen(configService.webPort);
+    await app.listen(configService.webPort, "0.0.0.0");
 });
