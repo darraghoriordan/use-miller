@@ -33,7 +33,8 @@
     },
     "dependencies": {
         "@babel/core": "7.28.5",
-        "@darraghor/nest-backend-libs": "4.0.7",
+        "@darraghor/nest-backend-libs": "4.0.8",
+        "@keyv/redis": "5.1.5",
         "@mapbox/rehype-prism": "0.9.0",
         "@nestjs/axios": "4.0.1",
         "@nestjs/bull": "11.0.4",
@@ -68,7 +69,6 @@
         "axios": "1.13.2",
         "bull": "4.16.5",
         "cache-manager": "7.2.7",
-        "@keyv/redis": "5.1.5",
         "class-transformer": "0.5.1",
         "class-validator": "0.14.3",
         "date-fns": "4.1.0",
@@ -100,7 +100,7 @@
         "webpack": "5.104.1"
     },
     "devDependencies": {
-        "@darraghor/eslint-plugin-nestjs-typed": "7.1.8",
+        "@darraghor/eslint-plugin-nestjs-typed": "7.1.9",
         "@eslint/eslintrc": "3.3.3",
         "@eslint/js": "9.39.2",
         "@nestjs/schematics": "11.0.9",

@@ -82,8 +82,8 @@ importers:
         specifier: 7.28.5
         version: 7.28.5
       '@darraghor/nest-backend-libs':
-        specifier: 4.0.7
-        version: 4.0.7(e886de3d8240b00def32061894165995)
+        specifier: 4.0.8
+        version: 4.0.8(e886de3d8240b00def32061894165995)
       '@keyv/redis':
         specifier: 5.1.5
         version: 5.1.5(keyv@5.5.5)
@@ -281,8 +281,8 @@ importers:
         injected: true
     devDependencies:
       '@darraghor/eslint-plugin-nestjs-typed':
-        specifier: 7.1.8
-        version: 7.1.8(@typescript-eslint/parser@8.51.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(class-validator@0.14.3)(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+        specifier: 7.1.9
+        version: 7.1.9(@typescript-eslint/parser@8.51.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(class-validator@0.14.3)(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       '@eslint/eslintrc':
         specifier: 3.3.3
         version: 3.3.3
@@ -390,8 +390,8 @@ importers:
         version: 0.15.0
     devDependencies:
       '@darraghor/eslint-plugin-nestjs-typed':
-        specifier: 7.1.8
-        version: 7.1.8(@typescript-eslint/parser@8.51.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(class-validator@0.14.3)(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+        specifier: 7.1.9
+        version: 7.1.9(@typescript-eslint/parser@8.51.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(class-validator@0.14.3)(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       '@eslint/js':
         specifier: 9.39.2
         version: 9.39.2
@@ -549,8 +549,8 @@ importers:
         specifier: 2.1.1
         version: 2.1.1
       crisp-sdk-web:
-        specifier: 1.0.26
-        version: 1.0.26
+        specifier: 1.0.27
+        version: 1.0.27
       eslint:
         specifier: ^9.39.2
         version: 9.39.2(jiti@2.6.1)
@@ -1521,16 +1521,16 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@darraghor/eslint-plugin-nestjs-typed@7.1.8':
-    resolution: {integrity: sha512-TE7LczQSdXaNTFVb7eO9mbv5E5Af2Hv1lbo7VB4T4FW9RwZeQbOl7Tpig9xfDgpzB14eXEMxqPsJdnCrhcVkRg==}
+  '@darraghor/eslint-plugin-nestjs-typed@7.1.9':
+    resolution: {integrity: sha512-LXcDQO4bILCqfYNGz4oYmAsy6qRC6+GLjZJKfakd3fr1mVrsMey2FFqEXq9W3LLM5a6HboQl1sUyQKwQ1EqeoA==}
     engines: {node: '>=24.12.0'}
     peerDependencies:
       '@typescript-eslint/parser': ^7.0.0 || ^8.0.0
       class-validator: '*'
       eslint: '>=9.18.0'
 
-  '@darraghor/nest-backend-libs@4.0.7':
-    resolution: {integrity: sha512-JgoflgRb+jJgpdQkar9aZap5s+j/10exYiVz9mckS0zfY9PDqC5zavVRjRTzs0E3yxAswouc5eQ+HkJV4O9UOw==}
+  '@darraghor/nest-backend-libs@4.0.8':
+    resolution: {integrity: sha512-0CMirRDctSURGCyCQzi8B/Z4LUT5+rZlqLI2vTsr+TOqffDU79tIPrtAmVHqZdL+ydr9/MOdpMhZm4FtUvmigg==}
     engines: {node: '>=22.13.1'}
     hasBin: true
     peerDependencies:
@@ -5750,8 +5750,8 @@ packages:
   create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
 
-  crisp-sdk-web@1.0.26:
-    resolution: {integrity: sha512-MBK/+tCNJmt/l9ZYHb0cUUaaF02rCKeqLw1cruY/HU48tPOOnhUM0JdvuPaeq1d5VB2DCILY4rGYE4NeJbXvzg==}
+  crisp-sdk-web@1.0.27:
+    resolution: {integrity: sha512-aNWR3te65YiaVFu/iwdqOo3cyUBZHUheE4d6EtgQu/T18jh/9SpoYXjXF/OzUD3Cqy0pGryoqtuy5gxD8tqX9Q==}
 
   cron-parser@4.9.0:
     resolution: {integrity: sha512-p0SaNjrHOnQeR8/VnfGbmg9te2kfyYSQ7Sc/j/6DtPL3JQvKxmjO9TSjNFpujqV3vEYYBvNNvXSxzyksBWAx1Q==}
@@ -12083,7 +12083,7 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@darraghor/eslint-plugin-nestjs-typed@7.1.8(@typescript-eslint/parser@8.51.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(class-validator@0.14.3)(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)':
+  '@darraghor/eslint-plugin-nestjs-typed@7.1.9(@typescript-eslint/parser@8.51.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(class-validator@0.14.3)(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/parser': 8.51.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       '@typescript-eslint/scope-manager': 8.51.0
@@ -12102,7 +12102,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@darraghor/nest-backend-libs@4.0.7(e886de3d8240b00def32061894165995)':
+  '@darraghor/nest-backend-libs@4.0.8(e886de3d8240b00def32061894165995)':
     dependencies:
       '@keyv/redis': 5.1.5(keyv@5.5.5)
       '@nestjs/axios': 4.0.1(@nestjs/common@11.1.11(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.2))(axios@1.13.2)(rxjs@7.8.2)
@@ -16703,7 +16703,7 @@ snapshots:
 
   create-require@1.1.1: {}
 
-  crisp-sdk-web@1.0.26: {}
+  crisp-sdk-web@1.0.27: {}
 
   cron-parser@4.9.0:
     dependencies:

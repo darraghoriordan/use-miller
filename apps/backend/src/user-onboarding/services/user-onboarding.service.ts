@@ -1,4 +1,5 @@
 import {
+    BadRequestException,
     ForbiddenException,
     Injectable,
     Logger,
@@ -10,6 +11,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { GithubClientService } from "../../course-files/github-client/github-service.js";
 import { OrgGithubUserDto } from "../models/orgGhUser.dto.js";
 import {
+    BooleanResult,
     OrganisationSubscriptionRecord,
     RequestUser,
 } from "@darraghor/nest-backend-libs";
@@ -43,6 +45,11 @@ export class UserOnboardingService {
     ): Promise<OrgGithubUser> {
         // check the user is an owner of the org
         this.isOwner(currentUser, request.orgUuid);
+
+        // Normalize username to lowercase (GitHub usernames are case-insensitive)
+        const normalizedUsername = request.ghUsername.toLowerCase();
+
+        // Check if a GitHub user already exists for this org
         const existing = await this.orgGhUserRepo.find({
             where: {
                 orgUuid: request.orgUuid,
@@ -53,8 +60,22 @@ export class UserOnboardingService {
                 "You have already added a github user to this organisation. Contact support to change",
             );
         }
-        const ghUserEntity = this.orgGhUserRepo.create(request);
+
+        // Verify the GitHub user exists before saving
+        const didFindUser =
+            await this.ghService.checkUserExists(normalizedUsername);
+        if (!didFindUser) {
+            throw new BadRequestException(
+                `GitHub user '${request.ghUsername}' does not exist. Please check the username and try again.`,
+            );
+        }
+
+        const ghUserEntity = this.orgGhUserRepo.create({
+            ghUsername: normalizedUsername,
+            orgUuid: request.orgUuid,
+        });
         const savedGhUser = await this.orgGhUserRepo.save(ghUserEntity);
+
         // what about existing product subs?
         const existingSubs = await this.orgSubscriptionRepo.find({
             where: {
@@ -114,6 +135,66 @@ export class UserOnboardingService {
         return removedUser;
     }
 
+    public async removeOrgGithubUserById(
+        orgUuid: string,
+        ghUserId: number,
+        currentUser: RequestUser,
+    ): Promise<BooleanResult> {
+        // check the user is an owner of the org
+        this.isOwner(currentUser, orgUuid);
+
+        const existing = await this.orgGhUserRepo.findOne({
+            where: {
+                orgUuid: orgUuid,
+                id: ghUserId,
+            },
+        });
+
+        if (!existing) {
+            throw new NotFoundException(
+                "Couldn't find the github user you are trying to remove. Contact support for help.",
+            );
+        }
+
+        const ghUsername = existing.ghUsername;
+        await this.orgGhUserRepo.remove(existing);
+
+        // Revoke access to existing product subscriptions
+        const existingSubs = await this.orgSubscriptionRepo.find({
+            where: {
+                validUntil: MoreThan(new Date()),
+                organisation: {
+                    uuid: orgUuid,
+                },
+            },
+        });
+
+        for (const sub of existingSubs) {
+            await this.revokeGithubAccessForUser({
+                productKey: sub.internalSku,
+                ghUsername: ghUsername,
+            });
+        }
+
+        return { result: true };
+    }
+
+    private async revokeGithubAccessForUser(request: {
+        productKey: string;
+        ghUsername: string;
+    }): Promise<void> {
+        const repoRequests = this.mapRepoRequests(request.productKey, [
+            request.ghUsername,
+        ]);
+
+        for (const r of repoRequests) {
+            const isCollaborator = await this.ghService.checkCollaborator(r);
+            if (isCollaborator) {
+                await this.ghService.removeCollaborator(r);
+            }
+        }
+    }
+
     public async updateGithubAccess(accessRequest: {
         productKey: string;
         organisationUuid: string;
@@ -131,11 +212,31 @@ export class UserOnboardingService {
                 orgUuid: accessRequest.organisationUuid,
             },
         });
+
+        if (orgGhUsers.length === 0) {
+            this.logger.warn(
+                { organisationUuid: accessRequest.organisationUuid },
+                "No GitHub users found for organisation - cannot update repository access",
+            );
+            return;
+        }
+
         // ensure access has been granted or removed
         const requests = this.mapRepoRequests(
             accessRequest.productKey,
             orgGhUsers.map((u) => u.ghUsername),
         );
+
+        if (requests.length === 0) {
+            this.logger.warn(
+                {
+                    productKey: accessRequest.productKey,
+                    organisationUuid: accessRequest.organisationUuid,
+                },
+                "Unknown product key - no repository mappings found",
+            );
+            return;
+        }
 
         for (const r of requests) {
             const isCollaborator = await this.ghService.checkCollaborator(r);

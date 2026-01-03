@@ -45,7 +45,6 @@ export function BuyNowButton({
     className?: string;
     text?: string;
 }) {
-    console.log("loading the button", user, productKey, color, className, text);
     const { mutateAsync } = useGetPaymentLink();
 
     const orgUuid = user?.memberships?.find((m) =>
@@ -55,6 +54,10 @@ export function BuyNowButton({
     const product = productMapping.find((p) => p.productKey === productKey);
     if (!product) {
         throw new Error(`Product ${productKey} not found`);
+    }
+
+    if (!orgUuid) {
+        throw new Error("User must be an owner of an organisation to purchase");
     }
 
     const onClick = async () => {
@@ -70,7 +73,6 @@ export function BuyNowButton({
             mode: product.mode,
             organisationUuid: orgUuid,
         });
-        console.log("link", link);
         window.location.href = link.stripeSessionUrl;
     };
 

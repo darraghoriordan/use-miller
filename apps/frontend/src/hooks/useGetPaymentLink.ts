@@ -18,6 +18,14 @@ export function useGetPaymentLink() {
                 },
                 body: JSON.stringify(variables),
             });
+
+            if (!response.ok) {
+                const errorData = (await response.json()) as { error?: string };
+                throw new Error(
+                    errorData.error || "Failed to create checkout session",
+                );
+            }
+
             const result =
                 (await response.json()) as StripeCheckoutSessionResponseDto;
 

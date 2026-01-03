@@ -12,11 +12,14 @@ import {
     Request,
     Post,
     Body,
+    Delete,
+    ParseIntPipe,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { OrgGithubUserDto } from "../models/orgGhUser.dto.js";
 import { OrgGithubUser } from "../models/org-github-user.entity.js";
 import { UserOnboardingService } from "../services/user-onboarding.service.js";
+import { BooleanResult } from "@darraghor/nest-backend-libs";
 
 @UseGuards(DefaultAuthGuard)
 @ApiBearerAuth()
@@ -46,6 +49,21 @@ export class UserOnboardingController {
     ): Promise<OrgGithubUser> {
         return this.ghUserOnboardingService.addOrgGithubUser(
             requestBody,
+            request.user,
+        );
+    }
+
+    @Delete("github-user/:orgUuid/:ghUserId")
+    @HttpCode(HttpStatus.OK)
+    @ApiOkResponse({ type: BooleanResult })
+    async removeForOrg(
+        @Param("orgUuid") orgUuid: string,
+        @Param("ghUserId", ParseIntPipe) ghUserId: number,
+        @Request() request: RequestWithUser,
+    ): Promise<BooleanResult> {
+        return this.ghUserOnboardingService.removeOrgGithubUserById(
+            orgUuid,
+            ghUserId,
             request.user,
         );
     }

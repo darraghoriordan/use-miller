@@ -11,9 +11,14 @@ export const GithubUserForm = ({
     orgUuid: string;
 }) => {
     const [localUsername, setUsername] = useState(ghUsername);
+    const [error, setError] = useState<string | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSubmit = async (event: React.SyntheticEvent) => {
         event.preventDefault();
+        setError(null);
+        setIsSubmitting(true);
+
         const target = event.target as typeof event.target & {
             ghUsername: { value: string };
         };
@@ -33,13 +38,30 @@ export const GithubUserForm = ({
             body: JSONdata,
         };
 
-        const response = await fetch(
-            `/api/onboarding/set-gh-username`,
-            options,
-        );
+        try {
+            const response = await fetch(
+                `/api/onboarding/set-gh-username`,
+                options,
+            );
 
-        const savedUser = (await response.json()) as OrgGithubUserDto;
-        setUsername(savedUser.ghUsername);
+            if (!response.ok) {
+                const errorData = (await response.json()) as { error?: string };
+                throw new Error(
+                    errorData.error || "Failed to save GitHub username",
+                );
+            }
+
+            const savedUser = (await response.json()) as OrgGithubUserDto;
+            setUsername(savedUser.ghUsername);
+        } catch (err) {
+            const message =
+                err instanceof Error
+                    ? err.message
+                    : "An unexpected error occurred";
+            setError(message);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -72,6 +94,11 @@ export const GithubUserForm = ({
                         Enter your GitHub username to get access to relevant
                         repos for purchased products.
                     </p>
+                    {error && (
+                        <div className="bg-red-900/20 border border-red-500/50 rounded-md px-4 py-2 mb-4">
+                            <p className="text-red-400 text-sm">{error}</p>
+                        </div>
+                    )}
                     <div className="flex flex-col sm:flex-row gap-4">
                         <div className="flex-1">
                             <label
@@ -87,13 +114,20 @@ export const GithubUserForm = ({
                                 name="ghUsername"
                                 placeholder="username"
                                 required
-                                minLength={2}
-                                maxLength={200}
+                                minLength={1}
+                                maxLength={39}
+                                pattern="^[a-zA-Z\d](?:[a-zA-Z\d]|-(?=[a-zA-Z\d])){0,38}$"
+                                title="GitHub username must start with a letter or number and can contain letters, numbers, and hyphens"
+                                disabled={isSubmitting}
                             />
                         </div>
                         <div className="flex items-end">
-                            <StyledButton type="submit" color="primary">
-                                Save
+                            <StyledButton
+                                type="submit"
+                                color="primary"
+                                disabled={isSubmitting}
+                            >
+                                {isSubmitting ? "Saving..." : "Save"}
                             </StyledButton>
                         </div>
                     </div>

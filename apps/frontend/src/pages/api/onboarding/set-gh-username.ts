@@ -46,8 +46,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         res.setHeader("Cache-Control", "no-store");
         res.end(JSON.stringify(data));
     } catch (error) {
-        res.json(error);
-        res.status(500).end();
+        const message =
+            error instanceof Error ? error.message : "Internal server error";
+        res.status(500).json({ error: message });
     }
 };
 
