@@ -49,7 +49,6 @@ export const initInstrumentation = () => {
             new FetchInstrumentation({
                 propagateTraceHeaderCorsUrls: [
                     /localhost/g,
-                    /honeycomb.io/g,
                     /host.docker.internal/g,
                 ],
                 clearTimingResources: true,

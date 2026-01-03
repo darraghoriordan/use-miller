@@ -1,27 +1,23 @@
 # AGENTS.md - Agentic Coding Guide
 
-This document provides instructions for AI coding agents working in this monorepo.
+Instructions for AI coding agents working in this pnpm monorepo.
 
-## Project Overview
+## Project Structure
 
-This is a pnpm monorepo containing:
-
-- `apps/backend` - NestJS 11 API with TypeORM, PostgreSQL, Auth0, Stripe
-- `apps/frontend` - Next.js 14 with React 18, Tailwind CSS 4, React Query
-- `apps/backend-e2e` - End-to-end tests for the backend API
-- `libs/shared-api-client` - Auto-generated TypeScript API client
+- `apps/backend` - NestJS 11 API (TypeORM, PostgreSQL, Auth0, Stripe)
+- `apps/frontend` - Next.js 14 (React 19, Tailwind CSS 4, React Query)
+- `apps/backend-e2e` - E2E tests for backend API
 - `libs/project-setup` - Project initialization utilities
 
 ## Build/Lint/Test Commands
 
-### Root Level (from repository root)
+### Root Level
 
 ```bash
 pnpm run build          # Build all packages (excludes backend-e2e, frontend)
 pnpm run test           # Run tests across all packages
 pnpm run lint           # Lint all packages
-pnpm run mill:dev       # Start local development (docker + backend + frontend)
-pnpm run mill:init      # Full project initialization
+pnpm run mill:dev       # Start local dev (docker + backend + frontend)
 pnpm run knip           # Check for unused code/dependencies
 ```
 
@@ -30,9 +26,8 @@ pnpm run knip           # Check for unused code/dependencies
 ```bash
 pnpm run build          # Build the backend
 pnpm run start          # Start in watch mode (development)
-pnpm run start:prod     # Start production build
 pnpm run lint           # Lint with auto-fix
-pnpm run test           # Run all tests
+pnpm run test           # Run all tests (Vitest)
 pnpm run up             # Start Docker services (PostgreSQL, Redis)
 pnpm run down           # Stop Docker services
 pnpm run db:run         # Run database migrations
@@ -42,16 +37,16 @@ pnpm run db:gen         # Generate new migration
 ### Running a Single Test
 
 ```bash
-# Backend - run test by file path pattern
-cd apps/backend && pnpm run test -- --testPathPattern="file-scrambler"
+# Backend - run specific test file (Vitest)
+cd apps/backend && pnpm run test src/course-files/services/file-scrambler.service.test.ts
 
-# Backend - run specific test file
-cd apps/backend && pnpm run test -- src/course-files/services/file-scrambler.service.test.ts
+# Backend - run tests matching pattern
+cd apps/backend && pnpm run test --testNamePattern="partition"
 
-# Backend E2E - run all e2e tests
+# Backend E2E tests
 cd apps/backend-e2e && pnpm run test:e
 
-# Project setup tests (uses Vitest)
+# Project setup tests (Vitest)
 cd libs/project-setup && pnpm run test
 ```
 
@@ -60,58 +55,43 @@ cd libs/project-setup && pnpm run test
 ```bash
 pnpm run build          # Build for production
 pnpm run start          # Start development server
-pnpm run start:prod     # Start production server
 pnpm run lint           # Run Next.js linting
-pnpm run prettier       # Format source files
 ```
 
 ## Code Style Guidelines
 
 ### Formatting (Prettier)
 
-- **Tab width**: 4 spaces
-- **Semicolons**: Always required
-- **Quotes**: Double quotes (no single quotes)
-- **Tabs**: Use spaces, not tabs
+- **Tab width**: 4 spaces (no tabs), **Semicolons**: Always, **Quotes**: Double quotes only
 
 ### TypeScript Strictness
 
-All strict checks are enabled:
-
-- `strict: true`
-- `noImplicitAny: true`
-- `strictNullChecks: true`
-- `strictPropertyInitialization: true`
-- `noUnusedLocals: true`
-- `noImplicitReturns: true`
+All strict checks enabled: `strict`, `noImplicitAny`, `strictNullChecks`, `strictPropertyInitialization`, `noUnusedLocals`, `noImplicitReturns`
 
 ### ESM Module System
 
-This project uses ESM (`"type": "module"`). When importing local files, use `.js` extensions:
+This project uses ESM (`"type": "module"`). Use `.js` extensions for local imports:
 
 ```typescript
-// Correct
-import { MyService } from "./my-service.js";
-
-// Incorrect
-import { MyService } from "./my-service";
+import { MyService } from "./my-service.js"; // Correct
+import { MyService } from "./my-service"; // Incorrect
 ```
 
-### Naming Conventions
+### File Naming Conventions
 
-#### Files
+| Type             | Pattern                    | Example                          |
+| ---------------- | -------------------------- | -------------------------------- |
+| Entities         | `kebab-case.entity.ts`     | `org-github-user.entity.ts`      |
+| DTOs             | `kebab-case.dto.ts`        | `create-user.dto.ts`             |
+| Services         | `kebab-case.service.ts`    | `user-onboarding.service.ts`     |
+| Controllers      | `kebab-case.controller.ts` | `payments.controller.ts`         |
+| Modules          | `kebab-case.module.ts`     | `payments.module.ts`             |
+| Unit tests       | `*.test.ts`                | `file-scrambler.service.test.ts` |
+| E2E tests        | `*.e2e-spec.ts`            | `basic-security.e2e-spec.ts`     |
+| React components | `PascalCase.tsx`           | `UserProfile.tsx`                |
+| React hooks      | `useCamelCase.ts`          | `useAuth.ts`                     |
 
-- **Entities**: `kebab-case.entity.ts` (e.g., `org-github-user.entity.ts`)
-- **DTOs**: `kebab-case.dto.ts` or `PascalCase.dto.ts`
-- **Services**: `kebab-case.service.ts`
-- **Controllers**: `kebab-case.controller.ts`
-- **Modules**: `kebab-case.module.ts`
-- **Unit tests**: `*.test.ts` (co-located with source)
-- **E2E tests**: `*.e2e-spec.ts`
-- **React components**: `PascalCase.tsx`
-- **React hooks**: `useCamelCase.ts`
-
-#### Code
+### Code Naming Conventions
 
 - **Classes/Types/Interfaces**: `PascalCase`
 - **Functions/Methods/Variables**: `camelCase`
@@ -120,18 +100,16 @@ import { MyService } from "./my-service";
 - **Boolean variables**: Must have prefix `is`, `should`, `has`, `can`, `did`, or `will`
 - **Private members**: `camelCase` (no leading underscore)
 
-### Import Organization
+### Import Order
 
-Order imports as follows:
-
-1. External/framework imports (NestJS, React, etc.)
-2. Third-party library imports
-3. Shared library imports (`@darraghor/nest-backend-libs`, `@use-miller/shared-api-client`)
+1. Framework imports (NestJS, React)
+2. Third-party libraries
+3. Shared libraries (`@darraghor/nest-backend-libs`)
 4. Local imports (with `.js` extension for backend)
 
 ```typescript
 // Example backend import order
-import { Injectable, Logger, NotFoundException } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { RequestUser } from "@darraghor/nest-backend-libs";
@@ -140,8 +118,6 @@ import { HelperService } from "./helper-service.js";
 ```
 
 ### Error Handling
-
-#### Backend (NestJS)
 
 Use NestJS built-in exceptions:
 
@@ -167,8 +143,6 @@ private readonly logger = new Logger(MyService.name);
 
 ### Entity & DTO Patterns
 
-#### Entities (TypeORM)
-
 ```typescript
 @Entity()
 export class MyEntity {
@@ -179,17 +153,9 @@ export class MyEntity {
     @Column()
     @ApiProperty()
     name!: string;
-
-    @CreateDateColumn()
-    @ApiProperty()
-    createdAt!: Date;
 }
-```
 
-#### DTOs (class-validator)
-
-```typescript
-export class CreateMyEntityDto {
+export class CreateMyDto {
     @IsString()
     @ApiProperty()
     name!: string;
@@ -201,9 +167,7 @@ export class CreateMyEntityDto {
 }
 ```
 
-### Testing Patterns
-
-#### Unit Tests (Jest)
+### Testing Patterns (Vitest)
 
 ```typescript
 describe("MyService", () => {
@@ -214,7 +178,6 @@ describe("MyService", () => {
             expect(service.myMethod("input")).toBe("expected");
         });
 
-        // Use test.each for parameterized tests
         test.each([
             { input: "a", expected: "A" },
             { input: "b", expected: "B" },
@@ -225,26 +188,17 @@ describe("MyService", () => {
 });
 ```
 
-### Commit Message Convention
+### Commit Messages
 
-Uses Conventional Commits:
+Uses Conventional Commits: `feat:`, `fix:`, `refactor:`, `docs:`, `test:`, `chore:`
 
-```
-feat: add new feature
-fix: resolve bug in component
-refactor: restructure code
-docs: update documentation
-test: add unit tests
-chore: update dependencies
-```
+## Technology Stack
 
-## Technology Stack Reference
-
-- **Runtime**: Node.js 20.12.2+
-- **Package Manager**: pnpm 8.15.1+
+- **Runtime**: Node.js 24.12.0+
+- **Package Manager**: pnpm 10.27.0+
 - **Backend**: NestJS 11, TypeORM 0.3, PostgreSQL
-- **Frontend**: Next.js 14, React 18, Tailwind CSS 4
+- **Frontend**: Next.js 14, React 19, Tailwind CSS 4
+- **Testing**: Vitest
 - **Auth**: Auth0
 - **Payments**: Stripe
 - **State**: React Query (TanStack Query)
-- **Observability**: OpenTelemetry
