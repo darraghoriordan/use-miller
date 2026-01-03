@@ -3,8 +3,12 @@ type OrganisationSubscriptionRecord =
     components["schemas"]["OrganisationSubscriptionRecord"];
 type SubscriptionAsset = components["schemas"]["SubscriptionAsset"];
 import { useFormattedDate } from "../../hooks/useFormattedDate";
-import { colorVariants } from "../../styles/themeColors";
+import {
+    colorVariants,
+    getProductColorFromSku,
+} from "../../styles/themeColors";
 import ManageBillingLink from "./ManageBillingLink";
+import clsx from "clsx";
 
 export const SingleProduct = ({
     subscriptionRecord,
@@ -13,52 +17,98 @@ export const SingleProduct = ({
     subscriptionRecord: OrganisationSubscriptionRecord;
     subscriptionAssets: SubscriptionAsset[];
 }) => {
-    // const expiryDate = useFormattedDate(subscriptionRecord.validUntil);
     const createdDate = useFormattedDate(subscriptionRecord.createdDate);
-    const colorVariant = "green";
+    const productColor = getProductColorFromSku(subscriptionRecord.internalSku);
+    const colorVariant = colorVariants[productColor];
+
     return (
         <div
-            className={`overflow-hidden p-8 rounded-md text-gray-500 bg-dark-accent hover:shadow-lg ${colorVariants[colorVariant].hoverShadow} ${colorVariants[colorVariant].hoverForeground}`}
+            className={clsx(
+                "relative overflow-hidden rounded-lg",
+                "bg-security-dark border border-security-border",
+                "hover:border-opacity-70 transition-all duration-300",
+                colorVariant.hoverBorder,
+                colorVariant.hoverGlow,
+            )}
         >
-            <div className="flex flex-col items-center space-y-6">
-                <h3 className="text-4xl font-medium text-light-accent">
-                    {subscriptionRecord.productDisplayName}
-                </h3>
-                <div className="flex justify-between w-3/4">
-                    <div className="">
-                        <p className="mb-1 font-bold text-white">
-                            Purchased on
-                        </p>
-                        <p className="text-white">{createdDate}</p>
+            {/* Product color accent bar */}
+            <div
+                className={clsx(
+                    "absolute left-0 top-0 bottom-0 w-1",
+                    colorVariant.background,
+                )}
+            />
+
+            <div className="p-6 pl-8">
+                {/* Header */}
+                <div className="flex items-start justify-between mb-6">
+                    <div>
+                        <h3
+                            className={clsx(
+                                "font-display text-xl",
+                                colorVariant.foreground,
+                            )}
+                        >
+                            {subscriptionRecord.productDisplayName}
+                        </h3>
+                        <span className="font-mono text-xs uppercase tracking-wider text-security-muted">
+                            One-time Purchase
+                        </span>
                     </div>
                 </div>
-                <div className="w-3/4">
-                    <p className="mb-1 font-bold text-white">
-                        Last Transaction Id
+
+                {/* Details */}
+                <div className="mb-6">
+                    <p className="font-mono text-xs uppercase tracking-wider text-security-muted mb-1">
+                        Purchased On
                     </p>
-                    <p className="text-white break-all">
+                    <p className="text-security-light">{createdDate}</p>
+                </div>
+
+                {/* Transaction ID */}
+                <div className="mb-6">
+                    <p className="font-mono text-xs uppercase tracking-wider text-security-muted mb-1">
+                        Transaction ID
+                    </p>
+                    <p className="text-security-text text-sm break-all font-mono">
                         {subscriptionRecord.paymentSystemTransactionId}
                     </p>
                 </div>
-                <div className="w-3/4">
-                    {subscriptionAssets.map((asset) => (
-                        <div key={asset.id}>
-                            <p className="mb-1 font-bold text-white">
-                                {asset.displayName}
-                            </p>
-                            <a
-                                href={asset.uri}
-                                className="text-white underline underline-offset-2"
-                            >
-                                {asset.description}
-                            </a>
-                        </div>
-                    ))}
+
+                {/* Assets */}
+                {subscriptionAssets.length > 0 && (
+                    <div className="mb-6 space-y-3">
+                        <p className="font-mono text-xs uppercase tracking-wider text-security-muted">
+                            Resources
+                        </p>
+                        {subscriptionAssets.map((asset) => (
+                            <div key={asset.id} className="flex flex-col gap-1">
+                                <span className="text-security-light text-sm font-medium">
+                                    {asset.displayName}
+                                </span>
+                                <a
+                                    href={asset.uri}
+                                    className={clsx(
+                                        "text-sm transition-colors",
+                                        colorVariant.foreground,
+                                        "hover:underline underline-offset-2",
+                                    )}
+                                >
+                                    {asset.description}
+                                </a>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {/* Action */}
+                <div className="pt-4 border-t border-security-border">
+                    <ManageBillingLink
+                        subscriptionUuid={subscriptionRecord.uuid}
+                        paymentProvider={subscriptionRecord.paymentSystemName}
+                        productColor={productColor}
+                    />
                 </div>
-                <ManageBillingLink
-                    subscriptionUuid={subscriptionRecord.uuid}
-                    paymentProvider={subscriptionRecord.paymentSystemName}
-                />
             </div>
         </div>
     );

@@ -1,5 +1,6 @@
 import StyledLink from "../../components/StyledLink";
-import { colorVariants } from "../../styles/themeColors";
+import { colorVariants, getProductColor } from "../../styles/themeColors";
+import clsx from "clsx";
 
 export default function NoSubscriptions({
     productName,
@@ -10,32 +11,58 @@ export default function NoSubscriptions({
     productKey: string;
     isOrganisationOwner: boolean;
 }) {
-    const colorVariant = "green";
+    const productColor = getProductColor(productKey);
+    const colorVariant = colorVariants[productColor];
+
     return (
         <div
-            className={`p-8 overflow-hidden text-center rounded-md text-gray-500 bg-dark-accent hover:shadow-lg ${colorVariants[colorVariant].hoverShadow} ${colorVariants[colorVariant].hoverForeground}`}
-        >
-            <h3 className="text-lg font-medium text-white">
-                Your org has no subscriptions for <strong>{productName}</strong>
-                .
-            </h3>
-            {!isOrganisationOwner && (
-                <p className="mt-6 text-sm text-gray-200">
-                    Contact the owner of your organisation to subscribe.
-                </p>
+            className={clsx(
+                "relative overflow-hidden rounded-lg",
+                "bg-security-dark border border-security-border",
+                "transition-all duration-300",
+                colorVariant.hoverBorder,
             )}
-            {isOrganisationOwner && (
-                <>
-                    <p className="mt-6 text-sm text-gray-200">
-                        Get started by subscribing.
+        >
+            {/* Product color accent bar */}
+            <div
+                className={clsx(
+                    "absolute left-0 top-0 bottom-0 w-1",
+                    colorVariant.background,
+                    "opacity-50",
+                )}
+            />
+
+            <div className="p-6 pl-8">
+                <h3
+                    className={clsx(
+                        "font-display text-lg mb-2",
+                        colorVariant.foreground,
+                    )}
+                >
+                    {productName}
+                </h3>
+                <p className="text-security-text text-sm">
+                    Your organization has no active subscription for this
+                    product.
+                </p>
+
+                {!isOrganisationOwner && (
+                    <p className="text-security-muted text-sm mt-4">
+                        Contact the owner of your organization to subscribe.
                     </p>
-                    <div className="mt-6 md:w-1/2 mx-auto">
-                        <StyledLink color="green" href={`/${productKey}`}>
-                            Go to {productName}
+                )}
+
+                {isOrganisationOwner && (
+                    <div className="mt-6">
+                        <StyledLink
+                            color={productColor}
+                            href={`/${productKey}#pricing`}
+                        >
+                            Get {productName}
                         </StyledLink>
                     </div>
-                </>
-            )}
+                )}
+            </div>
         </div>
     );
 }

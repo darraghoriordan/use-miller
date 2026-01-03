@@ -1,9 +1,16 @@
+"use client";
+
 import type { components } from "../../shared/types/api-specs";
 type OrganisationSubscriptionRecord =
     components["schemas"]["OrganisationSubscriptionRecord"];
 type SubscriptionAsset = components["schemas"]["SubscriptionAsset"];
 import { SingleProduct } from "./SingleProduct";
 import { SingleSubscription } from "./SingleSubscription";
+import {
+    FadeInOnScroll,
+    StaggerContainer,
+    StaggerItem,
+} from "../../components/Animations";
 
 export const Subscriptions = ({
     subs,
@@ -13,12 +20,17 @@ export const Subscriptions = ({
     subAssets: SubscriptionAsset[];
 }) => {
     return (
-        <div className=" border-white">
-            <h2 className="text-3xl font-bold text-white w-full">
-                Your Products and Subscriptions
-            </h2>
+        <div>
+            <FadeInOnScroll>
+                <div className="flex items-center gap-4 mb-8">
+                    <h2 className="font-display text-2xl md:text-3xl text-security-light">
+                        Your Products and Subscriptions
+                    </h2>
+                    <div className="h-px flex-1 bg-security-border" />
+                </div>
+            </FadeInOnScroll>
 
-            <div className="mt-16 mb-32 flex flex-col space-y-8">
+            <StaggerContainer className="space-y-6" staggerDelay={0.1}>
                 {subs.map((sub) => {
                     const singleSubAssets = subAssets?.filter(
                         (sa) => sa.internalSku === sub.internalSku,
@@ -28,22 +40,24 @@ export const Subscriptions = ({
 
                     if (isSubscription) {
                         return (
-                            <SingleSubscription
-                                key={sub.id}
-                                subscriptionRecord={sub}
-                                subscriptionAssets={singleSubAssets}
-                            />
+                            <StaggerItem key={sub.id}>
+                                <SingleSubscription
+                                    subscriptionRecord={sub}
+                                    subscriptionAssets={singleSubAssets}
+                                />
+                            </StaggerItem>
                         );
                     }
                     return (
-                        <SingleProduct
-                            key={sub.id}
-                            subscriptionRecord={sub}
-                            subscriptionAssets={singleSubAssets}
-                        />
+                        <StaggerItem key={sub.id}>
+                            <SingleProduct
+                                subscriptionRecord={sub}
+                                subscriptionAssets={singleSubAssets}
+                            />
+                        </StaggerItem>
                     );
                 })}
-            </div>
+            </StaggerContainer>
         </div>
     );
 };

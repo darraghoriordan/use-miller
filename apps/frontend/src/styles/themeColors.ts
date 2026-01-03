@@ -257,3 +257,19 @@ export const getProductColor = (productKey: string | undefined): ThemeColor => {
             return "primary";
     }
 };
+
+// Helper to get product color from internal SKU (for subscription cards)
+export const getProductColorFromSku = (
+    internalSku: string | undefined,
+): ThemeColor => {
+    if (!internalSku) return "primary";
+    if (internalSku.includes("dev-shell")) return "devshell";
+    if (
+        internalSku.includes("local-dev-tools") ||
+        internalSku.includes("local-tools")
+    )
+        return "localtools";
+    if (internalSku.includes("miller-start")) return "millerstart";
+    if (internalSku.includes("eslint")) return "eslint";
+    return "primary";
+};

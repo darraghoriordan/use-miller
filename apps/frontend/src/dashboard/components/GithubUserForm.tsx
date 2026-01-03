@@ -33,54 +33,69 @@ export const GithubUserForm = ({
             body: JSONdata,
         };
 
-        // Send the form data to our forms API on Vercel and get a response.
         const response = await fetch(
             `/api/onboarding/set-gh-username`,
             options,
         );
 
-        // Get the response data from server as JSON.
-        // If server returns the name submitted, that means the form works.
         const savedUser = (await response.json()) as OrgGithubUserDto;
         setUsername(savedUser.ghUsername);
     };
+
     return (
-        <div>
-            <h2 className="text-3xl font-bold text-white w-full mb-8">
-                Github User
-            </h2>
+        <div className="bg-security-dark border border-security-border rounded-lg p-6">
+            <div className="flex items-center gap-4 mb-6">
+                <h2 className="font-display text-xl text-security-light">
+                    GitHub Account
+                </h2>
+                <div className="h-px flex-1 bg-security-border" />
+            </div>
+
             {localUsername && (
-                <>
-                    <p className="text-white mb-8">
-                        Your Github username is:{" "}
-                        <strong>{localUsername}</strong>
+                <div className="space-y-2">
+                    <p className="font-mono text-xs uppercase tracking-wider text-security-muted">
+                        Connected Account
                     </p>
-                    <p className="text-white mb-8">
-                        Enter your username here and this user will get access
-                        to any relevant repos for purchased products
+                    <p className="text-security-light font-mono">
+                        {localUsername}
                     </p>
-                </>
+                    <p className="text-security-text text-sm mt-4">
+                        This GitHub user will get access to any relevant repos
+                        for purchased products.
+                    </p>
+                </div>
             )}
+
             {!localUsername && (
-                <form onSubmit={handleSubmit} method="post">
-                    <label htmlFor="ghUsername" className="block text-white">
-                        Github username
-                    </label>
-                    <div className="md:flex space-x-4 items-center">
-                        <div>
+                <form onSubmit={handleSubmit}>
+                    <p className="text-security-text text-sm mb-4">
+                        Enter your GitHub username to get access to relevant
+                        repos for purchased products.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <div className="flex-1">
+                            <label
+                                htmlFor="ghUsername"
+                                className="block font-mono text-xs uppercase tracking-wider text-security-muted mb-2"
+                            >
+                                GitHub Username
+                            </label>
                             <input
-                                className="mb-4 md:mb-0"
+                                className="w-full bg-security-darker border border-security-border rounded-md px-4 py-2 text-security-light placeholder:text-security-muted focus:border-accent focus:ring-1 focus:ring-accent/50 outline-none transition-colors"
                                 type="text"
                                 id="ghUsername"
                                 name="ghUsername"
+                                placeholder="username"
                                 required
                                 minLength={2}
                                 maxLength={200}
                             />
                         </div>
-                        <StyledButton type="submit" color="green">
-                            Save
-                        </StyledButton>
+                        <div className="flex items-end">
+                            <StyledButton type="submit" color="primary">
+                                Save
+                            </StyledButton>
+                        </div>
                     </div>
                 </form>
             )}
