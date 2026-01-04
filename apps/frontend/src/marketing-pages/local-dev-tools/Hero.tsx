@@ -14,17 +14,24 @@ import {
 import { AppWindow } from "../../components/AppWindow";
 import { JwtDecoderDemo } from "./JwtDecoderDemo";
 import { SecurityBadge } from "../../components/SecurityBadge";
+import { useLocalDevToolsVersion } from "../../hooks/useLocalDevToolsVersion";
 import type { components } from "../../shared/types/api-specs";
 
 type UserDto = components["schemas"]["UserDto"];
 
-const version = "1.73.5";
-const winArm64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.exe`;
-const macArm64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.dmg`;
-const macX64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-x64.dmg`;
-const winX64Download = `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-x64.exe`;
+const FALLBACK_VERSION = "1.74.4";
+
+const getDownloadUrls = (version: string) => ({
+    winArm64: `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.exe`,
+    macArm64: `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-arm64.dmg`,
+    macX64: `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-x64.dmg`,
+    winX64: `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-x64.exe`,
+});
 
 export function Hero({ user }: { user: UserDto }) {
+    const { version: fetchedVersion } = useLocalDevToolsVersion();
+    const version = fetchedVersion || FALLBACK_VERSION;
+    const downloadUrls = getDownloadUrls(version);
     const features = [
         "Offline encoding and decoding tools for base64, JWT and JSON",
         "An AI powered ESLint rule generator agent [Uses Open AI - Not local]",
@@ -237,7 +244,7 @@ export function Hero({ user }: { user: UserDto }) {
                             </h3>
                             <div className="space-y-4">
                                 <a
-                                    href={macArm64Download}
+                                    href={downloadUrls.macArm64}
                                     className="flex items-center justify-between p-4 border border-security-border rounded-lg hover:border-product-localtools/50 hover:bg-security-dark/50 transition-colors group"
                                 >
                                     <div>
@@ -256,7 +263,7 @@ export function Hero({ user }: { user: UserDto }) {
                                     </SecurityBadge>
                                 </a>
                                 <a
-                                    href={macX64Download}
+                                    href={downloadUrls.macX64}
                                     className="flex items-center justify-between p-4 border border-security-border rounded-lg hover:border-product-localtools/50 hover:bg-security-dark/50 transition-colors group"
                                 >
                                     <div>
@@ -291,7 +298,7 @@ export function Hero({ user }: { user: UserDto }) {
                             </h3>
                             <div className="space-y-4">
                                 <a
-                                    href={winX64Download}
+                                    href={downloadUrls.winX64}
                                     className="flex items-center justify-between p-4 border border-security-border rounded-lg hover:border-product-localtools/50 hover:bg-security-dark/50 transition-colors group"
                                 >
                                     <div>
@@ -310,7 +317,7 @@ export function Hero({ user }: { user: UserDto }) {
                                     </SecurityBadge>
                                 </a>
                                 <a
-                                    href={winArm64Download}
+                                    href={downloadUrls.winArm64}
                                     className="flex items-center justify-between p-4 border border-security-border rounded-lg hover:border-product-localtools/50 hover:bg-security-dark/50 transition-colors group"
                                 >
                                     <div>
