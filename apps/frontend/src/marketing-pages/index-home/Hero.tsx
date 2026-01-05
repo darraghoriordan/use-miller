@@ -12,7 +12,7 @@ import {
 } from "../../components/Animations";
 import { TrustBadges } from "../../components/SecurityBadge";
 import { SingleProductCard } from "./SingleProductCard";
-import { EslintPluginSection } from "./EslintPluginSection";
+import { OpenSourceSection } from "./OpenSourceSection";
 import { ThemeColor } from "../../styles/themeColors";
 import type { components } from "../../shared/types/api-specs";
 import {
@@ -63,6 +63,7 @@ export function Hero({ user }: { user: UserDto }) {
                 "https://github.com/darraghoriordan/ssh-tool-new-electron",
             altLinkText: "Download now",
             altLink: "/local-dev-tools#download",
+            stars: 6,
             benefits: [
                 "Offline utilities for Git, SSH, and development",
                 "Your business data never leaves your machine",
@@ -196,8 +197,8 @@ export function Hero({ user }: { user: UserDto }) {
                     </StaggerContainer>
                 </section>
 
-                {/* ESLint Plugin Section - Free & Open Source */}
-                <EslintPluginSection />
+                {/* Open Source Section - Free & Open Source */}
+                <OpenSourceSection />
             </Container>
         </div>
     );
