@@ -60,7 +60,7 @@ export function Pricing({ user }: { user: UserDto }) {
 
                         <div className="mt-8">
                             <DynamicGumRoad
-                                productUrl="https://darraghoriordan.gumroad.com/l/localtools"
+                                productUrl="https://gumroad.usemiller.dev/l/localtools"
                                 buttonText="Purchase License"
                             />
                         </div>
