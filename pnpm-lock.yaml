@@ -82,8 +82,8 @@ importers:
         specifier: 7.28.5
         version: 7.28.5
       '@darraghor/nest-backend-libs':
-        specifier: 5.0.1
-        version: 5.0.1(f59b9fc658848ae069989c8376309829)
+        specifier: 5.0.2
+        version: 5.0.2(f59b9fc658848ae069989c8376309829)
       '@keyv/redis':
         specifier: 5.1.5
         version: 5.1.5(keyv@5.5.5)
@@ -1529,8 +1529,8 @@ packages:
       class-validator: '*'
       eslint: '>=9.18.0'
 
-  '@darraghor/nest-backend-libs@5.0.1':
-    resolution: {integrity: sha512-HJRynIJbtmfxC9h9k3RtGp56QA5H0QhpSi6IGtDVYllIrU/lPCS/26DorVI5fjshyc9XoV+kMk/jq9kVPqq8rw==}
+  '@darraghor/nest-backend-libs@5.0.2':
+    resolution: {integrity: sha512-vq7XReSQl9X1CZcuPlfgDLqgHrhJq+89PK493dw6qQB+v3Ikv9YGxQMy7NCsNFqhdKZoC1rRNsH7J4ZqFRi9nA==}
     engines: {node: '>=22.21.1'}
     hasBin: true
     peerDependencies:
@@ -12109,7 +12109,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@darraghor/nest-backend-libs@5.0.1(f59b9fc658848ae069989c8376309829)':
+  '@darraghor/nest-backend-libs@5.0.2(f59b9fc658848ae069989c8376309829)':
     dependencies:
       '@keyv/redis': 5.1.5(keyv@5.5.5)
       '@nestjs/axios': 4.0.1(@nestjs/common@11.1.11(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.2))(axios@1.13.2)(rxjs@7.8.2)
