@@ -33,11 +33,11 @@
     },
     "dependencies": {
         "@babel/core": "7.28.5",
-        "@darraghor/nest-backend-libs": "4.0.8",
+        "@darraghor/nest-backend-libs": "5.0.1",
         "@keyv/redis": "5.1.5",
         "@mapbox/rehype-prism": "0.9.0",
         "@nestjs/axios": "4.0.1",
-        "@nestjs/bull": "11.0.4",
+        "@nestjs/bullmq": "11.0.4",
         "@nestjs/cache-manager": "3.1.0",
         "@nestjs/cli": "11.0.14",
         "@nestjs/common": "11.1.11",
@@ -47,7 +47,7 @@
         "@nestjs/microservices": "11.1.11",
         "@nestjs/passport": "11.0.5",
         "@nestjs/platform-express": "11.1.11",
-        "@nestjs/swagger": "11.2.3",
+        "@nestjs/swagger": "11.2.4",
         "@nestjs/terminus": "11.0.0",
         "@nestjs/typeorm": "11.0.0",
         "@octokit/rest": "22.0.1",
@@ -67,7 +67,7 @@
         "@opentelemetry/semantic-conventions": "1.38.0",
         "auth0": "5.2.0",
         "axios": "1.13.2",
-        "bull": "4.16.5",
+        "bullmq": "5.66.4",
         "cache-manager": "7.2.7",
         "class-transformer": "0.5.1",
         "class-validator": "0.14.3",
@@ -100,7 +100,7 @@
         "webpack": "5.104.1"
     },
     "devDependencies": {
-        "@darraghor/eslint-plugin-nestjs-typed": "7.1.9",
+        "@darraghor/eslint-plugin-nestjs-typed": "7.1.11",
         "@eslint/eslintrc": "3.3.3",
         "@eslint/js": "9.39.2",
         "@nestjs/schematics": "11.0.9",
@@ -125,12 +125,12 @@
         "eslint-plugin-unicorn": "62.0.0",
         "globals": "17.0.0",
         "prettier": "3.7.4",
-        "supertest": "7.1.4",
+        "supertest": "7.2.2",
         "ts-loader": "9.5.4",
         "ts-node": "10.9.2",
         "tsconfig-paths": "4.2.0",
         "typescript": "5.9.3",
-        "typescript-eslint": "8.51.0",
+        "typescript-eslint": "8.52.0",
         "vitest": "4.0.16"
     }
 }

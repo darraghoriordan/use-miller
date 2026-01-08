@@ -1,21 +1,22 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { Process, Processor } from "@nestjs/bull";
+import { WorkerHost, Processor } from "@nestjs/bullmq";
 import { ProductActivationDto } from "../models/product-activation.dto.js";
-import { Job } from "bull";
+import { Job } from "bullmq";
 import { UserOnboardingService } from "./user-onboarding.service.js";
 import { SmtpEmailClient } from "@darraghor/nest-backend-libs";
 
 @Injectable()
 @Processor("subscription-activation-changed")
-export class SubscriptionEventHandlerService {
+export class SubscriptionEventHandlerService extends WorkerHost {
     constructor(
         private readonly onboardingService: UserOnboardingService,
         private readonly emailClient: SmtpEmailClient,
-    ) {}
+    ) {
+        super();
+    }
     private readonly logger = new Logger(SubscriptionEventHandlerService.name);
 
-    @Process()
-    public async handleEvent(job: Job<ProductActivationDto>): Promise<void> {
+    public async process(job: Job<ProductActivationDto>): Promise<void> {
         this.logger.debug(
             {
                 job,
