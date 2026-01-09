@@ -32,6 +32,8 @@ export interface HeroProduct {
     learnMoreLinkText: string;
     altLinkText: string;
     altLink: string;
+    altAltLinkText?: string;
+    altAltLink?: string;
     githubUrl?: string;
     stars?: number;
 }
@@ -59,10 +61,11 @@ export function Hero({ user }: { user: UserDto }) {
             blurb: "Keep your data local. Zero cloud dependencies.",
             learnMoreLinkUrl: "/local-dev-tools",
             learnMoreLinkText: "Try free",
-            githubUrl:
-                "https://github.com/darraghoriordan/ssh-tool-new-electron",
-            altLinkText: "Download now",
-            altLink: "/local-dev-tools#download",
+            altLinkText: "Preview source",
+            altLink:
+                "/docs/local-dev-tools/reference/ssh-tool-new-electron/L3NyYy9hcHAvaW5kZXgudHN4",
+            altAltLinkText: "Download now",
+            altAltLink: "/local-dev-tools#download",
             benefits: [
                 "Offline utilities for Git, SSH, and development",
                 "Your business data never leaves your machine",

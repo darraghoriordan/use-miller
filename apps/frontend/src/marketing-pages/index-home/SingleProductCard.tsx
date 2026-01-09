@@ -33,6 +33,8 @@ export const SingleProductCard = ({
     learnMoreLinkText,
     altLinkText,
     altLink,
+    altAltLinkText,
+    altAltLink,
     githubUrl,
     stars,
 }: HeroProduct) => {
@@ -94,6 +96,15 @@ export const SingleProductCard = ({
                         >
                             {altLinkText}
                         </Link>
+
+                        {altAltLink && altAltLinkText && (
+                            <Link
+                                href={altAltLink}
+                                className="inline-flex items-center gap-2 px-5 py-2.5 font-mono text-sm text-security-text border border-security-border rounded-md hover:border-accent/50 hover:text-accent transition-all"
+                            >
+                                {altAltLinkText}
+                            </Link>
+                        )}
 
                         {githubUrl && (
                             <a

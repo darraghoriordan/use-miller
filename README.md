@@ -24,14 +24,17 @@ Both of these repos are available in the miller docs and on the GitHub repos.
 
 ## Dokku deploy notes
 
-If you deploy via `git push dokku main` and your `Dockerfile-be` clones private GitHub repos during the image build, the build needs a GitHub token passed as a Docker build-arg.
+If you deploy via `git push dokku main` and your `Dockerfile-be` clones private GitHub repos during the image build, prefer using BuildKit secrets (so the token doesn’t end up in build args, logs, or image history).
 
 On the Dokku host:
 
-- Set the token env var on the app:
-    - `dokku config:set use-miller GITHUB_ACCESS_TOKEN=...`
-- Pass it through to the Docker build:
-    - `dokku docker-options:add use-miller build "--build-arg GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN"`
+- Put your GitHub token into a file readable by Dokku (example path):
+    - `/home/dokku/.github_token`
+- So you just need to make sure that file actually exists and contains the token:
+    - `sudo test -f /home/dokku/.github_token && sudo head -c 4 /home/dokku/.github_token && echo`
+    - If missing: `sudo sh -c 'umask 077; printf "%s" "ghp_..." > /home/dokku/.github_token'`
+- Configure the app build to pass it as a BuildKit secret:
+    - `dokku docker-options:add use-miller build "--secret id=github_token,src=/home/dokku/.github_token"`
 - Verify it’s set:
     - `dokku docker-options:report use-miller`
 

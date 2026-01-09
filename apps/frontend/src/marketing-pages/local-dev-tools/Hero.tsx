@@ -106,19 +106,19 @@ export function Hero({ user }: { user: UserDto }) {
                                 100% Offline AI Powered Dev Utilities
                             </SecurityBadge>
                             <SecurityBadge icon="shield" variant="accent">
-                                Data Never Leaves
+                                Data Never Leaves Your Machine
                             </SecurityBadge>
                             <SecurityBadge icon="code" variant="accent">
-                                Shared Source
+                                Source is Shared
                             </SecurityBadge>
                         </div>
                     </AnimatedHeadline>
 
-                    <AnimatedHeadline delay={0.6}>
+                    {/* <AnimatedHeadline delay={0.6}>
                         <div className="mt-8">
                             <GithubLink githubUrl="https://github.com/darraghoriordan/ssh-tool-new-electron" />
                         </div>
-                    </AnimatedHeadline>
+                    </AnimatedHeadline> */}
 
                     <AnimatedHeadline delay={0.7}>
                         <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -205,9 +205,10 @@ export function Hero({ user }: { user: UserDto }) {
                                 Windows.
                             </p>
                             <p>
-                                If you chose to, you can use your API keys (e.g.
-                                OpenAI/Google) and never transmit data to a
-                                UseMiller server.
+                                We support offline, secure local AI with LM
+                                studio. If you chose to, you can use your own
+                                API keys for cloud AI (e.g. OpenAI/Google) and
+                                never transmit data to a UseMiller server.
                             </p>
                         </div>
                     </div>
