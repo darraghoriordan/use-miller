@@ -3,7 +3,7 @@
 import StyledLink from "../../components/StyledLink";
 import { Container } from "../../components/Container";
 import { CheckIcon } from "@heroicons/react/24/outline";
-import { GithubLink } from "../index-home/SingleProductCard";
+
 import {
     FadeInOnScroll,
     AnimatedHeadline,
