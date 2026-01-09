@@ -15,6 +15,11 @@ async function main() {
         await exec(
             "cd code-repos && git clone git@" +
                 process.argv[2] +
+                ":darraghoriordan/ssh-tool-new-electron.git --depth 1",
+        );
+        await exec(
+            "cd code-repos && git clone git@" +
+                process.argv[2] +
                 ":darraghoriordan/mac-setup-script.git --depth 1",
         );
         await exec(
@@ -23,6 +28,7 @@ async function main() {
                 ":darraghoriordan/use-miller.git --depth 1",
         );
         rimraf.sync("code-repos/nest-backend-libs/.git");
+        rimraf.sync("code-repos/ssh-tool-new-electron/.git");
         rimraf.sync("code-repos/mac-setup-script/.git");
         rimraf.sync("code-repos/use-miller/.git");
         console.log("Done!");

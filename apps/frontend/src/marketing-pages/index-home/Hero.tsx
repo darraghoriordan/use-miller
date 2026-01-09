@@ -63,7 +63,6 @@ export function Hero({ user }: { user: UserDto }) {
                 "https://github.com/darraghoriordan/ssh-tool-new-electron",
             altLinkText: "Download now",
             altLink: "/local-dev-tools#download",
-            stars: 6,
             benefits: [
                 "Offline utilities for Git, SSH, and development",
                 "Your business data never leaves your machine",
@@ -127,8 +126,8 @@ export function Hero({ user }: { user: UserDto }) {
                     <AnimatedHeadline delay={0.4}>
                         <p className="mt-6 text-lg md:text-xl text-security-text max-w-2xl leading-relaxed">
                             Developer tools for security-conscious teams.
-                            Local-first processing, open source transparency,
-                            and zero data collection.
+                            Local-first processing, source transparency, and
+                            zero data collection.
                         </p>
                     </AnimatedHeadline>
 

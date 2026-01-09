@@ -74,7 +74,23 @@ export class CoursesMetaService {
             ["local-dev-tools"]: {
                 color: "pink",
 
-                projectMeta: [],
+                projectMeta: [
+                    {
+                        key: "ssh-tool-new-electron",
+                        rootNodeName: "LOCAL-DEV-TOOLS",
+                        name: "Local Dev Tools App",
+                        color: "green",
+                        demoPaths: ["/src/electron/main.ts"],
+                        demoFileLinkHref: `${
+                            this.coreConfig.frontEndAppUrl
+                        }/docs/local-dev-tools/reference/ssh-tool-new-electron/${btoa(
+                            "/src/electron/main.ts",
+                        )}`,
+                        demoFileLinkText: "/src/electron/main.ts",
+                        rootLocation: `${this.courseFileConfig.basePath}/ssh-tool-new-electron`,
+                        isOpenSource: false,
+                    },
+                ],
             },
             // leave this one for now
             // {

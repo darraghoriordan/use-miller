@@ -84,7 +84,12 @@ function getProjectMeta(productKey: string) {
             ],
         },
         ["local-dev-tools"]: {
-            projectMeta: [],
+            projectMeta: [
+                {
+                    key: "ssh-tool-new-electron",
+                    name: "Local Dev Tools App",
+                },
+            ],
         },
     };
 

@@ -1,5 +1,5 @@
 # A container with pnpm and python3 is required
-FROM node:24.12.0-alpine as pnpm_base
+FROM node:24.12.0-alpine AS pnpm_base
 
 WORKDIR /app
 RUN npm i --global --no-update-notifier --no-fund pnpm@10
@@ -7,37 +7,38 @@ RUN apk update
 RUN apk add --no-cache g++ make py3-pip libc6-compat git openssh
 
 # run fetch in a separate step to avoid re-fetching deps on every change
-FROM pnpm_base as fetched_deps
+FROM pnpm_base AS fetched_deps
 WORKDIR /app
-ENV NODE_ENV production
+ENV NODE_ENV=production
 COPY pnpm-lock.yaml ./
 RUN pnpm config set store-dir /workdir/.pnpm-store
 RUN pnpm fetch
 
 # install all deps from cache
-FROM fetched_deps as with_all_deps
+FROM fetched_deps AS with_all_deps
 COPY . ./
 RUN pnpm install --offline
 
 # Build the BE
 # the main issue with building everything is the FE depends on a running BE
-FROM with_all_deps as builder
+FROM with_all_deps AS builder
 RUN pnpm --filter='*backend-api' build
 RUN pnpm --filter='*backend-api' deploy pruned --prod
 # get the latest code files via HTTPS using GitHub token
+ARG GITHUB_ACCESS_TOKEN
 RUN mkdir -p /app/code-repos
 WORKDIR /app/code-repos
 
-RUN --mount=type=secret,id=github_token \
-    git clone https://x-access-token:$(cat /run/secrets/github_token)@github.com/darraghoriordan/nest-backend-libs.git && \
+RUN git clone https://x-access-token:${GITHUB_ACCESS_TOKEN}@github.com/darraghoriordan/nest-backend-libs.git --depth 1 && \
     rm -rf /app/code-repos/nest-backend-libs/.git
 
-RUN --mount=type=secret,id=github_token \
-    git clone https://x-access-token:$(cat /run/secrets/github_token)@github.com/darraghoriordan/mac-setup-script.git && \
+RUN git clone https://x-access-token:${GITHUB_ACCESS_TOKEN}@github.com/darraghoriordan/ssh-tool-new-electron.git --depth 1 && \
+    rm -rf /app/code-repos/ssh-tool-new-electron/.git
+
+RUN git clone https://x-access-token:${GITHUB_ACCESS_TOKEN}@github.com/darraghoriordan/mac-setup-script.git --depth 1 && \
     rm -rf /app/code-repos/mac-setup-script/.git
 
-RUN --mount=type=secret,id=github_token \
-    git clone https://x-access-token:$(cat /run/secrets/github_token)@github.com/darraghoriordan/use-miller.git && \
+RUN git clone https://x-access-token:${GITHUB_ACCESS_TOKEN}@github.com/darraghoriordan/use-miller.git --depth 1 && \
     rm -rf /app/code-repos/use-miller/.git
 
 # Lean production image - only take pruned assets

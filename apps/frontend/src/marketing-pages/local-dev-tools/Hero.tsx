@@ -34,12 +34,12 @@ export function Hero({ user }: { user: UserDto }) {
     const downloadUrls = getDownloadUrls(version);
     const features = [
         "Offline encoding and decoding tools for base64, JWT and JSON",
-        "An AI powered ESLint rule generator agent [Uses Open AI - Not local]",
+        "Use local AI models in tools built specifically for developers",
         "Save $1000's with an AI powered Marketing tool for builders and busy engineers",
         "A color converter with 'nearest tailwind color' and harmonious colors feature",
         "Encoders and decoders for Html and CSS Unicode characters, uri components",
         "A git url parser and generator that is aware of your local ssh aliases",
-        "A git repo summary tool to verify user name is consistent across ssh alias related repos",
+        "A git repo summary tool to verify user name is consistent across ssh alias related repos (work vs personal)",
         "A tool to quickly parse and map timestamps in different formats, local and UTC",
         "String tools - A case converter and an internationalisation aware string sorter",
     ];
@@ -51,9 +51,9 @@ export function Hero({ user }: { user: UserDto }) {
                 "Encoders, decoders, tailwind colors, git repository tools, time wrangling tools, string tools and more. All in one place.",
         },
         {
-            name: "Powerful AI tools",
+            name: "Powerful Local AI tools",
             description:
-                "Bring your own Open AI API key and get powerful agents for ESLint generation and git repo aware work summaries.",
+                "Our AI tools support any local LM Studio models, or bring your own AI API key",
         },
         {
             name: "Universal license",
@@ -61,9 +61,9 @@ export function Hero({ user }: { user: UserDto }) {
                 "Buy a licence and use the tool on all your Mac and Windows machines.",
         },
         {
-            name: "Open source",
+            name: "Shared source",
             description:
-                "Dev tools is open source and you can contribute on GitHub.",
+                "Dev tools is shared source, purchasers can view and contribute on GitHub.",
         },
     ];
 
@@ -73,7 +73,7 @@ export function Hero({ user }: { user: UserDto }) {
         <div className="relative overflow-hidden">
             {/* Background effects */}
             <div className="absolute inset-0 bg-grid opacity-30" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-security-black" />
+            <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-security-black" />
             <ScanLine />
 
             <Container className="relative pt-16 md:pt-24 pb-16">
@@ -103,13 +103,13 @@ export function Hero({ user }: { user: UserDto }) {
                     <AnimatedHeadline delay={0.5}>
                         <div className="mt-6 flex flex-wrap items-center gap-3">
                             <SecurityBadge icon="lock" variant="accent">
-                                100% Offline
+                                100% Offline AI Powered Dev Utilities
                             </SecurityBadge>
                             <SecurityBadge icon="shield" variant="accent">
                                 Data Never Leaves
                             </SecurityBadge>
                             <SecurityBadge icon="code" variant="accent">
-                                Open Source
+                                Shared Source
                             </SecurityBadge>
                         </div>
                     </AnimatedHeadline>
@@ -200,12 +200,13 @@ export function Hero({ user }: { user: UserDto }) {
                             <p>
                                 The tools work offline so you can use your
                                 business data with confidence rather than using
-                                random websites. The tools work on both Mac and
+                                random websites or sending your data to AI
+                                companies. The tools work on both Mac and
                                 Windows.
                             </p>
                             <p>
-                                Any online tools use your API keys (e.g.
-                                OpenAI/ChatGPT) and never transmit data to a
+                                If you chose to, you can use your API keys (e.g.
+                                OpenAI/Google) and never transmit data to a
                                 UseMiller server.
                             </p>
                         </div>

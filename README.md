@@ -22,6 +22,23 @@ The main monorepo is this repo - `use-miller`. The other important repo is `nest
 
 Both of these repos are available in the miller docs and on the GitHub repos.
 
+## Dokku deploy notes
+
+If you deploy via `git push dokku main` and your `Dockerfile-be` clones private GitHub repos during the image build, the build needs a GitHub token passed as a Docker build-arg.
+
+On the Dokku host:
+
+- Set the token env var on the app:
+    - `dokku config:set use-miller GITHUB_ACCESS_TOKEN=...`
+- Pass it through to the Docker build:
+    - `dokku docker-options:add use-miller build "--build-arg GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN"`
+- Verify it’s set:
+    - `dokku docker-options:report use-miller`
+
+Then redeploy:
+
+- `git push dokku main`
+
 ## Folder Structure
 
 Miller start is a monorepo with the following structure:

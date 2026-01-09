@@ -79,7 +79,7 @@ export function TrustBadges({ className }: TrustBadgesProps) {
     return (
         <div className={clsx("flex flex-wrap items-center gap-3", className)}>
             <SecurityBadge icon="lock" variant="accent">
-                100% Local Processing
+                Local Processing
             </SecurityBadge>
             <SecurityBadge icon="code" variant="accent">
                 Open Source

@@ -1,25 +1,25 @@
 # A container with pnpm and python3 is required
-FROM node:24.12.0-alpine as pnpm_base
+FROM node:24.12.0-alpine AS pnpm_base
 
 WORKDIR /app
 RUN npm i --global --no-update-notifier --no-fund pnpm@10
 RUN apk add --no-cache g++ make py3-pip libc6-compat
 
 # run fetch in a separate step to avoid re-fetching deps on every change
-FROM pnpm_base as fetched_deps
+FROM pnpm_base AS fetched_deps
 WORKDIR /app
-ENV NODE_ENV production
+ENV NODE_ENV=production
 COPY pnpm-lock.yaml ./
 RUN pnpm config set store-dir /workdir/.pnpm-store
 RUN pnpm fetch
 
 # install all deps from cache
-FROM fetched_deps as with_all_deps
+FROM fetched_deps AS with_all_deps
 COPY . ./
 RUN pnpm install --offline
 
 # Build the FE
-FROM with_all_deps as builder
+FROM with_all_deps AS builder
 RUN pnpm --filter='*frontend' build
 RUN pnpm --filter='*frontend' deploy pruned --prod
 
