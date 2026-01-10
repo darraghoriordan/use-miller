@@ -60,7 +60,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc> https://usemiller.dev/docs/miller-start/how-to/production</loc>
+        <loc>https://usemiller.dev/docs/miller-start/how-to/production</loc>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
     </url>

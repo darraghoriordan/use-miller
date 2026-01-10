@@ -1,13 +1,4 @@
-User-agent: googlebot
-Disallow: 
-
-User-agent: AhrefsSiteAudit
+User-agent: *
 Allow: /
 
-User-agent: bingbot
-Disallow: 
-
 Sitemap: https://usemiller.dev/sitemap.xml
-
-User-agent: *
-Disallow: /

@@ -103,7 +103,7 @@ export function OssProjectCard({ project }: OssProjectCardProps) {
                         <div className="font-mono text-xs text-security-muted mt-4 mb-2">
                             {project.codeExample.comment}
                         </div>
-                        <pre className="font-mono text-xs text-security-text overflow-x-auto">
+                        <pre className="font-mono text-[11px] text-security-text overflow-x-auto">
                             <code>{project.codeExample.code}</code>
                         </pre>
                     </div>

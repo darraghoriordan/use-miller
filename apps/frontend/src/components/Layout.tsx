@@ -20,7 +20,11 @@ export default function Layout({
 } & PropsWithChildren) {
     return (
         <div className="flex flex-col min-h-screen">
-            <SEO title={seoTitle || "Home"} description={seoDescription} />
+            <SEO
+                title={seoTitle || "Home"}
+                description={seoDescription}
+                canonicalUrl="https://usemiller.dev"
+            />
             <Header
                 productKey={productKey}
                 headerTitle={headerTitle}

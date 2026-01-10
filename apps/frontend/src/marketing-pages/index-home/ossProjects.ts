@@ -94,4 +94,36 @@ export default [
         },
         iconType: "cube",
     },
+    {
+        id: "renovate-config",
+        terminalTitle: "renovate-config",
+        displayName: "Renovate Config",
+        description:
+            "A batteries-included Renovate ruleset for sane, low-noise dependency updates.",
+        features: [
+            "Recommended defaults + automation presets (automerge patch, rebase stale PRs)",
+            "Groups updates by impact (major/minor/patch/pin) with consistent labels",
+            "Security-first: vulnerability alerts use semantic commits + security labels",
+            "Pragmatic rules for ecosystem quirks (pin GH action digests, Vitest, Docker)",
+        ],
+        stats: {
+            stars: 3,
+            contributors: "1 Maintainer",
+            extra: "Shared Ruleset",
+        },
+        links: {
+            github: "https://github.com/darraghoriordan/renovate-config",
+            npm: "https://docs.renovatebot.com/config-presets/",
+        },
+        installCommand: `# renovate.json`,
+        codeExample: {
+            comment: "# renovate.json",
+            code: `{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": ["github>darraghoriordan/renovate-config:base"],
+    "baseBranchPatterns": ["main"]
+}`,
+        },
+        iconType: "cube",
+    },
 ];
