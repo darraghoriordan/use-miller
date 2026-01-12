@@ -247,6 +247,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/onboarding/github-user/{orgUuid}/{ghUserId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["UserOnboardingController_removeForOrg"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/payments/stripe/checkout-session": {
         parameters: {
             query?: never;
@@ -780,6 +796,10 @@ export interface components {
             updateDate: string;
         };
         OrgGithubUserDto: {
+            /**
+             * @description GitHub username (1-39 chars, alphanumeric and hyphens)
+             * @example octocat
+             */
             ghUsername: string;
             orgUuid: string;
         };
@@ -1423,6 +1443,28 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["OrgGithubUser"];
+                };
+            };
+        };
+    };
+    UserOnboardingController_removeForOrg: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                orgUuid: string;
+                ghUserId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BooleanResult"];
                 };
             };
         };

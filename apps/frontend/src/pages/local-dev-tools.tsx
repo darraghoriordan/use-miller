@@ -12,8 +12,9 @@ export const getServerSideProps = getMarketingServerSideProps;
 export default function Home({ user }: { user: UserDto }) {
     return (
         <Layout
-            seoDescription="Keep your business data safe and secure with local dev utilities."
+            seoDescription="Keep your business data safe and secure with local dev utilities: JSON escape, hashing, encoding/decoding, and more."
             seoTitle="Miller - Local Dev Tools"
+            canonicalUrl="https://usemiller.dev/local-dev-tools"
             headerTitle="Miller // Local Dev Tools"
             productKey="local-dev-tools"
             themeColor="violet"

@@ -22,8 +22,9 @@ export const LeftMenuWrappedContent = ({
 
     return (
         <Layout
-            seoDescription="Miller dev tools save you time so you can focus on building your product and helping your customers."
+            seoDescription="Documentation for Miller dev tools: guides, how-tos, and reference so you can set up quickly and keep shipping with confidence."
             seoTitle={`${headerTitle} - Dev tools to save you time`}
+            canonicalUrl={`https://usemiller.dev${menuHeaderHref}`}
             productKey={productKey}
             headerTitle={headerTitle}
         >

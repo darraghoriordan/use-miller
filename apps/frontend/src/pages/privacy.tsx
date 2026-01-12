@@ -6,8 +6,9 @@ export default function Home() {
     const email = "info@usemiller.dev";
     return (
         <Layout
-            seoDescription="Miller dev tools save you time so you can focus on building your product and helping your customers."
+            seoDescription="Read how Miller collects, uses, and safeguards personal data, and how you can contact us with privacy questions."
             seoTitle={`Dev tools to save you time`}
+            canonicalUrl="https://usemiller.dev/privacy"
             headerTitle="Miller Dev Tools"
             themeColor="violet"
         >

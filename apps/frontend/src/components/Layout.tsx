@@ -10,12 +10,14 @@ export default function Layout({
     children,
     seoDescription,
     seoTitle,
+    canonicalUrl,
     themeColor,
 }: {
     productKey?: string;
     headerTitle?: string;
     seoTitle: string;
     seoDescription: string;
+    canonicalUrl?: string;
     themeColor?: ThemeColor;
 } & PropsWithChildren) {
     return (
@@ -23,7 +25,7 @@ export default function Layout({
             <SEO
                 title={seoTitle || "Home"}
                 description={seoDescription}
-                canonicalUrl="https://usemiller.dev"
+                canonicalUrl={canonicalUrl}
             />
             <Header
                 productKey={productKey}

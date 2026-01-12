@@ -12,8 +12,9 @@ export const getServerSideProps = getMarketingServerSideProps;
 export default function Home({ user }: { user: UserDto }) {
     return (
         <Layout
-            seoDescription="Your full dev environment configured with one command"
+            seoDescription="Your full dev environment configured with one command - Docker, Postgres, Redis, and common tooling set up so you can ship faster."
             seoTitle="Miller - Dev Shell"
+            canonicalUrl="https://usemiller.dev/dev-shell"
             headerTitle="Miller // Dev Shell"
             productKey="dev-shell"
             themeColor="violet"

@@ -5,8 +5,9 @@ import Layout from "../components/Layout";
 export default function Home() {
     return (
         <Layout
-            seoDescription="Miller dev tools save you time so you can focus on building your product and helping your customers."
+            seoDescription="Review the license terms for each Miller product and find links to the specific terms for Miller Start, Dev Shell, and Local Dev Tools."
             seoTitle={`Dev tools to save you time`}
+            canonicalUrl="https://usemiller.dev/terms"
             headerTitle="Miller Dev Tools"
             themeColor="violet"
         >

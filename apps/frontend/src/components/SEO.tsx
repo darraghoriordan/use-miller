@@ -41,20 +41,23 @@ export default function SEO({
                 "https://x.com/darraghor",
             ],
         },
-        {
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            name: siteTitle,
-            applicationCategory: "DeveloperApplication",
-            operatingSystem: "Web",
-            url: "https://usemiller.dev",
-            description,
-            offers: {
-                "@type": "Offer",
-                price: "0",
-                priceCurrency: "USD",
-            },
-        },
+        // NOTE: If you want to include a SoftwareApplication schema for rich results,
+        // Google requires real "aggregateRating" or "review" data.
+        // Until we have reviews, keep this commented out to avoid structured data errors.
+        // {
+        //     "@context": "https://schema.org",
+        //     "@type": "SoftwareApplication",
+        //     name: siteTitle,
+        //     applicationCategory: "DeveloperApplication",
+        //     operatingSystem: "Web",
+        //     url: "https://usemiller.dev",
+        //     description,
+        //     offers: {
+        //         "@type": "Offer",
+        //         price: "0",
+        //         priceCurrency: "USD",
+        //     },
+        // },
     ];
 
     return (

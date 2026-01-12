@@ -12,6 +12,7 @@ export default function Home({ user }: { user: UserDto }) {
         <Layout
             seoDescription="Miller dev tools save you time so you can focus on building your product and helping your customers."
             seoTitle={`Dev tools to save you time`}
+            canonicalUrl="https://usemiller.dev/"
             headerTitle="Miller Dev Tools"
             themeColor="violet"
         >

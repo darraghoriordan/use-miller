@@ -6,8 +6,9 @@ import Image from "next/image";
 export default function Home() {
     return (
         <Layout
-            seoDescription="Miller dev tools save you time so you can focus on building your product and helping your customers."
+            seoDescription="Learn who builds Miller and why the tools focus on speed, simplicity, and helping you ship reliable software faster."
             seoTitle={`Dev tools to save you time`}
+            canonicalUrl="https://usemiller.dev/about"
             headerTitle="Miller Dev Tools"
             themeColor="violet"
         >

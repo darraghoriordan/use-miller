@@ -12,8 +12,9 @@ export const getServerSideProps = getMarketingServerSideProps;
 export default function Home({ user }: { user: UserDto }) {
     return (
         <Layout
-            seoDescription="A working full-stack web app with a NextJs frontend and a NestJs backend."
+            seoDescription="A working full-stack web app with a NextJs frontend and a NestJs backend, with Auth, Stripe, and production-ready tooling included."
             seoTitle="Miller Start - Learn NestJs and NextJs by example"
+            canonicalUrl="https://usemiller.dev/miller-start"
             headerTitle="Miller // Start"
             productKey="miller-start"
             themeColor="violet"
