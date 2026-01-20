@@ -1,11 +1,36 @@
 ---
-title: "Git SSH Alias Urls"
+title: "Git URL Converter"
 date: "2020-01-01"
-order: 5
+order: 2
 ---
 
-This tool is aware of all you ssh aliases.
+Convert git URLs between HTTP and SSH formats while being aware of your local SSH aliases. Perfect for developers who use custom SSH configurations for different git hosts.
 
-When you past in a git url or a `git clone ...` command, it will convert it to all your ssh aliases so they're easy to copy for cloning.
+![Git URL Converter](images/git_urls.png)
 
-![Git ssh urls](images/git_urls.png)
+## Features
+
+- **HTTP to SSH conversion** - Convert HTTPS clone URLs to SSH format
+- **SSH to HTTP conversion** - Convert SSH URLs back to HTTPS
+- **SSH alias awareness** - Reads your `~/.ssh/config` to show alias-based URLs
+- **One-click copy** - Copy any converted URL instantly
+
+## How to Use
+
+1. Paste a git URL or `git clone` command
+2. Click "Submit"
+3. Copy the URL format you need
+
+## Output
+
+The tool shows multiple URL formats:
+
+- **HTTP Direct URL** - Standard HTTPS URL
+- **SSH Direct URL** - Standard SSH URL (git@host:...)
+- **SSH Alias URLs** - URLs using your configured SSH aliases
+
+## What Are SSH Aliases?
+
+SSH aliases let you use custom hostnames in your SSH config. For example, you might have `github-work` aliased to `github.com` with a specific SSH key. This tool detects these aliases and shows you the corresponding clone URLs.
+
+Click "Open ssh config..." to view and edit your SSH configuration.
