@@ -2,20 +2,11 @@ import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentation
 import { NodeSDK } from "@opentelemetry/sdk-node";
 import { resourceFromAttributes } from "@opentelemetry/resources";
 import { ATTR_SERVICE_NAME } from "@opentelemetry/semantic-conventions";
-import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
-import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-grpc";
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 import {
     ParentBasedSampler,
     TraceIdRatioBasedSampler,
 } from "@opentelemetry/sdk-trace-node";
-
-const metricExporter = new OTLPMetricExporter({});
-
-const metricReader = new PeriodicExportingMetricReader({
-    exporter: metricExporter,
-    exportIntervalMillis: 60_000,
-});
 
 const traceExporter = new OTLPTraceExporter({});
 
@@ -31,7 +22,6 @@ const sdk = new NodeSDK({
     }),
     traceExporter,
     sampler,
-    metricReaders: [metricReader],
     instrumentations: [
         ...getNodeAutoInstrumentations({
             "@opentelemetry/instrumentation-fs": {

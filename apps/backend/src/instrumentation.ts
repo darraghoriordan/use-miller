@@ -11,12 +11,6 @@ const { ATTR_SERVICE_NAME } = otelSemConv;
 import otelAiNode from "@opentelemetry/auto-instrumentations-node";
 const { getNodeAutoInstrumentations } = otelAiNode;
 
-import otelSdkMetrics from "@opentelemetry/sdk-metrics";
-const { PeriodicExportingMetricReader } = otelSdkMetrics;
-
-import otelExpGrpc from "@opentelemetry/exporter-metrics-otlp-grpc";
-const { OTLPMetricExporter } = otelExpGrpc;
-
 import otelSdkTrace from "@opentelemetry/sdk-trace-node";
 const { ParentBasedSampler, TraceIdRatioBasedSampler } = otelSdkTrace;
 
@@ -24,13 +18,6 @@ import otelExpTraceHttp from "@opentelemetry/exporter-trace-otlp-http";
 const { OTLPTraceExporter } = otelExpTraceHttp;
 
 export const initTelemetry = async (): Promise<void> => {
-    const metricExporter = new OTLPMetricExporter({});
-
-    const metricReader = new PeriodicExportingMetricReader({
-        exporter: metricExporter,
-        exportIntervalMillis: 60_000,
-    });
-
     const traceExporter = new OTLPTraceExporter({});
 
     // Sample 10% of traces in production, 100% in development
@@ -45,7 +32,6 @@ export const initTelemetry = async (): Promise<void> => {
         }),
         traceExporter,
         sampler,
-        metricReaders: [metricReader],
         instrumentations: getNodeAutoInstrumentations({
             "@opentelemetry/instrumentation-fs": {
                 enabled: false, // very noisy
