@@ -21,16 +21,24 @@ export function TypewriterText({
     showCursor = true,
     onComplete,
 }: TypewriterTextProps) {
-    const [displayedText, setDisplayedText] = useState("");
-    const [isComplete, setIsComplete] = useState(false);
     const prefersReducedMotion = useReducedMotion();
+    // Initialize state based on reduced motion preference to avoid effect setState
+    const [displayedText, setDisplayedText] = useState(
+        prefersReducedMotion ? text : "",
+    );
+    const [isComplete, setIsComplete] = useState(prefersReducedMotion);
+
+    // Call onComplete immediately if reduced motion is preferred
+    useEffect(() => {
+        if (prefersReducedMotion && onComplete) {
+            onComplete();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
-        // If user prefers reduced motion, show full text immediately
+        // If user prefers reduced motion, skip animation (already initialized)
         if (prefersReducedMotion) {
-            setDisplayedText(text);
-            setIsComplete(true);
-            onComplete?.();
             return;
         }
 

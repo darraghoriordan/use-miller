@@ -8,9 +8,9 @@ dotenv.config();
 import { TextEncoder, TextDecoder } from "util";
 import { getAuthenticatedApiInstance } from "./commonDataModels/ApiClientFactory";
 
-global.TextEncoder = TextEncoder as any;
+global.TextEncoder = TextEncoder;
 
-global.TextDecoder = TextDecoder as any;
+global.TextDecoder = TextDecoder;
 // End of hack
 
 // loads our auth token once into the static class we use to build requests

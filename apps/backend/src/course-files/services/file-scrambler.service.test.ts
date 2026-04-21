@@ -1,10 +1,7 @@
 // a test for file-scrambler.service.ts
 //
 
-import {
-    FileScramblerService,
-    ScramblePartitions,
-} from "./file-scrambler.service";
+import { FileScramblerService } from "./file-scrambler.service";
 
 describe("FileScramblerService", () => {
     const service = new FileScramblerService();
@@ -16,31 +13,31 @@ describe("FileScramblerService", () => {
                 lines: 1,
                 expected: {
                     clearPortion: { start: 0, takeLines: 1 },
-                } as ScramblePartitions,
+                },
             },
             {
                 lines: 3,
                 expected: {
                     clearPortion: { start: 0, takeLines: 1 },
-                } as ScramblePartitions,
+                },
             },
             {
                 lines: 4,
                 expected: {
                     clearPortion: { start: 0, takeLines: 1 },
-                } as ScramblePartitions,
+                },
             },
             {
                 lines: 8,
                 expected: {
                     clearPortion: { start: 0, takeLines: 2 },
-                } as ScramblePartitions,
+                },
             },
             {
                 lines: 30,
                 expected: {
                     clearPortion: { start: 0, takeLines: 6 },
-                } as ScramblePartitions,
+                },
             },
             {
                 lines: 50,

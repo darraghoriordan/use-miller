@@ -11,16 +11,67 @@ const JWT_TOKEN =
 type AnimationPhase = "typing" | "processing" | "decoded" | "complete";
 
 export function JwtDecoderDemo() {
-    const [charCount, setCharCount] = useState(0);
-    const [phase, setPhase] = useState<AnimationPhase>("typing");
     const prefersReducedMotion = useReducedMotion();
+    // Initialize state based on reduced motion preference to avoid effect setState
+    const [charCount, setCharCount] = useState(
+        prefersReducedMotion ? JWT_TOKEN.length : 0,
+    );
+    const [phase, setPhase] = useState<AnimationPhase>(
+        prefersReducedMotion ? "complete" : "typing",
+    );
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
-        // If user prefers reduced motion, show everything immediately
+        // If user prefers reduced motion, skip animation (already initialized)
         if (prefersReducedMotion) {
-            setCharCount(JWT_TOKEN.length);
-            setPhase("complete");
+            return;
+        }
+
+        const clearAllTimeouts = () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+                timeoutRef.current = null;
+            }
+        };
+
+        const runAnimation = () => {
+            let currentIndex = 0;
+            setCharCount(0);
+            setPhase("typing");
+
+            const typeNextChar = () => {
+                if (currentIndex < JWT_TOKEN.length) {
+                    currentIndex++;
+                    setCharCount(currentIndex);
+                    // Ultra fast typing: 10ms per character
+                    timeoutRef.current = setTimeout(typeNextChar, 10);
+                } else {
+                    // Typing complete, brief processing pause
+                    setPhase("processing");
+                    timeoutRef.current = setTimeout(() => {
+                        setPhase("decoded");
+                        // After showing decoded, wait then mark complete
+                        timeoutRef.current = setTimeout(() => {
+                            setPhase("complete");
+                            // Reset and replay after 7 seconds
+                            timeoutRef.current = setTimeout(runAnimation, 7000);
+                        }, 500);
+                    }, 300);
+                }
+            };
+
+            // Start typing after initial delay
+            timeoutRef.current = setTimeout(typeNextChar, 500);
+        };
+
+        runAnimation();
+
+        return clearAllTimeouts;
+    }, [prefersReducedMotion]);
+
+    useEffect(() => {
+        // If user prefers reduced motion, skip animation
+        if (prefersReducedMotion) {
             return;
         }
 

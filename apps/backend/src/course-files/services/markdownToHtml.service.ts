@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-
 // TODO: @mapbox/rehype-prism does not have typescript definition
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -33,8 +31,8 @@ class MarkdownToHtmlService {
             .use(rehypePrism as never)
             .use(rehypeFormat as never)
             .use(rehypeStringify)
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            .process(inFile as any);
+
+            .process(inFile);
         return outFile.toString();
     }
 }

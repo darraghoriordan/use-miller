@@ -75,6 +75,29 @@ const FileTree = (props: {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.selectedFile, props.projectKey, tree.instance.enhancedData]);
 
+    const CustomFileIcon = ({ nodeProps }: { nodeProps: DefaultNodeProps }) => {
+        const { node } = nodeProps;
+
+        // is it a folder?
+        if (node.children && node.children.length > 0 && !node.isOpened()) {
+            return <ChevronRightIcon className="w-3 h-3 text-security-muted" />;
+        }
+        if (node.children && node.children.length > 0 && node.isOpened()) {
+            return <ChevronDownIcon className="w-3 h-3 text-security-muted" />;
+        }
+
+        // custom Style
+        const iconPath = `${VS_MATERIAL_ICONS}/${getIconForFile(
+            node.data.title,
+        )}
+                `;
+        return (
+            <div className="w-3 h-3">
+                <img src={iconPath} alt="" className="w-3 h-3" />
+            </div>
+        );
+    };
+
     const renderNode = useCallback(
         ({ node, onToggle, onSelect }: DefaultNodeProps) => {
             const nodeData = node.data as TreeLikeNode;
@@ -107,29 +130,6 @@ const FileTree = (props: {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [props.projectKey, props.setSelectedFile],
     );
-
-    const CustomFileIcon = ({ nodeProps }: { nodeProps: DefaultNodeProps }) => {
-        const { node } = nodeProps;
-
-        // is it a folder?
-        if (node.children && node.children.length > 0 && !node.isOpened()) {
-            return <ChevronRightIcon className="w-3 h-3 text-security-muted" />;
-        }
-        if (node.children && node.children.length > 0 && node.isOpened()) {
-            return <ChevronDownIcon className="w-3 h-3 text-security-muted" />;
-        }
-
-        // custom Style
-        const iconPath = `${VS_MATERIAL_ICONS}/${getIconForFile(
-            node.data.title,
-        )}
-                `;
-        return (
-            <div className="w-3 h-3">
-                <img src={iconPath} alt="" className="w-3 h-3" />
-            </div>
-        );
-    };
 
     // if (props.isError) {
     //     return <Error message={"Error finding the project file list"} />;
