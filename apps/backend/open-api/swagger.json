@@ -242,6 +242,1565 @@
           "Application Support"
         ]
       }
+    },
+    "/user/{uuid}": {
+      "get": {
+        "operationId": "UserController_findOne",
+        "parameters": [
+          {
+            "name": "uuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Users"
+        ]
+      },
+      "patch": {
+        "description": "Limited to Super Admin role or the user themselves.",
+        "operationId": "UserController_update",
+        "parameters": [
+          {
+            "name": "uuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "Users"
+        ]
+      },
+      "delete": {
+        "description": "Limited to Super Admin role or the user themselves.",
+        "operationId": "UserController_remove",
+        "parameters": [
+          {
+            "name": "uuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/user": {
+      "get": {
+        "operationId": "UserController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all users in the system. Limited to Super Admin role.",
+        "tags": [
+          "SuperPower"
+        ]
+      }
+    },
+    "/email-client/verify": {
+      "get": {
+        "operationId": "EmailClientController_verify",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Email-client"
+        ]
+      }
+    },
+    "/email-client/peekalljobs": {
+      "get": {
+        "operationId": "EmailClientController_peekQueueJobs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QueueItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
+        ]
+      }
+    },
+    "/email-client/peekfailedjobs": {
+      "get": {
+        "operationId": "EmailClientController_peekFailedQueueJobs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QueueItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
+        ]
+      }
+    },
+    "/organisation/{uuid}": {
+      "get": {
+        "operationId": "OrganisationController_findOne",
+        "parameters": [
+          {
+            "name": "uuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organisation"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Organisations"
+        ]
+      },
+      "patch": {
+        "operationId": "OrganisationController_update",
+        "parameters": [
+          {
+            "name": "uuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateOrganisationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organisation"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Organisations"
+        ]
+      },
+      "delete": {
+        "operationId": "OrganisationController_remove",
+        "parameters": [
+          {
+            "name": "uuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Organisations"
+        ]
+      }
+    },
+    "/organisation": {
+      "get": {
+        "operationId": "OrganisationController_findAllForUser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Organisation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Organisations"
+        ]
+      }
+    },
+    "/organisation/{orgUuid}/memberships": {
+      "get": {
+        "operationId": "OrganisationMembershipsController_findAll",
+        "parameters": [
+          {
+            "name": "orgUuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrganisationMembership"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Organisation Memberships"
+        ]
+      },
+      "post": {
+        "operationId": "OrganisationMembershipsController_createOrUpdate",
+        "parameters": [
+          {
+            "name": "orgUuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUpdateMembershipDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organisation"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Organisation Memberships"
+        ]
+      }
+    },
+    "/organisation/{orgUuid}/memberships/{membershipUuid}": {
+      "delete": {
+        "operationId": "OrganisationMembershipsController_remove",
+        "parameters": [
+          {
+            "name": "orgUuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "membershipUuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Organisation Memberships"
+        ]
+      }
+    },
+    "/onboarding/github-user/{orgUuid}": {
+      "get": {
+        "operationId": "UserOnboardingController_getAllForOrg",
+        "parameters": [
+          {
+            "name": "orgUuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrgGithubUser"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "User Onboarding"
+        ]
+      }
+    },
+    "/onboarding/github-user": {
+      "post": {
+        "operationId": "UserOnboardingController_addForOrg",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrgGithubUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrgGithubUser"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "User Onboarding"
+        ]
+      }
+    },
+    "/onboarding/github-user/{orgUuid}/{ghUserId}": {
+      "delete": {
+        "operationId": "UserOnboardingController_removeForOrg",
+        "parameters": [
+          {
+            "name": "orgUuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ghUserId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "User Onboarding"
+        ]
+      }
+    },
+    "/payments/stripe/checkout-session": {
+      "post": {
+        "operationId": "StripeCheckoutController_createCheckoutSession",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StripeCheckoutSessionRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StripeCheckoutSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Payments"
+        ]
+      }
+    },
+    "/payments/stripe/customer-portal-session": {
+      "post": {
+        "operationId": "StripeCustomerPortalController_createCustomerPortalSession",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StripeCustomerPortalRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The URL to the customer portal",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StripeCustomerPortalResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Payments"
+        ]
+      }
+    },
+    "/payments/stripe/events": {
+      "get": {
+        "operationId": "StripeEventsController_getLastEvents",
+        "parameters": [
+          {
+            "name": "skip",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "take",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StripeCheckoutEvent"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
+        ]
+      }
+    },
+    "/payments/stripe/webhook-receiver": {
+      "post": {
+        "operationId": "StripeWebhookController_webhookReceiver",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Payments"
+        ]
+      }
+    },
+    "/payments/stripe/peekalljobs": {
+      "get": {
+        "operationId": "StripeWebhookController_peekQueueJobs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QueueItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
+        ]
+      }
+    },
+    "/payments/stripe/peekfailedjobs": {
+      "get": {
+        "operationId": "StripeWebhookController_peekFailedQueueJobs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QueueItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
+        ]
+      }
+    },
+    "/subscriptions": {
+      "get": {
+        "operationId": "AllSubscriptionsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrganisationSubscriptionRecord"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
+        ]
+      }
+    },
+    "/organisation/{orgUuid}/subscriptions": {
+      "get": {
+        "operationId": "OrganisationSubscriptionsController_findAll",
+        "parameters": [
+          {
+            "name": "orgUuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrganisationSubscriptionRecord"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Organisation Subscriptions"
+        ]
+      },
+      "post": {
+        "operationId": "OrganisationSubscriptionsController_addSubscription",
+        "parameters": [
+          {
+            "name": "orgUuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveOrganisationSubscriptionRecordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrganisationSubscriptionRecord"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
+        ]
+      }
+    },
+    "/organisation/{orgUuid}/subscriptions/{uuid}": {
+      "delete": {
+        "operationId": "OrganisationSubscriptionsController_deleteSubscription",
+        "parameters": [
+          {
+            "name": "orgUuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "uuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
+        ]
+      }
+    },
+    "/payment-reference": {
+      "get": {
+        "operationId": "PaymentSessionReferenceController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentSessionReference"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
+        ]
+      }
+    },
+    "/project-files/{productKey}/{projectKey}": {
+      "get": {
+        "operationId": "CourseFilesController_listProjectFiles",
+        "parameters": [
+          {
+            "name": "projectKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileStructureDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Project Files"
+        ]
+      }
+    },
+    "/project-files/{productKey}/{projectKey}/contents/{b64Path}": {
+      "get": {
+        "operationId": "CourseFilesController_getFile",
+        "parameters": [
+          {
+            "name": "projectKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "b64Path",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileMetaDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Project Files"
+        ]
+      }
+    },
+    "/project-files/{productKey}/{projectKey}/contents-markdown/{markdownB64Path}": {
+      "get": {
+        "operationId": "CourseFilesController_getMarkdownFileAsHtml",
+        "parameters": [
+          {
+            "name": "projectKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "markdownB64Path",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileMetaDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Project Files"
+        ]
+      }
+    },
+    "/project-files/{productKey}/open/{projectKey}/contents/{b64Path}": {
+      "get": {
+        "operationId": "OpenCourseFilesController_getFile",
+        "parameters": [
+          {
+            "name": "projectKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "b64Path",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileMetaDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Project Files"
+        ]
+      }
+    },
+    "/project-files/{productKey}/open/{projectKey}/contents-markdown/{markdownB64Path}": {
+      "get": {
+        "operationId": "OpenCourseFilesController_getMarkdownFileAsHtml",
+        "parameters": [
+          {
+            "name": "projectKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "markdownB64Path",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileMetaDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Project Files"
+        ]
+      }
+    },
+    "/project-files/{productKey}/open/{projectKey}/nearest-readme/{b64Path}": {
+      "get": {
+        "operationId": "OpenCourseFilesController_getNearestHtmlReadmeForFile",
+        "parameters": [
+          {
+            "name": "projectKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "b64Path",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileMetaDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Project Files"
+        ]
+      }
+    },
+    "/project-meta/{productKey}": {
+      "get": {
+        "operationId": "CourseMetaController_listAllProjects",
+        "parameters": [
+          {
+            "name": "productKey",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CourseMetaDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Project Meta"
+        ]
+      }
+    },
+    "/super-powers/reset-database": {
+      "post": {
+        "operationId": "SuperPowersController_resetDatabase",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "",
+        "tags": [
+          "SuperPower"
+        ]
+      }
+    },
+    "/invitations/accept": {
+      "post": {
+        "operationId": "InvitationController_accept",
+        "parameters": [
+          {
+            "name": "invitationId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Invitations"
+        ]
+      }
+    },
+    "/invitations/{orgId}": {
+      "get": {
+        "operationId": "InvitationController_getAllForOrg",
+        "parameters": [
+          {
+            "name": "orgId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Invitation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Invitations"
+        ]
+      }
+    },
+    "/invitations": {
+      "post": {
+        "operationId": "InvitationController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateInvitationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invitation"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Invitations"
+        ]
+      }
+    },
+    "/invitations/{uuid}": {
+      "delete": {
+        "operationId": "InvitationController_remove",
+        "parameters": [
+          {
+            "name": "uuid",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Invitations"
+        ]
+      }
+    },
+    "/subscription-assets": {
+      "get": {
+        "operationId": "SubscriptionAssetsController_getAssetsForOrg",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SubscriptionAsset"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Organisation Subscriptions"
+        ]
+      },
+      "post": {
+        "operationId": "SubscriptionAssetsController_addAssetRecord",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveSubscriptionAssetDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SubscriptionAsset"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Organisation Subscriptions"
+        ]
+      }
+    },
+    "/subscription-assets/{id}": {
+      "delete": {
+        "operationId": "SubscriptionAssetsController_deleteAssetRecord",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Organisation Subscriptions"
+        ]
+      }
     }
   },
   "info": {
@@ -270,6 +1829,985 @@
         },
         "required": [
           "result"
+        ]
+      },
+      "OrganisationSummaryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "name"
+        ]
+      },
+      "MembershipRole": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "membershipId": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "membershipId",
+          "name",
+          "createdDate",
+          "updateDate"
+        ]
+      },
+      "UserOrganisationMembershipDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "number"
+          },
+          "organisation": {
+            "$ref": "#/components/schemas/OrganisationSummaryDto"
+          },
+          "organisationId": {
+            "type": "number"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MembershipRole"
+            }
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "userId",
+          "organisation",
+          "organisationId",
+          "createdDate",
+          "updateDate"
+        ]
+      },
+      "UserDto": {
+        "type": "object",
+        "properties": {
+          "isSuper": {
+            "type": "boolean",
+            "description": "Is the user a super user. Only set if the user is the current user. Will not be set for list responses."
+          },
+          "id": {
+            "type": "number"
+          },
+          "email": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "emailVerified": {
+            "type": "boolean"
+          },
+          "blocked": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "familyName": {
+            "type": "string"
+          },
+          "givenName": {
+            "type": "string"
+          },
+          "picture": {
+            "type": "string"
+          },
+          "auth0UserId": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "memberships": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserOrganisationMembershipDto"
+            }
+          },
+          "activeSubscriptionProductKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "uuid",
+          "emailVerified",
+          "blocked",
+          "memberships",
+          "activeSubscriptionProductKeys",
+          "createdDate",
+          "updateDate"
+        ]
+      },
+      "OrganisationMembership": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "number"
+          },
+          "organisation": {
+            "type": "object"
+          },
+          "organisationId": {
+            "type": "number"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MembershipRole"
+            }
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "userId",
+          "organisation",
+          "organisationId",
+          "createdDate",
+          "updateDate"
+        ]
+      },
+      "UserApiKey": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "apiKey": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "number"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "apiKey",
+          "description",
+          "userId",
+          "createdDate",
+          "updateDate"
+        ]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "email": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "emailVerified": {
+            "type": "boolean"
+          },
+          "blocked": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "familyName": {
+            "type": "string"
+          },
+          "givenName": {
+            "type": "string"
+          },
+          "picture": {
+            "type": "string"
+          },
+          "auth0UserId": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "memberships": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrganisationMembership"
+            }
+          },
+          "apiKeys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserApiKey"
+            }
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "uuid",
+          "emailVerified",
+          "blocked",
+          "createdDate",
+          "updateDate"
+        ]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "BooleanResult": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "QueueItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "queueDateLocal": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "result": {
+            "type": "string"
+          },
+          "data": {
+            "type": "string"
+          },
+          "failReason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "queueDateLocal",
+          "result",
+          "data"
+        ]
+      },
+      "OrganisationSubscriptionRecord": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "internalSku": {
+            "type": "string"
+          },
+          "productDisplayName": {
+            "type": "string"
+          },
+          "paymentSystemTransactionId": {
+            "type": "string"
+          },
+          "paymentSystemProductId": {
+            "type": "string"
+          },
+          "paymentSystemCustomerId": {
+            "type": "string"
+          },
+          "paymentSystemCustomerEmail": {
+            "type": "string"
+          },
+          "paymentSystemMode": {
+            "type": "string"
+          },
+          "paymentSystemName": {
+            "type": "string"
+          },
+          "validUntil": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "organisationId": {
+            "type": "number"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "internalSku",
+          "productDisplayName",
+          "paymentSystemTransactionId",
+          "paymentSystemProductId",
+          "paymentSystemCustomerId",
+          "paymentSystemCustomerEmail",
+          "paymentSystemMode",
+          "paymentSystemName",
+          "validUntil",
+          "organisationId",
+          "createdDate",
+          "updatedDate"
+        ]
+      },
+      "Organisation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "subscriptionRecords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrganisationSubscriptionRecord"
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "name",
+          "createdDate",
+          "updateDate"
+        ]
+      },
+      "UpdateOrganisationDto": {
+        "type": "object",
+        "properties": {
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          },
+          "owner": {
+            "$ref": "#/components/schemas/User"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateUpdateMembershipDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "number"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "userId",
+          "roles"
+        ]
+      },
+      "OrgGithubUser": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "orgUuid": {
+            "type": "string"
+          },
+          "ghUsername": {
+            "type": "string"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "orgUuid",
+          "ghUsername",
+          "createdDate",
+          "updateDate"
+        ]
+      },
+      "OrgGithubUserDto": {
+        "type": "object",
+        "properties": {
+          "ghUsername": {
+            "type": "string",
+            "description": "GitHub username (1-39 chars, alphanumeric and hyphens)",
+            "example": "octocat"
+          },
+          "orgUuid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ghUsername",
+          "orgUuid"
+        ]
+      },
+      "StripeCheckoutLineItem": {
+        "type": "object",
+        "properties": {
+          "price": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "price",
+          "quantity"
+        ]
+      },
+      "StripeCheckoutSessionRequestDto": {
+        "type": "object",
+        "properties": {
+          "organisationUuid": {
+            "type": "string"
+          },
+          "lineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StripeCheckoutLineItem"
+            }
+          },
+          "mode": {
+            "type": "string"
+          },
+          "successFrontendPath": {
+            "type": "string",
+            "description": "The path on frontend to which Stripe should redirect the customer after payment. This is appended to the host configured in the StripeClientConfigurationService"
+          },
+          "cancelFrontendPath": {
+            "type": "string",
+            "description": "The path on frontend to which Stripe should redirect the customer after payment cancellation. This is appended to the host configured in the StripeClientConfigurationService"
+          }
+        },
+        "required": [
+          "lineItems",
+          "mode",
+          "successFrontendPath"
+        ]
+      },
+      "StripeCheckoutSessionResponseDto": {
+        "type": "object",
+        "properties": {
+          "stripeSessionId": {
+            "type": "string"
+          },
+          "stripeSessionUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "stripeSessionId",
+          "stripeSessionUrl"
+        ]
+      },
+      "StripeCustomerPortalRequestDto": {
+        "type": "object",
+        "properties": {
+          "subscriptionRecordUuid": {
+            "type": "string"
+          },
+          "returnUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "subscriptionRecordUuid",
+          "returnUrl"
+        ]
+      },
+      "StripeCustomerPortalResponseDto": {
+        "type": "object",
+        "properties": {
+          "sessionUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sessionUrl"
+        ]
+      },
+      "StripeCheckoutEvent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "clientReferenceId": {
+            "type": "string"
+          },
+          "stripeSessionId": {
+            "type": "string"
+          },
+          "stripeObjectType": {
+            "type": "string"
+          },
+          "stripeDataAsString": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "createdDate",
+          "stripeSessionId",
+          "stripeObjectType",
+          "stripeDataAsString"
+        ]
+      },
+      "SaveOrganisationSubscriptionRecordDto": {
+        "type": "object",
+        "properties": {
+          "productDisplayName": {
+            "type": "string"
+          },
+          "paymentSystemTransactionId": {
+            "type": "string"
+          },
+          "paymentSystemProductId": {
+            "type": "string"
+          },
+          "millerPaymentReferenceUuid": {
+            "type": "string"
+          },
+          "paymentSystemCustomerId": {
+            "type": "string"
+          },
+          "paymentSystemCustomerEmail": {
+            "type": "string"
+          },
+          "paymentSystemMode": {
+            "type": "string"
+          },
+          "paymentSystemName": {
+            "type": "string"
+          },
+          "internalSku": {
+            "type": "string"
+          },
+          "validUntil": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "productDisplayName",
+          "paymentSystemTransactionId",
+          "paymentSystemProductId",
+          "paymentSystemCustomerId",
+          "paymentSystemCustomerEmail",
+          "paymentSystemMode",
+          "paymentSystemName",
+          "internalSku",
+          "validUntil"
+        ]
+      },
+      "PaymentSessionReference": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "createdDate"
+        ]
+      },
+      "FileStructureDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "folder",
+              "file"
+            ]
+          },
+          "isOpen": {
+            "type": "boolean"
+          },
+          "fileLocation": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileStructureDto"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "fileLocation"
+        ]
+      },
+      "FileMetaDto": {
+        "type": "object",
+        "properties": {
+          "contents": {
+            "type": "string"
+          },
+          "fileLocation": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "nearestReadmeLocation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "contents",
+          "fileLocation",
+          "fileName"
+        ]
+      },
+      "CourseMetaDto": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "rootNodeName": {
+            "type": "string"
+          },
+          "demoPaths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "rootLocation": {
+            "type": "string"
+          },
+          "demoFileLinkHref": {
+            "type": "string"
+          },
+          "demoFileLinkText": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "isOpenSource": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "key",
+          "rootNodeName",
+          "demoPaths",
+          "rootLocation",
+          "demoFileLinkHref",
+          "demoFileLinkText",
+          "name",
+          "color",
+          "isOpenSource"
+        ]
+      },
+      "Invitation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "givenName": {
+            "type": "string"
+          },
+          "emailAddress": {
+            "type": "string"
+          },
+          "notificationSent": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "expiresOn": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "acceptedOn": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "organisationMembership": {
+            "$ref": "#/components/schemas/OrganisationMembership"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "deletedDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "uuid",
+          "givenName",
+          "emailAddress",
+          "expiresOn",
+          "organisationMembership",
+          "createdDate",
+          "updateDate"
+        ]
+      },
+      "CreateInvitationDto": {
+        "type": "object",
+        "properties": {
+          "givenName": {
+            "type": "string"
+          },
+          "emailAddress": {
+            "type": "string"
+          },
+          "organisationId": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "givenName",
+          "emailAddress",
+          "organisationId"
+        ]
+      },
+      "SubscriptionAsset": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "internalSku": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "createdDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "internalSku",
+          "uri",
+          "description",
+          "displayName",
+          "createdDate",
+          "updateDate"
+        ]
+      },
+      "SaveSubscriptionAssetDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "internalSku": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "internalSku",
+          "uri",
+          "description",
+          "displayName"
         ]
       }
     }

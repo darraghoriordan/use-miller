@@ -82,8 +82,8 @@ importers:
         specifier: 7.29.0
         version: 7.29.0
       '@darraghor/nest-backend-libs':
-        specifier: 5.6.0
-        version: 5.6.0(46fd24e56dcabaeb2d3766ac3db08bc2)
+        specifier: 5.7.0
+        version: 5.7.0(46fd24e56dcabaeb2d3766ac3db08bc2)
       '@keyv/redis':
         specifier: 5.1.6
         version: 5.1.6(@opentelemetry/api@1.9.1)(keyv@5.6.0)
@@ -1399,8 +1399,8 @@ packages:
       class-validator: '*'
       eslint: '>=9.18.0'
 
-  '@darraghor/nest-backend-libs@5.6.0':
-    resolution: {integrity: sha512-XW1TgPnhO2dkcVtA/JKgkm0RXsQz35gTaCEke77/KRlDGQtBv3i3PDCOBP4jzqq19zPQfBQwr8iuRyuLgpVckg==}
+  '@darraghor/nest-backend-libs@5.7.0':
+    resolution: {integrity: sha512-NlH7vPJnmS864Fz9lvof+KLVCiNfkxGQjSOvScpfbrxjxSenWKezkKBpapxE/ABkxAOuSJzhW3KT99TiCAGqhQ==}
     engines: {node: '>=22.21.1'}
     hasBin: true
     peerDependencies:
@@ -11417,7 +11417,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@darraghor/nest-backend-libs@5.6.0(46fd24e56dcabaeb2d3766ac3db08bc2)':
+  '@darraghor/nest-backend-libs@5.7.0(46fd24e56dcabaeb2d3766ac3db08bc2)':
     dependencies:
       '@keyv/redis': 5.1.6(@opentelemetry/api@1.9.1)(keyv@5.6.0)
       '@nestjs/axios': 4.0.1(@nestjs/common@11.1.19(class-transformer@0.5.1)(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(axios@1.15.2)(rxjs@7.8.2)
@@ -15898,7 +15898,7 @@ snapshots:
 
   dotenv-expand@11.0.7:
     dependencies:
-      dotenv: 16.4.7
+      dotenv: 16.6.1
 
   dotenv-expand@12.0.3:
     dependencies:

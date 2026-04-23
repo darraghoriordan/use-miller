@@ -32,9 +32,24 @@ async function dashboardGetSspData(
         ? (context.params?.orgUuid as string)
         : undefined;
 
-    const subAssets = await getCurrentUserSubscriptions(accessToken.token);
     const userData = await getCurrentUser(accessToken.token);
-    const mappedProps = mapDataForIndexDashboard(userData, subAssets, orgUuid);
+    const currentOrgUuidForData =
+        orgUuid ?? userData.memberships[0]?.organisation.uuid;
+    if (!currentOrgUuidForData) {
+        throw new Error("No organisation found for this user");
+    }
+
+    const [subAssets, subscriptions] = await Promise.all([
+        getCurrentUserSubscriptions(accessToken.token),
+        getOrganisationSubscriptions(accessToken.token, currentOrgUuidForData),
+    ]);
+
+    const mappedProps = mapDataForIndexDashboard(
+        userData,
+        subAssets,
+        subscriptions,
+        orgUuid,
+    );
 
     const orgGhUsers = await getOrgGhUsernames(
         accessToken.token,
@@ -53,6 +68,7 @@ async function dashboardGetSspData(
 export const mapDataForIndexDashboard = (
     userData: UserDto,
     subAssets: SubscriptionAsset[],
+    subscriptions: OrganisationSubscriptionRecord[],
     currentOrgUuid?: string,
 ) => {
     const userOrgs = userData.memberships.reduce(
@@ -77,11 +93,6 @@ export const mapDataForIndexDashboard = (
     }
 
     const menuSections = createMenu(userOrgs);
-    const subscriptions =
-        userData.memberships.find(
-            (m) => m.organisation.uuid === currentOrgInstance.uuid,
-        )?.organisation?.subscriptionRecords || [];
-
     return JSON.parse(
         JSON.stringify({
             menuSections,
@@ -135,6 +146,30 @@ export const getCurrentUserSubscriptions = async (accessToken: string) => {
 
     if (error || !data) {
         throw new Error("Failed to fetch subscription assets");
+    }
+
+    return data;
+};
+
+export const getOrganisationSubscriptions = async (
+    accessToken: string,
+    orgUuid: string,
+) => {
+    const apiClient = getAuthenticatedApiInstance({
+        apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
+        authToken: accessToken,
+        fetchApi: fetch,
+    });
+
+    const { data, error } = await apiClient.GET(
+        "/organisation/{orgUuid}/subscriptions",
+        {
+            params: { path: { orgUuid } },
+        },
+    );
+
+    if (error || !data) {
+        throw new Error("Failed to fetch organisation subscriptions");
     }
 
     return data;

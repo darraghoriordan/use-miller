@@ -29,16 +29,10 @@ async function profileGetSspData(
 
 export const getAccountIndexData = async (accessToken: string) => {
     const userData = await getUserData(accessToken);
-    const userOrgs = userData.memberships.reduce(
-        (acc, membership) => [
-            ...acc,
-            {
-                name: membership.organisation.name,
-                uuid: membership.organisation.uuid,
-            },
-        ],
-        [] as { name: string; uuid: string }[],
-    );
+    const userOrgs = userData.memberships.map((membership) => ({
+        name: membership.organisation.name,
+        uuid: membership.organisation.uuid,
+    }));
     // org data permissions are enforced on the server
     // so we can just return the data
     const menuData = await createMenu(userOrgs);

@@ -654,6 +654,11 @@ export interface components {
         HealthResponse: {
             result: string;
         };
+        OrganisationSummaryDto: {
+            id: number;
+            uuid: string;
+            name: string;
+        };
         MembershipRole: {
             id: number;
             membershipId: number;
@@ -663,11 +668,11 @@ export interface components {
             /** Format: date-time */
             updateDate: string;
         };
-        OrganisationMembership: {
+        UserOrganisationMembershipDto: {
             id: number;
             uuid: string;
             userId: number;
-            organisation: Record<string, never>;
+            organisation: components["schemas"]["OrganisationSummaryDto"];
             organisationId: number;
             roles?: components["schemas"]["MembershipRole"][];
             /** Format: date-time */
@@ -691,7 +696,7 @@ export interface components {
             picture?: string;
             auth0UserId?: string;
             username?: string;
-            memberships: components["schemas"]["OrganisationMembership"][];
+            memberships: components["schemas"]["UserOrganisationMembershipDto"][];
             activeSubscriptionProductKeys: string[];
             /** Format: date-time */
             createdDate: string;
@@ -699,6 +704,20 @@ export interface components {
             updateDate: string;
             /** Format: date-time */
             deletedDate?: string;
+        };
+        OrganisationMembership: {
+            id: number;
+            uuid: string;
+            userId: number;
+            organisation: Record<string, never>;
+            organisationId: number;
+            roles?: components["schemas"]["MembershipRole"][];
+            /** Format: date-time */
+            createdDate: string;
+            /** Format: date-time */
+            deletedDate?: string;
+            /** Format: date-time */
+            updateDate: string;
         };
         UserApiKey: {
             id: number;
