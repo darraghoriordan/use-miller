@@ -12,6 +12,7 @@ export default function Layout({
     seoTitle,
     canonicalUrl,
     themeColor,
+    noIndex,
 }: {
     productKey?: string;
     headerTitle?: string;
@@ -19,6 +20,7 @@ export default function Layout({
     seoDescription: string;
     canonicalUrl?: string;
     themeColor?: ThemeColor;
+    noIndex?: boolean;
 } & PropsWithChildren) {
     return (
         <div className="flex flex-col min-h-screen">
@@ -26,6 +28,7 @@ export default function Layout({
                 title={seoTitle || "Home"}
                 description={seoDescription}
                 canonicalUrl={canonicalUrl}
+                noIndex={noIndex}
             />
             <Header
                 productKey={productKey}

@@ -1,6 +1,4 @@
 import { Container } from "../../components/Container";
-import type { components } from "../../shared/types/api-specs";
-type UserDto = components["schemas"]["UserDto"];
 import { TwitterCTA } from "../components/TwitterCTA";
 import { Price } from "./Price";
 import { FreePrice } from "./FreePrice";
@@ -17,7 +15,7 @@ const builderBenefits = [
     "8 hours of consulting time from Me!",
 ];
 
-export function Pricing({ user }: { user: UserDto }) {
+export function Pricing() {
     return (
         <Container className="pb-16 text-left">
             <div className="flex ">
@@ -43,7 +41,6 @@ export function Pricing({ user }: { user: UserDto }) {
                                 benefits={learnerBenefits}
                             />
                             <Price
-                                user={user}
                                 title="Builder Package"
                                 productKey="miller-start-consulting"
                                 currency="usd"

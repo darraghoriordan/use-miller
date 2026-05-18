@@ -1,7 +1,5 @@
 import { Container } from "../../components/Container";
 import dynamic from "next/dynamic";
-import type { components } from "../../shared/types/api-specs";
-type UserDto = components["schemas"]["UserDto"];
 import { TwitterCTA } from "../components/TwitterCTA";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { FadeInOnScroll } from "../../components/Animations";
@@ -19,7 +17,7 @@ const buyBenefits = [
     "Lifetime license + get 1 year of updates for free",
 ];
 
-export function Pricing({ user }: { user: UserDto }) {
+export function Pricing() {
     return (
         <div className="relative">
             {/* Background accent line */}

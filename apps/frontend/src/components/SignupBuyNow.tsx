@@ -1,5 +1,4 @@
-import type { components } from "../shared/types/api-specs";
-type UserDto = components["schemas"]["UserDto"];
+import { useUser } from "@auth0/nextjs-auth0/client";
 import clsx from "clsx";
 import { ThemeColor } from "../styles/themeColors";
 import { getSignUpUrl } from "./signupUrl";
@@ -13,18 +12,31 @@ import { BuyNowButton } from "./BuyNowButton";
  * @returns
  */
 export function SignUpBuyNowButton({
-    user,
     productKey,
     color,
     className,
     text,
 }: {
-    user: UserDto;
     productKey: string;
     color: ThemeColor;
     className?: string;
     text?: string;
 }) {
+    const { user, isLoading } = useUser();
+
+    if (isLoading) {
+        return (
+            <div
+                className={clsx(
+                    "rounded-lg text-xl px-14 py-4 border border-security-border text-security-muted",
+                    className,
+                )}
+            >
+                Loading...
+            </div>
+        );
+    }
+
     if (!user) {
         return (
             <StyledLink
@@ -42,7 +54,6 @@ export function SignUpBuyNowButton({
 
     return (
         <BuyNowButton
-            user={user}
             productKey={productKey}
             color={color}
             className={className}

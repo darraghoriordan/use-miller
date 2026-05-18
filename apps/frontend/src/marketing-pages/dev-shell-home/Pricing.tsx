@@ -1,6 +1,4 @@
 import { Container } from "../../components/Container";
-import type { components } from "../../shared/types/api-specs";
-type UserDto = components["schemas"]["UserDto"];
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { SignUpBuyNowButton } from "../../components/SignupBuyNow";
 
@@ -9,7 +7,7 @@ const buyBenefits = [
     "Direct access to the GitHub repository",
     "Lifetime license - get all future updates for free",
 ];
-export function Pricing({ user }: { user: UserDto }) {
+export function Pricing() {
     return (
         <Container className="pb-16 text-left">
             <div className="flex ">
@@ -52,7 +50,6 @@ export function Pricing({ user }: { user: UserDto }) {
                         <div className="flex flex-col gap-x-6  mb-10">
                             <div className="mx-auto flex md:mx-0">
                                 <SignUpBuyNowButton
-                                    user={user}
                                     productKey="dev-shell"
                                     color="cyan"
                                     className="w-full"

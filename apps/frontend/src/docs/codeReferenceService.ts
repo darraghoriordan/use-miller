@@ -60,6 +60,12 @@ export async function getCodeExplorerData(
     }
 
     const apiBase = process.env.NEXT_PUBLIC_API_BASE_PATH || "";
+    if (!apiBase) {
+        throw new Error(
+            "NEXT_PUBLIC_API_BASE_PATH is not configured for code reference routes.",
+        );
+    }
+
     const apiClient = accessToken
         ? getAuthenticatedApiInstance({
               apiBase,
@@ -233,12 +239,23 @@ export async function getCodeFileServerSideProps(
         );
     }
 
-    const codeExplorerData = await getCodeExplorerData(
-        productKey,
-        projectKey,
-        codeFile,
-        accessToken,
-    );
+    let codeExplorerData: CodeExplorerData | null = null;
+    let errorMessage: string | null = null;
+
+    try {
+        codeExplorerData = await getCodeExplorerData(
+            productKey,
+            projectKey,
+            codeFile,
+            accessToken,
+        );
+    } catch (error) {
+        errorMessage =
+            error instanceof Error
+                ? error.message
+                : "Unable to load code reference data.";
+    }
+
     const menuSections = await createMenu(productKey);
     const titles = mapTitles(productKey);
 
@@ -247,6 +264,7 @@ export async function getCodeFileServerSideProps(
             productKey,
             menuSections,
             codeExplorerData,
+            errorMessage,
             ...titles,
         },
     };

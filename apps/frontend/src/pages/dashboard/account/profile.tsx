@@ -21,6 +21,7 @@ export default function Home({
             menuHeaderTitle={"Dashboard"}
             menuHeaderHref={"/dashboard"}
             headerTitle={"Miller Dev Tools"}
+            noIndex
         >
             <ProfileDetails currentUser={currentUser} />
         </LeftMenuWrappedContent>

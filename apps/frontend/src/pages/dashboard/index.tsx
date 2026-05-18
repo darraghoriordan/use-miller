@@ -33,6 +33,7 @@ export default function Home({
             menuHeaderHref="/dashboard"
             menuSections={menuSections}
             headerTitle={"Miller Dev Tools"}
+            noIndex
         >
             <DashboardDetails
                 subs={subs}

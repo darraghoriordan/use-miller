@@ -1,27 +1,32 @@
-import { FullDoc, getSinglePost } from "../../../docs/docParser";
+import { ProductDocsHubPage } from "../../../docs/components/ProductDocsHubPage";
 import { createMenu, mapTitles } from "../../../docs/leftMenuGeneration";
-import { DocArticle } from "../../../docs/components/DocArticle";
+import { getDocsPageSummaries } from "../../../docs/docParser";
 import { MenuSection } from "../../../components/LeftMenu";
 import { LeftMenuWrappedContent } from "../../../components/LeftMenuWrappedContent";
+import { getProductDocsSeo } from "../../../docs/docsSeo";
 
 export async function getStaticProps({
     params,
 }: {
     params: { productKey: string };
 }) {
-    const article = await getSinglePost({
-        productKey: params.productKey,
-        slug: "",
-        sectionSlug: "",
-    });
-    console.log("geting single post...");
     const menuSections = await createMenu(params.productKey);
     const titles = mapTitles(params.productKey);
+    const product = getDocsPageSummaries().find(
+        (entry) => entry.productKey === params.productKey,
+    );
+
+    if (!product) {
+        return { notFound: true };
+    }
+
+    const seo = getProductDocsSeo(product.productKey, product.sections.length);
     return {
         props: {
             productKey: params.productKey,
             menuSections,
-            article,
+            product,
+            seo,
             ...titles,
         },
     };
@@ -52,16 +57,18 @@ export async function getStaticPaths() {
 
 export default function Home({
     menuSections,
-    article,
+    product,
     productKey,
     menuHeaderTitle,
     headerTitle,
+    seo,
 }: {
     menuSections: MenuSection[];
-    article: FullDoc;
+    product: ReturnType<typeof getDocsPageSummaries>[number];
     productKey: string;
     menuHeaderTitle: string;
     headerTitle: string;
+    seo: ReturnType<typeof getProductDocsSeo>;
 }) {
     return (
         <LeftMenuWrappedContent
@@ -70,8 +77,11 @@ export default function Home({
             menuHeaderTitle={menuHeaderTitle}
             menuHeaderHref={`/docs/${productKey}`}
             headerTitle={headerTitle}
+            canonicalUrl={seo.canonicalUrl}
+            seoTitle={seo.seoTitle}
+            seoDescription={seo.seoDescription}
         >
-            <DocArticle article={article} />
+            <ProductDocsHubPage product={product} />
         </LeftMenuWrappedContent>
     );
 }

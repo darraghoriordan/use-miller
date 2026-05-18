@@ -11,11 +11,13 @@ export default function SEO({
     title,
     siteTitle,
     canonicalUrl,
+    noIndex,
 }: {
     description?: string;
     title?: string;
     siteTitle?: string;
     canonicalUrl?: string;
+    noIndex?: boolean;
 }) {
     description = description || config.defaultDescription;
     title = title || config.defaultTitle;
@@ -65,6 +67,9 @@ export default function SEO({
             <title>{`${title} | ${siteTitle}`}</title>
             <meta name="description" content={description} />
             <link rel="canonical" href={canonicalUrl} />
+            {noIndex ? (
+                <meta name="robots" content="noindex, nofollow" />
+            ) : null}
 
             <meta property="og:type" content="website" />
             <meta property="og:title" content={title} />

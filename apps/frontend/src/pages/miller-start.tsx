@@ -1,27 +1,21 @@
 import { Hero } from "../marketing-pages/miller-start-home/Hero-learner";
 import Layout from "../components/Layout";
 import { Pricing } from "../marketing-pages/miller-start-home/Pricing";
-import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps";
-import type { components } from "../shared/types/api-specs";
 import { Container } from "../components/Container";
 
-type UserDto = components["schemas"]["UserDto"];
-
-export const getServerSideProps = getMarketingServerSideProps;
-
-export default function Home({ user }: { user: UserDto }) {
+export default function Home() {
     return (
         <Layout
-            seoDescription="A working full-stack web app with a NextJs frontend and a NestJs backend, with Auth, Stripe, and production-ready tooling included."
-            seoTitle="Miller Start - Learn NestJs and NextJs by example"
+            seoDescription="Miller Start is a production-ready NestJS and Next.js starter with Auth0, Stripe, PostgreSQL, Terraform, and security-focused defaults."
+            seoTitle="NestJS and Next.js Starter Template"
             canonicalUrl="https://usemiller.dev/miller-start"
             headerTitle="Miller // Start"
             productKey="miller-start"
             themeColor="violet"
         >
             <Container>
-                <Hero user={user} />
-                <Pricing user={user} />
+                <Hero />
+                <Pricing />
             </Container>
         </Layout>
     );

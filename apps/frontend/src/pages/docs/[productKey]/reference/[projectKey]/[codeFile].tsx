@@ -25,17 +25,50 @@ const DynamicCodeExplorer = dynamic(
 export default function CodeFileHome({
     menuSections,
     codeExplorerData,
+    errorMessage,
     productKey,
     menuHeaderTitle,
     headerTitle,
 }: {
     menuSections: MenuSection[];
-    codeExplorerData: CodeExplorerData;
+    codeExplorerData: CodeExplorerData | null;
+    errorMessage?: string | null;
     productKey: string;
     menuHeaderTitle: string;
     headerTitle: string;
 }) {
     const router = useRouter();
+
+    if (!codeExplorerData) {
+        return (
+            <LeftMenuWrappedContent
+                productKey={productKey}
+                menuSections={menuSections}
+                menuHeaderTitle={menuHeaderTitle}
+                menuHeaderHref={`/docs/${productKey}`}
+                headerTitle={headerTitle}
+                canonicalUrl={`https://usemiller.dev/docs/${productKey}`}
+                seoTitle={`${headerTitle} Code Reference`}
+                seoDescription={`Browse the ${headerTitle} code reference explorer for project structure and implementation details.`}
+                noIndex
+            >
+                <div className="ml-12 lg:ml-24 mt-8 mr-4 max-w-3xl prose prose-lg prose-docs">
+                    <h1 className="font-display text-security-light text-3xl md:text-4xl mb-6 tracking-tight">
+                        Code reference unavailable
+                    </h1>
+                    <p>
+                        The code reference explorer could not load its backend
+                        data source.
+                    </p>
+                    {errorMessage ? <p>{errorMessage}</p> : null}
+                    <p>
+                        In local development, make sure the backend API is
+                        running and `NEXT_PUBLIC_API_BASE_PATH` points to it.
+                    </p>
+                </div>
+            </LeftMenuWrappedContent>
+        );
+    }
 
     const setSelectedFile = (fileParam: string, projectKeyParam: string) => {
         router.push(
@@ -79,6 +112,10 @@ export default function CodeFileHome({
             menuHeaderTitle={menuHeaderTitle}
             menuHeaderHref={`/docs/${productKey}`}
             headerTitle={headerTitle}
+            canonicalUrl={`https://usemiller.dev/docs/${productKey}`}
+            seoTitle={`${headerTitle} Code Reference`}
+            seoDescription={`Browse the ${headerTitle} code reference explorer for project structure and implementation details.`}
+            noIndex
         >
             <div className="flex flex-col w-full overflow-hidden">
                 {

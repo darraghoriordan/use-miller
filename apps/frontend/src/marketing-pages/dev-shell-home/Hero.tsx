@@ -15,11 +15,8 @@ import {
     TerminalPrompt,
 } from "../../components/TerminalWindow";
 import { SecurityBadge } from "../../components/SecurityBadge";
-import type { components } from "../../shared/types/api-specs";
 
-type UserDto = components["schemas"]["UserDto"];
-
-export function Hero({ user }: { user: UserDto }) {
+export function Hero() {
     const features = [
         "Well tested, re-runnable shell scripts that install everything a developer needs",
         "All tools configured to be available on Mac and Windows WSL Ubuntu where possible",

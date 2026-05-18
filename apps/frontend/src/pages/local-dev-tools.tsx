@@ -1,27 +1,21 @@
 import { Hero } from "../marketing-pages/local-dev-tools/Hero";
 import Layout from "../components/Layout";
 import { Pricing } from "../marketing-pages/local-dev-tools/Pricing";
-import type { components } from "../shared/types/api-specs";
-import { getMarketingServerSideProps } from "../marketing-pages/getUserAndProps";
 import { Container } from "../components/Container";
 
-type UserDto = components["schemas"]["UserDto"];
-
-export const getServerSideProps = getMarketingServerSideProps;
-
-export default function Home({ user }: { user: UserDto }) {
+export default function Home() {
     return (
         <Layout
-            seoDescription="Keep your business data safe and secure with local dev utilities: JSON escape, hashing, encoding/decoding, and more."
-            seoTitle="Miller - Local Dev Tools"
+            seoDescription="Local Dev Tools is an offline toolkit for developers with JSON, JWT, Base64, regex, timestamps, curl, color, and local AI utilities for Mac and Windows."
+            seoTitle="Offline Developer Utilities for Mac and Windows"
             canonicalUrl="https://usemiller.dev/local-dev-tools"
             headerTitle="Miller // Local Dev Tools"
             productKey="local-dev-tools"
             themeColor="violet"
         >
             <Container>
-                <Hero user={user} />
-                <Pricing user={user} />
+                <Hero />
+                <Pricing />
             </Container>
         </Layout>
     );

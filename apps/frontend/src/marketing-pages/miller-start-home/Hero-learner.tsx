@@ -19,11 +19,8 @@ import {
     SecurityBadge,
     GitHubStarsBadge,
 } from "../../components/SecurityBadge";
-import type { components } from "../../shared/types/api-specs";
 
-type UserDto = components["schemas"]["UserDto"];
-
-export function Hero({ user }: { user: UserDto }) {
+export function Hero() {
     const features = [
         "Terraform scripts to deploy and manage Auth0, Stripe and deploying to Digital Ocean",
         "Authentication and authorization (Auth0)",

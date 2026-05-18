@@ -14,14 +14,11 @@ import { TrustBadges } from "../../components/SecurityBadge";
 import { SingleProductCard } from "./SingleProductCard";
 import { OpenSourceSection } from "./OpenSourceSection";
 import { ThemeColor } from "../../styles/themeColors";
-import type { components } from "../../shared/types/api-specs";
 import {
     TerminalWindow,
     TerminalPrompt,
 } from "../../components/TerminalWindow";
 import Link from "next/link";
-
-type UserDto = components["schemas"]["UserDto"];
 
 export interface HeroProduct {
     colorVariant: ThemeColor;
@@ -38,7 +35,7 @@ export interface HeroProduct {
     stars?: number;
 }
 
-export function Hero({ user }: { user: UserDto }) {
+export function Hero() {
     const products: HeroProduct[] = [
         {
             title: "Dev Shell",

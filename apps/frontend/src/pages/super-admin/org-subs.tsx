@@ -23,6 +23,7 @@ export default function Home({
             menuHeaderHref="/super-admin"
             headerTitle="Miller Dev Tools"
             menuSections={menuSections}
+            noIndex
         >
             <OrgSubsSuperAdmin allSubs={allSubs} title={"Org Subscriptions"} />
         </LeftMenuWrappedContent>

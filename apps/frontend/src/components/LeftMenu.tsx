@@ -50,7 +50,7 @@ export function LeftMenu({
     return (
         <div className="flex">
             <div className="flex flex-col grow mr-8">
-                <h1
+                <div
                     className={clsx(
                         "mb-8 font-display font-bold uppercase tracking-wider text-sm",
                         colorVariants[productColor].foreground,
@@ -62,7 +62,7 @@ export function LeftMenu({
                     >
                         {header}
                     </Link>
-                </h1>
+                </div>
                 {menuSections?.map((section) => (
                     <div key={section.name}>
                         <h3 className="mb-2 mt-6 font-mono text-xs font-semibold text-security-light uppercase tracking-wider">

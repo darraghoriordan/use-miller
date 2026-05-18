@@ -1,24 +1,22 @@
-import { FullDoc, getSinglePost } from "../../docs/docParser";
+import { DocsHubPage } from "../../docs/components/DocsHubPage";
 import { createMenu, mapTitles } from "../../docs/leftMenuGeneration";
-import { DocArticle } from "../../docs/components/DocArticle";
+import { getDocsPageSummaries } from "../../docs/docParser";
 import { MenuSection } from "../../components/LeftMenu";
 import { LeftMenuWrappedContent } from "../../components/LeftMenuWrappedContent";
+import { getDocsHubSeo } from "../../docs/docsSeo";
 
 export async function getStaticProps() {
     const defaultProductKey = "miller-start";
-    const article = await getSinglePost({
-        productKey: defaultProductKey,
-        slug: "",
-        sectionSlug: "",
-    });
-    console.log("geting single post...");
     const menuSections = await createMenu(defaultProductKey);
     const titles = mapTitles(defaultProductKey);
+    const products = getDocsPageSummaries();
+    const seo = getDocsHubSeo(products);
     return {
         props: {
             productKey: defaultProductKey,
             menuSections,
-            article,
+            products,
+            seo,
             ...titles,
         },
     };
@@ -39,16 +37,18 @@ export async function getStaticProps() {
 
 export default function Home({
     menuSections,
-    article,
+    products,
     productKey,
     menuHeaderTitle,
     headerTitle,
+    seo,
 }: {
     menuSections: MenuSection[];
-    article: FullDoc;
+    products: ReturnType<typeof getDocsPageSummaries>;
     productKey: string;
     menuHeaderTitle: string;
     headerTitle: string;
+    seo: ReturnType<typeof getDocsHubSeo>;
 }) {
     return (
         <LeftMenuWrappedContent
@@ -57,8 +57,11 @@ export default function Home({
             menuHeaderTitle={menuHeaderTitle}
             menuHeaderHref={`/docs/${productKey}`}
             headerTitle={headerTitle}
+            canonicalUrl={seo.canonicalUrl}
+            seoTitle={seo.seoTitle}
+            seoDescription={seo.seoDescription}
         >
-            <DocArticle article={article} />
+            <DocsHubPage products={products} />
         </LeftMenuWrappedContent>
     );
 }

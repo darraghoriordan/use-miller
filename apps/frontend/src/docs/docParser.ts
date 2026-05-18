@@ -37,6 +37,16 @@ export type FullDoc = SummaryDoc & {
     html: string;
 };
 
+export type DocsPageSummary = {
+    productKey: string;
+    productLabel: string;
+    sections: {
+        sectionSlug: string;
+        sectionDisplayName: string;
+        pages: SummaryDoc[];
+    }[];
+};
+
 export function toCapitalCase(str: string): string {
     return str
         ?.split(" ")
@@ -116,6 +126,7 @@ export function getSortedPostsData(): {
 
                         return {
                             slug,
+                            section: sectionDirectory.name,
                             ...matterResult.data,
                         } as SummaryDoc;
                     })
@@ -131,6 +142,14 @@ export function getSortedPostsData(): {
     return result;
 }
 
+export function getDocsPageSummaries(): DocsPageSummary[] {
+    return getSortedPostsData().map((product) => ({
+        productKey: product.productKey,
+        productLabel: toCapitalCase(product.productKey.replace(/-/g, " ")),
+        sections: product.sections,
+    }));
+}
+
 export async function getSinglePost({
     slug,
     sectionSlug,
@@ -140,16 +159,15 @@ export async function getSinglePost({
     sectionSlug?: string;
     productKey?: string;
 }): Promise<FullDoc> {
-    // if people are messing about with urls, just send them to the getting started page
-    // can improve this later
     if (
-        [slug, sectionSlug, productKey].some((x) => {
-            return !x || x === "index" || x === "" || x === "/";
-        })
+        [slug, sectionSlug, productKey].some(
+            (value) =>
+                !value || value === "index" || value === "" || value === "/",
+        )
     ) {
-        productKey = "miller-start";
-        sectionSlug = "get-started";
-        slug = "quick-start";
+        throw new Error(
+            "getSinglePost requires productKey, sectionSlug, and slug",
+        );
     }
 
     const fullPath = path.join(
@@ -173,6 +191,7 @@ export async function getSinglePost({
         slug: slug!,
         html: markdownResult,
         ...matterResult.data,
+        section: sectionSlug!,
     };
 }
 
@@ -201,6 +220,7 @@ export async function markdownToHtml(
 export async function getStaticDocsPageSlugs(): Promise<{
     paths: {
         params: {
+            productKey: string;
             slug: string;
             section: string;
         };
@@ -227,6 +247,30 @@ export async function getStaticDocsPageSlugs(): Promise<{
             }
         }
     }
+    return {
+        paths,
+        fallback: false,
+    };
+}
+
+export function getStaticDocsSectionPaths(): {
+    paths: {
+        params: {
+            productKey: string;
+            section: string;
+        };
+    }[];
+    fallback: boolean;
+} {
+    const paths = getSortedPostsData().flatMap((product) =>
+        product.sections.map((section) => ({
+            params: {
+                productKey: product.productKey,
+                section: section.sectionSlug,
+            },
+        })),
+    );
+
     return {
         paths,
         fallback: false,

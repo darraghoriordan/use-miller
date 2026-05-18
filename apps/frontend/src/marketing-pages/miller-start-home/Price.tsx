@@ -1,7 +1,5 @@
 import { CheckIcon } from "@heroicons/react/24/outline";
 import { SignUpBuyNowButton } from "../../components/SignupBuyNow";
-import type { components } from "../../shared/types/api-specs";
-type UserDto = components["schemas"]["UserDto"];
 
 export function Price({
     title,
@@ -9,7 +7,6 @@ export function Price({
     price,
     currency,
     licenceUrl,
-    user,
     productKey,
 }: {
     title: string;
@@ -17,7 +14,6 @@ export function Price({
     price: string;
     currency: string;
     licenceUrl: string;
-    user: UserDto;
     productKey: string;
 }) {
     return (
@@ -47,7 +43,6 @@ export function Price({
 
             <div className="mx-auto w-full flex gap-x-6 md:mx-0 mb-10">
                 <SignUpBuyNowButton
-                    user={user}
                     productKey={productKey}
                     color="cyan"
                     className="w-full"

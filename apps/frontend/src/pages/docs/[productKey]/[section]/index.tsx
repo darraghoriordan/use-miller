@@ -1,53 +1,74 @@
 import {
-    FullDoc,
-    getSinglePost,
-    getStaticDocsPageSlugs,
+    getDocsPageSummaries,
+    getStaticDocsSectionPaths,
 } from "../../../../docs/docParser";
 import { createMenu, mapTitles } from "../../../../docs/leftMenuGeneration";
-import { DocArticle } from "../../../../docs/components/DocArticle";
+import { SectionDocsHubPage } from "../../../../docs/components/SectionDocsHubPage";
 import { MenuSection } from "../../../../components/LeftMenu";
 import { LeftMenuWrappedContent } from "../../../../components/LeftMenuWrappedContent";
 import { GetStaticPaths, GetStaticPathsContext } from "next";
+import { getSectionDocsSeo } from "../../../../docs/docsSeo";
 
 export async function getStaticProps({
     params,
 }: {
     params: { section?: string; productKey: string };
 }) {
-    const article = await getSinglePost({
-        productKey: params.productKey,
-        slug: "/",
-        sectionSlug: params.section,
-    });
+    const product = getDocsPageSummaries().find(
+        (entry) => entry.productKey === params.productKey,
+    );
+
+    const section = product?.sections.find(
+        (entry) => entry.sectionSlug === params.section,
+    );
+
+    if (!product || !section) {
+        return { notFound: true };
+    }
+
     const menuSections = await createMenu(params.productKey);
     const titles = mapTitles(params.productKey);
+    const seo = getSectionDocsSeo(
+        product.productKey,
+        section.sectionDisplayName,
+        section.pages.length,
+    );
+
     return {
         props: {
             productKey: params.productKey,
             menuSections,
-            article,
+            product,
+            section,
+            seo,
             ...titles,
         },
     };
 }
 export const getStaticPaths: GetStaticPaths = async (
-    context: GetStaticPathsContext,
+    _context: GetStaticPathsContext,
 ) => {
-    return getStaticDocsPageSlugs();
+    return getStaticDocsSectionPaths();
 };
 
 export default function Home({
     productKey,
     menuSections,
-    article,
+    product,
+    section,
     menuHeaderTitle,
     headerTitle,
+    seo,
 }: {
     productKey: string;
     menuSections: MenuSection[];
-    article: FullDoc;
+    product: ReturnType<typeof getDocsPageSummaries>[number];
+    section: ReturnType<
+        typeof getDocsPageSummaries
+    >[number]["sections"][number];
     menuHeaderTitle: string;
     headerTitle: string;
+    seo: ReturnType<typeof getSectionDocsSeo>;
 }) {
     return (
         <LeftMenuWrappedContent
@@ -56,8 +77,11 @@ export default function Home({
             menuHeaderTitle={menuHeaderTitle}
             menuHeaderHref={`/docs/${productKey}`}
             headerTitle={headerTitle}
+            canonicalUrl={`https://usemiller.dev/docs/${productKey}/${section.sectionSlug}`}
+            seoTitle={seo.seoTitle}
+            seoDescription={seo.seoDescription}
         >
-            <DocArticle article={article} />
+            <SectionDocsHubPage product={product} section={section} />
         </LeftMenuWrappedContent>
     );
 }

@@ -15,9 +15,6 @@ import { AppWindow } from "../../components/AppWindow";
 import { JwtDecoderDemo } from "./JwtDecoderDemo";
 import { SecurityBadge } from "../../components/SecurityBadge";
 import { useLocalDevToolsVersion } from "../../hooks/useLocalDevToolsVersion";
-import type { components } from "../../shared/types/api-specs";
-
-type UserDto = components["schemas"]["UserDto"];
 
 const FALLBACK_VERSION = "1.74.4";
 
@@ -28,7 +25,7 @@ const getDownloadUrls = (version: string) => ({
     winX64: `https://assets.darraghoriordan.com/localDevTools/gr-hosting/${version}/LocalDevTools-${version}-x64.exe`,
 });
 
-export function Hero({ user }: { user: UserDto }) {
+export function Hero() {
     const { version: fetchedVersion } = useLocalDevToolsVersion();
     const version = fetchedVersion || FALLBACK_VERSION;
     const downloadUrls = getDownloadUrls(version);
