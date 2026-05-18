@@ -69,54 +69,6 @@ export function JwtDecoderDemo() {
         return clearAllTimeouts;
     }, [prefersReducedMotion]);
 
-    useEffect(() => {
-        // If user prefers reduced motion, skip animation
-        if (prefersReducedMotion) {
-            return;
-        }
-
-        const clearAllTimeouts = () => {
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-                timeoutRef.current = null;
-            }
-        };
-
-        const runAnimation = () => {
-            let currentIndex = 0;
-            setCharCount(0);
-            setPhase("typing");
-
-            const typeNextChar = () => {
-                if (currentIndex < JWT_TOKEN.length) {
-                    currentIndex++;
-                    setCharCount(currentIndex);
-                    // Ultra fast typing: 10ms per character
-                    timeoutRef.current = setTimeout(typeNextChar, 10);
-                } else {
-                    // Typing complete, brief processing pause
-                    setPhase("processing");
-                    timeoutRef.current = setTimeout(() => {
-                        setPhase("decoded");
-                        // After showing decoded, wait then mark complete
-                        timeoutRef.current = setTimeout(() => {
-                            setPhase("complete");
-                            // Reset and replay after 7 seconds
-                            timeoutRef.current = setTimeout(runAnimation, 7000);
-                        }, 500);
-                    }, 300);
-                }
-            };
-
-            // Start typing after initial delay
-            timeoutRef.current = setTimeout(typeNextChar, 500);
-        };
-
-        runAnimation();
-
-        return clearAllTimeouts;
-    }, [prefersReducedMotion]);
-
     const showDecoded = phase === "decoded" || phase === "complete";
 
     return (

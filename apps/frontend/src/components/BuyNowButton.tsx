@@ -4,7 +4,6 @@ import clsx from "clsx";
 import { ThemeColor } from "../styles/themeColors";
 import { useState } from "react";
 import StyledButton from "./StyledButton";
-import { useGetPaymentLink } from "../hooks/useGetPaymentLink";
 
 // might pass this in as a param later
 const productMapping = [
@@ -44,7 +43,6 @@ export function BuyNowButton({
     className?: string;
     text?: string;
 }) {
-    const { mutateAsync } = useGetPaymentLink();
     const [isLoading, setIsLoading] = useState(false);
 
     const product = productMapping.find((p) => p.productKey === productKey);
@@ -73,18 +71,34 @@ export function BuyNowButton({
             );
         }
 
-        const link = await mutateAsync({
-            successFrontendPath: "/dashboard",
-            cancelFrontendPath: "/dashboard",
-            lineItems: [
-                {
-                    price: product.stripePriceId,
-                    quantity: 1,
-                },
-            ],
-            mode: product.mode,
-            organisationUuid: orgUuid,
+        const checkoutResponse = await fetch("/api/stripe/checkout-link", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                successFrontendPath: "/dashboard",
+                cancelFrontendPath: "/dashboard",
+                lineItems: [
+                    {
+                        price: product.stripePriceId,
+                        quantity: 1,
+                    },
+                ],
+                mode: product.mode,
+                organisationUuid: orgUuid,
+            }),
         });
+
+        if (!checkoutResponse.ok) {
+            setIsLoading(false);
+            throw new Error("Failed to create checkout session");
+        }
+
+        const link = (await checkoutResponse.json()) as {
+            stripeSessionUrl: string;
+        };
+
         window.location.href = link.stripeSessionUrl;
     };
 

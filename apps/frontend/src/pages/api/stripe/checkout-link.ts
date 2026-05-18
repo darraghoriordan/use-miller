@@ -10,9 +10,17 @@ export default auth0.withApiAuthRequired(async function getStripeCheckoutLink(
     req: NextApiRequest,
     res: NextApiResponse,
 ) {
+    if (req.method !== "POST") {
+        res.setHeader("Allow", ["POST"]);
+        res.setHeader("Cache-Control", "no-store");
+        res.status(405).json({ error: "Method not allowed" });
+        return;
+    }
+
     try {
         const accessToken = await auth0.getAccessToken(req, res);
         if (!accessToken?.token) {
+            res.setHeader("Cache-Control", "no-store");
             res.status(401).json({ error: "No access token" });
             return;
         }
@@ -43,6 +51,7 @@ export default auth0.withApiAuthRequired(async function getStripeCheckoutLink(
     } catch (error) {
         const message =
             error instanceof Error ? error.message : "Internal server error";
+        res.setHeader("Cache-Control", "no-store");
         res.status(500).json({ error: message });
     }
 });

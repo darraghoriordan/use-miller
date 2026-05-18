@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import type { LocalDevToolsVersionResponse } from "../pages/api/local-dev-tools/version";
 
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
@@ -15,20 +15,56 @@ async function fetchLocalDevToolsVersion(): Promise<LocalDevToolsVersionResponse
 }
 
 export function useLocalDevToolsVersion() {
-    const query = useQuery({
-        queryKey: ["localDevToolsVersion"],
-        queryFn: fetchLocalDevToolsVersion,
-        staleTime: FIVE_MINUTES_MS,
-        refetchInterval: FIVE_MINUTES_MS,
-        refetchIntervalInBackground: false,
-        retry: 2,
-    });
+    const [data, setData] = useState<LocalDevToolsVersionResponse | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<Error | null>(null);
+
+    useEffect(() => {
+        let isActive = true;
+        let intervalId: ReturnType<typeof setInterval> | null = null;
+
+        const load = async () => {
+            try {
+                const result = await fetchLocalDevToolsVersion();
+                if (!isActive) {
+                    return;
+                }
+                setData(result);
+                setError(null);
+            } catch (loadError) {
+                if (!isActive) {
+                    return;
+                }
+                setError(
+                    loadError instanceof Error
+                        ? loadError
+                        : new Error("Failed to fetch version"),
+                );
+            } finally {
+                if (isActive) {
+                    setIsLoading(false);
+                }
+            }
+        };
+
+        void load();
+        intervalId = setInterval(() => {
+            void load();
+        }, FIVE_MINUTES_MS);
+
+        return () => {
+            isActive = false;
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+        };
+    }, []);
 
     return {
-        version: query.data?.version,
-        releaseDate: query.data?.releaseDate,
-        isLoading: query.isLoading,
-        isError: query.isError,
-        error: query.error,
+        version: data?.version,
+        releaseDate: data?.releaseDate,
+        isLoading,
+        isError: !!error,
+        error,
     };
 }

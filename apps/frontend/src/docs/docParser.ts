@@ -8,8 +8,6 @@ import { unified } from "unified";
 import gfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
-import remarkEmbedImages from "remark-embed-images";
-import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
 import { VFile } from "vfile";
 
@@ -19,6 +17,7 @@ const docContentDirectory = path.join(
     "docs",
     "page-content",
 );
+const docsPublicBasePath = "/api/docs-static";
 export type Section = {
     sectionDisplayName: string;
     sectionSlug: string;
@@ -199,6 +198,17 @@ export async function markdownToHtml(
     markdownSection: any,
     filePath: string,
 ): Promise<string> {
+    const fileDirectory = path.dirname(filePath);
+    const relativeDirectory = path.relative(docContentDirectory, fileDirectory);
+    const publicDirectory = relativeDirectory
+        .split(path.sep)
+        .filter(Boolean)
+        .map((segment) => encodeURIComponent(segment))
+        .join("/");
+    const imageBasePath = publicDirectory
+        ? `${docsPublicBasePath}/${publicDirectory}`
+        : docsPublicBasePath;
+
     const inFile = new VFile({
         path: filePath,
         value: markdownSection,
@@ -207,14 +217,20 @@ export async function markdownToHtml(
     const outFile = await unified()
         .use(remarkParse as never)
         .use(gfm as never)
-        .use(remarkEmbedImages as never)
         .use(remarkRehype as never)
         .use(rehypePrism)
-        .use(rehypeFormat as never)
         .use(rehypeStringify)
         .process(inFile as any);
 
-    return outFile.toString();
+    return outFile
+        .toString()
+        .replace(
+            /(<img\b[^>]*\ssrc=")([^":][^"]*)(")/g,
+            (_match, prefix, src, suffix) => {
+                const normalizedSrc = src.replace(/^\.\//, "");
+                return `${prefix}${imageBasePath}/${normalizedSrc}${suffix}`;
+            },
+        );
 }
 
 export async function getStaticDocsPageSlugs(): Promise<{
