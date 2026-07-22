@@ -1,5 +1,8 @@
-import Editor, { Monaco } from "@monaco-editor/react";
-import { typescript } from "monaco-editor";
+import Editor, {
+    type BeforeMount,
+    type Monaco,
+    type OnMount,
+} from "@monaco-editor/react";
 import type { components } from "../../../shared/types/api-specs";
 import Loading from "../../../components/Loading";
 
@@ -12,28 +15,31 @@ const EditorWrapper = (props: {
 }) => {
     const firstContents = "// Welcome to Miller!";
     const { data, isError, isLoading } = props;
-    function handleEditorWillMount(monaco: Monaco) {
-        typescript.javascriptDefaults.setEagerModelSync(true);
-        typescript.typescriptDefaults.setDiagnosticsOptions({
+    const handleEditorWillMount: BeforeMount = (monaco: Monaco) => {
+        monaco.languages.typescript.javascriptDefaults.setEagerModelSync(true);
+        monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
             noSemanticValidation: true,
             noSyntaxValidation: false,
         });
         monaco.editor.EditorOptions.readOnly.defaultValue = true;
-    }
-    function handleEditorOnMount(editor: any, monaco: Monaco) {
+    };
+    const handleEditorOnMount: OnMount = (editor) => {
         editor.addAction({
             id: "askForHelp",
             label: "AI Explain",
             keybindings: [],
             contextMenuGroupId: "9_cutcopypaste",
-            run: (editor: any) => {
-                const selection = editor
-                    .getModel()
-                    .getValueInRange(editor.getSelection());
+            run: (codeEditor) => {
+                const model = codeEditor.getModel();
+                const selectionRange = codeEditor.getSelection();
+                const selection =
+                    model && selectionRange
+                        ? model.getValueInRange(selectionRange)
+                        : "";
                 alert("Add your custom pasting code here: " + selection);
             },
         });
-    }
+    };
 
     if (isError) {
         return (

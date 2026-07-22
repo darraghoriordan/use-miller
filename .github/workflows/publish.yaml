@@ -1,55 +1,35 @@
-name: PublishRelease
+name: Publish create-miller
 on:
     push:
         branches:
             - main
+            - release/*
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
     publish:
-        if: false
         runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            issues: write
+            pull-requests: write
+            id-token: write
         steps:
             - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
               with:
                   fetch-depth: 0
-                  persist-credentials: false
-              # we pull the repo course contents outside the docker build to avoid
-              # putting ssh keys on the docker layers
-            - uses: webfactory/ssh-agent@a6f90b1f127823b31d4d4a8d96047790581349bd # v0.9.1
-              with:
-                  ssh-private-key: |
-                      ${{ secrets.MAC_SETUP_DEPLOY_KEY }}
-                      ${{ secrets.NBL_DEPLOY_KEY }}
-                      ${{ secrets.USEMILLER_DEPLOY_KEY }}
-
+            - uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4
             - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6
               with:
                   node-version-file: ".nvmrc"
-
-            - uses: pnpm/action-setup@v2
-              name: Install pnpm
-              id: pnpm-install
-              with:
-                  version: 10.27.0
-                  run_install: false
-            - name: Get pnpm store directory
-              id: pnpm-cache
-              shell: bash
-              run: |
-                  echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-            - uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5
-              name: Setup pnpm cache
-              with:
-                  path: |
-                      ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-                      ${{ github.workspace }}/apps/frontend/.next/cache
-                  key: ${{ runner.os }}-pnpm-store-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-                  restore-keys: |
-                      ${{ runner.os }}-pnpm-store-nextjs
+                  registry-url: "https://registry.npmjs.org"
+                  cache: pnpm
             - name: Install dependencies
-              run: pnpm install --frozen-lockfile -r
+              run: pnpm install --frozen-lockfile
             - run: pnpm run test
             - run: pnpm run build
             - name: Release
               env:
-                  GITHUB_TOKEN: ${{ secrets.GH_TOKEN_SM }}
-              run: npx semantic-release
+                  NPM_CONFIG_PROVENANCE: true
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: pnpm exec semantic-release

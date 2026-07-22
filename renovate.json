@@ -1,30 +1,5 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": ["github>darraghoriordan/renovate-config:base"],
-    "baseBranchPatterns": ["main"],
-    "packageRules": [
-        {
-            "description": "Pin Next.js to v15.x - v16 requires Turbopack migration (all .js imports to .ts). Rule auto-expires when manually upgraded past v15.",
-            "matchPackageNames": ["next"],
-            "matchCurrentVersion": ">=15.0.0 <16.0.0",
-            "allowedVersions": "<16.0.0"
-        },
-        {
-            "description": "Pin tailwindcss to v3.x - v4 requires manual migration (codemod crashes). Rule auto-expires when manually upgraded past v3.",
-            "matchPackageNames": ["tailwindcss"],
-            "matchCurrentVersion": ">=3.0.0 <4.0.0",
-            "allowedVersions": "<4.0.0"
-        },
-        {
-            "description": "Pin @tailwindcss/postcss - not needed for tailwind v3. Rule auto-expires when tailwind is upgraded to v4.",
-            "matchPackageNames": ["@tailwindcss/postcss"],
-            "enabled": false
-        },
-        {
-            "description": "Pin @auth0/nextjs-auth0 to v3.x - v4 requires App Router (project uses Pages Router). Rule auto-expires when manually upgraded past v3.",
-            "matchPackageNames": ["@auth0/nextjs-auth0"],
-            "matchCurrentVersion": ">=3.0.0 <4.0.0",
-            "allowedVersions": "<4.0.0"
-        }
-    ]
+    "baseBranchPatterns": ["main"]
 }

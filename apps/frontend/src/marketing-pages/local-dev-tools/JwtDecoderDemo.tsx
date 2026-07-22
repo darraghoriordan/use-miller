@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "motion/react";
 import { SecurityBadge } from "../../components/SecurityBadge";
 
 // Real JWT token (shortened for display)

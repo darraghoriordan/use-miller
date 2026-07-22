@@ -1,6 +1,5 @@
 {
     "$schema": "https://unpkg.com/knip@5/schema.json",
-    "ignoreUnresolved": ["./preRun.ts", "./testing/preRun.ts"],
     "workspaces": {
         ".": {
             "ignoreDependencies": [
@@ -11,6 +10,7 @@
                 "nx",
                 "ts-node",
                 "@semantic-release/exec",
+                "@semantic-release/npm",
                 "@typescript-eslint/eslint-plugin",
                 "@typescript-eslint/parser"
             ]
@@ -19,7 +19,7 @@
             "entry": [
                 "src/main.ts",
                 "src/instrumentation.ts",
-                "src/testing/preRun.ts",
+                "src/ai-core/ai-core.module.ts",
                 "migrations/*.ts"
             ],
             "project": ["src/**/*.ts", "migrations/**/*.ts"],
@@ -28,21 +28,17 @@
                 "@babel/core",
                 "@keyv/redis",
                 "@nestjs/devtools-integration",
-                "@opentelemetry/exporter-trace-otlp-http",
                 "@opentelemetry/host-metrics",
                 "@opentelemetry/instrumentation-express",
                 "@opentelemetry/instrumentation-nestjs-core",
                 "@opentelemetry/instrumentation-pino",
                 "@opentelemetry/sdk-trace-base",
-                "@opentelemetry/sdk-trace-node",
                 "auth0",
-                "axios",
                 "date-fns",
                 "dotenv",
                 "express",
                 "jwks-rsa",
                 "nodemailer",
-                "passport",
                 "passport-jwt",
                 "rehype-document",
                 "swagger-ui-express",
@@ -66,7 +62,7 @@
             ]
         },
         "apps/backend-e2e": {
-            "entry": ["src/**/*.e2e-spec.ts", "src/preRun.ts"],
+            "entry": ["src/**/*.e2e-spec.ts"],
             "project": ["src/**/*.ts"],
             "ignoreDependencies": [
                 "@types/express",
@@ -84,7 +80,6 @@
                 "@babel/plugin-syntax-flow",
                 "@babel/plugin-transform-react-jsx",
                 "@opentelemetry/context-zone",
-                "@opentelemetry/sdk-trace-node",
                 "@typescript-eslint/eslint-plugin",
                 "@typescript-eslint/parser",
                 "eslint-plugin-import",
@@ -100,17 +95,10 @@
                 "@next/eslint-plugin-next"
             ]
         },
-        "libs/project-setup": {
-            "entry": ["miller-setup.ts", "setup-terraform-project.ts"],
-            "project": ["*.ts"],
-            "ignoreDependencies": [
-                "@babel/core",
-                "@babel/preset-env",
-                "@babel/preset-typescript",
-                "@types/figlet",
-                "@types/inquirer",
-                "vite"
-            ]
+        "libs/project-setup": { "project": ["*.ts"] },
+        "libs/create-miller": {
+            "entry": ["prepare-template.ts"],
+            "project": ["*.ts"]
         }
     },
     "ignoreExportsUsedInFile": true

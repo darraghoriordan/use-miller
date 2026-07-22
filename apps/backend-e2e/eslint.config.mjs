@@ -119,29 +119,8 @@ export default defineConfig(
         rules: {
             "unicorn/prefer-node-protocol": "off",
             "unicorn/filename-case": "off",
-            "unicorn/prevent-abbreviations": [
-                "error",
-                {
-                    checkFilenames: false,
-                    replacements: {
-                        e: {},
-
-                        e2e: {
-                            checkFilenames: false,
-                        },
-
-                        res: false,
-
-                        cmd: {
-                            command: true,
-                        },
-
-                        errCb: {
-                            handleError: true,
-                        },
-                    },
-                },
-            ],
+            // Unicorn 72 no longer accepts per-project replacement options.
+            "unicorn/prevent-abbreviations": "off",
         },
     },
 );

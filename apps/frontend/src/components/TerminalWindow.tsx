@@ -43,32 +43,6 @@ export function TerminalWindow({
     );
 }
 
-// Variant for code display
-interface TerminalCodeProps {
-    code: string;
-    language?: string;
-    title?: string;
-    className?: string;
-}
-
-export function TerminalCode({
-    code,
-    language = "bash",
-    title,
-    className,
-}: TerminalCodeProps) {
-    return (
-        <TerminalWindow
-            title={title || `terminal ~ ${language}`}
-            className={className}
-        >
-            <pre className="font-mono text-sm text-security-light overflow-x-auto">
-                <code>{code}</code>
-            </pre>
-        </TerminalWindow>
-    );
-}
-
 // Simple terminal prompt display
 interface TerminalPromptProps {
     command: string;

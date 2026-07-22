@@ -279,6 +279,144 @@
     @apply bg-security-mid! rounded-md text-security-light;
 }
 
+/* Miller marketing surface: a practical workshop manual, not a terminal costume. */
+.miller-site {
+    --paper: oklch(0.955 0.018 78);
+    --paper-deep: oklch(0.9 0.025 76);
+    --ink: oklch(0.19 0.016 56);
+    --ink-soft: oklch(0.39 0.018 55);
+    --signal: oklch(0.67 0.2 39);
+    --signal-dark: oklch(0.53 0.18 38);
+    min-height: 100vh;
+    overflow: hidden;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Archivo", sans-serif;
+}
+
+.miller-site ::selection { background: var(--signal); color: var(--ink); }
+.miller-site a { text-decoration: none; }
+
+.miller-nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    min-height: 5rem;
+    padding: 0 clamp(1.25rem, 4vw, 4.5rem);
+    border-bottom: 1px solid color-mix(in oklch, var(--ink) 25%, transparent);
+}
+
+.miller-wordmark { display: inline-flex; align-items: center; gap: .7rem; color: var(--ink); font-size: 1.15rem; font-weight: 800; letter-spacing: -.03em; }
+.miller-mark { display: grid; place-items: center; width: 2rem; height: 2rem; background: var(--ink); color: var(--paper); font-family: "JetBrains Mono", monospace; font-size: .85rem; transform: rotate(-3deg); }
+.miller-nav-links { display: flex; gap: 2rem; font-size: .82rem; font-weight: 650; }
+.miller-nav-links a, .miller-footer a { color: var(--ink-soft); transition: color 160ms ease-out; }
+.miller-nav-links a:hover, .miller-footer a:hover { color: var(--signal-dark); }
+.miller-nav-cta { justify-self: end; display: inline-flex; align-items: center; gap: .65rem; color: var(--ink); font-size: .82rem; font-weight: 750; border-bottom: 1px solid var(--ink); padding: .4rem 0; }
+
+.miller-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(25rem, .88fr);
+    gap: clamp(3rem, 6vw, 7rem);
+    align-items: center;
+    min-height: calc(100vh - 5rem);
+    padding: clamp(4.5rem, 9vw, 8rem) clamp(1.25rem, 6vw, 7.5rem);
+}
+.miller-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .32; background-image: linear-gradient(color-mix(in oklch, var(--ink) 15%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in oklch, var(--ink) 15%, transparent) 1px, transparent 1px); background-size: 4rem 4rem; mask-image: linear-gradient(to right, transparent, black 70%); }
+.miller-hero-copy, .miller-blueprint { position: relative; z-index: 1; }
+.miller-kicker { margin: 0 0 1.5rem; font-family: "JetBrains Mono", monospace; font-size: .72rem; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+.miller-kicker::before { content: ""; display: inline-block; width: 1.6rem; height: .55rem; margin-right: .75rem; background: var(--signal); vertical-align: 0; }
+.miller-hero h1 { max-width: 13ch; margin: 0; font-size: clamp(3.8rem, 7.4vw, 8.5rem); line-height: .84; letter-spacing: -.075em; font-weight: 850; }
+.miller-hero h1 span { color: var(--signal-dark); }
+.miller-lede { max-width: 43rem; margin: 2.3rem 0 0; font-size: clamp(1.08rem, 1.55vw, 1.35rem); line-height: 1.55; color: var(--ink-soft); }
+.miller-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
+.miller-button { display: inline-flex; align-items: center; justify-content: center; gap: .8rem; min-height: 3.4rem; padding: 0 1.35rem; border: 1px solid var(--ink); color: var(--ink); font-size: .86rem; font-weight: 750; transition: transform 180ms cubic-bezier(.16,1,.3,1), box-shadow 180ms cubic-bezier(.16,1,.3,1); }
+.miller-button:hover { transform: translate(-3px, -3px); box-shadow: 4px 4px 0 var(--ink); }
+.miller-button-primary { background: var(--signal); }
+.miller-button-secondary { background: transparent; }
+.miller-trust { display: flex; flex-wrap: wrap; gap: 1.2rem 2rem; margin: 2rem 0 0; padding: 0; list-style: none; color: var(--ink-soft); font-size: .78rem; font-weight: 650; }
+.miller-trust li { display: flex; align-items: center; gap: .4rem; }
+.miller-trust svg { color: var(--signal-dark); }
+
+.miller-blueprint { padding: clamp(1.4rem, 3vw, 2.5rem); border: 1px solid var(--ink); background: color-mix(in oklch, var(--paper) 88%, transparent); box-shadow: 1rem 1rem 0 color-mix(in oklch, var(--ink) 10%, transparent); font-family: "JetBrains Mono", monospace; transform: rotate(1deg); }
+.blueprint-label { margin-bottom: 3rem; font-size: .65rem; letter-spacing: .15em; }
+.blueprint-title { padding: 1rem; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); text-align: center; font-size: clamp(1.3rem, 2.5vw, 2.4rem); font-weight: 700; letter-spacing: .08em; }
+.blueprint-product { display: grid; grid-template-columns: repeat(3, 1fr); border: solid var(--ink); border-width: 0 1px 1px; }
+.blueprint-product span { padding: .75rem .25rem; text-align: center; font-size: .64rem; }
+.blueprint-product span + span { border-left: 1px solid var(--ink); }
+.blueprint-joint { width: max-content; margin: 1.1rem auto; padding: .3rem .7rem; background: var(--paper-deep); font-size: .58rem; }
+.blueprint-base { padding: 1.2rem; border: 2px solid var(--ink); }
+.blueprint-base strong { display: block; margin-bottom: 1rem; font-size: .85rem; letter-spacing: .1em; }
+.blueprint-base div { display: grid; grid-template-columns: repeat(5, 1fr); gap: .35rem; }
+.blueprint-base span { padding: .55rem .15rem; border: 1px solid color-mix(in oklch, var(--ink) 45%, transparent); text-align: center; font-size: .52rem; }
+.blueprint-agent { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1rem; padding: .85rem; background: var(--signal); font-size: .58rem; }
+.blueprint-agent code { color: var(--ink); }
+.blueprint-stamp { width: max-content; margin: 2.5rem 0 .25rem auto; padding: .45rem .65rem; border: 3px double var(--signal-dark); color: var(--signal-dark); font-weight: 800; font-size: .67rem; transform: rotate(-5deg); }
+
+.miller-statement { padding: clamp(5rem, 10vw, 10rem) clamp(1.25rem, 9vw, 12rem); background: var(--ink); color: var(--paper); }
+.miller-statement p { margin: 0 0 1.25rem; color: var(--signal); font-family: "JetBrains Mono", monospace; font-size: .78rem; }
+.miller-statement h2 { max-width: 24ch; margin: 0; font-size: clamp(2.2rem, 5vw, 5.8rem); line-height: 1.03; letter-spacing: -.055em; }
+
+.miller-system, .miller-workflow { padding: clamp(5rem, 9vw, 9rem) clamp(1.25rem, 7vw, 8rem); }
+.miller-section-heading { display: grid; grid-template-columns: minmax(8rem, .35fr) 1fr; gap: 2rem; align-items: start; }
+.miller-section-heading > span { padding-top: .8rem; font-family: "JetBrains Mono", monospace; font-size: .68rem; font-weight: 700; letter-spacing: .12em; }
+.miller-section-heading h2 { max-width: 18ch; margin: 0; font-size: clamp(2.3rem, 4.6vw, 5rem); line-height: .98; letter-spacing: -.055em; }
+.miller-capabilities { margin-top: clamp(4rem, 8vw, 8rem); border-top: 1px solid var(--ink); }
+.miller-capabilities article { display: grid; grid-template-columns: minmax(8rem, .35fr) .55fr 1fr; gap: 2rem; align-items: baseline; padding: 1.7rem 0; border-bottom: 1px solid color-mix(in oklch, var(--ink) 30%, transparent); }
+.miller-capabilities article > span { font-family: "JetBrains Mono", monospace; font-size: .68rem; }
+.miller-capabilities h3 { margin: 0; font-size: 1.25rem; }
+.miller-capabilities p { margin: 0; color: var(--ink-soft); }
+.miller-receipt { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2rem, 7vw, 8rem); align-items: center; margin-top: clamp(5rem, 10vw, 10rem); }
+.receipt-copy > p:first-child { font-family: "JetBrains Mono", monospace; font-size: .7rem; font-weight: 700; text-transform: uppercase; }
+.receipt-copy h3 { margin: 1rem 0; font-size: clamp(2rem, 4vw, 4.2rem); line-height: 1; letter-spacing: -.05em; }
+.receipt-copy > p:last-child { max-width: 34rem; color: var(--ink-soft); font-size: 1.05rem; line-height: 1.65; }
+.miller-receipt pre { overflow-x: auto; margin: 0; padding: clamp(1.5rem, 4vw, 3rem); background: var(--ink); color: var(--paper); border-radius: 0; box-shadow: .8rem .8rem 0 var(--signal); font-family: "JetBrains Mono", monospace; font-size: clamp(.72rem, 1.2vw, .9rem); line-height: 1.9; }
+.miller-receipt code span, .miller-receipt code b { color: var(--signal); }
+
+.miller-workflow { background: var(--paper-deep); }
+.miller-steps { margin-top: clamp(4rem, 8vw, 7rem); }
+.miller-steps article { display: grid; grid-template-columns: minmax(8rem, .35fr) 1fr; gap: 2rem; padding: 2rem 0; border-top: 1px solid var(--ink); }
+.miller-steps article > span { color: var(--signal-dark); font-family: "JetBrains Mono", monospace; font-size: 1rem; }
+.miller-steps h3 { margin: 0 0 .5rem; font-size: clamp(1.6rem, 3vw, 2.8rem); letter-spacing: -.04em; }
+.miller-steps p { max-width: 42rem; margin: 0; color: var(--ink-soft); line-height: 1.6; }
+
+.miller-quickstart { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem, 8vw, 9rem); padding: clamp(5rem, 10vw, 10rem) clamp(1.25rem, 7vw, 8rem); background: var(--signal); }
+.miller-quickstart h2 { max-width: 14ch; margin: 0; font-size: clamp(2.5rem, 5.5vw, 6rem); line-height: .93; letter-spacing: -.06em; }
+.miller-command { align-self: center; display: flex; flex-direction: column; border: 1px solid var(--ink); background: var(--paper); box-shadow: .8rem .8rem 0 var(--ink); }
+.miller-command > span { padding: .8rem 1rem; border-bottom: 1px solid var(--ink); font-family: "JetBrains Mono", monospace; font-size: .65rem; font-weight: 700; }
+.miller-command code { overflow-x: auto; padding: .75rem 1rem; border-bottom: 1px solid color-mix(in oklch, var(--ink) 20%, transparent); color: var(--ink); font-family: "JetBrains Mono", monospace; font-size: .7rem; }
+.miller-command a { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem; color: var(--ink); font-weight: 750; }
+.miller-footer { display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center; padding: 2.5rem clamp(1.25rem, 4vw, 4.5rem); background: var(--ink); color: var(--paper); }
+.miller-footer .miller-wordmark { color: var(--paper); }
+.miller-footer .miller-mark { background: var(--signal); color: var(--ink); }
+.miller-footer p { margin: 0; color: color-mix(in oklch, var(--paper) 65%, transparent); font-size: .75rem; text-align: center; }
+.miller-footer > div:last-child { justify-self: end; display: flex; gap: 1.5rem; font-size: .75rem; }
+.miller-footer a { color: var(--paper); }
+
+@media (max-width: 900px) {
+    .miller-nav { grid-template-columns: 1fr auto; }
+    .miller-nav-links { display: none; }
+    .miller-hero { grid-template-columns: 1fr; }
+    .miller-blueprint { max-width: 42rem; }
+    .miller-receipt, .miller-quickstart { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+    .miller-nav-cta { font-size: .75rem; }
+    .miller-hero { min-height: auto; }
+    .miller-hero h1 { font-size: clamp(3.35rem, 15.5vw, 4.25rem); }
+    .miller-section-heading, .miller-capabilities article, .miller-steps article { grid-template-columns: 1fr; gap: .8rem; }
+    .miller-capabilities article { padding: 1.5rem 0; }
+    .miller-footer { grid-template-columns: 1fr; }
+    .miller-footer p { text-align: left; }
+    .miller-footer > div:last-child { justify-self: start; }
+    .blueprint-agent { flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .miller-site *, .miller-site *::before, .miller-site *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+
 .selected-node-wrapper:focus-within {
     @apply bg-security-mid rounded-md text-security-light;
 }

@@ -1,16 +1,15 @@
 import { Hero } from "../marketing-pages/index-home/Hero";
-import Layout from "../components/Layout";
+import SEO from "../components/SEO";
 
 export default function Home() {
     return (
-        <Layout
-            seoDescription="Developer tools for secure teams: local-first utilities, reproducible dev environments, and a production-ready NestJS starter."
-            seoTitle="Developer Tools for Secure Teams"
-            canonicalUrl="https://usemiller.dev/"
-            headerTitle="Miller Dev Tools"
-            themeColor="violet"
-        >
+        <>
+            <SEO
+                title="Miller | The production app foundation your AI agent can operate"
+                description="Build on authentication, billing, jobs, email, observability, and an explicit agent contract. Miller is the production TypeScript foundation agents can extend and verify."
+                canonicalUrl="https://usemiller.dev/"
+            />
             <Hero />
-        </Layout>
+        </>
     );
 }

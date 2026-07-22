@@ -71,26 +71,6 @@ export function SecurityBadge({
 }
 
 // Trust badges row component
-interface TrustBadgesProps {
-    className?: string;
-}
-
-export function TrustBadges({ className }: TrustBadgesProps) {
-    return (
-        <div className={clsx("flex flex-wrap items-center gap-3", className)}>
-            <SecurityBadge icon="lock" variant="accent">
-                Local Processing
-            </SecurityBadge>
-            <SecurityBadge icon="code" variant="accent">
-                Open Source
-            </SecurityBadge>
-            <SecurityBadge icon="shield" variant="accent">
-                Zero Data Collection
-            </SecurityBadge>
-        </div>
-    );
-}
-
 // GitHub stars badge
 interface GitHubStarsBadgeProps {
     stars: number;

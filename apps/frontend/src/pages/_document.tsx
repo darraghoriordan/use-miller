@@ -13,10 +13,9 @@ export default function Document(props: any) {
                     href="https://fonts.gstatic.com"
                     crossOrigin="anonymous"
                 />
-                {/* IBM Plex Sans for body, JetBrains Mono for display/code */}
                 <link
                     rel="stylesheet"
-                    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+                    href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
                 />
             </Head>
 

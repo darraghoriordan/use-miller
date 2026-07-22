@@ -1,0 +1,4 @@
+interface:
+  display_name: "Miller App Builder"
+  short_description: "Build and extend Miller production applications"
+  default_prompt: "Use $use-miller to inspect this project and add a verified application capability."

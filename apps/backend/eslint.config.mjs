@@ -9,7 +9,13 @@ import tseslint, { parser } from "typescript-eslint";
 // eslint-disable-next-line @typescript-eslint/no-deprecated -- config() is correct for typescript-eslint 8.x
 export default tseslint.config(
     {
-        ignores: ["**/.eslintrc.cjs", "**/dist", "**/node_modules"],
+        ignores: [
+            "**/.eslintrc.cjs",
+            "**/*.cjs",
+            "**/*.mjs",
+            "**/dist",
+            "**/node_modules",
+        ],
     },
     eslint.configs.recommended,
     tseslint.configs.strictTypeChecked,
@@ -102,29 +108,9 @@ export default tseslint.config(
         rules: {
             "unicorn/prefer-node-protocol": "off",
             "unicorn/filename-case": "off",
-            "unicorn/prevent-abbreviations": [
-                "error",
-                {
-                    checkFilenames: false,
-                    replacements: {
-                        e: {},
-
-                        e2e: {
-                            checkFilenames: false,
-                        },
-
-                        res: false,
-
-                        cmd: {
-                            command: true,
-                        },
-
-                        errCb: {
-                            handleError: true,
-                        },
-                    },
-                },
-            ],
+            // Unicorn 72 removed the configurable replacements API. Project naming is
+            // governed by AGENTS.md and the TypeScript lint rules instead.
+            "unicorn/prevent-abbreviations": "off",
         },
     },
 );

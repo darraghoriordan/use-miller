@@ -1,0 +1,44 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://usemiller.dev/schema/miller.schema.json",
+    "title": "Miller project configuration",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["schemaVersion", "project", "runtime", "applications", "capabilities"],
+    "properties": {
+        "$schema": { "type": "string" },
+        "schemaVersion": { "const": 1 },
+        "project": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "slug"],
+            "properties": {
+                "name": { "type": "string", "minLength": 1 },
+                "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" }
+            }
+        },
+        "runtime": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["node", "packageManager"],
+            "properties": {
+                "node": { "type": "string" },
+                "packageManager": { "type": "string", "pattern": "^pnpm@" }
+            }
+        },
+        "applications": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["backend", "frontend"],
+            "properties": {
+                "backend": { "type": "string" },
+                "frontend": { "type": "string" }
+            }
+        },
+        "capabilities": {
+            "type": "object",
+            "additionalProperties": { "type": "boolean" },
+            "required": ["auth", "billing", "email", "jobs", "observability", "ai"]
+        }
+    }
+}

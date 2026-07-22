@@ -1,0 +1,47 @@
+{
+    "name": "create-miller",
+    "version": "0.1.0",
+    "description": "Create an agent-ready Miller application",
+    "license": "UNLICENSED",
+    "type": "module",
+    "engines": {
+        "node": ">=24.0.0"
+    },
+    "bin": {
+        "create-miller": "dist/create-miller.js"
+    },
+    "files": [
+        "dist/create-miller.js",
+        "dist/create-miller.d.ts",
+        "template"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/darraghoriordan/use-miller.git",
+        "directory": "libs/create-miller"
+    },
+    "homepage": "https://usemiller.dev/",
+    "publishConfig": {
+        "access": "public",
+        "provenance": true
+    },
+    "scripts": {
+        "build": "pnpm rimraf dist && tsc",
+        "test": "pnpm run build && vitest run",
+        "prepack": "pnpm run build && node dist/prepare-template.js",
+        "postpack": "node dist/prepare-template.js --clean"
+    },
+    "devDependencies": {
+        "@types/node": "25.9.0",
+        "typescript": "5.9.3",
+        "vitest": "4.1.10"
+    },
+    "keywords": [
+        "starter",
+        "saas",
+        "ai",
+        "codex",
+        "nestjs",
+        "nextjs"
+    ]
+}

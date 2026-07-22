@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "target": "ES2022",
+        "module": "ES2022",
+        "moduleResolution": "Bundler",
+        "outDir": "dist",
+        "strict": true,
+        "types": ["node", "vitest/globals"],
+        "lib": ["ES2022"]
+    },
+    "exclude": ["dist", "node_modules", "template"]
+}

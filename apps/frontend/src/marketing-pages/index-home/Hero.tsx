@@ -1,204 +1,270 @@
-"use client";
-
-import { Container } from "../../components/Container";
-import { GitHubIcon } from "../../components/GithubIcon";
-import {
-    TypewriterText,
-    AnimatedHeadline,
-    FadeInOnScroll,
-    StaggerContainer,
-    StaggerItem,
-    ScanLine,
-} from "../../components/Animations";
-import { TrustBadges } from "../../components/SecurityBadge";
-import { SingleProductCard } from "./SingleProductCard";
-import { OpenSourceSection } from "./OpenSourceSection";
-import { ThemeColor } from "../../styles/themeColors";
-import {
-    TerminalWindow,
-    TerminalPrompt,
-} from "../../components/TerminalWindow";
 import Link from "next/link";
 
-export interface HeroProduct {
-    colorVariant: ThemeColor;
-    title: string;
-    blurb: string;
-    benefits: string[];
-    learnMoreLinkUrl: string;
-    learnMoreLinkText: string;
-    altLinkText: string;
-    altLink: string;
-    altAltLinkText?: string;
-    altAltLink?: string;
-    githubUrl?: string;
-    stars?: number;
+const capabilities = [
+    ["Identity", "Auth, organizations, roles, and invitations"],
+    ["Revenue", "Subscriptions, webhooks, and customer billing"],
+    ["Operations", "Jobs, email, telemetry, and health checks"],
+    ["Agent contract", "A manifest, commands, rules, and verification"],
+];
+
+const steps = [
+    [
+        "01",
+        "Create",
+        "Generate one supported application foundation, not a bag of disconnected snippets.",
+    ],
+    [
+        "02",
+        "Give your agent the brief",
+        "Miller exposes the architecture and enabled capabilities in a format agents can inspect.",
+    ],
+    [
+        "03",
+        "Verify the work",
+        "Run narrow checks after every change, then use the full build before you ship.",
+    ],
+];
+
+function ArrowIcon() {
+    return (
+        <svg
+            aria-hidden="true"
+            viewBox="0 0 20 20"
+            className="h-4 w-4 fill-none stroke-current stroke-2"
+        >
+            <path d="M3 10h13M11 5l5 5-5 5" />
+        </svg>
+    );
+}
+
+function CheckIcon() {
+    return (
+        <svg
+            aria-hidden="true"
+            viewBox="0 0 20 20"
+            className="h-5 w-5 fill-none stroke-current stroke-2"
+        >
+            <path d="m4 10 4 4 8-9" />
+        </svg>
+    );
 }
 
 export function Hero() {
-    const products: HeroProduct[] = [
-        {
-            title: "Dev Shell",
-            blurb: "Reproducible, auditable dev environments",
-            learnMoreLinkUrl: "/dev-shell",
-            learnMoreLinkText: "Explore Dev Shell",
-            altLinkText: "Preview source",
-            altLink:
-                "/docs/dev-shell/reference/dev-shell-scripts/L1JFQURNRS5tZA==",
-            benefits: [
-                "Set up a new machine in minutes with tested scripts",
-                "50+ pre-configured modern developer tools",
-                "Consistent shell experience on Mac and Windows WSL",
-                "Full source code access - customize to your needs",
-            ],
-            colorVariant: "devshell",
-        },
-        {
-            title: "Local Dev Tools",
-            blurb: "Keep your data local. Zero cloud dependencies.",
-            learnMoreLinkUrl: "/local-dev-tools",
-            learnMoreLinkText: "Try free",
-            altLinkText: "Preview source",
-            altLink:
-                "/docs/local-dev-tools/reference/ssh-tool-new-electron/L3NyYy9hcHAvaW5kZXgudHN4",
-            altAltLinkText: "Download now",
-            altAltLink: "/local-dev-tools#download",
-            benefits: [
-                "Offline utilities for Git, SSH, and development",
-                "Your business data never leaves your machine",
-                "Universal app for Mac and Windows",
-                "Perpetual license - not a SaaS subscription",
-            ],
-            colorVariant: "localtools",
-        },
-        {
-            title: "Miller Start",
-            blurb: "Security-first NestJS template with hardened defaults",
-            githubUrl: "https://github.com/darraghoriordan/use-miller",
-            learnMoreLinkUrl: "/miller-start",
-            learnMoreLinkText: "Explore template",
-            altLinkText: "Preview source",
-            altLink: "/docs/miller-start/reference/miller-web/L1JFQURNRS5tZA==",
-            stars: 50,
-            benefits: [
-                "Full-stack NestJS + Next.js + PostgreSQL starter",
-                "Auth0, Stripe, and OpenTelemetry pre-configured",
-                "Security best practices built-in from day one",
-                "Complete with Terraform infrastructure scripts",
-            ],
-            colorVariant: "millerstart",
-        },
-    ];
-
     return (
-        <div className="relative overflow-hidden">
-            {/* Background effects */}
-            <div className="absolute inset-0 bg-grid opacity-30" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-security-black" />
-            <ScanLine />
+        <div className="miller-site">
+            <header className="miller-nav">
+                <Link
+                    href="/"
+                    className="miller-wordmark"
+                    aria-label="Miller home"
+                >
+                    <span className="miller-mark" aria-hidden="true">
+                        M
+                    </span>
+                    <span>Miller</span>
+                </Link>
+                <nav
+                    aria-label="Primary navigation"
+                    className="miller-nav-links"
+                >
+                    <a href="#system">Product</a>
+                    <a href="#workflow">How it works</a>
+                    <Link href="/docs">Docs</Link>
+                    <a href="https://github.com/darraghoriordan/use-miller">
+                        GitHub
+                    </a>
+                </nav>
+                <a className="miller-nav-cta" href="#quickstart">
+                    Create an app <ArrowIcon />
+                </a>
+            </header>
 
-            <Container className="relative pt-16 md:pt-24 pb-16">
-                {/* Hero Section */}
-                <div className="max-w-4xl">
-                    <AnimatedHeadline delay={0.1}>
-                        <div className="mb-6">
-                            <span className="font-mono text-sm text-accent uppercase tracking-wider">
-                                Secure Developer Tools
-                            </span>
-                        </div>
-                    </AnimatedHeadline>
-
-                    <AnimatedHeadline delay={0.2}>
-                        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-security-light leading-tight tracking-tight">
-                            <span className="hidden md:inline">
-                                <TypewriterText
-                                    text="Build with confidence."
-                                    speed={60}
-                                    delay={500}
-                                />
-                            </span>
-                            <span className="md:hidden">
-                                Build with confidence.
-                            </span>
-                        </h1>
-                    </AnimatedHeadline>
-
-                    <AnimatedHeadline delay={0.4}>
-                        <p className="mt-6 text-lg md:text-xl text-security-text max-w-2xl leading-relaxed">
-                            Developer tools for security-conscious teams.
-                            Local-first processing, source transparency, and
-                            zero data collection.
+            <main>
+                <section className="miller-hero">
+                    <div className="miller-hero-copy">
+                        <p className="miller-kicker">
+                            Application foundation for agent-led development
                         </p>
-                    </AnimatedHeadline>
-
-                    <AnimatedHeadline delay={0.6}>
-                        <div className="mt-8">
-                            <TrustBadges />
-                        </div>
-                    </AnimatedHeadline>
-
-                    <AnimatedHeadline delay={0.8}>
-                        <div className="mt-10 flex flex-wrap items-center gap-4">
-                            <Link
-                                href="#products"
-                                className="inline-flex items-center px-6 py-3 font-mono text-sm bg-accent text-security-black rounded-md hover:bg-accent-dim transition-all hover:shadow-glow"
-                            >
-                                Explore Tools
-                                <span className="ml-2">↓</span>
-                            </Link>
+                        <h1>
+                            Build the app.
+                            <br />
+                            <span>Keep the foundation.</span>
+                        </h1>
+                        <p className="miller-lede">
+                            Miller gives your coding agent a production
+                            application, an explicit architecture, and safe
+                            commands for extending it. You build what makes the
+                            business different.
+                        </p>
+                        <div className="miller-actions">
                             <a
-                                href="https://github.com/darraghoriordan"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 px-6 py-3 font-mono text-sm text-security-light border border-security-border rounded-md hover:border-accent/50 hover:text-accent transition-all"
+                                href="#quickstart"
+                                className="miller-button miller-button-primary"
                             >
-                                <GitHubIcon className="h-4 w-4 fill-current" />
-                                View on GitHub
+                                Create a Miller app <ArrowIcon />
+                            </a>
+                            <a
+                                href="#workflow"
+                                className="miller-button miller-button-secondary"
+                            >
+                                See the workflow
                             </a>
                         </div>
-                    </AnimatedHeadline>
-                </div>
+                        <ul
+                            className="miller-trust"
+                            aria-label="Miller principles"
+                        >
+                            <li>
+                                <CheckIcon /> Ordinary TypeScript
+                            </li>
+                            <li>
+                                <CheckIcon /> No runtime lock-in
+                            </li>
+                            <li>
+                                <CheckIcon /> Agent-verifiable
+                            </li>
+                        </ul>
+                    </div>
 
-                {/* Terminal Demo */}
-                <FadeInOnScroll
-                    delay={0.2}
-                    className="mt-16 md:mt-24 max-w-3xl"
-                >
-                    <TerminalWindow title="~/projects">
-                        <TerminalPrompt
-                            command="pnpm run mill:init"
-                            output={`[OK] Terraform Synced
-[OK] Dependencies installed
-[OK] Stripe configured
-[OK] Organization setup complete
-[OK] Ready for development`}
-                        />
-                    </TerminalWindow>
-                </FadeInOnScroll>
-
-                {/* Products Section */}
-                <section id="products" className="mt-24 md:mt-32">
-                    <FadeInOnScroll>
-                        <div className="flex items-center gap-4 mb-12">
-                            <h2 className="font-display text-2xl md:text-3xl text-security-light">
-                                Products
-                            </h2>
-                            <div className="h-px flex-1 bg-security-border" />
+                    <div
+                        className="miller-blueprint"
+                        aria-label="Miller application architecture"
+                    >
+                        <div className="blueprint-label">APPLICATION / 001</div>
+                        <div className="blueprint-title">YOUR PRODUCT</div>
+                        <div className="blueprint-product">
+                            <span>domain</span>
+                            <span>workflows</span>
+                            <span>experience</span>
                         </div>
-                    </FadeInOnScroll>
-
-                    <StaggerContainer className="space-y-8" staggerDelay={0.15}>
-                        {products.map((product) => (
-                            <StaggerItem key={product.title}>
-                                <SingleProductCard {...product} />
-                            </StaggerItem>
-                        ))}
-                    </StaggerContainer>
+                        <div className="blueprint-joint">built on</div>
+                        <div className="blueprint-base">
+                            <strong>MILLER FOUNDATION</strong>
+                            <div>
+                                <span>AUTH</span>
+                                <span>BILLING</span>
+                                <span>JOBS</span>
+                                <span>EMAIL</span>
+                                <span>OBSERVE</span>
+                            </div>
+                        </div>
+                        <div className="blueprint-agent">
+                            <span>AGENT INTERFACE</span>
+                            <code>describe · doctor · add · verify</code>
+                        </div>
+                        <div className="blueprint-stamp">OWN THE CODE</div>
+                    </div>
                 </section>
 
-                {/* Open Source Section - Free & Open Source */}
-                <OpenSourceSection />
-            </Container>
+                <section className="miller-statement">
+                    <p>AI can generate a prototype.</p>
+                    <h2>
+                        It should not invent your permissions, billing model,
+                        and production conventions every time it opens the
+                        repository.
+                    </h2>
+                </section>
+
+                <section id="system" className="miller-system">
+                    <div className="miller-section-heading">
+                        <span>THE SYSTEM</span>
+                        <h2>
+                            A foundation your agent can read, change, and prove.
+                        </h2>
+                    </div>
+                    <div className="miller-capabilities">
+                        {capabilities.map(([title, description], index) => (
+                            <article key={title}>
+                                <span>
+                                    {String(index + 1).padStart(2, "0")}
+                                </span>
+                                <h3>{title}</h3>
+                                <p>{description}</p>
+                            </article>
+                        ))}
+                    </div>
+                    <div className="miller-receipt">
+                        <div className="receipt-copy">
+                            <p>Not another magic layer</p>
+                            <h3>The CLI leaves a receipt.</h3>
+                            <p>
+                                Commands support dry runs and structured output.
+                                The result is inspectable application code that
+                                keeps working without Miller running.
+                            </p>
+                        </div>
+                        <pre aria-label="Example Miller doctor output">
+                            <code>
+                                <span>$</span> pnpm mill doctor{"\n\n"}
+                                <b>PASS</b> runtime.node{"\n"}
+                                <b>PASS</b> workspace.lockfile{"\n"}
+                                <b>PASS</b> backend.envTemplate{"\n"}
+                                <b>PASS</b> frontend.envTemplate{"\n"}
+                                <b>PASS</b> capability.ai{"\n\n"}6 checks
+                                passed. Ready to build.
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <section id="workflow" className="miller-workflow">
+                    <div className="miller-section-heading">
+                        <span>THE WORKFLOW</span>
+                        <h2>From blank directory to useful work.</h2>
+                    </div>
+                    <div className="miller-steps">
+                        {steps.map(([number, title, description]) => (
+                            <article key={number}>
+                                <span>{number}</span>
+                                <div>
+                                    <h3>{title}</h3>
+                                    <p>{description}</p>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+
+                <section id="quickstart" className="miller-quickstart">
+                    <div>
+                        <p className="miller-kicker">
+                            Start with the real thing
+                        </p>
+                        <h2>
+                            Your next prompt should build the product, not
+                            rebuild the plumbing.
+                        </h2>
+                    </div>
+                    <div className="miller-command">
+                        <span>QUICK START</span>
+                        <code>
+                            git clone
+                            https://github.com/darraghoriordan/use-miller my-app
+                        </code>
+                        <code>cd my-app &amp;&amp; pnpm install</code>
+                        <code>pnpm mill doctor</code>
+                        <a href="https://github.com/darraghoriordan/use-miller">
+                            Open Miller on GitHub <ArrowIcon />
+                        </a>
+                    </div>
+                </section>
+            </main>
+
+            <footer className="miller-footer">
+                <div className="miller-wordmark">
+                    <span className="miller-mark">M</span>
+                    <span>Miller</span>
+                </div>
+                <p>
+                    Production foundations for developers who build with agents.
+                </p>
+                <div>
+                    <Link href="/docs">Docs</Link>
+                    <a href="https://github.com/darraghoriordan/use-miller">
+                        GitHub
+                    </a>
+                </div>
+            </footer>
         </div>
     );
 }

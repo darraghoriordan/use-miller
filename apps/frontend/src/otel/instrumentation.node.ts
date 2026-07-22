@@ -1,4 +1,3 @@
-import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
 import { NodeSDK } from "@opentelemetry/sdk-node";
 import { resourceFromAttributes } from "@opentelemetry/resources";
 import { ATTR_SERVICE_NAME } from "@opentelemetry/semantic-conventions";
@@ -22,23 +21,6 @@ const sdk = new NodeSDK({
     }),
     traceExporter,
     sampler,
-    instrumentations: [
-        ...getNodeAutoInstrumentations({
-            "@opentelemetry/instrumentation-fs": {
-                enabled: false, // very noisy
-            },
-            "@opentelemetry/instrumentation-dns": {
-                enabled: false, // reduces noise
-            },
-            "@opentelemetry/instrumentation-net": {
-                enabled: false, // reduces noise
-            },
-            // Disable instrumentations that require optional dependencies
-            "@opentelemetry/instrumentation-winston": {
-                enabled: false,
-            },
-        }),
-    ],
 });
 console.log("starting otel instrumentation...");
 

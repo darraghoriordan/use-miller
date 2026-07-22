@@ -1,0 +1,24 @@
+{
+    "$schema": "./libs/project-setup/miller.schema.json",
+    "schemaVersion": 1,
+    "project": {
+        "name": "Use Miller",
+        "slug": "use-miller"
+    },
+    "runtime": {
+        "node": "24.x",
+        "packageManager": "pnpm@10.27.0"
+    },
+    "applications": {
+        "backend": "apps/backend",
+        "frontend": "apps/frontend"
+    },
+    "capabilities": {
+        "auth": true,
+        "billing": true,
+        "email": true,
+        "jobs": true,
+        "observability": true,
+        "ai": false
+    }
+}
