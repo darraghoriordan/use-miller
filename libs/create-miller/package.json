@@ -22,8 +22,7 @@
     },
     "homepage": "https://usemiller.dev/",
     "publishConfig": {
-        "access": "public",
-        "provenance": true
+        "access": "public"
     },
     "scripts": {
         "build": "pnpm rimraf dist && tsc",
