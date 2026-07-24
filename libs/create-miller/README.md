@@ -17,7 +17,7 @@ pnpm create miller@latest my-app \
 ```
 
 Use `--no-install` to create the project without installing dependencies or running
-`mill doctor`.
+`mill doctor`..
 
 ## Maintainer workflow
 

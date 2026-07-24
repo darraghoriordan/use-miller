@@ -1,10 +1,10 @@
-# Use postgres/example user/password credentials
-# run with: docker-compose -f stack.yml up
+# Local development infrastructure.
+# Run from this directory with: docker compose up
 
 services:
     db:
         container_name: ${COMPOSE_PROJECT_NAME}_postgres
-        image: postgres:14.20-alpine
+        image: postgres:14.23-alpine3.23
         restart: "no"
         deploy:
             resources:
@@ -23,7 +23,7 @@ services:
             - PGDATA=/var/lib/postgresql/data/pgdata
     redis:
         container_name: ${COMPOSE_PROJECT_NAME}_redis
-        image: redis:8-alpine
+        image: redis:8.8.0-alpine3.23
         restart: "no"
         deploy:
             resources:
@@ -36,40 +36,25 @@ services:
             - ./.docker-compose/volumes/redis:/data
         environment:
             - REDIS_REPLICATION_MODE=master
-    # Jaeger
     jaeger-all-in-one:
         container_name: ${COMPOSE_PROJECT_NAME}_jaeger
-        image: jaegertracing/all-in-one:latest
+        image: jaegertracing/jaeger:2.19.0
         restart: "no"
-        environment:
-            - COLLECTOR_OTLP_ENABLED=true
         deploy:
             resources:
                 limits:
                     memory: 400M
         ports:
-            - "16685:16685" # jaeger-query grpc for the admin ui
-            - "16686:16686" # jaeger-query http for the admin ui
-            # - "14250:14250" # Used by jaeger-agent to send spans in model.proto format.
-            # - "14268:14268" # jaeger thrift protocol
-            - "14269:14269" # Admin port: health check at / and metrics at /metrics.
-            # - "6831:6831/udp" # jaeger thrift protocol
-            # - "6832:6832/udp" # jaeger thrift protocol
-            # - "5778:5778" # remote sampling
-            # don't have to expose these. internal only
-            #- "16687:4317" # for forwarding traces in otlp to jaeger (grpc)
-            #- "16688:4318" # for forwarding otlp traces to jaeger (http)
-    # Collector
+            - "16686:16686" # Jaeger UI
     otel-collector:
         container_name: ${COMPOSE_PROJECT_NAME}_otel_collector
-        image: otel/opentelemetry-collector:latest
+        image: otel/opentelemetry-collector:0.153.0
         restart: "no"
         deploy:
             resources:
                 limits:
                     memory: 400M
-        command:
-            ["--config=/etc/otel-collector-config.yaml", "${OTELCOL_ARGS:-}"]
+        command: ["--config=/etc/otel-collector-config.yaml"]
         volumes:
             - ./infrastructure/otel-collector-config.yaml:/etc/otel-collector-config.yaml
         ports:
@@ -84,7 +69,7 @@ services:
             - jaeger-all-in-one
     prometheus:
         container_name: ${COMPOSE_PROJECT_NAME}_prometheus
-        image: prom/prometheus:latest
+        image: prom/prometheus:v3.12.0
         restart: "no"
         deploy:
             resources:

@@ -2,16 +2,16 @@ packages:
     - apps/*
     - libs/*
 
-onlyBuiltDependencies:
-    - "@nestjs/core"
-    - "@scarf/scarf"
-    - "@swc/core"
-    - core-js
-    - esbuild
-    - msgpackr-extract
-    - nestjs-pino
-    - nx
-    - protobufjs
-    - sharp
-    - unrs-resolver
-    - vscode-material-icon-theme-js
+allowBuilds:
+    "@nestjs/core": true
+    "@scarf/scarf": true
+    "@swc/core": true
+    core-js: true
+    esbuild: true
+    msgpackr-extract: true
+    nestjs-pino: true
+    nx: true
+    protobufjs: true
+    sharp: true
+    unrs-resolver: true
+    vscode-material-icon-theme-js: true

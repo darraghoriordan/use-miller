@@ -17,8 +17,6 @@ exporters:
             enabled: true
         enable_open_metrics: true
 
-    logging:
-
     otlp:
         endpoint: jaeger-all-in-one:4317
         tls:

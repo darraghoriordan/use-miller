@@ -7,7 +7,7 @@ operate safely.
 
 ## Quick start
 
-Requirements: Node.js 24, pnpm 10, Docker, an Auth0 tenant, and a Stripe account when
+Requirements: Node.js 24, pnpm 11, Docker, an Auth0 tenant, and a Stripe account when
 billing is enabled.
 
 After `create-miller` is published, a fresh application can be created from anywhere:

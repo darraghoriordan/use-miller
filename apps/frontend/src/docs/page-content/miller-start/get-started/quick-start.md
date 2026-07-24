@@ -9,8 +9,8 @@ This is the quick start. See the full installation instructions for more detail 
 ## Minimum requirements
 
 ```
-node >=18
-pnpm >=7.0.0
+node >=24.0.0
+pnpm >=11.0.0
 docker desktop @ latest
 terraform >=0.14.0
 ```

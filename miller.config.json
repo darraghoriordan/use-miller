@@ -7,7 +7,7 @@
     },
     "runtime": {
         "node": "24.x",
-        "packageManager": "pnpm@10.27.0"
+        "packageManager": "pnpm@11.17.0"
     },
     "applications": {
         "backend": "apps/backend",

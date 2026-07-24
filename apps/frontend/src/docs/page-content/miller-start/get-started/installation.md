@@ -21,15 +21,15 @@ git remote rm miller_repo
 ## 2. Minimum requirements
 
 ```
-node >=20
-pnpm >=7.0.0
+node >=24.0.0
+pnpm >=11.0.0
 docker desktop @ latest
 terraform >=0.14.0
 ```
 
 ### Node versions and nvm
 
-As of writing, this the project uses node 20. I recommend using nvm to manage your node versions and the project has an .nvmrc to help with this.
+The project uses Node.js 24. I recommend using nvm to manage Node.js versions; the included `.nvmrc` selects the exact supported release.
 
 Install nvm with
 
