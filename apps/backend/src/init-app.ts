@@ -1,15 +1,29 @@
 import "reflect-metadata";
-import { INestApplication } from "@nestjs/common";
 import {
     CoreModule,
     CoreConfigurationService,
 } from "@darraghor/nest-backend-libs";
 import { MainModule } from "./main.module.js";
+import { synchronizeConfiguredAdminUsers } from "./auth/auth.js";
 
-CoreModule.initApplication(MainModule, async (app: INestApplication) => {
-    const configService: CoreConfigurationService = app.get(
-        CoreConfigurationService,
-    );
+CoreModule.initApplication(
+    MainModule,
+    async (app) => {
+        const configService: CoreConfigurationService = app.get(
+            CoreConfigurationService,
+        );
 
-    await app.listen(configService.webPort, "0.0.0.0");
-});
+        await synchronizeConfiguredAdminUsers();
+        await app.listen(configService.webPort, "0.0.0.0");
+    },
+    {
+        bodyParser: false,
+        preMiddleware: (app) => {
+            const configService = app.get(CoreConfigurationService);
+            app.enableCors({
+                origin: [configService.frontEndAppUrl],
+                credentials: true,
+            });
+        },
+    },
+);

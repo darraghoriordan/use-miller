@@ -14,6 +14,8 @@ e.g. `pnpm run test:e emailClient`
 
 Some tests try to clean up the database completely after themselves.
 
-This means each test run creates a new user or set of users. Auth0 limits the calls to their /userinfo endpoint to 5 every minute for one user. So you cannot run the suite of tests without hitting this limit.
+The test harness creates its Better Auth users idempotently and signs in through the local
+backend. It uses signed bearer tokens so API clients exercise the same transport available to
+browser SPAs and streaming requests.
 
 Run the tests one at a time or in small batches.

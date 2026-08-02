@@ -4,8 +4,7 @@ import { Popover, Transition } from "@headlessui/react";
 import clsx from "clsx";
 import { Container } from "./Container";
 import { NavLink } from "./NavLink";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { User } from "@auth0/nextjs-auth0/types";
+import { authClient } from "../lib/auth-client";
 import { colorVariants, ThemeColor } from "../styles/themeColors";
 import { getSignUpUrl } from "./signupUrl";
 import {
@@ -100,7 +99,7 @@ export const MobileNavigation = ({
     signUpUri,
     docsPath,
 }: {
-    user: User | undefined | null;
+    user: { name: string; email: string } | undefined | null;
     productKey?: string;
     signUpUri: string;
     docsPath: string;
@@ -189,12 +188,12 @@ export const MobileNavigation = ({
                                 </MobileNavLink>
                             ) : (
                                 <>
-                                    <a
+                                    <Link
                                         href="/auth/login"
                                         className="block w-full p-3 font-mono text-sm text-accent hover:bg-accent/10 rounded-md transition-colors"
                                     >
                                         Sign in
-                                    </a>
+                                    </Link>
                                 </>
                             )}
                         </div>
@@ -214,7 +213,8 @@ export function Header({
     headerTitle?: string;
     themeColor?: ThemeColor;
 }) {
-    const { user, isLoading } = useUser();
+    const { data: session, isPending: isLoading } = authClient.useSession();
+    const user = session?.user;
     const signUpUri = getSignUpUrl({
         productKey,
     });
@@ -355,12 +355,12 @@ export function Header({
                                     Dashboard
                                 </Link>
                             ) : (
-                                <a
+                                <Link
                                     href="/auth/login"
                                     className="inline-flex items-center px-4 py-2 font-mono text-sm bg-accent text-security-black rounded-md hover:bg-accent-dim transition-all"
                                 >
                                     Sign In
-                                </a>
+                                </Link>
                             )}
                         </div>
 

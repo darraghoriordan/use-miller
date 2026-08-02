@@ -26,7 +26,7 @@ describe("When getting a user the first time", () => {
         });
         throwIfError(error);
         expect(foundUser).toMatchObject({
-            //   auth0UserId: expect.any(String),
+            //   authProviderUserId: expect.any(String),
             email: "testbasic@testbasic.com",
         });
     }, 30_000);

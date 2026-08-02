@@ -12,9 +12,11 @@ Miller Start has already done the hard work of setting up the project structure,
 
 ## 2. Authentication and Authorization
 
-Miller Start has a full authentication and authorization system built-in via Auth0. Everything is already integrated and ready to go. The frontend and backend are both setup to use Auth0 out of the box.
-
-Auth0 is configured using terraform in Miller Start so you can easily deploy your own Auth0 instance without learning the Auth0 Web UI.
+Miller Start has a full authentication and authorization system built in with Better Auth.
+It runs inside the NestJS API and stores sessions in your PostgreSQL database, so local and
+production setup need no separate identity tenant. The included Next.js app uses secure
+cookies; independent SPAs and streaming clients can use signed bearer tokens against the
+same backend guard.
 
 ## 3. Project structure
 
@@ -24,11 +26,11 @@ The models for project structure are all defined with strict Open API specificat
 
 ## 4. Payments
 
-Miller Start has a full payments system built-in via Stripe. Again, everything is already integrated and ready to go. Stripe is configured via terraform so you can manage products and pricing programmatically with history and version control.
+Miller Start has a full payments system built-in via Stripe. Again, everything is already integrated and ready to go. The backend owns the product catalog, so browsers never choose a Stripe price or payment mode directly.
 
-Miller start comes with examples of subscription products and one-off products. You can easily add your own products and pricing. Webhooks are already configured in NestJs.
+Miller start comes with examples of subscription products and one-off products. You can easily add your own products and pricing. Webhooks are already configured in NestJs with signature verification, durable event storage, retries, replay tooling, and idempotent fulfilment.
 
-Developer experience is a priority in Miller Start. When you use the `init` script to create a new project, any Stripe product Ids will be automatically replaced with your own product Ids.
+Developer experience is a priority in Miller Start. Terraform can manage your Stripe products and prices, while deployment configuration supplies their IDs through the server-side catalog.
 
 ## 5. Database
 

@@ -1,13 +1,14 @@
 import { type ConfigService } from "@nestjs/config";
-import type {
-    CoreModuleOptions,
-    LoggerModuleOptions,
-    AuthzModuleOptions,
-    AuthzClientModuleOptions,
-    StripeModuleOptions,
-    SmtpEmailModuleOptions,
-    InvitationModuleOptions,
+import {
+    type CoreModuleOptions,
+    type LoggerModuleOptions,
+    type BetterAuthzModuleOptions,
+    type SmtpEmailModuleOptions,
+    type InvitationModuleOptions,
+    type StripePaymentsModuleOptions,
+    parseStripeProductCatalog,
 } from "@darraghor/nest-backend-libs";
+import { resolveBetterAuthUser } from "../auth/better-auth-profile-resolver.js";
 
 /**
  * Helper to get a required environment variable or throw an error
@@ -32,6 +33,9 @@ export const createCoreConfig = (config: ConfigService): CoreModuleOptions => ({
         config.get<string>("AUTO_INSTALL_API_MODELS") === "true",
     shouldUseNestCors: config.get<string>("ENABLE_NEST_CORS") === "true",
     globalPrefix: config.get<string>("APP_GLOBAL_PREFIX"),
+    helmetOptions: {
+        crossOriginResourcePolicy: { policy: "cross-origin" },
+    },
 });
 
 export const createLoggerConfig = (
@@ -43,38 +47,8 @@ export const createLoggerConfig = (
     usePrettyLogs: config.get<string>("LOGGER_USE_PRETTY_LOGS") === "true",
 });
 
-export const createAuthzConfig = (
-    config: ConfigService,
-): AuthzModuleOptions => ({
-    auth0Audience: getRequiredEnvironment(config, "AUTH0_AUDIENCE"),
-    auth0Domain: getRequiredEnvironment(config, "AUTH0_DOMAIN"),
-    superUserIds:
-        config
-            .get<string>("SUPER_USER_IDS")
-            ?.split(",")
-            .map((s) => s.trim())
-            .filter(Boolean) ?? [],
-});
-
-export const createAuthzClientConfig = (
-    config: ConfigService,
-): AuthzClientModuleOptions => ({
-    auth0Domain: getRequiredEnvironment(config, "AUTH0_DOMAIN"),
-    auth0ClientId: getRequiredEnvironment(config, "AUTH0_CLIENT_ID"),
-});
-
-export const createStripeConfig = (
-    config: ConfigService,
-): StripeModuleOptions => ({
-    accessToken: getRequiredEnvironment(config, "STRIPE_ACCESS_TOKEN"),
-    webhookVerificationKey: getRequiredEnvironment(
-        config,
-        "STRIPE_WEBHOOK_VERIFICATION_KEY",
-    ),
-    stripeRedirectsBaseUrl: getRequiredEnvironment(
-        config,
-        "STRIPE_REDIRECTS_BASE_URL",
-    ),
+export const createBetterAuthzConfig = (): BetterAuthzModuleOptions => ({
+    resolveUser: resolveBetterAuthUser,
 });
 
 export const createSmtpEmailConfig = (
@@ -96,3 +70,56 @@ export const createInvitationConfig = (
 ): InvitationModuleOptions => ({
     baseUrl: getRequiredEnvironment(config, "INVITATION_URLS_BASE_URL"),
 });
+
+export const createStripePaymentsConfig = (
+    config: ConfigService,
+): StripePaymentsModuleOptions => {
+    const catalogJson = config.get<string>("STRIPE_PRODUCT_CATALOG_JSON");
+    const products = catalogJson
+        ? parseStripeProductCatalog(catalogJson)
+        : [
+              {
+                  key: "miller-start",
+                  priceId: getRequiredEnvironment(
+                      config,
+                      "STRIPE_PRICE_MILLER_START",
+                  ),
+                  mode: "subscription" as const,
+                  internalSku: "miller-start",
+                  displayName: "Miller Start",
+              },
+              {
+                  key: "miller-start-consulting",
+                  priceId: getRequiredEnvironment(
+                      config,
+                      "STRIPE_PRICE_MILLER_START_CONSULTING",
+                  ),
+                  mode: "subscription" as const,
+                  internalSku: "miller-start-consulting",
+                  displayName: "Miller Start Consulting",
+              },
+              {
+                  key: "dev-shell",
+                  priceId: getRequiredEnvironment(
+                      config,
+                      "STRIPE_PRICE_DEV_SHELL",
+                  ),
+                  mode: "payment" as const,
+                  internalSku: "dev-shell",
+                  displayName: "Dev Shell",
+              },
+          ];
+
+    return {
+        accessToken: getRequiredEnvironment(config, "STRIPE_ACCESS_TOKEN"),
+        webhookVerificationKey: getRequiredEnvironment(
+            config,
+            "STRIPE_WEBHOOK_VERIFICATION_KEY",
+        ),
+        redirectsBaseUrl: getRequiredEnvironment(
+            config,
+            "STRIPE_REDIRECTS_BASE_URL",
+        ),
+        products,
+    };
+};

@@ -51,6 +51,8 @@ See the docs on Code Quality Tools for instructions on how to turn all of this o
 
 ## Failures?
 
-The init scripts interface with your file system, git, auth0 and stripe. It's somewhat complex and it's possible that something will go wrong. If you get stuck, please read the full installation instructions for more detailed instructions.
+The Miller CLI changes managed environment keys and can provision Stripe. Plan changes with
+`mill setup --dry-run --json` and inspect local and production gaps with
+`mill report --profile all --json`.
 
 Also use the support channels if there's something that isn't covered in the docs. It helps me to make this better for everyone.

@@ -1,8 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getAuthenticatedApiInstance } from "../../../api-services/apiInstanceFactories";
-import { auth0 } from "../../../lib/auth0";
+import {
+    getBackendAuthHeaders,
+    withApiAuthRequired,
+} from "../../../lib/server-auth";
 
-export default auth0.withApiAuthRequired(async function handler(
+export default withApiAuthRequired(async function handler(
     req: NextApiRequest,
     res: NextApiResponse,
 ) {
@@ -14,21 +17,15 @@ export default auth0.withApiAuthRequired(async function handler(
     }
 
     try {
-        const accessToken = await auth0.getAccessToken(req, res);
-        if (!accessToken?.token) {
-            res.setHeader("Cache-Control", "no-store");
-            res.status(401).json({ error: "No access token" });
-            return;
-        }
-
         const { ghUsername, orgUuid } = req.body as {
             ghUsername: string;
             orgUuid: string;
         };
 
+        const authentication = getBackendAuthHeaders(req);
         const apiClient = getAuthenticatedApiInstance({
             apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-            authToken: accessToken.token,
+            cookie: authentication.cookie,
             fetchApi: fetch,
         });
 

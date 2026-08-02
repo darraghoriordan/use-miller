@@ -1,4 +1,7 @@
-export const createMenu = (userOrgs: { name: string; uuid: string }[]) => {
+export const createMenu = (
+    userOrgs: { name: string; uuid: string }[],
+    isSuper = false,
+) => {
     const menuSections = [];
 
     menuSections.push({
@@ -24,6 +27,23 @@ export const createMenu = (userOrgs: { name: string; uuid: string }[]) => {
             },
         ],
     });
+
+    if (isSuper) {
+        menuSections.push({
+            name: "Operations",
+            slug: "operations",
+            items: [
+                {
+                    name: "Admin overview",
+                    path: "/super-admin",
+                },
+                {
+                    name: "Identity users",
+                    path: "/super-admin/identities",
+                },
+            ],
+        });
+    }
 
     return menuSections;
 };

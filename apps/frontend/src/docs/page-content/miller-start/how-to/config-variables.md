@@ -52,6 +52,32 @@ Swagger is the old name for OpenAPI. This flag will control if the swagger docs 
 
 This is used in the invitations emails to send customers to a frontend app.
 
+### Stripe payment variables
+
+`STRIPE_ACCESS_TOKEN` and `STRIPE_WEBHOOK_VERIFICATION_KEY` are server-only Stripe
+credentials. `STRIPE_REDIRECTS_BASE_URL` is the only origin that payment redirects
+may use; checkout requests accept relative paths and cannot redirect a customer to
+an arbitrary site.
+
+`STRIPE_PRODUCT_CATALOG_JSON` is the server-authoritative product catalog. Keep the
+Stripe price IDs and payment mode here rather than accepting them from the browser:
+
+```json
+{
+  "starter": {
+    "priceId": "price_123",
+    "mode": "subscription",
+    "internalSku": "starter",
+    "displayName": "Starter"
+  }
+}
+```
+
+Checkout requests send only the product key. The backend validates ownership,
+resolves the price, and records an idempotent attempt before calling Stripe. The
+legacy `STRIPE_PRICE_*` variables are supported as a temporary fallback when the
+catalog JSON is empty; new products should use the catalog instead.
+
 ### MIGRATIONS_PATH
 
 This is the path that typeorm will scan for migration files. These will be used to update the real database schema.
@@ -60,6 +86,9 @@ This is the path that typeorm will scan for migration files. These will be used 
 
 These are used to configure the SMTP server that is used to send emails. Most email providers will have a SMTP server that you can use.
 
-### SUPER_USER_IDS
+### SUPER_USER_EMAILS
 
-You can add users ids here to give them the super powers permissions on login. This is useful for development and testing. But you should rely on roles in Auth0 where possible.
+Add a comma-separated list of trusted owner emails. Matching Better Auth identities receive
+the `admin` role at creation and backend startup; that role maps to Miller's global NestJS
+permissions. Locally this belongs in the ignored `apps/backend/.env`. Production uses
+`app_super_user_emails` in the ignored Dokku `terraform.tfvars`.

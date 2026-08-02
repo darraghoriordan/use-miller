@@ -15,6 +15,9 @@ You can run the backend and frontend apps separately, or together. I tend to run
 pnpm run mill:dev
 ```
 
+This waits for the local Docker services, builds the backend, applies pending migrations,
+and then starts the backend and frontend watchers.
+
 ## Running the backend app only
 
 ```bash
@@ -24,8 +27,8 @@ cd apps/backend
 # run the docker infrastructure
 pnpm run up
 
-# (optional) build
-pnpm run build
+# build and apply pending migrations
+pnpm run db:run
 
 # start dev
 pnpm run start
@@ -75,7 +78,8 @@ pnpm run test
 
 Miller has a full suite of integration tests. These require a running backend, database and redis instance.
 
-The integration tests will call auth0 and the backend so you cannot run all tests at once in parallel because you will get rate limited. It's unlikely that you will need to run all tests at once. If your team is large enough to require this then you should consider paid auth0 plans and splitting the backend up!
+The integration tests create local Better Auth users idempotently and obtain signed bearer
+tokens from the backend. There is no external identity-provider rate limit.
 
 ```bash
 # have the full BE running
@@ -91,9 +95,7 @@ pnpm run test:e <match name of test file>
 
 ## Migrations
 
-Migrations are detected in built code ONLY.
-
-You must build the project before running migrations.
+Migrations are detected in built code only. `pnpm run db:run` performs the build first.
 
 Migrations must be placed in the `migrations` folder. In the latest version of typeorm we can't use the `migrationsDir` option so we must specify the full relative path manually - `migrations/migrationName`.
 
@@ -101,7 +103,7 @@ Migrations must be placed in the `migrations` folder. In the latest version of t
 # generate new
 $ pnpm run db:gen migrations/initWoohoo
 
-# run the migrations (or just build and start the BE)
+# build and run the migrations
 $ pnpm run db:run
 ```
 

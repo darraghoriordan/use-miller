@@ -13,6 +13,63 @@
         "backend": "apps/backend",
         "frontend": "apps/frontend"
     },
+    "infrastructure": {
+        "provider": "terraform",
+        "profiles": {
+            "local": {
+                "billing": "infrastructure/local-dev/stripe-dev"
+            },
+            "production": {
+                "billing": "infrastructure/production/stripe-prod",
+                "environment": "infrastructure/production/dokku-app"
+            }
+        }
+    },
+    "services": {
+        "postgres": {
+            "kind": "database",
+            "application": "backend",
+            "source": "apps/backend/docker-compose.yml",
+            "composeService": "db",
+            "requiredEnvironment": [
+                "APP_POSTGRES_HOST",
+                "APP_POSTGRES_PORT",
+                "APP_POSTGRES_DATABASE",
+                "APP_POSTGRES_USER",
+                "APP_POSTGRES_PASSWORD"
+            ]
+        },
+        "redis": {
+            "kind": "cache",
+            "application": "backend",
+            "source": "apps/backend/docker-compose.yml",
+            "composeService": "redis",
+            "capability": "jobs",
+            "requiredEnvironment": ["REDIS_URL"]
+        },
+        "jaeger": {
+            "kind": "tracing",
+            "application": "backend",
+            "source": "apps/backend/docker-compose.yml",
+            "composeService": "jaeger-all-in-one",
+            "capability": "observability"
+        },
+        "otel-collector": {
+            "kind": "telemetry",
+            "application": "backend",
+            "source": "apps/backend/docker-compose.yml",
+            "composeService": "otel-collector",
+            "capability": "observability",
+            "requiredEnvironment": ["OTEL_EXPORTER_OTLP_ENDPOINT"]
+        },
+        "prometheus": {
+            "kind": "metrics",
+            "application": "backend",
+            "source": "apps/backend/docker-compose.yml",
+            "composeService": "prometheus",
+            "capability": "observability"
+        }
+    },
     "capabilities": {
         "auth": true,
         "billing": true,

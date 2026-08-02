@@ -247,6 +247,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/onboarding/github-user/{orgUuid}/{ghUserId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["UserOnboardingController_removeForOrg"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/payments/stripe/checkout-session": {
         parameters: {
             query?: never;
@@ -256,7 +272,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["StripeCheckoutController_createCheckoutSession"];
+        post: operations["SecureStripeCheckoutController_createCheckoutSession"];
         delete?: never;
         options?: never;
         head?: never;
@@ -272,7 +288,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["StripeCustomerPortalController_createCustomerPortalSession"];
+        post: operations["SecureStripeCheckoutController_createCustomerPortalSession"];
         delete?: never;
         options?: never;
         head?: never;
@@ -286,9 +302,25 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["StripeEventsController_getLastEvents"];
+        get: operations["SecureStripeEventsController_getEvents"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/payments/stripe/events/{eventId}/replay": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["SecureStripeEventsController_replay"];
         delete?: never;
         options?: never;
         head?: never;
@@ -304,7 +336,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["StripeWebhookController_webhookReceiver"];
+        post: operations["SecureStripeWebhookController_receiveWebhook"];
         delete?: never;
         options?: never;
         head?: never;
@@ -318,7 +350,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["StripeWebhookController_peekQueueJobs"];
+        get: operations["SecureStripeWebhookController_getQueueJobs"];
         put?: never;
         post?: never;
         delete?: never;
@@ -334,7 +366,23 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["StripeWebhookController_peekFailedQueueJobs"];
+        get: operations["SecureStripeWebhookController_getFailedQueueJobs"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/payments/stripe/operations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["SecureStripeWebhookController_getOperations"];
         put?: never;
         post?: never;
         delete?: never;
@@ -638,6 +686,11 @@ export interface components {
         HealthResponse: {
             result: string;
         };
+        OrganisationSummaryDto: {
+            id: number;
+            uuid: string;
+            name: string;
+        };
         MembershipRole: {
             id: number;
             membershipId: number;
@@ -647,11 +700,11 @@ export interface components {
             /** Format: date-time */
             updateDate: string;
         };
-        OrganisationMembership: {
+        UserOrganisationMembershipDto: {
             id: number;
             uuid: string;
             userId: number;
-            organisation: Record<string, never>;
+            organisation: components["schemas"]["OrganisationSummaryDto"];
             organisationId: number;
             roles?: components["schemas"]["MembershipRole"][];
             /** Format: date-time */
@@ -674,8 +727,9 @@ export interface components {
             givenName?: string;
             picture?: string;
             auth0UserId?: string;
+            authProviderUserId?: string;
             username?: string;
-            memberships: components["schemas"]["OrganisationMembership"][];
+            memberships: components["schemas"]["UserOrganisationMembershipDto"][];
             activeSubscriptionProductKeys: string[];
             /** Format: date-time */
             createdDate: string;
@@ -683,6 +737,20 @@ export interface components {
             updateDate: string;
             /** Format: date-time */
             deletedDate?: string;
+        };
+        OrganisationMembership: {
+            id: number;
+            uuid: string;
+            userId: number;
+            organisation: Record<string, never>;
+            organisationId: number;
+            roles?: components["schemas"]["MembershipRole"][];
+            /** Format: date-time */
+            createdDate: string;
+            /** Format: date-time */
+            deletedDate?: string;
+            /** Format: date-time */
+            updateDate: string;
         };
         UserApiKey: {
             id: number;
@@ -706,6 +774,7 @@ export interface components {
             givenName?: string;
             picture?: string;
             auth0UserId?: string;
+            authProviderUserId?: string;
             username?: string;
             memberships?: components["schemas"]["OrganisationMembership"][];
             apiKeys?: components["schemas"]["UserApiKey"][];
@@ -780,20 +849,20 @@ export interface components {
             updateDate: string;
         };
         OrgGithubUserDto: {
+            /**
+             * @description GitHub username (1-39 chars, alphanumeric and hyphens)
+             * @example octocat
+             */
             ghUsername: string;
             orgUuid: string;
         };
-        StripeCheckoutLineItem: {
-            price: string;
-            quantity: number;
-        };
         StripeCheckoutSessionRequestDto: {
-            organisationUuid?: string;
-            lineItems: components["schemas"]["StripeCheckoutLineItem"][];
-            mode: string;
-            /** @description The path on frontend to which Stripe should redirect the customer after payment. This is appended to the host configured in the StripeClientConfigurationService */
+            organisationUuid: string;
+            /** @description A product key from the server-side Stripe product catalog */
+            productKey: string;
+            /** @description A relative frontend path on the configured application origin */
             successFrontendPath: string;
-            /** @description The path on frontend to which Stripe should redirect the customer after payment cancellation. This is appended to the host configured in the StripeClientConfigurationService */
+            /** @description A relative frontend path on the configured application origin */
             cancelFrontendPath?: string;
         };
         StripeCheckoutSessionResponseDto: {
@@ -802,6 +871,7 @@ export interface components {
         };
         StripeCustomerPortalRequestDto: {
             subscriptionRecordUuid: string;
+            /** @description A relative frontend path on the configured application origin */
             returnUrl: string;
         };
         StripeCustomerPortalResponseDto: {
@@ -809,11 +879,13 @@ export interface components {
         };
         StripeCheckoutEvent: {
             id: number;
+            stripeEventId: string;
+            stripeObjectId: string;
+            eventType: string;
+            clientReferenceId?: string;
+            status: string;
             /** Format: date-time */
             createdDate: string;
-            clientReferenceId?: string;
-            stripeSessionId: string;
-            stripeObjectType: string;
             stripeDataAsString: string;
         };
         SaveOrganisationSubscriptionRecordDto: {
@@ -921,7 +993,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["HealthResponse"];
                 };
@@ -938,7 +1012,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["HealthResponse"];
                 };
@@ -955,7 +1031,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["HealthResponse"];
                 };
@@ -973,7 +1051,9 @@ export interface operations {
         responses: {
             /** @description The Health Check is successful */
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": {
                         /** @example ok */
@@ -985,13 +1065,21 @@ export interface operations {
                          *       }
                          *     }
                          */
-                        info?: Record<string, {
+                        info?: {
+                            [key: string]: {
                                 status: string;
-                            } & Record<string, unknown>> | null;
+                            } & {
+                                [key: string]: unknown;
+                            };
+                        } | null;
                         /** @example {} */
-                        error?: Record<string, {
+                        error?: {
+                            [key: string]: {
                                 status: string;
-                            } & Record<string, unknown>> | null;
+                            } & {
+                                [key: string]: unknown;
+                            };
+                        } | null;
                         /**
                          * @example {
                          *       "database": {
@@ -999,15 +1087,21 @@ export interface operations {
                          *       }
                          *     }
                          */
-                        details?: Record<string, {
+                        details?: {
+                            [key: string]: {
                                 status: string;
-                            } & Record<string, unknown>>;
+                            } & {
+                                [key: string]: unknown;
+                            };
+                        };
                     };
                 };
             };
             /** @description The Health Check is not successful */
             503: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": {
                         /** @example error */
@@ -1019,9 +1113,13 @@ export interface operations {
                          *       }
                          *     }
                          */
-                        info?: Record<string, {
+                        info?: {
+                            [key: string]: {
                                 status: string;
-                            } & Record<string, unknown>> | null;
+                            } & {
+                                [key: string]: unknown;
+                            };
+                        } | null;
                         /**
                          * @example {
                          *       "redis": {
@@ -1030,9 +1128,13 @@ export interface operations {
                          *       }
                          *     }
                          */
-                        error?: Record<string, {
+                        error?: {
+                            [key: string]: {
                                 status: string;
-                            } & Record<string, unknown>> | null;
+                            } & {
+                                [key: string]: unknown;
+                            };
+                        } | null;
                         /**
                          * @example {
                          *       "database": {
@@ -1044,9 +1146,13 @@ export interface operations {
                          *       }
                          *     }
                          */
-                        details?: Record<string, {
+                        details?: {
+                            [key: string]: {
                                 status: string;
-                            } & Record<string, unknown>>;
+                            } & {
+                                [key: string]: unknown;
+                            };
+                        };
                     };
                 };
             };
@@ -1064,7 +1170,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["UserDto"];
                 };
@@ -1083,7 +1191,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["BooleanResult"];
                 };
@@ -1106,7 +1216,9 @@ export interface operations {
         };
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["BooleanResult"];
                 };
@@ -1123,7 +1235,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["User"][];
                 };
@@ -1140,7 +1254,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["BooleanResult"];
                 };
@@ -1157,7 +1273,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["QueueItemDto"][];
                 };
@@ -1174,7 +1292,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["QueueItemDto"][];
                 };
@@ -1193,7 +1313,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["Organisation"];
                 };
@@ -1212,7 +1334,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["BooleanResult"];
                 };
@@ -1235,7 +1359,9 @@ export interface operations {
         };
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["Organisation"];
                 };
@@ -1252,7 +1378,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["Organisation"][];
                 };
@@ -1271,7 +1399,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["OrganisationMembership"][];
                 };
@@ -1294,7 +1424,9 @@ export interface operations {
         };
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["Organisation"];
                 };
@@ -1314,7 +1446,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["BooleanResult"];
                 };
@@ -1333,7 +1467,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["OrgGithubUser"][];
                 };
@@ -1354,17 +1490,43 @@ export interface operations {
         };
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["OrgGithubUser"];
                 };
             };
         };
     };
-    StripeCheckoutController_createCheckoutSession: {
+    UserOnboardingController_removeForOrg: {
         parameters: {
             query?: never;
             header?: never;
+            path: {
+                orgUuid: string;
+                ghUserId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BooleanResult"];
+                };
+            };
+        };
+    };
+    SecureStripeCheckoutController_createCheckoutSession: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -1375,17 +1537,21 @@ export interface operations {
         };
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["StripeCheckoutSessionResponseDto"];
                 };
             };
         };
     };
-    StripeCustomerPortalController_createCustomerPortalSession: {
+    SecureStripeCheckoutController_createCustomerPortalSession: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -1397,18 +1563,20 @@ export interface operations {
         responses: {
             /** @description The URL to the customer portal */
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["StripeCustomerPortalResponseDto"];
                 };
             };
         };
     };
-    StripeEventsController_getLastEvents: {
+    SecureStripeEventsController_getEvents: {
         parameters: {
-            query: {
-                skip: number;
-                take: number;
+            query?: {
+                skip?: number;
+                take?: number;
             };
             header?: never;
             path?: never;
@@ -1417,50 +1585,37 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["StripeCheckoutEvent"][];
                 };
             };
         };
     };
-    StripeWebhookController_webhookReceiver: {
+    SecureStripeEventsController_replay: {
         parameters: {
             query?: never;
             header?: never;
-            path?: never;
+            path: {
+                eventId: string;
+            };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
-                content?: never;
-            };
-            400: {
-                headers: Record<string, unknown>;
-                content?: never;
-            };
-        };
-    };
-    StripeWebhookController_peekQueueJobs: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
-                    "application/json": components["schemas"]["QueueItemDto"][];
+                    "application/json": Record<string, never>;
                 };
             };
         };
     };
-    StripeWebhookController_peekFailedQueueJobs: {
+    SecureStripeWebhookController_receiveWebhook: {
         parameters: {
             query?: never;
             header?: never;
@@ -1470,9 +1625,74 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
-                    "application/json": components["schemas"]["QueueItemDto"][];
+                    "application/json": Record<string, never>;
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    SecureStripeWebhookController_getQueueJobs: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>[];
+                };
+            };
+        };
+    };
+    SecureStripeWebhookController_getFailedQueueJobs: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>[];
+                };
+            };
+        };
+    };
+    SecureStripeWebhookController_getOperations: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
                 };
             };
         };
@@ -1487,7 +1707,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["OrganisationSubscriptionRecord"][];
                 };
@@ -1506,7 +1728,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["OrganisationSubscriptionRecord"][];
                 };
@@ -1529,7 +1753,9 @@ export interface operations {
         };
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["OrganisationSubscriptionRecord"][];
                 };
@@ -1549,7 +1775,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["BooleanResult"];
                 };
@@ -1566,7 +1794,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["PaymentSessionReference"][];
                 };
@@ -1586,7 +1816,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["FileStructureDto"];
                 };
@@ -1607,7 +1839,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["FileMetaDto"];
                 };
@@ -1628,7 +1862,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["FileMetaDto"];
                 };
@@ -1649,7 +1885,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["FileMetaDto"];
                 };
@@ -1670,7 +1908,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["FileMetaDto"];
                 };
@@ -1691,7 +1931,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["FileMetaDto"];
                 };
@@ -1710,7 +1952,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["CourseMetaDto"][];
                 };
@@ -1727,7 +1971,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content?: never;
             };
         };
@@ -1744,7 +1990,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content?: never;
             };
         };
@@ -1761,7 +2009,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["Invitation"][];
                 };
@@ -1782,7 +2032,9 @@ export interface operations {
         };
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["Invitation"];
                 };
@@ -1801,7 +2053,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": boolean;
                 };
@@ -1818,7 +2072,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["SubscriptionAsset"][];
                 };
@@ -1839,7 +2095,9 @@ export interface operations {
         };
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content: {
                     "application/json": components["schemas"]["SubscriptionAsset"][];
                 };
@@ -1858,7 +2116,9 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: Record<string, unknown>;
+                headers: {
+                    [name: string]: unknown;
+                };
                 content?: never;
             };
         };

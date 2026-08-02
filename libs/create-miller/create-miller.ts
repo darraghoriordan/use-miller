@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { spawn } from "node:child_process";
-import { access, cp, readFile, writeFile } from "node:fs/promises";
+import { access, cp, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -120,7 +120,11 @@ async function run(
                 resolve();
                 return;
             }
-            reject(new Error(`${command} ${arguments_.join(" ")} exited with code ${code ?? 1}.`));
+            reject(
+                new Error(
+                    `${command} ${arguments_.join(" ")} exited with code ${code ?? 1}.`,
+                ),
+            );
         });
     });
 }
@@ -129,13 +133,18 @@ function templateDirectory(): string {
     if (process.env.MILLER_TEMPLATE_DIR) {
         return path.resolve(process.env.MILLER_TEMPLATE_DIR);
     }
-    const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+    const packageRoot = path.resolve(
+        path.dirname(fileURLToPath(import.meta.url)),
+        "..",
+    );
     return path.join(packageRoot, "template");
 }
 
 export async function createProject(options: Options): Promise<CreateResult> {
     if (!options.target) {
-        throw new Error("Provide a target directory, for example: pnpm create miller my-app");
+        throw new Error(
+            "Provide a target directory, for example: pnpm create miller my-app",
+        );
     }
 
     const target = path.resolve(options.target);
@@ -145,7 +154,9 @@ export async function createProject(options: Options): Promise<CreateResult> {
 
     const template = templateDirectory();
     if (!(await exists(path.join(template, "miller.config.json")))) {
-        throw new Error("The Miller template is missing from this package. Reinstall create-miller and try again.");
+        throw new Error(
+            "The Miller template is missing from this package. Reinstall create-miller and try again.",
+        );
     }
 
     const targetBaseName = path.basename(target);
@@ -156,24 +167,41 @@ export async function createProject(options: Options): Promise<CreateResult> {
     const name = options.name ?? toName(slug);
 
     await cp(template, target, { recursive: true, errorOnExist: true });
+    const packagedGitignore = path.join(target, "gitignore");
+    if (await exists(packagedGitignore)) {
+        await rename(packagedGitignore, path.join(target, ".gitignore"));
+    }
 
     const configPath = path.join(target, "miller.config.json");
     const config = JSON.parse(await readFile(configPath, "utf8")) as {
         project: { name: string; slug: string };
     };
     config.project = { name, slug };
-    await writeFile(configPath, `${JSON.stringify(config, undefined, 4)}\n`, "utf8");
+    await writeFile(
+        configPath,
+        `${JSON.stringify(config, undefined, 4)}\n`,
+        "utf8",
+    );
 
     const packagePath = path.join(target, "package.json");
     const packageJson = JSON.parse(await readFile(packagePath, "utf8")) as {
         name: string;
     };
     packageJson.name = slug;
-    await writeFile(packagePath, `${JSON.stringify(packageJson, undefined, 4)}\n`, "utf8");
+    await writeFile(
+        packagePath,
+        `${JSON.stringify(packageJson, undefined, 4)}\n`,
+        "utf8",
+    );
 
     if (options.shouldInstall) {
         await run("pnpm", ["install"], target, options.isJson);
-        await run("pnpm", ["run", "mill", "--", "doctor"], target, options.isJson);
+        await run(
+            "pnpm",
+            ["run", "mill", "--", "doctor"],
+            target,
+            options.isJson,
+        );
     }
 
     return {
@@ -181,7 +209,13 @@ export async function createProject(options: Options): Promise<CreateResult> {
         target,
         project: { name, slug },
         installed: options.shouldInstall,
-        next: [`cd ${options.target}`, options.shouldInstall ? "pnpm run mill:dev" : "pnpm install"],
+        next: [
+            `cd ${options.target}`,
+            ...(options.shouldInstall ? [] : ["pnpm install"]),
+            "pnpm run mill -- report --profile all --json",
+            "pnpm run mill -- setup --from-env --dry-run --json",
+            "pnpm run mill:dev",
+        ],
     };
 }
 

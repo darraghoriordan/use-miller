@@ -1,36 +1,29 @@
 import { GetServerSidePropsContext, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { getAuthenticatedApiInstance } from "../../api-services/apiInstanceFactories";
-import { auth0 } from "../../lib/auth0";
+import {
+    getBackendAuthHeaders,
+    withSuperAdminPageRequired,
+} from "../../lib/server-auth";
 
-export const getUsersServerSideProps = auth0.withPageAuthRequired({
-    getServerSideProps: superUserGetUserData,
-});
+export const getUsersServerSideProps =
+    withSuperAdminPageRequired(superUserGetUserData);
 
-export const getPaymentEventsServerSideProps = auth0.withPageAuthRequired({
-    getServerSideProps: superUserGetPaymentData,
-});
+export const getPaymentEventsServerSideProps = withSuperAdminPageRequired(
+    superUserGetPaymentData,
+);
 
-export const getSubscriptionsServerSideProps = auth0.withPageAuthRequired({
-    getServerSideProps: superUserGetSubscriptionsData,
-});
+export const getSubscriptionsServerSideProps = withSuperAdminPageRequired(
+    superUserGetSubscriptionsData,
+);
 
 async function superUserGetUserData(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
-    const accessToken = await auth0.getAccessToken(context.req, context.res);
-    if (!accessToken?.token) {
-        return {
-            redirect: {
-                destination: "/auth/login",
-                permanent: false,
-            },
-        };
-    }
-
+    const authentication = getBackendAuthHeaders(context.req);
     const apiClient = getAuthenticatedApiInstance({
         apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-        authToken: accessToken.token,
+        cookie: authentication.cookie,
         fetchApi: fetch,
     });
 
@@ -72,7 +65,15 @@ export const createMenu = () => {
         slug: "super-powers",
         items: [
             {
-                name: "Users",
+                name: "Overview",
+                path: "/super-admin",
+            },
+            {
+                name: "Identity users",
+                path: "/super-admin/identities",
+            },
+            {
+                name: "Application users",
                 path: "/super-admin/users",
             },
             {
@@ -92,19 +93,10 @@ export const createMenu = () => {
 async function superUserGetPaymentData(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
-    const accessToken = await auth0.getAccessToken(context.req, context.res);
-    if (!accessToken?.token) {
-        return {
-            redirect: {
-                destination: "/auth/login",
-                permanent: false,
-            },
-        };
-    }
-
+    const authentication = getBackendAuthHeaders(context.req);
     const apiClient = getAuthenticatedApiInstance({
         apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-        authToken: accessToken.token,
+        cookie: authentication.cookie,
         fetchApi: fetch,
     });
 
@@ -140,19 +132,10 @@ async function superUserGetPaymentData(
 async function superUserGetSubscriptionsData(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
-    const accessToken = await auth0.getAccessToken(context.req, context.res);
-    if (!accessToken?.token) {
-        return {
-            redirect: {
-                destination: "/auth/login",
-                permanent: false,
-            },
-        };
-    }
-
+    const authentication = getBackendAuthHeaders(context.req);
     const apiClient = getAuthenticatedApiInstance({
         apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-        authToken: accessToken.token,
+        cookie: authentication.cookie,
         fetchApi: fetch,
     });
 

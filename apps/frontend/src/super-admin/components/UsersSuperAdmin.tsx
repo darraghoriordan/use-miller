@@ -29,7 +29,7 @@ const UserRow = ({ user }: { user: User }) => {
                 {user.uuid}
             </td>
             <td className="px-3 py-4 text-sm text-gray-300 whitespace-nowrap">
-                {user.auth0UserId}
+                {user.authProviderUserId}
             </td>
         </tr>
     );
@@ -93,7 +93,7 @@ const UsersSuperAdmin = ({
                                         scope="col"
                                         className="px-3 text-sm font-semibold text-left text-white py-3.5"
                                     >
-                                        Auth0 Id
+                                        Authentication Id
                                     </th>
                                 </tr>
                             </thead>

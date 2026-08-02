@@ -33,13 +33,36 @@ variable "do_ssh_private_path" {
   description = "The path to an ssh certificate to use for deploying to droplets"
 }
 
-variable "app_auth0_domain" {
+variable "app_better_auth_secret" {
   type        = string
-  description = "The auth0 domain for PROD account"
+  description = "Signing secret for Better Auth sessions and bearer tokens"
+  sensitive   = true
 }
-variable "app_auth0_clientId" {
+variable "app_better_auth_url" {
   type        = string
-  description = "The auth0 client id for PROD account"
+  description = "Public backend URL used by Better Auth"
+}
+variable "app_better_auth_cookie_domain" {
+  type        = string
+  description = "Optional shared cookie domain"
+  default     = ""
+}
+variable "app_better_auth_require_email_verification" {
+  type    = string
+  default = "true"
+}
+variable "app_google_client_id" {
+  type    = string
+  default = ""
+}
+variable "app_google_client_secret" {
+  type      = string
+  sensitive = true
+  default   = ""
+}
+variable "app_super_user_emails" {
+  type    = string
+  default = ""
 }
 
 variable "app_web_port" {
@@ -54,9 +77,6 @@ variable "frontend_app_domains" {
 }
 variable "backend_app_domains" {
   type = list(string)
-}
-variable "app_auth0_audience" {
-  type = string
 }
 variable "app_generate_swagger" {
   type = string
@@ -131,26 +151,22 @@ variable "app_logger_min_level" {
 variable "app_stripe_webhook_verification_key" {
   type = string
 }
-variable "app_stripe_redirects_base_url" {
-  type = string
+variable "app_stripe_product_catalog_json" {
+  type      = string
+  sensitive = true
 }
-variable "frontend_app_auth0_secret" {
+variable "app_stripe_redirects_base_url" {
   type = string
 }
 variable "frontend_app_base_url" {
   type = string
 }
-variable "frontend_app_auth0_domain" {
+variable "frontend_app_api_base_path" {
   type = string
 }
-variable "frontend_app_auth0_client_secret" {
-  type = string
-}
-variable "frontend_app_auth0_client_id" {
-  type = string
-}
-variable "frontend_app_auth0_audience" {
-  type = string
+variable "frontend_app_google_auth_enabled" {
+  type    = string
+  default = "false"
 }
 
 variable "otel_exporter_otlp_endpoint" {

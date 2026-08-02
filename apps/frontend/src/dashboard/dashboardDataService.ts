@@ -3,7 +3,10 @@ import { ParsedUrlQuery } from "querystring";
 import { getAuthenticatedApiInstance } from "../api-services/apiInstanceFactories";
 import { createMenu } from "./leftMenuGeneration";
 import type { components } from "../shared/types/api-specs";
-import { auth0 } from "../lib/auth0";
+import {
+    getBackendAuthHeaders,
+    withPageAuthRequired,
+} from "../lib/server-auth";
 
 type Organisation = components["schemas"]["Organisation"];
 type OrganisationSubscriptionRecord =
@@ -11,28 +14,18 @@ type OrganisationSubscriptionRecord =
 type SubscriptionAsset = components["schemas"]["SubscriptionAsset"];
 type UserDto = components["schemas"]["UserDto"];
 
-export const getServerSideProps = auth0.withPageAuthRequired({
-    getServerSideProps: dashboardGetSspData,
-});
+export const getServerSideProps = withPageAuthRequired(dashboardGetSspData);
 
 async function dashboardGetSspData(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
-    const accessToken = await auth0.getAccessToken(context.req, context.res);
-    if (!accessToken?.token) {
-        return {
-            redirect: {
-                destination: "/auth/login",
-                permanent: false,
-            },
-        };
-    }
+    const authentication = getBackendAuthHeaders(context.req);
 
     const orgUuid = context.params?.orgUuid
         ? (context.params?.orgUuid as string)
         : undefined;
 
-    const userData = await getCurrentUser(accessToken.token);
+    const userData = await getCurrentUser(authentication.cookie);
     const currentOrgUuidForData =
         orgUuid ?? userData.memberships[0]?.organisation.uuid;
     if (!currentOrgUuidForData) {
@@ -40,8 +33,11 @@ async function dashboardGetSspData(
     }
 
     const [subAssets, subscriptions] = await Promise.all([
-        getCurrentUserSubscriptions(accessToken.token),
-        getOrganisationSubscriptions(accessToken.token, currentOrgUuidForData),
+        getCurrentUserSubscriptions(authentication.cookie),
+        getOrganisationSubscriptions(
+            authentication.cookie,
+            currentOrgUuidForData,
+        ),
     ]);
 
     const mappedProps = mapDataForIndexDashboard(
@@ -52,7 +48,7 @@ async function dashboardGetSspData(
     );
 
     const orgGhUsers = await getOrgGhUsernames(
-        accessToken.token,
+        authentication.cookie,
         orgUuid || mappedProps.currentOrg.uuid,
     );
     // reduce the first 1 to a single string
@@ -92,7 +88,7 @@ export const mapDataForIndexDashboard = (
         throw new Error("No organisation for found for this user");
     }
 
-    const menuSections = createMenu(userOrgs);
+    const menuSections = createMenu(userOrgs, userData.isSuper === true);
     return JSON.parse(
         JSON.stringify({
             menuSections,
@@ -117,10 +113,10 @@ export const mapDataForIndexDashboard = (
     };
 };
 
-export const getCurrentUser = async (accessToken: string) => {
+export const getCurrentUser = async (cookie?: string) => {
     const apiClient = getAuthenticatedApiInstance({
         apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-        authToken: accessToken,
+        cookie,
         fetchApi: fetch,
     });
 
@@ -135,10 +131,10 @@ export const getCurrentUser = async (accessToken: string) => {
     return data;
 };
 
-export const getCurrentUserSubscriptions = async (accessToken: string) => {
+export const getCurrentUserSubscriptions = async (cookie?: string) => {
     const apiClient = getAuthenticatedApiInstance({
         apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-        authToken: accessToken,
+        cookie,
         fetchApi: fetch,
     });
 
@@ -152,12 +148,12 @@ export const getCurrentUserSubscriptions = async (accessToken: string) => {
 };
 
 export const getOrganisationSubscriptions = async (
-    accessToken: string,
+    cookie: string | undefined,
     orgUuid: string,
 ) => {
     const apiClient = getAuthenticatedApiInstance({
         apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-        authToken: accessToken,
+        cookie,
         fetchApi: fetch,
     });
 
@@ -176,12 +172,12 @@ export const getOrganisationSubscriptions = async (
 };
 
 export const getOrgGhUsernames = async (
-    accessToken: string,
+    cookie: string | undefined,
     orgUuid: string,
 ) => {
     const apiClient = getAuthenticatedApiInstance({
         apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-        authToken: accessToken,
+        cookie,
         fetchApi: fetch,
     });
 

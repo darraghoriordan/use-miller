@@ -1,9 +1,9 @@
-import { useUser } from "@auth0/nextjs-auth0/client";
 import clsx from "clsx";
 import { ThemeColor } from "../styles/themeColors";
 import { getSignUpUrl } from "./signupUrl";
 import StyledLink from "./StyledLink";
 import { BuyNowButton } from "./BuyNowButton";
+import { authClient } from "../lib/auth-client";
 
 /**
  * Logged in users go to payment
@@ -22,7 +22,8 @@ export function SignUpBuyNowButton({
     className?: string;
     text?: string;
 }) {
-    const { user, isLoading } = useUser();
+    const { data: session, isPending: isLoading } = authClient.useSession();
+    const user = session?.user;
 
     if (isLoading) {
         return (

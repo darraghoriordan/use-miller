@@ -28,17 +28,24 @@ export const getAnonymousApiInstance = ({
 export const getAuthenticatedApiInstance = ({
     apiBase,
     authToken,
+    cookie,
     fetchApi,
 }: {
     apiBase: string;
-    authToken: string;
+    authToken?: string;
+    cookie?: string;
     fetchApi?: typeof fetch;
 }) => {
     const apiClient = getAnonymousApiInstance({ apiBase, fetchApi });
 
     const authMiddleware: Middleware = {
         async onRequest({ request }) {
-            request.headers.set("Authorization", `Bearer ${authToken}`);
+            if (authToken) {
+                request.headers.set("Authorization", `Bearer ${authToken}`);
+            }
+            if (cookie) {
+                request.headers.set("Cookie", cookie);
+            }
             return request;
         },
     };

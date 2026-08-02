@@ -13,7 +13,6 @@
     },
     "browserslist": "defaults, not ie <= 11",
     "dependencies": {
-        "@auth0/nextjs-auth0": "4.26.0",
         "@babel/core": "7.29.0",
         "@babel/plugin-syntax-flow": "^7.28.6",
         "@babel/plugin-transform-react-jsx": "^7.28.6",
@@ -40,6 +39,7 @@
         "@types/react-dom": "19.2.4",
         "@typescript-eslint/eslint-plugin": "^8.65.0",
         "@typescript-eslint/parser": "^8.65.0",
+        "better-auth": "1.6.25",
         "clsx": "2.1.1",
         "crisp-sdk-web": "1.2.0",
         "eslint": "^9.39.2",

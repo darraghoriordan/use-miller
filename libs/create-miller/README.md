@@ -17,7 +17,17 @@ pnpm create miller@latest my-app \
 ```
 
 Use `--no-install` to create the project without installing dependencies or running
-`mill doctor`..
+`mill doctor`.
+
+The generated project's next step is a non-interactive setup plan:
+
+```bash
+pnpm run mill -- setup --from-env --dry-run --json
+```
+
+The installer excludes local Terraform variables and state and removes this repository's
+maintainer-specific remote backend configuration. New projects begin with local Terraform
+state and can add their own remote backend deliberately.
 
 ## Maintainer workflow
 

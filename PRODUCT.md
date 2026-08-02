@@ -16,7 +16,8 @@ and project conventions from scratch.
 ## Success criteria
 
 - A fresh developer can diagnose setup from `mill doctor`.
-- An agent can understand enabled capabilities from `mill describe --json`.
+- An agent can inventory local and production capability, infrastructure, credential, and
+  service readiness from `mill report --profile all --json` without reading secrets.
 - Running a capability command twice produces no additional changes.
 - Every generated capability has a narrow verification command.
 - Upgrades preserve application-owned code and identify manual decisions explicitly.

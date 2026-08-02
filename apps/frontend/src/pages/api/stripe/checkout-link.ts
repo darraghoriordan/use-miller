@@ -1,12 +1,15 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getAuthenticatedApiInstance } from "../../../api-services/apiInstanceFactories";
 import type { components } from "../../../shared/types/api-specs";
-import { auth0 } from "../../../lib/auth0";
+import {
+    getBackendAuthHeaders,
+    withApiAuthRequired,
+} from "../../../lib/server-auth";
 
 type StripeCheckoutSessionRequestDto =
     components["schemas"]["StripeCheckoutSessionRequestDto"];
 
-export default auth0.withApiAuthRequired(async function getStripeCheckoutLink(
+export default withApiAuthRequired(async function getStripeCheckoutLink(
     req: NextApiRequest,
     res: NextApiResponse,
 ) {
@@ -17,41 +20,61 @@ export default auth0.withApiAuthRequired(async function getStripeCheckoutLink(
         return;
     }
 
+    const origin = req.headers.origin;
+    if (origin && origin !== new URL(process.env.APP_BASE_URL).origin) {
+        res.setHeader("Cache-Control", "no-store");
+        res.status(403).json({ error: "Invalid request origin" });
+        return;
+    }
+
     try {
-        const accessToken = await auth0.getAccessToken(req, res);
-        if (!accessToken?.token) {
+        const idempotencyKeyHeader = req.headers["idempotency-key"];
+        const idempotencyKey = Array.isArray(idempotencyKeyHeader)
+            ? idempotencyKeyHeader[0]
+            : idempotencyKeyHeader;
+        if (!idempotencyKey) {
             res.setHeader("Cache-Control", "no-store");
-            res.status(401).json({ error: "No access token" });
+            res.status(400).json({ error: "Missing Idempotency-Key" });
             return;
         }
 
         const requestBody = req.body as StripeCheckoutSessionRequestDto;
 
+        const authentication = getBackendAuthHeaders(req);
         const apiClient = getAuthenticatedApiInstance({
             apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-            authToken: accessToken.token,
+            cookie: authentication.cookie,
             fetchApi: fetch,
         });
 
-        const { data, error } = await apiClient.POST(
+        const result = await apiClient.POST(
             "/payments/stripe/checkout-session",
             {
                 body: requestBody,
+                params: { header: { "Idempotency-Key": idempotencyKey } },
             },
         );
+        const upstreamStatus = (result as { response: Response }).response
+            .status;
 
-        if (error || !data) {
-            throw new Error("Failed to create checkout session");
+        if (result.error || !result.data) {
+            const status = [400, 401, 403, 409, 429].includes(upstreamStatus)
+                ? upstreamStatus
+                : 502;
+            res.setHeader("Cache-Control", "no-store");
+            res.status(status).json({
+                error: "Unable to start checkout right now",
+            });
+            return;
         }
 
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
         res.setHeader("Cache-Control", "no-store");
-        res.end(JSON.stringify(data));
+        res.end(JSON.stringify(result.data));
     } catch (error) {
-        const message =
-            error instanceof Error ? error.message : "Internal server error";
+        const message = "Unable to start checkout right now";
         res.setHeader("Cache-Control", "no-store");
-        res.status(500).json({ error: message });
+        res.status(502).json({ error: message });
     }
 });

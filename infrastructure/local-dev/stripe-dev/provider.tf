@@ -5,6 +5,7 @@ terraform {
       version = "~> 3.4.1"
     }
   }
+  # MILLER_TEMPLATE_BACKEND_START
   # You don't need this if you're a solo dev. When you're ready you can create a
   # digital ocean spaces account and store your terraform state there safely
   # by doing a terraform init again
@@ -21,6 +22,7 @@ terraform {
     skip_s3_checksum            = true
     profile                     = "digitaloceanspaces-terraform"
   }
+  # MILLER_TEMPLATE_BACKEND_END
 }
 
 variable "app_stripe_api_token" {
@@ -43,6 +45,7 @@ variable "app_stripe_webhook_url" {
 variable "app_stripe_fulfilment_gh_token" {
   type        = string
   sensitive   = true
+  default     = ""
   description = "The gh token that gets written to an env var for fullfilment later"
 }
 variable "app_stripe_customer_portal_privacy_url" {

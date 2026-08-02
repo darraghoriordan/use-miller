@@ -4,7 +4,13 @@
     "title": "Miller project configuration",
     "type": "object",
     "additionalProperties": false,
-    "required": ["schemaVersion", "project", "runtime", "applications", "capabilities"],
+    "required": [
+        "schemaVersion",
+        "project",
+        "runtime",
+        "applications",
+        "capabilities"
+    ],
     "properties": {
         "$schema": { "type": "string" },
         "schemaVersion": { "const": 1 },
@@ -14,7 +20,10 @@
             "required": ["name", "slug"],
             "properties": {
                 "name": { "type": "string", "minLength": 1 },
-                "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" }
+                "slug": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                }
             }
         },
         "runtime": {
@@ -35,10 +44,87 @@
                 "frontend": { "type": "string" }
             }
         },
+        "infrastructure": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["provider", "profiles"],
+            "properties": {
+                "provider": { "const": "terraform" },
+                "profiles": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["local", "production"],
+                    "properties": {
+                        "local": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "auth": { "type": "string" },
+                                "billing": { "type": "string" },
+                                "environment": { "type": "string" }
+                            }
+                        },
+                        "production": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "auth": { "type": "string" },
+                                "billing": { "type": "string" },
+                                "environment": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "services": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["kind", "application", "source", "composeService"],
+                "properties": {
+                    "kind": {
+                        "enum": [
+                            "database",
+                            "cache",
+                            "telemetry",
+                            "tracing",
+                            "metrics"
+                        ]
+                    },
+                    "application": { "enum": ["backend", "frontend"] },
+                    "source": { "type": "string", "minLength": 1 },
+                    "composeService": { "type": "string", "minLength": 1 },
+                    "capability": {
+                        "enum": [
+                            "auth",
+                            "billing",
+                            "email",
+                            "jobs",
+                            "observability",
+                            "ai"
+                        ]
+                    },
+                    "requiredEnvironment": {
+                        "type": "array",
+                        "items": { "type": "string", "minLength": 1 },
+                        "uniqueItems": true
+                    }
+                }
+            }
+        },
         "capabilities": {
             "type": "object",
             "additionalProperties": { "type": "boolean" },
-            "required": ["auth", "billing", "email", "jobs", "observability", "ai"]
+            "required": [
+                "auth",
+                "billing",
+                "email",
+                "jobs",
+                "observability",
+                "ai"
+            ]
         }
     }
 }

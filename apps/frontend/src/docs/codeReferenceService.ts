@@ -1,6 +1,6 @@
 import type { components } from "../shared/types/api-specs";
 import { GetServerSidePropsContext } from "next";
-import { auth0 } from "../lib/auth0";
+import { getServerSession } from "../lib/server-auth";
 import { createMenu, mapTitles } from "./leftMenuGeneration";
 import {
     getAnonymousApiInstance,
@@ -39,7 +39,7 @@ export async function getCodeExplorerData(
     productKey: string,
     projectKey: string,
     codeFile: string,
-    accessToken: string | null | undefined,
+    authCookie: string | null | undefined,
 ): Promise<CodeExplorerData> {
     if (
         !projectKey ||
@@ -66,10 +66,10 @@ export async function getCodeExplorerData(
         );
     }
 
-    const apiClient = accessToken
+    const apiClient = authCookie
         ? getAuthenticatedApiInstance({
               apiBase,
-              authToken: accessToken,
+              cookie: authCookie,
               fetchApi: fetch,
           })
         : getAnonymousApiInstance({ apiBase, fetchApi: fetch });
@@ -102,7 +102,7 @@ export async function getCodeExplorerData(
     let initialCodeFile: FileMetaDto;
     let initialMarkdownFile: FileMetaDto;
 
-    if (!accessToken) {
+    if (!authCookie) {
         // Anonymous user - use open endpoints
         const codeFileResponse = await apiClient.GET(
             "/project-files/{productKey}/open/{projectKey}/contents/{b64Path}",
@@ -225,13 +225,13 @@ export async function getCodeFileServerSideProps(
     const codeFile = context.params?.codeFile as string;
     const productKey = context.params?.productKey as string;
 
-    let accessToken: string | null = null;
+    let authCookie: string | null = null;
     try {
-        const atResponse = await auth0.getAccessToken(context.req, context.res);
-        accessToken = atResponse?.token ?? null;
+        const session = await getServerSession(context.req, context.res);
+        authCookie = session ? (context.req.headers.cookie ?? null) : null;
     } catch {
         // No session available, user is not authenticated
-        accessToken = null;
+        authCookie = null;
     }
     if (!projectKey || !codeFile) {
         throw new Error(
@@ -247,7 +247,7 @@ export async function getCodeFileServerSideProps(
             productKey,
             projectKey,
             codeFile,
-            accessToken,
+            authCookie,
         );
     } catch (error) {
         errorMessage =

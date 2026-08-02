@@ -2,33 +2,25 @@ import { GetServerSidePropsContext, PreviewData } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { getAuthenticatedApiInstance } from "../api-services/apiInstanceFactories";
 import { createMenu } from "./leftMenuGeneration";
-import { auth0 } from "../lib/auth0";
+import {
+    getBackendAuthHeaders,
+    withPageAuthRequired,
+} from "../lib/server-auth";
 
-export const getServerSideProps = auth0.withPageAuthRequired({
-    getServerSideProps: profileGetSspData,
-});
+export const getServerSideProps = withPageAuthRequired(profileGetSspData);
 
 async function profileGetSspData(
     context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
 ) {
-    const accessToken = await auth0.getAccessToken(context.req, context.res);
-    if (!accessToken?.token) {
-        return {
-            redirect: {
-                destination: "/auth/login",
-                permanent: false,
-            },
-        };
-    }
-
-    const data = await getAccountIndexData(accessToken.token);
+    const authentication = getBackendAuthHeaders(context.req);
+    const data = await getAccountIndexData(authentication.cookie);
     return {
         props: data,
     };
 }
 
-export const getAccountIndexData = async (accessToken: string) => {
-    const userData = await getUserData(accessToken);
+export const getAccountIndexData = async (cookie?: string) => {
+    const userData = await getUserData(cookie);
     const userOrgs = userData.memberships.map((membership) => ({
         name: membership.organisation.name,
         uuid: membership.organisation.uuid,
@@ -43,10 +35,10 @@ export const getAccountIndexData = async (accessToken: string) => {
     };
 };
 
-export const getUserData = async (accessToken: string) => {
+export const getUserData = async (cookie?: string) => {
     const apiClient = getAuthenticatedApiInstance({
         apiBase: process.env.NEXT_PUBLIC_API_BASE_PATH!,
-        authToken: accessToken,
+        cookie,
         fetchApi: fetch,
     });
 

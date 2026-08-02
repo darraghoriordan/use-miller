@@ -22,8 +22,8 @@ import {
 
 export function Hero() {
     const features = [
-        "Terraform scripts to deploy and manage Auth0, Stripe and deploying to Digital Ocean",
-        "Authentication and authorization (Auth0)",
+        "Terraform scripts for Stripe and DigitalOcean deployment",
+        "Self-hosted authentication with cookie and bearer sessions",
         "Organisations, Membership and Users Modules",
         "Subscriptions and payments (Stripe)",
         "Comprehensive OpenAPI documentation for ChatGPT plugin development",
@@ -44,7 +44,7 @@ export function Hero() {
         {
             name: "Security First",
             description:
-                "Auth0 pre-configured with MFA support. Our ESLint plugin catches security issues at lint time.",
+                "Better Auth is hosted in your API with no identity SaaS account. Our ESLint plugin catches security issues at lint time.",
         },
         {
             name: "Async Background Jobs",
@@ -100,7 +100,7 @@ export function Hero() {
                         <p className="mt-6 text-lg md:text-xl text-security-text max-w-2xl leading-relaxed">
                             Master full-stack development with a
                             production-ready starter. NextJS, NestJS,
-                            PostgreSQL, Auth0, Stripe, and Terraform - all
+                            PostgreSQL, Better Auth, Stripe, and Terraform - all
                             pre-configured with security best practices.
                         </p>
                     </AnimatedHeadline>
@@ -114,7 +114,7 @@ export function Hero() {
                                 Open Source
                             </SecurityBadge>
                             <SecurityBadge icon="lock" variant="accent">
-                                Auth0 + MFA Ready
+                                Auth without SaaS lock-in
                             </SecurityBadge>
                         </div>
                     </AnimatedHeadline>
@@ -165,7 +165,7 @@ export function Hero() {
                             output={`[OK] Cloning template...
 [OK] Installing dependencies...
 [OK] Running security audit...
-[OK] Configuring Auth0...
+[OK] Configuring Better Auth...
 [OK] Setting up Stripe...
 [DONE] Your secure app is ready!`}
                         />

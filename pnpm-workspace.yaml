@@ -1,19 +1,23 @@
 packages:
-    - apps/*
-    - libs/*
+  - apps/*
+  - libs/*
 
 injectWorkspacePackages: true
+enableGlobalVirtualStore: false
 
 allowBuilds:
-    "@nestjs/core": true
-    "@scarf/scarf": true
-    "@swc/core": true
-    core-js: true
-    esbuild: true
-    msgpackr-extract: true
-    nestjs-pino: true
-    nx: true
-    protobufjs: true
-    sharp: true
-    unrs-resolver: true
-    vscode-material-icon-theme-js: true
+  "@nestjs/core": true
+  "@scarf/scarf": true
+  "@swc/core": true
+  core-js: true
+  esbuild: true
+  msgpackr-extract: true
+  nestjs-pino: true
+  nx: true
+  protobufjs: true
+  sharp: true
+  unrs-resolver: true
+  vscode-material-icon-theme-js: true
+
+minimumReleaseAgeExclude:
+  - '@darraghor/nest-backend-libs@6.0.1 || 7.0.0'

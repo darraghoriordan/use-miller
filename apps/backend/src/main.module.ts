@@ -2,8 +2,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import {
     CoreModule,
-    AuthzModule,
-    AuthzClientModule,
+    BetterAuthzModule,
     OrganisationModule,
     UserInternalModule,
     SmtpEmailClientModule,
@@ -11,6 +10,7 @@ import {
     InvitationModule,
     DatabaseModule,
 } from "@darraghor/nest-backend-libs";
+import { AuthModule } from "@thallesp/nestjs-better-auth";
 import { UserOnboardingModule } from "./user-onboarding/user-onboarding.module.js";
 import { PaymentsModule } from "./payments/payments.module.js";
 import { CourseFilesModule } from "./course-files/course-files.module.js";
@@ -19,11 +19,11 @@ import { OpenTelemetryModule } from "nestjs-otel";
 import {
     createCoreConfig,
     createLoggerConfig,
-    createAuthzConfig,
-    createAuthzClientConfig,
+    createBetterAuthzConfig,
     createSmtpEmailConfig,
     createInvitationConfig,
 } from "./config/library.config.js";
+import { auth } from "./auth/auth.js";
 
 @Module({
     imports: [
@@ -50,17 +50,18 @@ import {
 
         DatabaseModule,
 
-        AuthzModule.forRootAsync({
-            imports: [
-                ConfigModule,
-                AuthzClientModule.forRootAsync({
-                    imports: [ConfigModule],
-                    inject: [ConfigService],
-                    useFactory: createAuthzClientConfig,
-                }),
-            ],
-            inject: [ConfigService],
-            useFactory: createAuthzConfig,
+        AuthModule.forRoot({
+            auth,
+            disableGlobalAuthGuard: true,
+            bodyParser: {
+                json: { limit: "2mb" },
+                urlencoded: { limit: "2mb", extended: true },
+                rawBody: true,
+            },
+        }),
+
+        BetterAuthzModule.forRootAsync({
+            useFactory: createBetterAuthzConfig,
         }),
 
         UserInternalModule,

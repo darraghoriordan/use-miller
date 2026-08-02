@@ -857,8 +857,17 @@
     },
     "/payments/stripe/checkout-session": {
       "post": {
-        "operationId": "StripeCheckoutController_createCheckoutSession",
-        "parameters": [],
+        "operationId": "SecureStripeCheckoutController_createCheckoutSession",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -893,8 +902,17 @@
     },
     "/payments/stripe/customer-portal-session": {
       "post": {
-        "operationId": "StripeCustomerPortalController_createCustomerPortalSession",
-        "parameters": [],
+        "operationId": "SecureStripeCheckoutController_createCustomerPortalSession",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -929,21 +947,27 @@
     },
     "/payments/stripe/events": {
       "get": {
-        "operationId": "StripeEventsController_getLastEvents",
+        "operationId": "SecureStripeEventsController_getEvents",
         "parameters": [
           {
             "name": "skip",
-            "required": true,
+            "required": false,
             "in": "query",
             "schema": {
+              "minimum": 0,
+              "maximum": 1000,
+              "default": 0,
               "type": "number"
             }
           },
           {
             "name": "take",
-            "required": true,
+            "required": false,
             "in": "query",
             "schema": {
+              "minimum": 1,
+              "maximum": 1000,
+              "default": 50,
               "type": "number"
             }
           }
@@ -974,37 +998,26 @@
         ]
       }
     },
-    "/payments/stripe/webhook-receiver": {
+    "/payments/stripe/events/{eventId}/replay": {
       "post": {
-        "operationId": "StripeWebhookController_webhookReceiver",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          },
-          "400": {
-            "description": ""
+        "operationId": "SecureStripeEventsController_replay",
+        "parameters": [
+          {
+            "name": "eventId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
           }
-        },
-        "tags": [
-          "Payments"
-        ]
-      }
-    },
-    "/payments/stripe/peekalljobs": {
-      "get": {
-        "operationId": "StripeWebhookController_peekQueueJobs",
-        "parameters": [],
+        ],
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/QueueItemDto"
-                  }
+                  "type": "object"
                 }
               }
             }
@@ -1021,9 +1034,33 @@
         ]
       }
     },
-    "/payments/stripe/peekfailedjobs": {
+    "/payments/stripe/webhook-receiver": {
+      "post": {
+        "operationId": "SecureStripeWebhookController_receiveWebhook",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Payments"
+        ]
+      }
+    },
+    "/payments/stripe/peekalljobs": {
       "get": {
-        "operationId": "StripeWebhookController_peekFailedQueueJobs",
+        "operationId": "SecureStripeWebhookController_getQueueJobs",
         "parameters": [],
         "responses": {
           "200": {
@@ -1033,18 +1070,60 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/QueueItemDto"
+                    "type": "object"
                   }
                 }
               }
             }
           }
         },
-        "security": [
-          {
-            "bearer": []
+        "summary": "",
+        "tags": [
+          "SuperPower"
+        ]
+      }
+    },
+    "/payments/stripe/peekfailedjobs": {
+      "get": {
+        "operationId": "SecureStripeWebhookController_getFailedQueueJobs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
           }
-        ],
+        },
+        "summary": "",
+        "tags": [
+          "SuperPower"
+        ]
+      }
+    },
+    "/payments/stripe/operations": {
+      "get": {
+        "operationId": "SecureStripeWebhookController_getOperations",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
         "summary": "",
         "tags": [
           "SuperPower"
@@ -1804,7 +1883,7 @@
     }
   },
   "info": {
-    "title": "Use Miller BE",
+    "title": "Use Miller API",
     "description": "Describes the backend api",
     "version": "1.0.0",
     "contact": {}
@@ -1963,6 +2042,9 @@
           "auth0UserId": {
             "type": "string"
           },
+          "authProviderUserId": {
+            "type": "string"
+          },
           "username": {
             "type": "string"
           },
@@ -2118,6 +2200,9 @@
             "type": "string"
           },
           "auth0UserId": {
+            "type": "string"
+          },
+          "authProviderUserId": {
             "type": "string"
           },
           "username": {
@@ -2390,48 +2475,28 @@
           "orgUuid"
         ]
       },
-      "StripeCheckoutLineItem": {
-        "type": "object",
-        "properties": {
-          "price": {
-            "type": "string"
-          },
-          "quantity": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "price",
-          "quantity"
-        ]
-      },
       "StripeCheckoutSessionRequestDto": {
         "type": "object",
         "properties": {
           "organisationUuid": {
             "type": "string"
           },
-          "lineItems": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/StripeCheckoutLineItem"
-            }
-          },
-          "mode": {
-            "type": "string"
+          "productKey": {
+            "type": "string",
+            "description": "A product key from the server-side Stripe product catalog"
           },
           "successFrontendPath": {
             "type": "string",
-            "description": "The path on frontend to which Stripe should redirect the customer after payment. This is appended to the host configured in the StripeClientConfigurationService"
+            "description": "A relative frontend path on the configured application origin"
           },
           "cancelFrontendPath": {
             "type": "string",
-            "description": "The path on frontend to which Stripe should redirect the customer after payment cancellation. This is appended to the host configured in the StripeClientConfigurationService"
+            "description": "A relative frontend path on the configured application origin"
           }
         },
         "required": [
-          "lineItems",
-          "mode",
+          "organisationUuid",
+          "productKey",
           "successFrontendPath"
         ]
       },
@@ -2457,7 +2522,8 @@
             "type": "string"
           },
           "returnUrl": {
-            "type": "string"
+            "type": "string",
+            "description": "A relative frontend path on the configured application origin"
           }
         },
         "required": [
@@ -2482,17 +2548,23 @@
           "id": {
             "type": "number"
           },
-          "createdDate": {
-            "format": "date-time",
+          "stripeEventId": {
+            "type": "string"
+          },
+          "stripeObjectId": {
+            "type": "string"
+          },
+          "eventType": {
             "type": "string"
           },
           "clientReferenceId": {
             "type": "string"
           },
-          "stripeSessionId": {
+          "status": {
             "type": "string"
           },
-          "stripeObjectType": {
+          "createdDate": {
+            "format": "date-time",
             "type": "string"
           },
           "stripeDataAsString": {
@@ -2501,9 +2573,11 @@
         },
         "required": [
           "id",
+          "stripeEventId",
+          "stripeObjectId",
+          "eventType",
+          "status",
           "createdDate",
-          "stripeSessionId",
-          "stripeObjectType",
           "stripeDataAsString"
         ]
       },

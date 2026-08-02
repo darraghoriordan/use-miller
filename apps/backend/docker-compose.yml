@@ -21,6 +21,11 @@ services:
             - POSTGRES_USER=${APP_POSTGRES_USER}
             - POSTGRES_PASSWORD=${APP_POSTGRES_PASSWORD}
             - PGDATA=/var/lib/postgresql/data/pgdata
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+            interval: 2s
+            timeout: 5s
+            retries: 15
     redis:
         container_name: ${COMPOSE_PROJECT_NAME}_redis
         image: redis:8.8.0-alpine3.23

@@ -10,6 +10,7 @@ import { GithubUserForm } from "./GithubUserForm";
 import NoSubscriptions from "./NoSubscriptions";
 import { Subscriptions } from "./Subscriptions";
 import { FadeInOnScroll } from "../../components/Animations";
+import Link from "next/link";
 
 export const DashboardDetails = ({
     currentOrg,
@@ -78,6 +79,33 @@ export const DashboardDetails = ({
                     orgUuid={currentOrg.uuid}
                 />
             </FadeInOnScroll>
+
+            {currentUser.isSuper && (
+                <FadeInOnScroll delay={0.15}>
+                    <section className="mt-10 overflow-hidden rounded-xl border border-accent/30 bg-security-dark shadow-terminal">
+                        <div className="flex flex-col justify-between gap-5 p-6 sm:flex-row sm:items-center">
+                            <div>
+                                <p className="font-mono text-xs uppercase tracking-[0.22em] text-accent">
+                                    Operator access
+                                </p>
+                                <h2 className="mt-2 font-display text-2xl text-security-light">
+                                    Your application control room
+                                </h2>
+                                <p className="mt-2 max-w-2xl text-sm leading-6 text-security-muted">
+                                    Manage identities, roles, account access,
+                                    subscriptions, and payment events.
+                                </p>
+                            </div>
+                            <Link
+                                href="/super-admin"
+                                className="inline-flex shrink-0 items-center justify-center rounded-lg border border-accent px-5 py-3 font-mono text-sm text-accent transition hover:bg-accent hover:text-security-black"
+                            >
+                                Open admin
+                            </Link>
+                        </div>
+                    </section>
+                </FadeInOnScroll>
+            )}
 
             <div className="mt-12">{subsComponent}</div>
         </div>

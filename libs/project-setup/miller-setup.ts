@@ -1,20 +1,24 @@
 #!/usr/bin/env node
 
 import { spawn } from "node:child_process";
-import { access, cp, readFile, writeFile } from "node:fs/promises";
+import { access, cp, glob, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
-
-type Capability = "ai" | "auth" | "billing" | "email" | "jobs" | "observability";
-
-interface MillerConfig {
-    $schema?: string;
-    schemaVersion: 1;
-    project: { name: string; slug: string };
-    runtime: { node: string; packageManager: string };
-    applications: { backend: string; frontend: string };
-    capabilities: Record<Capability, boolean>;
-}
+import { parseArgs } from "node:util";
+import { readEnvironmentFile } from "./environment-files.js";
+import type {
+    Capability,
+    CheckResult,
+    MillerConfig,
+    MultiProfileReport,
+    ProjectReport,
+    SetupCapability,
+    SetupProfile,
+    SetupResult,
+} from "./miller-types.js";
+import { reportProject } from "./report-project.js";
+import { setupProject } from "./setup-project.js";
+import { isTerraformAvailable } from "./terraform-runner.js";
 
 interface CliOptions {
     command: string;
@@ -24,13 +28,13 @@ interface CliOptions {
     projectName?: string;
     projectSlug?: string;
     scope?: string;
-}
-
-interface CheckResult {
-    id: string;
-    status: "pass" | "fail" | "warn";
-    message: string;
-    fix?: string;
+    profile?: string;
+    only?: string;
+    isApply: boolean;
+    isYes: boolean;
+    isFromEnvironment: boolean;
+    isDeep: boolean;
+    shouldShowHelp: boolean;
 }
 
 const configFileName = "miller.config.json";
@@ -44,49 +48,49 @@ const supportedCapabilities = new Set<Capability>([
 ]);
 
 function parseArguments(args: string[]): CliOptions {
-    const positional: string[] = [];
-    const values = new Map<string, string>();
-    const flags = new Set<string>();
-
-    for (let index = 0; index < args.length; index += 1) {
-        const argument = args[index];
-        if (!argument) {
-            continue;
-        }
-        if (!argument.startsWith("--")) {
-            positional.push(argument);
-            continue;
-        }
-
-        const [rawKey, inlineValue] = argument.slice(2).split("=", 2);
-        if (!rawKey) {
-            continue;
-        }
-        if (inlineValue !== undefined) {
-            values.set(rawKey, inlineValue);
-            continue;
-        }
-        const next = args[index + 1];
-        if (next && !next.startsWith("--")) {
-            values.set(rawKey, next);
-            index += 1;
-        } else {
-            flags.add(rawKey);
-        }
-    }
+    const normalizedArguments = args[0] === "--" ? args.slice(1) : args;
+    const { values, positionals } = parseArgs({
+        args: normalizedArguments,
+        allowPositionals: true,
+        strict: true,
+        options: {
+            json: { type: "boolean" },
+            "dry-run": { type: "boolean" },
+            name: { type: "string" },
+            slug: { type: "string" },
+            scope: { type: "string" },
+            profile: { type: "string" },
+            only: { type: "string" },
+            apply: { type: "boolean" },
+            yes: { type: "boolean", short: "y" },
+            "from-env": { type: "boolean" },
+            deep: { type: "boolean" },
+            help: { type: "boolean", short: "h" },
+        },
+    });
+    const positional = [...positionals];
 
     return {
         command: positional.shift() ?? "help",
         positional,
-        isJson: flags.has("json"),
-        isDryRun: flags.has("dry-run"),
-        projectName: values.get("name"),
-        projectSlug: values.get("slug"),
-        scope: values.get("scope"),
+        isJson: values.json ?? false,
+        isDryRun: values["dry-run"] ?? false,
+        projectName: values.name,
+        projectSlug: values.slug,
+        scope: values.scope,
+        profile: values.profile,
+        only: values.only,
+        isApply: values.apply ?? false,
+        isYes: values.yes ?? false,
+        isFromEnvironment: values["from-env"] ?? false,
+        isDeep: values.deep ?? false,
+        shouldShowHelp: values.help ?? false,
     };
 }
 
-async function findProjectRoot(startDirectory = process.cwd()): Promise<string> {
+async function findProjectRoot(
+    startDirectory = process.cwd(),
+): Promise<string> {
     let directory = path.resolve(startDirectory);
     while (true) {
         try {
@@ -108,7 +112,9 @@ async function readConfig(root: string): Promise<MillerConfig> {
     const contents = await readFile(path.join(root, configFileName), "utf8");
     const config = JSON.parse(contents) as MillerConfig;
     if (config.schemaVersion !== 1) {
-        throw new Error(`Unsupported Miller schema version: ${config.schemaVersion}`);
+        throw new Error(
+            `Unsupported Miller schema version: ${config.schemaVersion}`,
+        );
     }
     return config;
 }
@@ -148,10 +154,14 @@ function outputDoctor(checks: CheckResult[], isJson: boolean): void {
     console.log("");
     if (hasFailures) {
         const failures = checks.length - passed - warnings;
-        console.log(`${failures} check${failures === 1 ? "" : "s"} failed. Resolve the fixes above, then run mill doctor again.`);
+        console.log(
+            `${failures} check${failures === 1 ? "" : "s"} failed. Resolve the fixes above, then run mill doctor again.`,
+        );
         return;
     }
-    console.log(`${passed} checks passed${warnings ? `, ${warnings} warning${warnings === 1 ? "" : "s"}` : ""}. Ready to build.`);
+    console.log(
+        `${passed} checks passed${warnings ? `, ${warnings} warning${warnings === 1 ? "" : "s"}` : ""}. Ready to build.`,
+    );
 }
 
 async function fileExists(filePath: string): Promise<boolean> {
@@ -163,9 +173,26 @@ async function fileExists(filePath: string): Promise<boolean> {
     }
 }
 
-async function doctor(root: string, config: MillerConfig): Promise<CheckResult[]> {
+function configurationStatus(
+    isConfigured: boolean,
+    isDeep: boolean,
+): "pass" | "fail" | "warn" {
+    if (isConfigured) {
+        return "pass";
+    }
+    return isDeep ? "fail" : "warn";
+}
+
+async function doctor(
+    root: string,
+    config: MillerConfig,
+    isDeep: boolean,
+): Promise<CheckResult[]> {
     const checks: CheckResult[] = [];
-    const nodeMajor = Number.parseInt(process.versions.node.split(".")[0] ?? "0", 10);
+    const nodeMajor = Number.parseInt(
+        process.versions.node.split(".")[0] ?? "0",
+        10,
+    );
     checks.push({
         id: "runtime.node",
         status: nodeMajor === 24 ? "pass" : "warn",
@@ -185,7 +212,9 @@ async function doctor(root: string, config: MillerConfig): Promise<CheckResult[]
         checks.push({
             id,
             status: isPresent ? "pass" : "fail",
-            message: isPresent ? `${relativePath} is present.` : `${relativePath} is missing.`,
+            message: isPresent
+                ? `${relativePath} is present.`
+                : `${relativePath} is missing.`,
         });
     }
 
@@ -195,7 +224,9 @@ async function doctor(root: string, config: MillerConfig): Promise<CheckResult[]
     checks.push({
         id: "runtime.packageManager",
         status:
-            rootPackage.packageManager === config.runtime.packageManager ? "pass" : "fail",
+            rootPackage.packageManager === config.runtime.packageManager
+                ? "pass"
+                : "fail",
         message: `package.json uses ${rootPackage.packageManager ?? "no package manager"}; Miller expects ${config.runtime.packageManager}.`,
         fix:
             rootPackage.packageManager === config.runtime.packageManager
@@ -216,7 +247,85 @@ async function doctor(root: string, config: MillerConfig): Promise<CheckResult[]
             message: isPresent
                 ? "The provider-neutral AI core is present."
                 : "AI is enabled but its backend core is missing.",
-            fix: isPresent ? undefined : "Restore apps/backend/src/ai-core or disable AI.",
+            fix: isPresent
+                ? undefined
+                : "Restore apps/backend/src/ai-core or disable AI.",
+        });
+    }
+
+    if (config.capabilities.billing) {
+        const isAvailable = await isTerraformAvailable();
+        checks.push({
+            id: "setup.terraform",
+            status: configurationStatus(isAvailable, isDeep),
+            message: isAvailable
+                ? "Terraform is available."
+                : "Terraform is required to configure billing infrastructure.",
+            fix: isAvailable
+                ? undefined
+                : "Install Terraform and rerun mill doctor.",
+        });
+    }
+
+    const backendEnvironment = await readEnvironmentFile(
+        path.join(root, config.applications.backend, ".env"),
+    );
+    if (config.capabilities.auth) {
+        const requiredKeys = ["BETTER_AUTH_SECRET", "BETTER_AUTH_URL"];
+        const missingKeys = requiredKeys.filter(
+            (key) => !backendEnvironment.get(key),
+        );
+        checks.push({
+            id: "capability.auth.configuration",
+            status: configurationStatus(missingKeys.length === 0, isDeep),
+            message:
+                missingKeys.length === 0
+                    ? "Auth environment configuration is present."
+                    : `Auth configuration is missing keys: ${missingKeys.join(", ")}.`,
+            fix:
+                missingKeys.length === 0
+                    ? undefined
+                    : "Run mill setup --only auth --apply --yes.",
+        });
+    }
+    if (config.capabilities.billing) {
+        const requiredKeys = [
+            "STRIPE_ACCESS_TOKEN",
+            "STRIPE_WEBHOOK_VERIFICATION_KEY",
+        ];
+        const missingKeys = requiredKeys.filter(
+            (key) => !backendEnvironment.get(key),
+        );
+        const catalogJson = backendEnvironment.get(
+            "STRIPE_PRODUCT_CATALOG_JSON",
+        );
+        let isCatalogValid = false;
+        if (catalogJson) {
+            try {
+                const catalog = JSON.parse(catalogJson) as unknown;
+                isCatalogValid =
+                    typeof catalog === "object" &&
+                    catalog !== null &&
+                    !Array.isArray(catalog) &&
+                    Object.keys(catalog).length > 0;
+            } catch {
+                isCatalogValid = false;
+            }
+        }
+        if (!isCatalogValid) {
+            missingKeys.push("STRIPE_PRODUCT_CATALOG_JSON");
+        }
+        checks.push({
+            id: "capability.billing.configuration",
+            status: configurationStatus(missingKeys.length === 0, isDeep),
+            message:
+                missingKeys.length === 0
+                    ? "Billing environment configuration and product catalog are present."
+                    : `Billing configuration is missing or invalid: ${missingKeys.join(", ")}.`,
+            fix:
+                missingKeys.length === 0
+                    ? undefined
+                    : "Run mill setup --only billing --apply --yes.",
         });
     }
 
@@ -237,9 +346,74 @@ async function writeConfig(
     }
 }
 
+function withoutConfiguredBackend(source: string): string {
+    const match = /\n\s*backend\s+"[^"]+"\s*\{/.exec(source);
+    if (!match || match.index === undefined) {
+        return source;
+    }
+    const blockStart = source.indexOf("backend", match.index);
+    const openingBrace = source.indexOf("{", blockStart);
+    let depth = 0;
+    for (let index = openingBrace; index < source.length; index += 1) {
+        if (source[index] === "{") {
+            depth += 1;
+        } else if (source[index] === "}") {
+            depth -= 1;
+            if (depth === 0) {
+                const markerStart = source.lastIndexOf(
+                    "# MILLER_TEMPLATE_BACKEND_START",
+                    blockStart,
+                );
+                const explanatoryCommentStart = source.lastIndexOf(
+                    "# You don't need this",
+                    blockStart,
+                );
+                const lineStart =
+                    source.lastIndexOf(
+                        "\n",
+                        (markerStart >= 0
+                            ? markerStart
+                            : explanatoryCommentStart >= 0
+                              ? explanatoryCommentStart
+                              : blockStart) - 1,
+                    ) + 1;
+                const markerEnd = source.indexOf(
+                    "# MILLER_TEMPLATE_BACKEND_END",
+                    index,
+                );
+                const lineEnd = source.indexOf(
+                    "\n",
+                    markerEnd >= 0 ? markerEnd : index,
+                );
+                return `${source.slice(0, lineStart)}${source.slice(lineEnd + 1)}`;
+            }
+        }
+    }
+    throw new Error(
+        "Could not parse Terraform backend block while creating project.",
+    );
+}
+
+async function removeMaintainerBackends(root: string): Promise<void> {
+    for await (const relativePath of glob("infrastructure/**/provider.tf", {
+        cwd: root,
+    })) {
+        const filePath = path.join(root, relativePath);
+        if (!(await fileExists(filePath))) {
+            continue;
+        }
+        const source = await readFile(filePath, "utf8");
+        await writeFile(filePath, withoutConfiguredBackend(source), "utf8");
+    }
+}
+
 async function runCommand(root: string, args: string[]): Promise<number> {
     return await new Promise<number>((resolve, reject) => {
-        const child = spawn("pnpm", args, { cwd: root, stdio: "inherit", shell: false });
+        const child = spawn("pnpm", args, {
+            cwd: root,
+            stdio: "inherit",
+            shell: false,
+        });
         child.once("error", reject);
         child.once("exit", (code) => resolve(code ?? 1));
     });
@@ -251,17 +425,175 @@ function showHelp(): void {
 Usage:
   mill create <target> --name <name> --slug <slug> [--dry-run] [--json]
   mill describe [--json]
+  mill report [--profile all|local|production] [--deep] [--json]
   mill doctor [--json]
+  mill doctor --deep [--json]
   mill configure --name <name> --slug <slug> [--dry-run] [--json]
   mill add <capability> [--dry-run] [--json]
+  mill setup [--profile local|production] [--only auth,billing] [--from-env] [--apply --yes] [--json]
+  mill env sync [--profile local|production] [--only auth,billing] [--dry-run] [--json]
   mill verify [--scope backend|frontend|setup]
 
 Commands are non-interactive, deterministic, and safe to call from coding agents.`);
 }
 
+function outputProjectReport(report: ProjectReport, isJson: boolean): void {
+    if (isJson) {
+        output(report, true);
+        return;
+    }
+    console.log(`${report.project.name} (${report.profile})`);
+    console.log(`Status: ${report.summary.status.toUpperCase()}`);
+    console.log("");
+    console.log("Capabilities");
+    for (const capability of report.capabilities) {
+        console.log(
+            `  ${capability.status.toUpperCase().padEnd(10)} ${capability.id}`,
+        );
+        if (capability.configuration.missingKeys.length > 0) {
+            console.log(
+                `             Missing: ${capability.configuration.missingKeys.join(", ")}`,
+            );
+        }
+        for (const note of capability.configuration.notes) {
+            console.log(`             ${note}`);
+        }
+    }
+    console.log("");
+    console.log("Infrastructure");
+    for (const infrastructure of report.infrastructure) {
+        console.log(
+            `  ${infrastructure.status.toUpperCase().padEnd(12)} ${infrastructure.path} (outputs: ${infrastructure.outputs})`,
+        );
+    }
+    console.log("");
+    console.log("Services");
+    for (const service of report.services) {
+        console.log(
+            `  ${service.status.toUpperCase().padEnd(12)} ${service.id}`,
+        );
+    }
+    if (report.recommendations.length > 0) {
+        console.log("");
+        console.log("Next actions");
+        for (const recommendation of report.recommendations) {
+            console.log(
+                `  ${recommendation.severity.toUpperCase()}  ${recommendation.message}`,
+            );
+            if (recommendation.command) {
+                console.log(`         ${recommendation.command}`);
+            }
+        }
+    }
+    if (report.credentials.length > 0) {
+        console.log("");
+        console.log("Credentials");
+        for (const credential of report.credentials) {
+            const state = credential.configured
+                ? "CONFIGURED"
+                : credential.required
+                  ? "REQUIRED"
+                  : "OPTIONAL";
+            console.log(`  ${state.padEnd(12)} ${credential.id}`);
+            console.log(`               Destination: ${credential.destination}`);
+            if (credential.destinationKeys.length > 0) {
+                console.log(
+                    `               Keys: ${credential.destinationKeys.join(", ")}`,
+                );
+            }
+            if (credential.environmentVariables.length > 0) {
+                console.log(
+                    `               Inputs: ${credential.environmentVariables.join(", ")}`,
+                );
+            }
+            if (credential.sourceUrl) {
+                console.log(`               Get it: ${credential.sourceUrl}`);
+            }
+            if (credential.relatedUrl) {
+                console.log(`               Configure URL: ${credential.relatedUrl}`);
+            }
+        }
+    }
+}
+
+function parseSetupProfile(profile: string | undefined): SetupProfile {
+    if (!profile || profile === "local") {
+        return "local";
+    }
+    if (profile === "production") {
+        return "production";
+    }
+    throw new Error("--profile must be local or production.");
+}
+
+function parseReportProfiles(profile: string | undefined): SetupProfile[] {
+    if (!profile || profile === "all") {
+        return ["local", "production"];
+    }
+    return [parseSetupProfile(profile)];
+}
+
+function parseSetupCapabilities(
+    only: string | undefined,
+    config: MillerConfig,
+): SetupCapability[] {
+    const requested = only
+        ? only.split(",").map((value) => value.trim())
+        : (["auth", "billing"] as SetupCapability[]).filter(
+              (capability) => config.capabilities[capability],
+          );
+    const supported = new Set<SetupCapability>(["auth", "billing"]);
+    for (const capability of requested) {
+        if (!supported.has(capability as SetupCapability)) {
+            throw new Error("--only supports auth and billing.");
+        }
+    }
+    return [...new Set(requested as SetupCapability[])];
+}
+
+function outputSetupResult(result: SetupResult, isJson: boolean): void {
+    if (isJson) {
+        output(result, true);
+        return;
+    }
+    for (const step of result.steps) {
+        console.log(`${step.status.toUpperCase().padEnd(9)} ${step.message}`);
+    }
+    if (result.credentials.length > 0) {
+        console.log("");
+        console.log("Credential sources");
+        for (const credential of result.credentials.filter(
+            (value) => !value.configured,
+        )) {
+            console.log(
+                `  ${credential.required ? "REQUIRED" : "OPTIONAL"}  ${credential.id}: ${credential.instructions}`,
+            );
+            if (credential.sourceUrl) {
+                console.log(`            ${credential.sourceUrl}`);
+            }
+        }
+    }
+    if (result.changes.length > 0) {
+        console.log("");
+        for (const change of result.changes) {
+            console.log(
+                `${change.action.toUpperCase().padEnd(6)} ${change.target} (${change.keys.join(", ")})`,
+            );
+        }
+    }
+    console.log("");
+    console.log(
+        result.changed
+            ? result.applied
+                ? "Setup applied successfully."
+                : "Setup changes planned. Rerun with --apply --yes to apply them."
+            : "Setup is already synchronized.",
+    );
+}
+
 async function main(): Promise<void> {
     const options = parseArguments(process.argv.slice(2));
-    if (options.command === "help" || options.command === "--help") {
+    if (options.command === "help" || options.shouldShowHelp) {
         showHelp();
         return;
     }
@@ -272,15 +604,23 @@ async function main(): Promise<void> {
     switch (options.command) {
         case "create": {
             const targetArgument = options.positional[0];
-            if (!targetArgument || !options.projectName || !options.projectSlug) {
-                throw new Error("create requires a target, --name, and --slug.");
+            if (
+                !targetArgument ||
+                !options.projectName ||
+                !options.projectSlug
+            ) {
+                throw new Error(
+                    "create requires a target, --name, and --slug.",
+                );
             }
             if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(options.projectSlug)) {
                 throw new Error("--slug must be lowercase kebab-case.");
             }
             const target = path.resolve(process.cwd(), targetArgument);
             if (target === root || target.startsWith(`${root}${path.sep}`)) {
-                throw new Error("create target must be outside the source project.");
+                throw new Error(
+                    "create target must be outside the source project.",
+                );
             }
             if (await fileExists(target)) {
                 throw new Error(`create target already exists: ${target}`);
@@ -302,13 +642,19 @@ async function main(): Promise<void> {
                         const relativePath = path.relative(root, source);
                         return !relativePath
                             .split(path.sep)
-                            .some((segment) =>
-                                excludedNames.has(segment) ||
-                                (segment.startsWith(".env") &&
-                                    !segment.endsWith(".template")),
+                            .some(
+                                (segment) =>
+                                    excludedNames.has(segment) ||
+                                    segment.endsWith(".tfvars") ||
+                                    segment.endsWith(".tfstate") ||
+                                    segment.includes(".tfstate.") ||
+                                    segment.endsWith(".tfplan") ||
+                                    (segment.startsWith(".env") &&
+                                        !segment.endsWith(".template")),
                             );
                     },
                 });
+                await removeMaintainerBackends(target);
                 const createdConfig = await readConfig(target);
                 createdConfig.project = {
                     name: options.projectName,
@@ -332,8 +678,17 @@ async function main(): Promise<void> {
                     ok: true,
                     dryRun: options.isDryRun,
                     target,
-                    project: { name: options.projectName, slug: options.projectSlug },
-                    next: [`cd ${target}`, "pnpm install", "pnpm run mill -- doctor"],
+                    project: {
+                        name: options.projectName,
+                        slug: options.projectSlug,
+                    },
+                    next: [
+                        `cd ${target}`,
+                        "pnpm install",
+                        "pnpm run mill -- report --profile all --json",
+                        "pnpm run mill -- setup --from-env --dry-run --json",
+                        "pnpm run mill -- doctor",
+                    ],
                 },
                 options.isJson,
             );
@@ -342,13 +697,95 @@ async function main(): Promise<void> {
         case "describe":
             output({ root, ...config }, options.isJson);
             return;
+        case "report": {
+            const profiles = parseReportProfiles(options.profile);
+            const reports = await Promise.all(
+                profiles.map((profile) =>
+                    reportProject({
+                        root,
+                        config,
+                        profile,
+                        isDeep: options.isDeep,
+                    }),
+                ),
+            );
+            if (reports.length === 1) {
+                outputProjectReport(reports[0]!, options.isJson);
+                return;
+            }
+            const report: MultiProfileReport = {
+                ok: true,
+                schemaVersion: 1,
+                project: config.project,
+                summary: {
+                    status: reports.some(
+                        (value) => value.summary.status === "attention",
+                    )
+                        ? "attention"
+                        : "ready",
+                },
+                profiles: reports,
+            };
+            if (options.isJson) {
+                output(report, true);
+            } else {
+                reports.forEach((value, index) => {
+                    if (index > 0) {
+                        console.log("\n---\n");
+                    }
+                    outputProjectReport(value, false);
+                });
+            }
+            return;
+        }
         case "doctor": {
-            const checks = await doctor(root, config);
+            const checks = await doctor(root, config, options.isDeep);
             const hasFailures = checks.some((check) => check.status === "fail");
             outputDoctor(checks, options.isJson);
             if (hasFailures) {
                 process.exitCode = 1;
             }
+            return;
+        }
+        case "setup": {
+            if (options.isApply && options.isDryRun) {
+                throw new Error(
+                    "--apply and --dry-run cannot be used together.",
+                );
+            }
+            if (options.isApply && !options.isYes) {
+                throw new Error("Setup apply requires --yes.");
+            }
+            const result = await setupProject({
+                root,
+                config,
+                profile: parseSetupProfile(options.profile),
+                capabilities: parseSetupCapabilities(options.only, config),
+                shouldApplyTerraform: options.isApply,
+                shouldWriteEnvironment: options.isApply,
+                shouldReadInputsFromEnvironment: options.isFromEnvironment,
+                canSkipUnavailableOutputs: !options.isApply,
+                isJson: options.isJson,
+            });
+            outputSetupResult(result, options.isJson);
+            return;
+        }
+        case "env": {
+            if (options.positional[0] !== "sync") {
+                throw new Error("Usage: mill env sync [--dry-run] [--json].");
+            }
+            const result = await setupProject({
+                root,
+                config,
+                profile: parseSetupProfile(options.profile),
+                capabilities: parseSetupCapabilities(options.only, config),
+                shouldApplyTerraform: false,
+                shouldWriteEnvironment: !options.isDryRun,
+                shouldReadInputsFromEnvironment: false,
+                canSkipUnavailableOutputs: false,
+                isJson: options.isJson,
+            });
+            outputSetupResult(result, options.isJson);
             return;
         }
         case "configure": {
@@ -358,7 +795,10 @@ async function main(): Promise<void> {
             if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(options.projectSlug)) {
                 throw new Error("--slug must be lowercase kebab-case.");
             }
-            config.project = { name: options.projectName, slug: options.projectSlug };
+            config.project = {
+                name: options.projectName,
+                slug: options.projectSlug,
+            };
             await writeConfig(root, config, options.isDryRun);
             output(
                 { ok: true, dryRun: options.isDryRun, project: config.project },

@@ -30,7 +30,7 @@ resource "stripe_price" "miller_start_consult_price" {
     usage_type     = "licensed"
   }
   billing_scheme = "per_unit"
-  tax_behaviour  = "inclusive"
+  tax_behavior   = "inclusive"
 }
 
 resource "stripe_product" "dev_shell_product" {
@@ -49,7 +49,7 @@ resource "stripe_price" "dev_shell_price" {
   unit_amount    = 2900
   currency       = "usd"
   billing_scheme = "per_unit"
-  tax_behaviour  = "inclusive"
+  tax_behavior   = "inclusive"
 }
 resource "stripe_webhook_endpoint" "webhook_endpoint" {
   url      = var.app_stripe_webhook_url
@@ -97,9 +97,6 @@ resource "stripe_portal_configuration" "portal_configuration" {
       mode               = "at_period_end"
       proration_behavior = "none"
     }
-    subscription_pause {
-      enabled = true
-    }
     subscription_update {
       enabled                 = true
       default_allowed_updates = ["price", "quantity", "promotion_code"]
@@ -119,6 +116,24 @@ output "miller_start_consult_price_id" {
 
 output "dev_shell_price_id" {
   value     = stripe_price.dev_shell_price.id
+  sensitive = false
+}
+output "stripe_product_catalog" {
+  description = "Server-authoritative product catalog consumed by the Miller backend"
+  value = {
+    "miller-start-consulting" = {
+      priceId     = stripe_price.miller_start_consult_price.id
+      mode        = "subscription"
+      internalSku = "miller-start-consulting"
+      displayName = stripe_product.product_with_consult.name
+    }
+    "dev-shell" = {
+      priceId     = stripe_price.dev_shell_price.id
+      mode        = "payment"
+      internalSku = "dev-shell"
+      displayName = stripe_product.dev_shell_product.name
+    }
+  }
   sensitive = false
 }
 output "app_stripe_webhook_verification_key" {

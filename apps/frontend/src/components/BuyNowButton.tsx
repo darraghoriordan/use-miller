@@ -5,27 +5,6 @@ import { ThemeColor } from "../styles/themeColors";
 import { useState } from "react";
 import StyledButton from "./StyledButton";
 
-// might pass this in as a param later
-const productMapping = [
-    {
-        productKey: "miller-start",
-        stripePriceId: process.env.NEXT_PUBLIC_STRIPE_REGULAR_PRICE_ID,
-        mode: "subscription",
-    },
-    {
-        productKey: "miller-start-consulting",
-        stripePriceId:
-            process.env.NEXT_PUBLIC_STRIPE_MILLER_CONSULTING_PRICE_ID,
-        mode: "subscription",
-    },
-
-    {
-        productKey: "dev-shell",
-        stripePriceId:
-            process.env.NEXT_PUBLIC_STRIPE_REGULAR_PRICE_NO_RECURRENCE_ID,
-        mode: "payment",
-    },
-];
 /**
  * Logged in users go to payment
  * Logged out users go to sign up
@@ -44,75 +23,82 @@ export function BuyNowButton({
     text?: string;
 }) {
     const [isLoading, setIsLoading] = useState(false);
-
-    const product = productMapping.find((p) => p.productKey === productKey);
-    if (!product) {
-        throw new Error(`Product ${productKey} not found`);
-    }
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     const onClick = async () => {
         setIsLoading(true);
-        const response = await fetch("/api/user/me");
-        if (!response.ok) {
-            setIsLoading(false);
-            window.location.href = "/auth/login";
-            return;
-        }
+        setErrorMessage(null);
+        try {
+            const response = await fetch("/api/user/me", {
+                cache: "no-store",
+            });
+            if (!response.ok) {
+                window.location.href = "/auth/login";
+                return;
+            }
 
-        const currentUser = (await response.json()) as UserDto;
-        const orgUuid = currentUser.memberships?.find((membership) =>
-            membership.roles?.some((role) => role.name === "owner"),
-        )?.organisation?.uuid;
+            const currentUser = (await response.json()) as UserDto;
+            const orgUuid = currentUser.memberships?.find((membership) =>
+                membership.roles?.some((role) => role.name === "owner"),
+            )?.organisation?.uuid;
 
-        if (!orgUuid) {
-            setIsLoading(false);
-            throw new Error(
-                "User must be an owner of an organisation to purchase",
+            if (!orgUuid) {
+                throw new Error(
+                    "You must be an organisation owner before purchasing.",
+                );
+            }
+
+            const checkoutResponse = await fetch("/api/stripe/checkout-link", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Idempotency-Key": globalThis.crypto.randomUUID(),
+                },
+                body: JSON.stringify({
+                    successFrontendPath: "/dashboard",
+                    cancelFrontendPath: "/dashboard",
+                    productKey,
+                    organisationUuid: orgUuid,
+                }),
+            });
+
+            if (!checkoutResponse.ok) {
+                throw new Error("Unable to start checkout right now.");
+            }
+
+            const link = (await checkoutResponse.json()) as {
+                stripeSessionUrl: string;
+            };
+
+            window.location.href = link.stripeSessionUrl;
+        } catch (error) {
+            setErrorMessage(
+                error instanceof Error
+                    ? error.message
+                    : "Unable to start checkout right now.",
             );
-        }
-
-        const checkoutResponse = await fetch("/api/stripe/checkout-link", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                successFrontendPath: "/dashboard",
-                cancelFrontendPath: "/dashboard",
-                lineItems: [
-                    {
-                        price: product.stripePriceId,
-                        quantity: 1,
-                    },
-                ],
-                mode: product.mode,
-                organisationUuid: orgUuid,
-            }),
-        });
-
-        if (!checkoutResponse.ok) {
             setIsLoading(false);
-            throw new Error("Failed to create checkout session");
         }
-
-        const link = (await checkoutResponse.json()) as {
-            stripeSessionUrl: string;
-        };
-
-        window.location.href = link.stripeSessionUrl;
     };
 
     return (
-        <StyledButton
-            onClick={onClick}
-            color={color}
-            disabled={isLoading}
-            className={clsx(
-                "rounded-lg text-xl px-14 py-4 hover:shadow-lg border-white",
-                className,
+        <div>
+            <StyledButton
+                onClick={() => void onClick()}
+                color={color}
+                disabled={isLoading}
+                className={clsx(
+                    "rounded-lg text-xl px-14 py-4 hover:shadow-lg border-white",
+                    className,
+                )}
+            >
+                {isLoading ? "Loading..." : text || "Buy now"}
+            </StyledButton>
+            {errorMessage && (
+                <p className="mt-2 text-sm text-red-200" role="alert">
+                    {errorMessage}
+                </p>
             )}
-        >
-            {isLoading ? "Loading..." : text || "Buy now"}
-        </StyledButton>
+        </div>
     );
 }

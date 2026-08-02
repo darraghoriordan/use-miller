@@ -8,15 +8,17 @@ You will want to deploy your application(s) to production at some point. Miller 
 
 I will discuss how to deploy to Digital Ocean here but the same principals apply to any host. Each different potential host environment will require custom setup.
 
-## Auth0 production
+## Better Auth production
 
-For auth0 you will have to create a new tenant for production. Just follow the same instructions you used for development environment but select "production" when asked what the environment will be used for.
+Set a unique `BETTER_AUTH_SECRET` of at least 32 random characters and set
+`BETTER_AUTH_URL` to the public backend origin. Keep PostgreSQL durable and run migrations
+before serving traffic. If the frontend and backend share a parent domain, configure
+`BETTER_AUTH_COOKIE_DOMAIN`; otherwise the frontend can use the bearer transport.
 
-You cannot use development credentials for social logins in production on auth0. You will need to create a new application for each social login provider. You usually do this in the social login provider's developer console. Then add the credentials to the production auth0 tenant.
-
-Run the terraform project to create the auth0 application and configure it.
-
-Note that the auth0 terraform module will not create any users for production. You can add them manually or create the accounts by loggging in.
+Email/password works without an external identity provider. To enable Google sign-in, create
+production OAuth credentials and allow
+`https://api.yourdomain.com/api/auth/callback/google` as a redirect URI. Set both
+`GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` on the backend.
 
 ## Stripe production
 

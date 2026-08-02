@@ -1,8 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { auth0 } from "../../../lib/auth0";
 import { getCurrentUser } from "../../../dashboard/dashboardDataService";
+import {
+    getBackendAuthHeaders,
+    withApiAuthRequired,
+} from "../../../lib/server-auth";
 
-export default auth0.withApiAuthRequired(async function getCurrentUserApi(
+export default withApiAuthRequired(async function getCurrentUserApi(
     req: NextApiRequest,
     res: NextApiResponse,
 ) {
@@ -14,14 +17,8 @@ export default auth0.withApiAuthRequired(async function getCurrentUserApi(
     }
 
     try {
-        const accessToken = await auth0.getAccessToken(req, res);
-        if (!accessToken?.token) {
-            res.setHeader("Cache-Control", "no-store");
-            res.status(401).json({ error: "No access token" });
-            return;
-        }
-
-        const user = await getCurrentUser(accessToken.token);
+        const authentication = getBackendAuthHeaders(req);
+        const user = await getCurrentUser(authentication.cookie);
         res.setHeader("Cache-Control", "no-store");
         res.status(200).json(user);
     } catch (error) {
