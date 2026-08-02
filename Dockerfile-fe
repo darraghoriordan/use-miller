@@ -11,7 +11,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 COPY pnpm-lock.yaml ./
 RUN pnpm config set store-dir /workdir/.pnpm-store
-RUN pnpm fetch
+RUN pnpm fetch --trust-lockfile
 
 # install all deps from cache
 FROM fetched_deps AS with_all_deps
