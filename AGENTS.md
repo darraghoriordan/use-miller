@@ -100,6 +100,21 @@ keys, statuses, and remediation only. Never print `.env`, `terraform.tfvars`, Te
 or sensitive output contents. New generated projects use local Terraform state until the user
 deliberately configures a remote backend.
 
+## Database migrations
+
+Never use AI to write or generate a database migration. Always generate migrations with
+TypeORM through the backend's built-in `db:gen` script so the migration reflects the actual
+entity and database schema diff:
+
+```bash
+pnpm --dir apps/backend run db:gen src/migrations/<migration-name>
+```
+
+Move every generated migration file to `apps/backend/migrations` before committing it. Review
+the generated SQL, then verify the complete migration chain against a clean database and a
+second run with no pending migrations. Do not treat successful generation against a local
+database as proof that another environment has the same migration history.
+
 ## Architecture rules
 
 - Keep domain logic out of controllers and React components.
