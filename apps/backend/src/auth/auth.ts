@@ -3,6 +3,7 @@ import { betterAuth, type Auth } from "better-auth";
 import { admin, bearer } from "better-auth/plugins";
 import { Pool } from "pg";
 import { sendAuthenticationEmail } from "./auth-email.js";
+import { createAuthDatabaseUrl } from "./auth-database-url.js";
 import {
     BETTER_AUTH_ADMIN_ROLE,
     configuredAdminEmails,
@@ -17,30 +18,13 @@ function requiredEnvironment(key: string): string {
     return value;
 }
 
-function createDatabaseUrl(): string {
-    if (process.env.BETTER_AUTH_DATABASE_URL) {
-        return process.env.BETTER_AUTH_DATABASE_URL;
-    }
-
-    const user = encodeURIComponent(requiredEnvironment("APP_POSTGRES_USER"));
-    const password = encodeURIComponent(
-        requiredEnvironment("APP_POSTGRES_PASSWORD"),
-    );
-    const host = requiredEnvironment("APP_POSTGRES_HOST");
-    const port = requiredEnvironment("APP_POSTGRES_PORT");
-    const database = encodeURIComponent(
-        requiredEnvironment("APP_POSTGRES_DATABASE"),
-    );
-    return `postgres://${user}:${password}@${host}:${port}/${database}`;
-}
-
 const googleClientId = process.env.GOOGLE_CLIENT_ID;
 const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
 const cookieDomain = process.env.BETTER_AUTH_COOKIE_DOMAIN;
 const frontendUrl = requiredEnvironment("FRONTEND_APP_URL");
 const isEmailVerificationRequired =
     process.env.BETTER_AUTH_REQUIRE_EMAIL_VERIFICATION === "true";
-const database = new Pool({ connectionString: createDatabaseUrl() });
+const database = new Pool({ connectionString: createAuthDatabaseUrl() });
 
 export const auth: Auth = betterAuth({
     appName: process.env.APP_TITLE ?? "Miller App",
