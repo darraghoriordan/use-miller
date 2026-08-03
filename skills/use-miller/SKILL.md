@@ -1,6 +1,6 @@
 ---
 name: use-miller
-description: Build, configure, provision, diagnose, verify, or extend an application created from the Miller starter. Use for projects containing miller.config.json, especially when creating an app, setting up self-hosted Better Auth or Stripe, integrating either Next.js or an independent browser SPA, adding billing product catalogs, enabling email, jobs, observability or AI, changing backend/frontend features, or operating the non-interactive mill CLI.
+description: Build, configure, provision, diagnose, verify, deploy, or extend an application created from the Miller starter. Use for projects containing miller.config.json, especially when creating an app, setting up production, configuring self-hosted Better Auth or Stripe, integrating either Next.js or an independent browser SPA, adding billing product catalogs, enabling email, jobs, observability or AI, changing backend/frontend features, or operating the non-interactive mill CLI.
 ---
 
 # Use Miller
@@ -55,7 +55,7 @@ provider mutations:
 ```bash
 pnpm run mill -- setup --from-env --dry-run --json
 pnpm run mill -- setup --from-env --apply --yes --json
-pnpm run mill -- setup --profile production --from-env --dry-run --json
+pnpm run mill -- production --from-env --dry-run --json
 pnpm run mill -- report --profile all --deep --json
 pnpm run mill -- doctor --deep --json
 ```
@@ -70,6 +70,24 @@ Do not invent missing provider values. Billing synchronization owns the backend
 `STRIPE_PRODUCT_CATALOG_JSON`; do not restore public frontend price IDs.
 Treat disabled local email delivery as intentional development mode. Do not configure a real
 SMTP provider locally unless the user explicitly asks for it.
+
+## Set up production
+
+Use the complete production command instead of manually setting Dokku variables:
+
+```bash
+pnpm run mill -- production --from-env --dry-run --json
+pnpm run mill -- production --from-env --apply --yes --json
+pnpm run mill -- report --profile production --deep --json
+```
+
+The first command is mandatory planning and does not mutate files or providers. Ask for
+approval before the second command because it applies provider and Dokku Terraform. The apply
+generates or preserves Better Auth configuration, provisions Stripe, synchronizes the ignored
+Dokku `terraform.tfvars`, applies the production environment and linked services, and returns
+a fresh production report. If the command reports missing credentials, tell the user where to
+obtain them and which ignored destination keys to fill; never request secret values in chat.
+Do not report production ready unless the returned production report is ready.
 
 Auth is hosted by the NestJS backend. Run `mill setup --only auth --apply --yes` to generate
 and preserve its signing secret; it does not call Terraform or an external identity service.

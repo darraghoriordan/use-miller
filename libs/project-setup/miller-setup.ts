@@ -18,7 +18,7 @@ import type {
 } from "./miller-types.js";
 import { reportProject } from "./report-project.js";
 import { setupProject } from "./setup-project.js";
-import { isTerraformAvailable } from "./terraform-runner.js";
+import { applyTerraform, isTerraformAvailable } from "./terraform-runner.js";
 
 interface CliOptions {
     command: string;
@@ -431,6 +431,7 @@ Usage:
   mill configure --name <name> --slug <slug> [--dry-run] [--json]
   mill add <capability> [--dry-run] [--json]
   mill setup [--profile local|production] [--only auth,billing] [--from-env] [--apply --yes] [--json]
+  mill production [--from-env] [--apply --yes] [--json]
   mill env sync [--profile local|production] [--only auth,billing] [--dry-run] [--json]
   mill verify [--scope backend|frontend|setup]
 
@@ -495,7 +496,9 @@ function outputProjectReport(report: ProjectReport, isJson: boolean): void {
                   ? "REQUIRED"
                   : "OPTIONAL";
             console.log(`  ${state.padEnd(12)} ${credential.id}`);
-            console.log(`               Destination: ${credential.destination}`);
+            console.log(
+                `               Destination: ${credential.destination}`,
+            );
             if (credential.destinationKeys.length > 0) {
                 console.log(
                     `               Keys: ${credential.destinationKeys.join(", ")}`,
@@ -510,7 +513,9 @@ function outputProjectReport(report: ProjectReport, isJson: boolean): void {
                 console.log(`               Get it: ${credential.sourceUrl}`);
             }
             if (credential.relatedUrl) {
-                console.log(`               Configure URL: ${credential.relatedUrl}`);
+                console.log(
+                    `               Configure URL: ${credential.relatedUrl}`,
+                );
             }
         }
     }
@@ -768,6 +773,111 @@ async function main(): Promise<void> {
                 isJson: options.isJson,
             });
             outputSetupResult(result, options.isJson);
+            return;
+        }
+        case "production": {
+            if (options.profile || options.only) {
+                throw new Error(
+                    "mill production configures the complete production profile; do not pass --profile or --only.",
+                );
+            }
+            if (options.isApply && options.isDryRun) {
+                throw new Error(
+                    "--apply and --dry-run cannot be used together.",
+                );
+            }
+            if (options.isApply && !options.isYes) {
+                throw new Error("Production apply requires --yes.");
+            }
+
+            const initialReport = await reportProject({
+                root,
+                config,
+                profile: "production",
+                isDeep: false,
+            });
+            const setupManagedCapabilities = new Set<Capability>([
+                "auth",
+                "billing",
+            ]);
+            const unmanagedBlockers = initialReport.capabilities.filter(
+                (capability) =>
+                    capability.enabled &&
+                    capability.status === "attention" &&
+                    !setupManagedCapabilities.has(capability.id),
+            );
+            if (options.isApply && unmanagedBlockers.length > 0) {
+                throw new Error(
+                    `Production configuration is incomplete for: ${unmanagedBlockers
+                        .map((capability) => capability.id)
+                        .join(
+                            ", ",
+                        )}. Run mill report --profile production --json and configure the reported keys before applying.`,
+                );
+            }
+
+            const result = await setupProject({
+                root,
+                config,
+                profile: "production",
+                capabilities: parseSetupCapabilities(undefined, config),
+                shouldApplyTerraform: options.isApply,
+                shouldWriteEnvironment: options.isApply,
+                shouldReadInputsFromEnvironment: options.isFromEnvironment,
+                canSkipUnavailableOutputs: !options.isApply,
+                isJson: options.isJson,
+            });
+            const deploymentRoot = path.join(
+                root,
+                config.infrastructure?.profiles.production.environment ??
+                    "infrastructure/production/dokku-app",
+            );
+            if (options.isApply) {
+                const configuredReport = await reportProject({
+                    root,
+                    config,
+                    profile: "production",
+                    isDeep: false,
+                });
+                const blockers = configuredReport.capabilities.filter(
+                    (capability) =>
+                        capability.enabled && capability.status === "attention",
+                );
+                if (blockers.length > 0) {
+                    throw new Error(
+                        `Production configuration remains incomplete for: ${blockers
+                            .map((capability) => capability.id)
+                            .join(
+                                ", ",
+                            )}. Resolve the production report before applying Dokku configuration.`,
+                    );
+                }
+                await applyTerraform(deploymentRoot, options.isJson);
+            }
+            const finalReport = await reportProject({
+                root,
+                config,
+                profile: "production",
+                isDeep: options.isApply,
+            });
+            output(
+                {
+                    ...result,
+                    command: "production",
+                    steps: [
+                        ...result.steps,
+                        {
+                            id: "terraform.apply.environment",
+                            status: options.isApply ? "applied" : "planned",
+                            message: options.isApply
+                                ? "Applied production Dokku environment and services."
+                                : "Would apply production Dokku environment and services after provider setup.",
+                        },
+                    ],
+                    report: finalReport,
+                },
+                options.isJson,
+            );
             return;
         }
         case "env": {

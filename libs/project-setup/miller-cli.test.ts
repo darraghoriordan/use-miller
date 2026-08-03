@@ -690,9 +690,108 @@ describe("Miller CLI", () => {
         }
     });
 
+    it("plans complete production setup without mutating infrastructure", async () => {
+        const fixture = await createSetupFixture();
+        try {
+            const result = runFixtureCli(
+                fixture.root,
+                fixture.executableDirectory,
+                {
+                    MILLER_FRONTEND_BASE_URL: "https://example.test",
+                    MILLER_BACKEND_BASE_URL: "https://api.example.test",
+                    MILLER_STRIPE_ACCESS_TOKEN: "sk_live_do-not-print",
+                },
+                "production",
+                "--from-env",
+                "--dry-run",
+            );
+            const steps = result.result.steps as Array<{
+                id: string;
+                status: string;
+            }>;
+
+            expect(result.stdout).not.toContain("sk_live_do-not-print");
+            expect(result.result.command).toBe("production");
+            expect(
+                steps.find((step) => step.id === "terraform.apply.environment")
+                    ?.status,
+            ).toBe("planned");
+            await expect(
+                readFile(
+                    path.join(
+                        fixture.root,
+                        "infrastructure/production/dokku-app/terraform.tfvars",
+                    ),
+                    "utf8",
+                ),
+            ).rejects.toThrow();
+        } finally {
+            await rm(fixture.root, { recursive: true, force: true });
+        }
+    });
+
+    it("applies provider setup and the production Dokku environment", async () => {
+        const fixture = await createSetupFixture();
+        try {
+            const configPath = path.join(fixture.root, "miller.config.json");
+            const config = JSON.parse(await readFile(configPath, "utf8")) as {
+                capabilities: { auth: boolean };
+            };
+            config.capabilities.auth = true;
+            await writeFile(configPath, JSON.stringify(config));
+
+            const result = runFixtureCli(
+                fixture.root,
+                fixture.executableDirectory,
+                {
+                    MILLER_FRONTEND_BASE_URL: "https://example.test",
+                    MILLER_BACKEND_BASE_URL: "https://api.example.test",
+                    MILLER_GOOGLE_CLIENT_ID: "google-client",
+                    MILLER_GOOGLE_CLIENT_SECRET: "google-secret-do-not-print",
+                    MILLER_STRIPE_ACCESS_TOKEN: "sk_live_do-not-print",
+                },
+                "production",
+                "--from-env",
+                "--apply",
+                "--yes",
+            );
+            const steps = result.result.steps as Array<{
+                id: string;
+                status: string;
+            }>;
+            const report = result.result.report as {
+                profile: string;
+                summary: { status: string };
+            };
+
+            expect(result.stdout).not.toContain("google-secret-do-not-print");
+            expect(result.stdout).not.toContain("sk_live_do-not-print");
+            expect(
+                steps.find((step) => step.id === "terraform.apply.environment")
+                    ?.status,
+            ).toBe("applied");
+            expect(report.profile).toBe("production");
+            expect(report.summary.status).toBe("ready");
+            expect(
+                await readFile(
+                    path.join(
+                        fixture.root,
+                        "infrastructure/production/dokku-app/terraform.tfvars",
+                    ),
+                    "utf8",
+                ),
+            ).toContain('frontend_app_google_auth_enabled = "true"');
+        } finally {
+            await rm(fixture.root, { recursive: true, force: true });
+        }
+    });
+
     it("requires explicit confirmation before applying setup", () => {
         expect(() => runCli("setup", "--apply")).toThrow(
             "Setup apply requires --yes",
+        );
+        expect(() => runCli("production", "--apply")).toThrow(
+            "Production apply requires --yes",
         );
     });
 

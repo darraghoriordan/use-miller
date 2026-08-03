@@ -21,9 +21,9 @@ pnpm run mill -- setup --from-env --dry-run --json
 # Apply selected setup and synchronize application environment files.
 pnpm run mill -- setup --from-env --apply --yes --json
 
-# Configure production: inputs come from the process, secrets land in ignored tfvars.
-pnpm run mill -- setup --profile production --from-env --dry-run --json
-pnpm run mill -- setup --profile production --from-env --apply --yes --json
+# Configure production end to end: providers, runtime variables, and Dokku services.
+pnpm run mill -- production --from-env --dry-run --json
+pnpm run mill -- production --from-env --apply --yes --json
 
 # Rebuild environment files from existing Terraform outputs without applying infrastructure.
 pnpm run mill -- env sync --json
@@ -34,6 +34,13 @@ application `.env` files and local provider `terraform.tfvars`. The `production`
 writes provider inputs to `infrastructure/production/stripe-prod/terraform.tfvars` and
 runtime configuration to `infrastructure/production/dokku-app/terraform.tfvars`. Both files
 are ignored. JSON output reports only paths and changed keys; it never includes values.
+
+`mill production` is the complete production workflow. It plans by default. With
+`--apply --yes`, it applies enabled provider infrastructure, synchronizes the ignored Dokku
+Terraform variables, applies `infrastructure/production/dokku-app`, and returns a fresh
+production report. It refuses to apply while enabled capabilities outside auth and billing
+still have missing production configuration. Use the narrower `setup --profile production`
+command only when deliberately preparing one provider without applying the Dokku environment.
 
 ## Project report
 

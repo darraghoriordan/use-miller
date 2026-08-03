@@ -72,10 +72,21 @@ pnpm run mill -- report --deep --json
 pnpm run mill -- doctor --deep --json
 ```
 
-The first command is the required planning step. Auth setup generates and preserves a local
-Better Auth secret without external infrastructure. Billing setup runs Terraform and mutates
-Stripe resources, so apply billing only when the user requested or approved it. `--yes`
-confirms non-interactive execution; it is not permission to expand the selected capabilities.
+For complete production setup, use the production orchestration command. It plans by default;
+applying provisions enabled providers, synchronizes the ignored Dokku Terraform variables,
+and applies the Dokku environment and linked services:
+
+```bash
+pnpm run mill -- production --from-env --dry-run --json
+pnpm run mill -- production --from-env --apply --yes --json
+pnpm run mill -- report --profile production --deep --json
+```
+
+The dry-run command is the required planning step for either workflow. Auth setup generates
+and preserves a local Better Auth secret without external infrastructure. Billing setup and
+the production command run Terraform and mutate external systems, so apply them only when the
+user requested or approved it. `--yes` confirms non-interactive execution; it is not
+permission to expand the selected capabilities.
 
 Use `--only auth` or `--only billing` to minimize scope. With `--from-env`, Miller reads the
 `MILLER_GOOGLE_*`, `MILLER_AUTH_*`, or `MILLER_STRIPE_*` variables documented in
