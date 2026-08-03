@@ -1,4 +1,5 @@
 import { Head, Html, Main, NextScript } from "next/document";
+import Script from "next/script";
 
 export default function Document(props: any) {
     return (
@@ -20,6 +21,10 @@ export default function Document(props: any) {
             </Head>
 
             <body className="bg-security-black text-security-light">
+                <Script
+                    src="/api/runtime-config"
+                    strategy="beforeInteractive"
+                />
                 <Main />
                 <NextScript />
             </body>

@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import type { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
@@ -7,6 +8,11 @@ import {
     authInputClassName,
 } from "../../components/AuthShell";
 import { authClient } from "../../lib/auth-client";
+import { readServerPublicRuntimeConfig } from "../../lib/runtime-config.server";
+
+interface LoginPageProps {
+    isGoogleAuthEnabled: boolean;
+}
 
 function safeReturnTo(value: string | string[] | undefined): string {
     const candidate = Array.isArray(value) ? value[0] : value;
@@ -15,7 +21,7 @@ function safeReturnTo(value: string | string[] | undefined): string {
         : "/dashboard";
 }
 
-export default function LoginPage() {
+export default function LoginPage({ isGoogleAuthEnabled }: LoginPageProps) {
     const router = useRouter();
     const returnTo = safeReturnTo(router.query.returnTo);
     const [email, setEmail] = useState("");
@@ -81,7 +87,7 @@ export default function LoginPage() {
                 </>
             }
         >
-            {process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === "true" && (
+            {isGoogleAuthEnabled ? (
                 <button
                     type="button"
                     onClick={signInWithGoogle}
@@ -92,7 +98,7 @@ export default function LoginPage() {
                         ? "Connecting to Google…"
                         : "Continue with Google"}
                 </button>
-            )}
+            ) : null}
             <form onSubmit={submit} className="space-y-5">
                 <label className="block text-sm text-security-text">
                     Email address
@@ -140,3 +146,10 @@ export default function LoginPage() {
         </AuthShell>
     );
 }
+
+export const getServerSideProps: GetServerSideProps<
+    LoginPageProps
+> = async () => {
+    const { isGoogleAuthEnabled } = readServerPublicRuntimeConfig();
+    return { props: { isGoogleAuthEnabled } };
+};

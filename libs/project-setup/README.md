@@ -41,6 +41,9 @@ Terraform variables, applies `infrastructure/production/dokku-app`, and returns 
 production report. It refuses to apply while enabled capabilities outside auth and billing
 still have missing production configuration. Use the narrower `setup --profile production`
 command only when deliberately preparing one provider without applying the Dokku environment.
+The frontend reads its public API URL and Google feature flag from `/api/runtime-config` at
+runtime, so the same Docker image can move between environments. Never expose credentials or
+other server-only values through that endpoint.
 
 ## Project report
 

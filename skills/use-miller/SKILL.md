@@ -110,6 +110,9 @@ the frontend feature flag. The callback is
 no social provider is configured. Use the report's `credentials` entries as source of truth
 for official provider URLs, destination keys, automation inputs, and callback/webhook
 URLs. Never ask the user to paste a secret into chat when they can export it in their shell.
+The frontend publishes only its API base URL and Google-enabled boolean through
+`/api/runtime-config` before client initialization. Keep these settings runtime-driven for
+Docker deployments; do not add secrets to this endpoint or replace it with Docker build args.
 
 For local development, prefer `pnpm run mill:dev`: it waits for Docker services and applies
 compiled database migrations before starting the frontend and backend. This includes Better
