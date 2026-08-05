@@ -186,14 +186,14 @@ export function Hero() {
                                 id="agent-ready-heading"
                                 className="mt-4 font-display text-2xl md:text-4xl text-security-light"
                             >
-                                Your agent starts with the map, not just the
-                                code.
+                                Give AI great engineering foundations and focus
+                                on your product
                             </h2>
                             <p className="mt-5 text-lg leading-relaxed text-security-text">
                                 Miller gives Codex, Claude Code, and compatible
-                                agents the project context and deterministic
-                                tools they need to make useful changes without
-                                guessing how the application is meant to work.
+                                agents foundational context, examples and
+                                deterministic tools they need to start building
+                                great software from an empty project.
                             </p>
                         </div>
                     </FadeInOnScroll>
@@ -209,10 +209,10 @@ export function Hero() {
                                 </div>
                                 <div className="relative">
                                     <span className="font-mono text-xs uppercase tracking-[0.18em] text-product-millerstart">
-                                        Context in the repository
+                                        Engineering foundations for agents
                                     </span>
                                     <h3 className="mt-3 font-display text-xl text-security-light">
-                                        The decisions travel with the code
+                                        Context, examples, and rules
                                     </h3>
                                     <p className="mt-3 leading-relaxed text-security-text">
                                         Architecture boundaries, product intent,
@@ -264,10 +264,10 @@ export function Hero() {
                                     </h3>
                                     <p className="mt-3 leading-relaxed text-security-text">
                                         The Miller CLI reports local and
-                                        production readiness, redacts secrets,
-                                        emits JSON, and supports dry runs. Your
-                                        agent gets exact next steps instead of
-                                        inventing setup commands.
+                                        production readiness telling your agent
+                                        exactly what to do. Your agent gets
+                                        exact next engineering steps so you
+                                        don't have to guess.
                                     </p>
                                     <div className="mt-6 rounded-md border border-security-border bg-security-darker p-4 font-mono text-sm">
                                         <p className="break-all text-security-light">
@@ -284,12 +284,7 @@ export function Hero() {
                                                 </span>{" "}
                                                 local: ready
                                             </p>
-                                            <p>
-                                                <span className="text-accent">
-                                                    ✓
-                                                </span>{" "}
-                                                secrets: redacted
-                                            </p>
+
                                             <p>
                                                 <span className="text-product-millerstart">
                                                     →
@@ -300,7 +295,7 @@ export function Hero() {
                                                 <span className="text-product-millerstart">
                                                     →
                                                 </span>{" "}
-                                                next: production --dry-run
+                                                next: missing stripe product map
                                             </p>
                                         </div>
                                     </div>
@@ -351,8 +346,8 @@ export function Hero() {
                         <div className="space-y-4 text-security-text">
                             <p>
                                 Miller Start is an application foundation for
-                                solo developers working with coding agents. You
-                                get a complete frontend, backend, integrations,
+                                anyone working with coding agents. You get a
+                                complete frontend, backend, integrations,
                                 infrastructure, and the CLI an agent needs to
                                 configure them reliably.
                             </p>
