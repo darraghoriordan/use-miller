@@ -13,10 +13,7 @@ import { TrustBadges } from "../../components/SecurityBadge";
 import { SingleProductCard } from "./SingleProductCard";
 import { OpenSourceSection } from "./OpenSourceSection";
 import { ThemeColor } from "../../styles/themeColors";
-import {
-    TerminalWindow,
-    TerminalPrompt,
-} from "../../components/TerminalWindow";
+import { TerminalWindow } from "../../components/TerminalWindow";
 import Link from "next/link";
 
 export interface HeroProduct {
@@ -63,8 +60,8 @@ export function Hero() {
             altAltLinkText: "Download now",
             altAltLink: "/local-dev-tools#download",
             benefits: [
-                "Offline utilities for Git, SSH, and development",
-                "Your business data never leaves your machine",
+                "Offline utilities for Git, JWTs, SSH, and development",
+                "Keep secrets out of LLMs and cloud services - process locally",
                 "Universal app for Mac and Windows",
                 "Perpetual license - not a SaaS subscription",
             ],
@@ -72,7 +69,7 @@ export function Hero() {
         },
         {
             title: "Miller Start",
-            blurb: "Security-first NestJS template with hardened defaults",
+            blurb: "Agent-first foundation for shipping production NestJS apps",
             githubUrl: "https://github.com/darraghoriordan/use-miller",
             learnMoreLinkUrl: "/miller-start",
             learnMoreLinkText: "Explore template",
@@ -80,10 +77,10 @@ export function Hero() {
             altLink: "/docs/miller-start/reference/miller-web/L1JFQURNRS5tZA==",
             stars: 50,
             benefits: [
-                "Full-stack NestJS + Next.js + PostgreSQL starter",
-                "Self-hosted auth, Stripe, and OpenTelemetry pre-configured",
-                "Security best practices built-in from day one",
-                "Complete with Terraform infrastructure scripts",
+                "NestJS + Next.js + PostgreSQL with production conventions encoded",
+                "Guidance for architecture, migrations, security, and verification",
+                "Self-hosted auth, Stripe, and OpenTelemetry with secure defaults",
+                "Terraform infrastructure and a CLI for repeatable setup",
             ],
             colorVariant: "millerstart",
         },
@@ -163,15 +160,50 @@ export function Hero() {
                     delay={0.2}
                     className="mt-16 md:mt-24 max-w-3xl"
                 >
-                    <TerminalWindow title="~/projects">
-                        <TerminalPrompt
-                            command="pnpm run mill:init"
-                            output={`[OK] Terraform Synced
-[OK] Dependencies installed
-[OK] Stripe configured
-[OK] Organization setup complete
-[OK] Ready for development`}
-                        />
+                    <TerminalWindow title="Codex · new Miller app">
+                        <div className="space-y-5 font-mono text-sm">
+                            <div className="grid grid-cols-[3.5rem_1fr] gap-3">
+                                <span className="text-security-muted">YOU</span>
+                                <p className="text-security-light">
+                                    Follow usemiller.dev/start.md and create my
+                                    app.
+                                </p>
+                            </div>
+                            <div className="grid grid-cols-[3.5rem_1fr] gap-3">
+                                <span className="text-accent">CODEX</span>
+                                <p className="text-security-text">
+                                    What should your application be called?
+                                </p>
+                            </div>
+                            <div className="grid grid-cols-[3.5rem_1fr] gap-3">
+                                <span className="text-security-muted">YOU</span>
+                                <p className="text-security-light">
+                                    Northstar Portal
+                                </p>
+                            </div>
+                            <div className="grid grid-cols-[3.5rem_1fr] gap-3 border-t border-security-border pt-5">
+                                <span className="text-accent">CODEX</span>
+                                <div className="space-y-1 text-security-text">
+                                    <p>
+                                        <span className="text-accent">✓</span>{" "}
+                                        Creating ./northstar-portal
+                                    </p>
+                                    <p>
+                                        <span className="text-accent">✓</span>{" "}
+                                        Starter installed and verified
+                                    </p>
+                                    <p>
+                                        <span className="text-accent">→</span>{" "}
+                                        Checking auth, billing, and production
+                                        readiness
+                                    </p>
+                                    <p className="pt-2 text-security-light">
+                                        Next: do you want Google sign-in now or
+                                        later?
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </TerminalWindow>
                 </FadeInOnScroll>
 

@@ -1,16 +1,40 @@
 # Miller
 
-Miller is an agent-ready, production-grade starting point for real web applications. It
-combines a NestJS API, Next.js frontend, PostgreSQL, authentication, billing, background
-jobs, email, and observability with a deterministic CLI that coding agents can inspect and
-operate safely.
+Describe your app. Let your coding agent handle the setup.
+
+Miller is an agent-ready, production-grade starting point for real web applications. It gives
+Codex and other coding agents a deterministic way to create, inspect, configure, run, and
+prepare a NestJS and Next.js application for production—while keeping you in control of
+credentials and external changes.
+
+## Create an app with Codex
+
+Open Codex in the directory where you keep projects and paste one line:
+
+```text
+Follow https://usemiller.dev/start.md and create my app.
+```
+
+Codex will ask for the application name, derive its slug and directory, create the project,
+inspect its local and production configuration, and walk you through only the decisions and
+credentials that need human input. It will plan external changes before asking for approval
+and will never need secret values pasted into the conversation.
+
+- [Read the agent creation guide](https://usemiller.dev/start.md)
+- [Browse all Miller products](https://usemiller.dev/products/index.md)
+- [Give an agent the complete Miller index](https://usemiller.dev/llms.txt)
+
+The same workflow is available as the reusable
+[`create-miller` agent skill](skills/create-miller/SKILL.md). Once generated, every project
+includes its own `AGENTS.md` and [`use-miller` skill](skills/use-miller/SKILL.md) for ongoing
+development and operations.
 
 ## Quick start
 
 Requirements: Node.js 24, pnpm 11, Docker, and a Stripe account when billing is enabled.
 Authentication is self-hosted in the NestJS API and needs no identity-provider account.
 
-After `create-miller` is published, a fresh application can be created from anywhere:
+A fresh application can also be created directly from a terminal:
 
 ```bash
 pnpm create miller@latest my-app

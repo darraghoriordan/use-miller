@@ -1,0 +1,60 @@
+# Miller
+
+> Miller makes agent-ready and local-first tools for solo developers. Miller Start helps a
+> developer and their coding agent move from an application idea to a maintainable production
+> system without rebuilding authentication, billing, operations, and project conventions.
+
+## Create an application
+
+- [Create a Miller application](https://usemiller.dev/start.md): Agent-oriented, step-by-step
+  instructions for naming, creating, configuring, running, and preparing a Miller Start app for
+  production.
+- [Miller Start](https://usemiller.dev/products/miller-start.md): Capabilities, architecture,
+  intended users, and direct installer command.
+- [Miller source repository](https://github.com/darraghoriordan/use-miller): Source code,
+  releases, project documentation, and issue tracking.
+
+## Products
+
+- [All Miller products](https://usemiller.dev/products/index.md): Short product index.
+- [Miller Start](https://usemiller.dev/products/miller-start.md): Agent-ready NestJS and Next.js
+  application starter.
+- [Miller Dev Shell](https://usemiller.dev/products/dev-shell.md): Reproducible developer
+  environment for macOS and Windows WSL.
+- [Miller Local Dev Tools](https://usemiller.dev/products/local-dev-tools.md): Local-first desktop
+  developer utilities for macOS and Windows.
+
+## Human-facing pages
+
+- [Miller home](https://usemiller.dev/): Product overview.
+- [Miller Start product page](https://usemiller.dev/miller-start): Application starter overview.
+- [Dev Shell product page](https://usemiller.dev/dev-shell): Developer environment overview.
+- [Local Dev Tools product page](https://usemiller.dev/local-dev-tools): Utilities and downloads.
+- [Documentation](https://usemiller.dev/docs): Product documentation index.
+
+## Repository documentation
+
+- [Product contract](https://github.com/darraghoriordan/use-miller/blob/main/PRODUCT.md): Product
+  principles and success criteria.
+- [Architecture](https://github.com/darraghoriordan/use-miller/blob/main/ARCHITECTURE.md): Runtime
+  boundaries and dependency policy.
+- [Design](https://github.com/darraghoriordan/use-miller/blob/main/DESIGN.md): UI principles.
+- [Agent guide](https://github.com/darraghoriordan/use-miller/blob/main/AGENTS.md): Durable
+  repository instructions for coding agents.
+- [Miller CLI](https://github.com/darraghoriordan/use-miller/blob/main/libs/project-setup/README.md):
+  Reporting, provider setup, credential handling, and production orchestration.
+- [create-miller](https://github.com/darraghoriordan/use-miller/blob/main/libs/create-miller/README.md):
+  One-command npm installer.
+- [Use Miller skill](https://github.com/darraghoriordan/use-miller/blob/main/skills/use-miller/SKILL.md):
+  Workflow for operating an existing Miller application.
+- [Create Miller skill](https://github.com/darraghoriordan/use-miller/blob/main/skills/create-miller/SKILL.md):
+  Workflow for creating a new Miller application.
+
+## Notes for agents
+
+- Prefer the instructions in `start.md` when creating an application.
+- Inside a generated application, its `AGENTS.md`, `miller.config.json`, and source code are the
+  authority for that project.
+- Use `mill report --profile all --json` to inspect readiness. Do not infer readiness from a
+  marketing page or from `miller.config.json` alone.
+- Never request, reveal, or commit secrets.

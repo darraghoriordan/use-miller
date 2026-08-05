@@ -129,14 +129,16 @@ export const SingleProductCard = ({
                         </div>
                         <div className="p-4">
                             <div className="font-mono text-xs">
-                                <span className="text-security-muted">$</span>{" "}
+                                <span className="text-security-muted">
+                                    {title === "Miller Start" ? ">" : "$"}
+                                </span>{" "}
                                 <span className="text-accent">
                                     {title === "Dev Shell" &&
                                         "./sharedSetup.sh --install"}
                                     {title === "Local Dev Tools" &&
                                         "open -a LocalDevTools.app"}
                                     {title === "Miller Start" &&
-                                        "pnpm run mill:init"}
+                                        "Follow usemiller.dev/start.md"}
                                 </span>
                             </div>
                             <div className="mt-2 font-mono text-xs text-security-muted">
@@ -161,11 +163,15 @@ export const SingleProductCard = ({
                                 )}
                                 {title === "Miller Start" && (
                                     <>
-                                        <div>[OK] Syncing terraform...</div>
-                                        <div>[OK] Installing deps...</div>
-                                        <div>[OK] Configuring stripe...</div>
+                                        <div>[AGENT] Name your app</div>
+                                        <div>
+                                            [CREATE] Derive slug + directory
+                                        </div>
+                                        <div>
+                                            [CHECK] Inspect local + production
+                                        </div>
                                         <div className="text-accent">
-                                            [DONE] Project ready!
+                                            [NEXT] Guide only what needs you
                                         </div>
                                     </>
                                 )}
