@@ -103,14 +103,13 @@ Better Auth `admin` role at creation and startup, and that role maps to Miller's
 permissions. Use the protected `/super-admin` UI or Admin API for later user roles, bans,
 and session revocation. Do not trust frontend route visibility as authorization.
 
-Google sign-in is optional. Locally, ask the user to set `GOOGLE_CLIENT_ID` and
-`GOOGLE_CLIENT_SECRET` in `apps/backend/.env`, then run the auth setup command to reconcile
-the frontend feature flag. The callback is
-`<MILLER_BACKEND_BASE_URL>/api/auth/callback/google`. Email/password remains available when
-no social provider is configured. Use the report's `credentials` entries as source of truth
+Google is the only sign-in method. Locally, ask the user to set `GOOGLE_CLIENT_ID` and
+`GOOGLE_CLIENT_SECRET` in `apps/backend/.env`, then run the auth setup command to validate
+the configuration. The callback is
+`<MILLER_BACKEND_BASE_URL>/api/auth/callback/google`. Use the report's `credentials` entries as source of truth
 for official provider URLs, destination keys, automation inputs, and callback/webhook
 URLs. Never ask the user to paste a secret into chat when they can export it in their shell.
-The frontend publishes only its API base URL and Google-enabled boolean through
+The frontend publishes only its API base URL through
 `/api/runtime-config` before client initialization. Keep these settings runtime-driven for
 Docker deployments; do not add secrets to this endpoint or replace it with Docker build args.
 

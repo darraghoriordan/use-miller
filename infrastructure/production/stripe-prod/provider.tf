@@ -10,16 +10,16 @@ terraform {
   # by doing a terraform init again
   backend "s3" {
     endpoints = {
-      s3 = "https://sfo3.digitaloceanspaces.com/"
+      s3 = "https://69283bcb395eead59ee130c41a48f663.r2.cloudflarestorage.com"
     }
-    bucket                      = "darragh-com"
+    bucket                      = "terraform-state"
     key                         = "miller-app-terraform-state/apps/use-miller-stripe-prod"
     region                      = "us-east-1"
     skip_credentials_validation = true
     skip_metadata_api_check     = true
     skip_requesting_account_id  = true
     skip_s3_checksum            = true
-    profile                     = "digitaloceanspaces-terraform"
+    profile                     = "cloudflare-terraform"
   }
 }
 

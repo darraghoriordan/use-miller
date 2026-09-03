@@ -56,6 +56,8 @@ const deprecatedProductionAuthKeys = [
     "frontend_app_auth0_client_secret",
     "frontend_app_auth0_domain",
     "frontend_app_auth0_secret",
+    "app_better_auth_require_email_verification",
+    "frontend_app_google_auth_enabled",
 ];
 
 async function fileExists(filePath: string): Promise<boolean> {
@@ -261,7 +263,6 @@ async function environmentPlans(
         EMAIL_SENDER_NAME: options.config.project.name,
     };
     const frontendValues: Record<string, string> = {};
-    const endToEndValues: Record<string, string> = {};
 
     if (options.profile === "production") {
         const deploymentRoot = path.join(
@@ -291,18 +292,16 @@ async function environmentPlans(
                 process.env.MILLER_AUTH_COOKIE_DOMAIN ??
                 existing.get("app_better_auth_cookie_domain") ??
                 "";
-            values.app_better_auth_require_email_verification =
-                process.env.MILLER_REQUIRE_EMAIL_VERIFICATION ??
-                existing.get("app_better_auth_require_email_verification") ??
-                "true";
-            values.app_google_client_id =
-                process.env.MILLER_GOOGLE_CLIENT_ID ??
-                existing.get("app_google_client_id") ??
-                "";
-            values.app_google_client_secret =
-                process.env.MILLER_GOOGLE_CLIENT_SECRET ??
-                existing.get("app_google_client_secret") ??
-                "";
+            values.app_google_client_id = requiredSetupEnvironment(
+                options,
+                "MILLER_GOOGLE_CLIENT_ID",
+                existing.get("app_google_client_id"),
+            );
+            values.app_google_client_secret = requiredSetupEnvironment(
+                options,
+                "MILLER_GOOGLE_CLIENT_SECRET",
+                existing.get("app_google_client_secret"),
+            );
             values.app_super_user_emails =
                 process.env.MILLER_SUPER_USER_EMAILS ??
                 existing.get("app_super_user_emails") ??
@@ -313,10 +312,6 @@ async function environmentPlans(
                 existing.get("frontend_app_base_url") ?? frontendBaseUrl,
             );
             values.frontend_app_api_base_path = values.app_better_auth_url;
-            values.frontend_app_google_auth_enabled =
-                values.app_google_client_id && values.app_google_client_secret
-                    ? "true"
-                    : "false";
         }
         const billingOutputs = outputs.get("billing");
         if (billingOutputs) {
@@ -363,23 +358,20 @@ async function environmentPlans(
             existingSecret && existingSecret.length >= 32
                 ? existingSecret
                 : randomBytes(32).toString("base64url");
-        const testOwnerEmail =
-            process.env.MILLER_AUTH_TEST_ACCOUNT_USERNAME ??
-            "owner@example.test";
-        const googleClientId =
-            process.env.MILLER_GOOGLE_CLIENT_ID ??
-            backendEnvironment.get("GOOGLE_CLIENT_ID") ??
-            "";
-        const googleClientSecret =
-            process.env.MILLER_GOOGLE_CLIENT_SECRET ??
-            backendEnvironment.get("GOOGLE_CLIENT_SECRET") ??
-            "";
+        const googleClientId = requiredSetupEnvironment(
+            options,
+            "MILLER_GOOGLE_CLIENT_ID",
+            backendEnvironment.get("GOOGLE_CLIENT_ID"),
+        );
+        const googleClientSecret = requiredSetupEnvironment(
+            options,
+            "MILLER_GOOGLE_CLIENT_SECRET",
+            backendEnvironment.get("GOOGLE_CLIENT_SECRET"),
+        );
 
         Object.assign(backendValues, {
             BETTER_AUTH_SECRET: betterAuthSecret,
             BETTER_AUTH_URL: backendBaseUrl,
-            BETTER_AUTH_REQUIRE_EMAIL_VERIFICATION:
-                process.env.MILLER_REQUIRE_EMAIL_VERIFICATION ?? "false",
             GOOGLE_CLIENT_ID: googleClientId,
             GOOGLE_CLIENT_SECRET: googleClientSecret,
             SUPER_USER_EMAILS:
@@ -390,26 +382,6 @@ async function environmentPlans(
         Object.assign(frontendValues, {
             APP_BASE_URL: frontendBaseUrl,
             NEXT_PUBLIC_API_BASE_PATH: backendBaseUrl,
-            NEXT_PUBLIC_GOOGLE_AUTH_ENABLED:
-                googleClientId && googleClientSecret ? "true" : "false",
-        });
-        Object.assign(endToEndValues, {
-            BETTER_AUTH_TEST_ACCOUNT_USERNAME: testOwnerEmail,
-            BETTER_AUTH_TEST_ACCOUNT_PASSWORD:
-                process.env.MILLER_AUTH_TEST_ACCOUNT_PASSWORD ??
-                "Miller-test-password-1!",
-            BETTER_AUTH_TEST_ACCOUNT_BASIC_USERNAME:
-                process.env.MILLER_AUTH_TEST_ACCOUNT_BASIC_USERNAME ??
-                "member@example.test",
-            BETTER_AUTH_TEST_ACCOUNT_BASIC_PASSWORD:
-                process.env.MILLER_AUTH_TEST_ACCOUNT_BASIC_PASSWORD ??
-                "Miller-test-password-2!",
-            BETTER_AUTH_TEST_ACCOUNT_NO_EMAILV_USERNAME:
-                process.env.MILLER_AUTH_TEST_ACCOUNT_NO_EMAILV_USERNAME ??
-                "unverified@example.test",
-            BETTER_AUTH_TEST_ACCOUNT_NO_EMAILV_PASSWORD:
-                process.env.MILLER_AUTH_TEST_ACCOUNT_NO_EMAILV_PASSWORD ??
-                "Miller-test-password-3!",
         });
     }
 
@@ -441,16 +413,6 @@ async function environmentPlans(
                 path.join(frontendRoot, ".env.local"),
                 path.join(frontendRoot, ".env.local.template"),
                 frontendValues,
-            ),
-        );
-    }
-    if (Object.keys(endToEndValues).length > 0) {
-        const endToEndRoot = path.join(options.root, "apps/backend-e2e");
-        plans.push(
-            await planEnvironmentFile(
-                path.join(endToEndRoot, ".env"),
-                path.join(endToEndRoot, ".env.template"),
-                endToEndValues,
             ),
         );
     }

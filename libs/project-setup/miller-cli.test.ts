@@ -130,7 +130,7 @@ async function createSetupFixture(): Promise<{
             root,
             "infrastructure/production/dokku-app/terraform.tfvars.template",
         ),
-        'app_better_auth_secret = ""\napp_better_auth_url = ""\napp_better_auth_cookie_domain = ""\napp_better_auth_require_email_verification = "true"\napp_google_client_id = ""\napp_google_client_secret = ""\napp_super_user_emails = ""\nfrontend_app_base_url = ""\nfrontend_app_api_base_path = ""\nfrontend_app_google_auth_enabled = "false"\napp_stripe_access_token = ""\napp_stripe_webhook_verification_key = ""\napp_stripe_product_catalog_json = ""\napp_stripe_redirects_base_url = ""\n',
+        'app_better_auth_secret = ""\napp_better_auth_url = ""\napp_better_auth_cookie_domain = ""\napp_google_client_id = ""\napp_google_client_secret = ""\napp_super_user_emails = ""\nfrontend_app_base_url = ""\nfrontend_app_api_base_path = ""\napp_stripe_access_token = ""\napp_stripe_webhook_verification_key = ""\napp_stripe_product_catalog_json = ""\napp_stripe_redirects_base_url = ""\n',
     );
     const fakeTerraform = path.join(executableDirectory, "terraform");
     await writeFile(
@@ -275,7 +275,11 @@ describe("Miller CLI", () => {
             const first = runFixtureCli(
                 fixture.root,
                 fixture.executableDirectory,
-                {},
+                {
+                    MILLER_GOOGLE_CLIENT_ID: "google-client",
+                    MILLER_GOOGLE_CLIENT_SECRET:
+                        "google-secret-do-not-print",
+                },
                 "env",
                 "sync",
                 "--only",
@@ -410,7 +414,11 @@ describe("Miller CLI", () => {
             runFixtureCli(
                 fixture.root,
                 fixture.executableDirectory,
-                {},
+                {
+                    MILLER_GOOGLE_CLIENT_ID: "google-client",
+                    MILLER_GOOGLE_CLIENT_SECRET:
+                        "google-secret-do-not-print",
+                },
                 "setup",
                 "--only",
                 "auth",
@@ -491,7 +499,7 @@ describe("Miller CLI", () => {
                     path.join(fixture.root, "apps/frontend/.env.local"),
                     "utf8",
                 ),
-            ).toContain("NEXT_PUBLIC_GOOGLE_AUTH_ENABLED=true");
+            ).not.toContain("NEXT_PUBLIC_GOOGLE_AUTH_ENABLED");
             expect(
                 await readFile(
                     path.join(fixture.root, "apps/backend/.env"),
@@ -503,7 +511,7 @@ describe("Miller CLI", () => {
         }
     });
 
-    it("reports when Google credentials and the frontend flag are out of sync", async () => {
+    it("reports incomplete required Google credentials", async () => {
         const fixture = await createSetupFixture();
         try {
             const configPath = path.join(fixture.root, "miller.config.json");
@@ -514,11 +522,11 @@ describe("Miller CLI", () => {
             await writeFile(configPath, JSON.stringify(config));
             await writeFile(
                 path.join(fixture.root, "apps/backend/.env"),
-                "GOOGLE_CLIENT_ID=local-client\nGOOGLE_CLIENT_SECRET=local-secret-do-not-print\nBETTER_AUTH_SECRET=fixture-secret-with-at-least-thirty-two-characters\nBETTER_AUTH_URL=http://localhost:34522\n",
+                "GOOGLE_CLIENT_ID=local-client\nBETTER_AUTH_SECRET=fixture-secret-with-at-least-thirty-two-characters\nBETTER_AUTH_URL=http://localhost:34522\n",
             );
             await writeFile(
                 path.join(fixture.root, "apps/frontend/.env.local"),
-                "APP_BASE_URL=http://localhost:3000\nNEXT_PUBLIC_API_BASE_PATH=http://localhost:34522\nNEXT_PUBLIC_GOOGLE_AUTH_ENABLED=false\n",
+                "APP_BASE_URL=http://localhost:3000\nNEXT_PUBLIC_API_BASE_PATH=http://localhost:34522\n",
             );
 
             const report = runFixtureCli(
@@ -550,10 +558,7 @@ describe("Miller CLI", () => {
             expect(report.summary.status).toBe("attention");
             expect(auth?.status).toBe("attention");
             expect(auth?.configuration.missingKeys).toContain(
-                "NEXT_PUBLIC_GOOGLE_AUTH_ENABLED",
-            );
-            expect(auth?.configuration.notes).toContain(
-                "Google credentials and NEXT_PUBLIC_GOOGLE_AUTH_ENABLED are out of sync; run Miller environment sync.",
+                "GOOGLE_CLIENT_SECRET",
             );
             expect(
                 report.recommendations.find(
@@ -699,6 +704,9 @@ describe("Miller CLI", () => {
                 {
                     MILLER_FRONTEND_BASE_URL: "https://example.test",
                     MILLER_BACKEND_BASE_URL: "https://api.example.test",
+                    MILLER_GOOGLE_CLIENT_ID: "google-client",
+                    MILLER_GOOGLE_CLIENT_SECRET:
+                        "google-secret-do-not-print",
                     MILLER_STRIPE_ACCESS_TOKEN: "sk_live_do-not-print",
                 },
                 "production",
@@ -780,7 +788,7 @@ describe("Miller CLI", () => {
                     ),
                     "utf8",
                 ),
-            ).toContain('frontend_app_google_auth_enabled = "true"');
+            ).not.toContain("frontend_app_google_auth_enabled");
         } finally {
             await rm(fixture.root, { recursive: true, force: true });
         }

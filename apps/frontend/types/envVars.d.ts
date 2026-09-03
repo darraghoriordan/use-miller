@@ -5,6 +5,5 @@ declare namespace NodeJS {
         NEXT_PUBLIC_OTEL_EXPORTER_OTLP_ENDPOINT: string;
         APP_BASE_URL: string;
         NEXT_PUBLIC_API_BASE_PATH: string;
-        NEXT_PUBLIC_GOOGLE_AUTH_ENABLED?: string;
     }
 }

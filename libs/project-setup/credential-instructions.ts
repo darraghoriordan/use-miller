@@ -94,7 +94,7 @@ export async function credentialInstructions(options: {
             values.push({
                 id: "google-oauth",
                 capability: "auth",
-                required: false,
+                required: true,
                 configured: isPresent(target.values, [
                     googleClientKey,
                     googleSecretKey,
@@ -107,7 +107,7 @@ export async function credentialInstructions(options: {
                 destinationKeys: [googleClientKey, googleSecretKey],
                 sourceUrl: googleClientsUrl,
                 instructions:
-                    "Optional: create a Google OAuth Web application and copy its client ID and client secret.",
+                    "Create a Google OAuth Web application and copy its client ID and client secret.",
                 relatedUrl: `${
                     process.env.MILLER_BACKEND_BASE_URL ??
                     target.values.get(

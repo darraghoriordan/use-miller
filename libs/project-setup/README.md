@@ -90,7 +90,7 @@ unready; production email configuration is still enforced when the capability is
 For interactive local development, put credentials directly in the ignored destination
 reported by Miller. For Google, set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in
 `apps/backend/.env`, then run `mill setup --profile local --only auth --apply --yes` to
-synchronize the frontend feature flag. Set `SUPER_USER_EMAILS` there to a comma-separated
+validate the Google-only auth configuration. Set `SUPER_USER_EMAILS` there to a comma-separated
 list of application owners; after their first sign-in they receive Better Auth admin access
 and Miller's global backend permissions. For production, use `app_super_user_emails` in the
 reported ignored Dokku `terraform.tfvars`. For production generally, edit the reported ignored
@@ -103,16 +103,14 @@ Auth setup generates `BETTER_AUTH_SECRET` on first local apply and
 - `MILLER_FRONTEND_BASE_URL` and `MILLER_BACKEND_BASE_URL`
 - `MILLER_GOOGLE_CLIENT_ID` and `MILLER_GOOGLE_CLIENT_SECRET`
 - `MILLER_SUPER_USER_EMAILS`
-- `MILLER_REQUIRE_EMAIL_VERIFICATION`
-- `MILLER_AUTH_TEST_ACCOUNT_*` to override local E2E credentials
 
 Miller reports this optional owner bootstrap as the `owner-admin` credential. It never
 defaults the application owner to an E2E account. Startup reconciliation makes the setting
 rerunnable, while subsequent administration should use the authenticated Better Auth Admin
 API rather than editing environment variables for every operator.
 
-Production auth requires `MILLER_FRONTEND_BASE_URL` and `MILLER_BACKEND_BASE_URL`. Google
-sign-in remains optional. Create a Web application in the
+Production auth requires `MILLER_FRONTEND_BASE_URL`, `MILLER_BACKEND_BASE_URL`, and Google
+OAuth credentials. Create a Web application in the
 [Google Auth Platform](https://console.cloud.google.com/auth/clients), then register the
 `relatedUrl` reported for `google-oauth` as its authorized redirect URI.
 

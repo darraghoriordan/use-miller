@@ -2,7 +2,6 @@ import "dotenv/config";
 import { betterAuth, type Auth } from "better-auth";
 import { admin, bearer } from "better-auth/plugins";
 import { Pool } from "pg";
-import { sendAuthenticationEmail } from "./auth-email.js";
 import { createAuthDatabaseUrl } from "./auth-database-url.js";
 import {
     BETTER_AUTH_ADMIN_ROLE,
@@ -18,12 +17,10 @@ function requiredEnvironment(key: string): string {
     return value;
 }
 
-const googleClientId = process.env.GOOGLE_CLIENT_ID;
-const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
+const googleClientId = requiredEnvironment("GOOGLE_CLIENT_ID");
+const googleClientSecret = requiredEnvironment("GOOGLE_CLIENT_SECRET");
 const cookieDomain = process.env.BETTER_AUTH_COOKIE_DOMAIN;
 const frontendUrl = requiredEnvironment("FRONTEND_APP_URL");
-const isEmailVerificationRequired =
-    process.env.BETTER_AUTH_REQUIRE_EMAIL_VERIFICATION === "true";
 const database = new Pool({ connectionString: createAuthDatabaseUrl() });
 
 export const auth: Auth = betterAuth({
@@ -53,32 +50,7 @@ export const auth: Auth = betterAuth({
         },
     },
     verification: { modelName: "ba_verification" },
-    emailAndPassword: {
-        enabled: true,
-        requireEmailVerification: isEmailVerificationRequired,
-        minPasswordLength: 10,
-        maxPasswordLength: 128,
-        revokeSessionsOnPasswordReset: true,
-        sendResetPassword: async ({ user, url }) => {
-            await sendAuthenticationEmail({
-                to: user.email,
-                subject: "Reset your Miller password",
-                text: `Reset your password using this one-time link: ${url}`,
-            });
-        },
-    },
-    emailVerification: {
-        sendOnSignUp: isEmailVerificationRequired,
-        sendOnSignIn: isEmailVerificationRequired,
-        autoSignInAfterVerification: true,
-        sendVerificationEmail: async ({ user, url }) => {
-            await sendAuthenticationEmail({
-                to: user.email,
-                subject: "Verify your Miller email address",
-                text: `Verify your email address using this link: ${url}`,
-            });
-        },
-    },
+    emailAndPassword: { enabled: false },
     databaseHooks: {
         user: {
             create: {
@@ -96,16 +68,13 @@ export const auth: Auth = betterAuth({
             },
         },
     },
-    socialProviders:
-        googleClientId && googleClientSecret
-            ? {
-                  google: {
-                      clientId: googleClientId,
-                      clientSecret: googleClientSecret,
-                      prompt: "select_account",
-                  },
-              }
-            : {},
+    socialProviders: {
+        google: {
+            clientId: googleClientId,
+            clientSecret: googleClientSecret,
+            prompt: "select_account",
+        },
+    },
     advanced: {
         cookiePrefix: "miller",
         useSecureCookies: process.env.NODE_ENV === "production",

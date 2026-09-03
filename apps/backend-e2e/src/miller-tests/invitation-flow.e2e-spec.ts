@@ -94,33 +94,6 @@ describe("When inviting users", () => {
         expect(response.statusText).toBe("Bad Request");
     });
 
-    it("Users with non-verified emails are blocked from joining", async () => {
-        const { data: orgs, error: orgsError } =
-            await superUserApi.GET("/organisation");
-        throwIfError(orgsError);
-        const { data: invitations, error: invError } = await superUserApi.GET(
-            "/invitations/{orgId}",
-            {
-                params: { path: { orgId: orgs[0].uuid } },
-            },
-        );
-        throwIfError(invError);
-
-        // get invitations api client for the non-verified user
-        const nonVerifiedUserApi: ApiClient = getAuthenticatedApiInstance(
-            TestUserAccounts.EMAIL_NOT_VERIFIED_USER,
-        );
-
-        const { response } = await nonVerifiedUserApi.POST(
-            "/invitations/accept",
-            {
-                params: { query: { invitationId: invitations[0].uuid } },
-            },
-        );
-        expect(response.status).toBe(400);
-        expect(response.statusText).toBe("Bad Request");
-    });
-
     it("Normal new user can accept invitation", async () => {
         const { data: orgs, error: orgsError } =
             await superUserApi.GET("/organisation");

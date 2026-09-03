@@ -31,8 +31,9 @@ development and operations.
 
 ## Quick start
 
-Requirements: Node.js 24, pnpm 11, Docker, and a Stripe account when billing is enabled.
-Authentication is self-hosted in the NestJS API and needs no identity-provider account.
+Requirements: Node.js 24, pnpm 11, Docker, Google OAuth credentials, and a Stripe account
+when billing is enabled. Authentication is self-hosted in the NestJS API; Google is the
+only sign-in provider.
 
 A fresh application can also be created directly from a terminal:
 
@@ -99,6 +100,10 @@ API is mounted by NestJS at `/api/auth/admin/*`; configured owners receive the B
 `admin` role and Miller's global backend permissions. Set `SUPER_USER_EMAILS` in the ignored
 local backend environment or `app_super_user_emails` in production variables, then visit
 `/super-admin` for identity and application operations.
+
+The first successful Google login with a verified email links to the single existing
+application user with that email. Existing memberships, subscriptions, and domain data stay
+on that user row; ambiguous duplicate-email matches fail closed.
 
 `pnpm run mill:dev` waits for the local containers, builds the backend, applies pending
 database migrations, and only then starts both applications. A fresh checkout therefore

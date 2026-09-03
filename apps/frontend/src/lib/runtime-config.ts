@@ -1,6 +1,5 @@
 export interface PublicRuntimeConfig {
     apiBasePath: string;
-    isGoogleAuthEnabled: boolean;
 }
 
 declare global {
@@ -11,7 +10,6 @@ declare global {
 
 const buildTimeFallback: PublicRuntimeConfig = {
     apiBasePath: process.env.NEXT_PUBLIC_API_BASE_PATH ?? "",
-    isGoogleAuthEnabled: process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === "true",
 };
 
 export function getPublicRuntimeConfig(): PublicRuntimeConfig {

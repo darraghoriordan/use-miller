@@ -85,8 +85,8 @@ importers:
         specifier: 7.29.0
         version: 7.29.0(supports-color@10.2.2)
       '@darraghor/nest-backend-libs':
-        specifier: 7.0.0
-        version: 7.0.0(b7240287858fcce4ed3d9c6a6a37eafb)
+        specifier: 7.0.2
+        version: 7.0.2(b7240287858fcce4ed3d9c6a6a37eafb)
       '@keyv/redis':
         specifier: 5.1.6
         version: 5.1.6(@opentelemetry/api@1.9.1)(keyv@5.6.0)
@@ -395,9 +395,6 @@ importers:
       '@types/supertest':
         specifier: 7.2.1
         version: 7.2.1
-      axios:
-        specifier: 1.19.0
-        version: 1.19.0(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2)
       eslint:
         specifier: 9.39.2
         version: 9.39.2(jiti@2.7.0)(supports-color@10.2.2)
@@ -1002,8 +999,8 @@ packages:
       class-validator: '*'
       eslint: '>=9.18.0'
 
-  '@darraghor/nest-backend-libs@7.0.0':
-    resolution: {integrity: sha512-PmO2SGvJfaOY2exeijYF+1i928Ui35q2fSHFpWdt8L1gzpxHtROeprTTbkY83fykk/RWFf4ov9j63DCTWSoS3g==}
+  '@darraghor/nest-backend-libs@7.0.2':
+    resolution: {integrity: sha512-X6GP3JTPCO6pentHHd626oLhfq45wl/fThQN+SovSzOqFt67WtU0FooEx9KWCjgcjkX2ykHbxfHxi8p81mFpfw==}
     engines: {node: '>=24.0.0'}
     hasBin: true
     peerDependencies:
@@ -5771,6 +5768,7 @@ packages:
   eslint@9.39.2:
     resolution: {integrity: sha512-LEyamqS7W5HB3ujJyvi0HQK/dtVINZvd5mAAp9eT5S/ujByGjiZLCzPcHVzuXbpJDJF/cxwHlfceVUDZ2lnSTw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
     peerDependencies:
       jiti: '*'
@@ -10724,7 +10722,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@darraghor/nest-backend-libs@7.0.0(b7240287858fcce4ed3d9c6a6a37eafb)':
+  '@darraghor/nest-backend-libs@7.0.2(b7240287858fcce4ed3d9c6a6a37eafb)':
     dependencies:
       '@keyv/redis': 5.1.6(@opentelemetry/api@1.9.1)(keyv@5.6.0)
       '@nestjs/axios': 4.0.1(@nestjs/common@11.1.28(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@10.2.2))(axios@1.19.0(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2))(rxjs@7.8.2)

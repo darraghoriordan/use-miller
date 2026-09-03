@@ -19,5 +19,9 @@ boundary. `SUPER_USER_EMAILS` is an idempotent owner bootstrap: matching identit
 promoted at creation and again during startup. Use the Admin API for later role, suspension,
 session, and identity operations instead of editing the database.
 
+Google is the only sign-in provider. On first login, the shared authorization module links a
+verified Google identity to the single existing application user with the same email, so the
+user's memberships and product data are preserved.
+
 `pnpm run db:run` builds the backend before applying compiled TypeORM migrations.
 `pnpm run mill:dev` starts the local containers and runs this command before either app.

@@ -1,13 +1,13 @@
 export function getSignUpUrl({ productKey }: { productKey?: string }) {
     if (!productKey) {
-        return `/auth/signup?returnTo=${encodeURIComponent("/#pricing")}`;
+        return `/auth/login?returnTo=${encodeURIComponent("/#pricing")}`;
     }
     // super hack. fix all this!!
     // the sku that gets passed around is miller-start-consulting but there is no url for that to return to
     if (productKey.includes("miller-start")) {
         productKey = "miller-start";
     }
-    return `/auth/signup?returnTo=${encodeURIComponent(
+    return `/auth/login?returnTo=${encodeURIComponent(
         `/${productKey}#pricing`,
     )}`;
 }

@@ -49,7 +49,12 @@ const capabilityDefinitions: Record<Capability, CapabilityDefinition> = {
             {
                 application: "backend",
                 file: ".env",
-                keys: ["BETTER_AUTH_SECRET", "BETTER_AUTH_URL"],
+                keys: [
+                    "BETTER_AUTH_SECRET",
+                    "BETTER_AUTH_URL",
+                    "GOOGLE_CLIENT_ID",
+                    "GOOGLE_CLIENT_SECRET",
+                ],
             },
             {
                 application: "frontend",
@@ -126,6 +131,8 @@ function productionRequirements(
         auth: [
             "app_better_auth_secret",
             "app_better_auth_url",
+            "app_google_client_id",
+            "app_google_client_secret",
             "frontend_app_base_url",
             "frontend_app_api_base_path",
         ],
@@ -266,70 +273,6 @@ async function capabilityConfiguration(
             environment.get("OTEL_SDK_DISABLED") === "true"
         ) {
             notes.push("The OpenTelemetry SDK is disabled for this profile.");
-        }
-    }
-
-    if (capability === "auth") {
-        const backendEnvironmentPath =
-            profile === "local"
-                ? path.join(config.applications.backend, ".env")
-                : `${
-                      config.infrastructure?.profiles.production.environment ??
-                      "infrastructure/production/dokku-app"
-                  }/terraform.tfvars`;
-        const frontendEnvironmentPath =
-            profile === "local"
-                ? path.join(config.applications.frontend, ".env.local")
-                : backendEnvironmentPath;
-        const backendEnvironment = await readEnvironmentFile(
-            path.join(root, backendEnvironmentPath),
-        );
-        const frontendEnvironment = await readEnvironmentFile(
-            path.join(root, frontendEnvironmentPath),
-        );
-        const googleClientIdKey =
-            profile === "local"
-                ? "GOOGLE_CLIENT_ID"
-                : "app_google_client_id";
-        const googleClientSecretKey =
-            profile === "local"
-                ? "GOOGLE_CLIENT_SECRET"
-                : "app_google_client_secret";
-        const googleEnabledKey =
-            profile === "local"
-                ? "NEXT_PUBLIC_GOOGLE_AUTH_ENABLED"
-                : "frontend_app_google_auth_enabled";
-        const hasGoogleClientId = isNonEmpty(
-            backendEnvironment.get(googleClientIdKey),
-        );
-        const hasGoogleClientSecret = isNonEmpty(
-            backendEnvironment.get(googleClientSecretKey),
-        );
-        const isGoogleConfigured =
-            hasGoogleClientId && hasGoogleClientSecret;
-        const googleEnabledValue = frontendEnvironment.get(googleEnabledKey);
-
-        if (hasGoogleClientId !== hasGoogleClientSecret) {
-            missingKeys.push(
-                hasGoogleClientId
-                    ? googleClientSecretKey
-                    : googleClientIdKey,
-            );
-            notes.push(
-                `Google sign-in is partially configured; set both ${googleClientIdKey} and ${googleClientSecretKey}.`,
-            );
-        }
-
-        if (
-            (isGoogleConfigured && googleEnabledValue !== "true") ||
-            (!isGoogleConfigured && googleEnabledValue === "true")
-        ) {
-            missingKeys.push(googleEnabledKey);
-            notes.push(
-                `Google credentials and ${googleEnabledKey} are out of sync; run Miller environment sync.`,
-            );
-        } else if (isNonEmpty(googleEnabledValue)) {
-            presentKeys.push(googleEnabledKey);
         }
     }
 

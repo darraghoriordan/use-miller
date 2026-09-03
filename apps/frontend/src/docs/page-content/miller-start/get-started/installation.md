@@ -55,9 +55,9 @@ pnpm run mill -- setup --only auth --dry-run --json
 pnpm run mill -- setup --only auth --apply --yes --json
 ```
 
-The first apply generates a strong `BETTER_AUTH_SECRET`; later runs preserve it. Email and
-password sign-up works immediately. Put your own email in the ignored backend environment
-to bootstrap the first operator, and add Google credentials there when required:
+The first apply generates a strong `BETTER_AUTH_SECRET`; later runs preserve it. Google is
+the only sign-in method. Put your own Google account email and OAuth credentials in the
+ignored backend environment to bootstrap the first operator:
 
 ```
 SUPER_USER_EMAILS=you@example.com
@@ -66,10 +66,11 @@ GOOGLE_CLIENT_SECRET=your-local-client-secret
 ```
 
 Then run `pnpm run mill -- setup --profile local --only auth --apply --yes --json` to
-synchronize `NEXT_PUBLIC_GOOGLE_AUTH_ENABLED` in the frontend environment.
+validate and synchronize the auth environment.
 
 Register `http://localhost:34522/api/auth/callback/google` as the local OAuth callback.
-After signing in with the configured owner email, open `/super-admin` to manage identities,
+On the first sign-in, a verified Google email claims the existing application user with the
+same email, preserving its memberships and data. Then open `/super-admin` to manage identities,
 roles, suspensions, sessions, application users, subscriptions, and payment events.
 
 ## Configure Stripe

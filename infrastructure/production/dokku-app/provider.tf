@@ -10,16 +10,16 @@ terraform {
   # by doing a terraform init again
   backend "s3" {
     endpoints = {
-      s3 = "https://sfo3.digitaloceanspaces.com/"
+      s3 = "https://69283bcb395eead59ee130c41a48f663.r2.cloudflarestorage.com"
     }
-    bucket                      = "darragh-com"
+    bucket                      = "terraform-state"
     key                         = "miller-app-terraform-state/apps/use-miller-dokku-app"
     region                      = "us-east-1"
     skip_credentials_validation = true
     skip_metadata_api_check     = true
     skip_requesting_account_id  = true
     skip_s3_checksum            = true
-    profile                     = "digitaloceanspaces-terraform"
+    profile                     = "cloudflare-terraform"
   }
 }
 
@@ -46,10 +46,6 @@ variable "app_better_auth_cookie_domain" {
   type        = string
   description = "Optional shared cookie domain"
   default     = ""
-}
-variable "app_better_auth_require_email_verification" {
-  type    = string
-  default = "true"
 }
 variable "app_google_client_id" {
   type    = string
@@ -164,11 +160,6 @@ variable "frontend_app_base_url" {
 variable "frontend_app_api_base_path" {
   type = string
 }
-variable "frontend_app_google_auth_enabled" {
-  type    = string
-  default = "false"
-}
-
 variable "otel_exporter_otlp_endpoint" {
   type = string
 }

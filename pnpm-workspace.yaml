@@ -20,4 +20,4 @@ allowBuilds:
   vscode-material-icon-theme-js: true
 
 minimumReleaseAgeExclude:
-  - '@darraghor/nest-backend-libs@6.0.1 || 7.0.0'
+  - '@darraghor/nest-backend-libs@6.0.1 || 7.0.0 || 7.0.2'

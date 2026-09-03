@@ -5,7 +5,6 @@ resource "dokku_app" "frontend_app" {
     APP_BASE                        = "apps/frontend"
     APP_BASE_URL                    = var.frontend_app_base_url
     NEXT_PUBLIC_API_BASE_PATH       = var.frontend_app_api_base_path
-    NEXT_PUBLIC_GOOGLE_AUTH_ENABLED = var.frontend_app_google_auth_enabled
     OTEL_EXPORTER_OTLP_ENDPOINT     = var.otel_exporter_otlp_endpoint
     OTEL_EXPORTER_OTLP_HEADERS      = var.frontend_app_otel_exporter_otlp_headers
   }
@@ -24,7 +23,6 @@ resource "dokku_app" "app" {
     BETTER_AUTH_SECRET                     = var.app_better_auth_secret
     BETTER_AUTH_URL                        = var.app_better_auth_url
     BETTER_AUTH_COOKIE_DOMAIN              = var.app_better_auth_cookie_domain
-    BETTER_AUTH_REQUIRE_EMAIL_VERIFICATION = var.app_better_auth_require_email_verification
     GOOGLE_CLIENT_ID                       = var.app_google_client_id
     GOOGLE_CLIENT_SECRET                   = var.app_google_client_secret
     SUPER_USER_EMAILS                      = var.app_super_user_emails

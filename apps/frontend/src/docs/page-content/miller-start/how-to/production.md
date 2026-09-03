@@ -15,8 +15,7 @@ Set a unique `BETTER_AUTH_SECRET` of at least 32 random characters and set
 before serving traffic. If the frontend and backend share a parent domain, configure
 `BETTER_AUTH_COOKIE_DOMAIN`; otherwise the frontend can use the bearer transport.
 
-Email/password works without an external identity provider. To enable Google sign-in, create
-production OAuth credentials and allow
+Google is the only sign-in method. Create production OAuth credentials and allow
 `https://api.yourdomain.com/api/auth/callback/google` as a redirect URI. Set both
 `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` on the backend.
 

@@ -14,8 +14,8 @@ e.g. `pnpm run test:e emailClient`
 
 Some tests try to clean up the database completely after themselves.
 
-The test harness creates its Better Auth users idempotently and signs in through the local
-backend. It uses signed bearer tokens so API clients exercise the same transport available to
-browser SPAs and streaming requests.
+The test harness uses signed bearer tokens for two Google-authenticated accounts so API
+clients exercise the same transport available to browser SPAs and streaming requests. Put
+the owner and member tokens in the ignored `.env` using the names from `.env.template`.
 
 Run the tests one at a time or in small batches.
