@@ -6,8 +6,8 @@ import { Container } from "../components/Container";
 export default function Home() {
     return (
         <Layout
-            seoDescription="Dev Shell gives you a reproducible developer environment for macOS and Windows with shell setup, tooling, fonts, VS Code config, and dotfiles."
-            seoTitle="Developer Environment Setup Scripts"
+            seoDescription="Set up a reproducible dev shell on macOS and Windows WSL with tested scripts for Zsh, CLI tools, VS Code, fonts, Git, and dotfiles."
+            seoTitle="Dev Shell Setup Scripts for Mac and Windows"
             canonicalUrl="https://usemiller.dev/dev-shell"
             headerTitle="Miller // Dev Shell"
             productKey="dev-shell"

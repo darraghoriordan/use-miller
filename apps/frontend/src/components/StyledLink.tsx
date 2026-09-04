@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import Link from "next/link";
-import { PropsWithChildren } from "react";
+import { MouseEventHandler, PropsWithChildren } from "react";
 import { colorVariants, ThemeColor } from "../styles/themeColors";
 
 export type LinkVariant = "solid" | "outline" | "ghost";
@@ -12,12 +12,14 @@ const StyledLink = ({
     target,
     color = "primary",
     variant = "solid",
+    onClick,
 }: PropsWithChildren & {
     href: string;
     color?: ThemeColor;
     variant?: LinkVariant;
     target?: "_blank" | undefined;
     className?: string;
+    onClick?: MouseEventHandler<HTMLAnchorElement>;
 }) => {
     const baseStyles =
         "inline-flex items-center justify-center px-5 py-2.5 font-mono text-sm font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-security-black";
@@ -51,6 +53,7 @@ const StyledLink = ({
         <Link
             href={href}
             target={target}
+            onClick={onClick}
             className={clsx(baseStyles, variantStyles[variant], className)}
         >
             {children}

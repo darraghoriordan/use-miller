@@ -1,8 +1,29 @@
 import Script from "next/script";
-
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "G-V43743ZN7K";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { GA_MEASUREMENT_ID, trackPageView } from "../lib/analytics";
 
 const GoogleAnalytics = () => {
+    const router = useRouter();
+    const isEnabled = process.env.NODE_ENV === "production";
+
+    useEffect(() => {
+        if (!isEnabled) {
+            return;
+        }
+
+        const handleRouteChange = (url: string) => trackPageView(url);
+        router.events.on("routeChangeComplete", handleRouteChange);
+
+        return () => {
+            router.events.off("routeChangeComplete", handleRouteChange);
+        };
+    }, [isEnabled, router.events]);
+
+    if (!isEnabled) {
+        return null;
+    }
+
     return (
         <>
             <Script

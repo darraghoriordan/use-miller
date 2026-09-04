@@ -4,6 +4,7 @@ import { getSignUpUrl } from "./signupUrl";
 import StyledLink from "./StyledLink";
 import { BuyNowButton } from "./BuyNowButton";
 import { authClient } from "../lib/auth-client";
+import { trackCheckoutIntent } from "../lib/analytics";
 
 /**
  * Logged in users go to payment
@@ -43,6 +44,7 @@ export function SignUpBuyNowButton({
             <StyledLink
                 href={getSignUpUrl({ productKey })}
                 color={color}
+                onClick={() => trackCheckoutIntent(productKey)}
                 className={clsx(
                     "rounded-lg text-xl px-14 py-4 hover:shadow-lg border-white",
                     className,

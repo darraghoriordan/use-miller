@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Loading from "../../components/Loading";
+import SEO from "../../components/SEO";
 import { authClient } from "../../lib/auth-client";
 
 export default function LogoutPage() {
@@ -16,5 +17,14 @@ export default function LogoutPage() {
         });
     }, [router]);
 
-    return <Loading />;
+    return (
+        <>
+            <SEO
+                title="Sign out"
+                description="Sign out of your Miller account."
+                noIndex
+            />
+            <Loading />
+        </>
+    );
 }

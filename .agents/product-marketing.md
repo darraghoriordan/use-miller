@@ -27,17 +27,26 @@ Google Cloud project metadata (not secret):
 - Project name: `UseMiller`
 - Project number: `676060617024`
 - Project ID: `usemiller`
+- SEO reader service account: `miller-seo-reader@usemiller.iam.gserviceaccount.com`
 
 Current known state:
 
 - A Search Console property is configured for `usemiller.dev`.
 - Search Console is associated with a Google Analytics property.
 - The production site loads GA4 measurement ID `G-V43743ZN7K`.
-- The numeric GA4 property ID still needs to be discovered or recorded.
+- The numeric GA4 property ID is `533925353`.
 - A service account has been granted Search Console access and Google Analytics
   `Marketer` access for measurement setup. Consider reducing Analytics access to `Viewer`
   after event and key-event configuration is complete.
+- Search Console API access is verified for `sc-domain:usemiller.dev` with
+  `siteRestrictedUser` permission.
+- Local Application Default Credentials use keyless service-account impersonation. The
+  Google Analytics Data API, Google Analytics Admin API, Search Console API, and Service
+  Account Credentials API are enabled in the `usemiller` Google Cloud project.
 
 Never commit OAuth credentials, Application Default Credentials, service-account keys,
 access tokens, refresh tokens, or analytics exports containing sensitive data. Store only
 non-secret identifiers and redacted/aggregated reports in the repository.
+
+The current measurement baseline, event taxonomy, and iteration backlog are recorded in
+`.agents/seo-baseline.md`.

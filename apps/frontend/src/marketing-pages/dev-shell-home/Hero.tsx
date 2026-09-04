@@ -90,8 +90,7 @@ export function Hero() {
 
                     <AnimatedHeadline delay={0.2}>
                         <h1 className="font-display text-4xl sm:text-5xl md:text-6xl text-security-light leading-tight tracking-tight">
-                            Your full dev environment configured with one
-                            command
+                            Set up your full dev shell with one command
                         </h1>
                     </AnimatedHeadline>
 

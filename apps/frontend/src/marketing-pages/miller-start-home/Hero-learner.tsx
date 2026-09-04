@@ -19,6 +19,7 @@ import {
     SecurityBadge,
     GitHubStarsBadge,
 } from "../../components/SecurityBadge";
+import { trackAnalyticsEvent } from "../../lib/analytics";
 
 export function Hero() {
     const features = [
@@ -131,6 +132,12 @@ export function Hero() {
                             <StyledLink
                                 href="/start.md"
                                 color="millerstart"
+                                onClick={() =>
+                                    trackAnalyticsEvent(
+                                        "miller_start_agent_click",
+                                        { source: "miller_start_hero" },
+                                    )
+                                }
                                 className="text-base px-8 py-3"
                             >
                                 Create with your agent
