@@ -8,6 +8,7 @@ export default function Home() {
             canonicalUrl="https://usemiller.dev/"
             headerTitle="Miller Dev Tools"
             themeColor="violet"
+            markdownUrl="https://usemiller.dev/products/index.md"
         >
             <Hero />
         </Layout>

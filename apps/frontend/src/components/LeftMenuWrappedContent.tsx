@@ -3,6 +3,7 @@ import { LeftMenu, MenuSection } from "./LeftMenu";
 import { Container } from "./Container";
 import Layout from "./Layout";
 import { getProductColor } from "../styles/themeColors";
+import type { StructuredData } from "./SEO";
 
 export const LeftMenuWrappedContent = ({
     menuSections,
@@ -15,6 +16,7 @@ export const LeftMenuWrappedContent = ({
     seoTitle,
     canonicalUrl,
     noIndex,
+    structuredData,
 }: {
     menuSections: MenuSection[];
     menuHeaderTitle: string;
@@ -25,6 +27,7 @@ export const LeftMenuWrappedContent = ({
     seoTitle?: string;
     canonicalUrl?: string;
     noIndex?: boolean;
+    structuredData?: StructuredData | StructuredData[];
 } & PropsWithChildren) => {
     const productColor = getProductColor(productKey);
 
@@ -41,6 +44,7 @@ export const LeftMenuWrappedContent = ({
             productKey={productKey}
             headerTitle={headerTitle}
             noIndex={noIndex}
+            structuredData={structuredData}
         >
             <Container className="w-full min-w-full mx-auto bg-security-black mb-16">
                 <div className="flex items-stretch">

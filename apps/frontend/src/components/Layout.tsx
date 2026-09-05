@@ -2,6 +2,7 @@ import { PropsWithChildren } from "react";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import SEO from "../components/SEO";
+import type { StructuredData } from "../components/SEO";
 import { ThemeColor } from "../styles/themeColors";
 
 export default function Layout({
@@ -13,6 +14,8 @@ export default function Layout({
     canonicalUrl,
     themeColor,
     noIndex,
+    markdownUrl,
+    structuredData,
 }: {
     productKey?: string;
     headerTitle?: string;
@@ -21,6 +24,8 @@ export default function Layout({
     canonicalUrl?: string;
     themeColor?: ThemeColor;
     noIndex?: boolean;
+    markdownUrl?: string;
+    structuredData?: StructuredData | StructuredData[];
 } & PropsWithChildren) {
     return (
         <div className="flex flex-col min-h-screen">
@@ -29,6 +34,8 @@ export default function Layout({
                 description={seoDescription}
                 canonicalUrl={canonicalUrl}
                 noIndex={noIndex}
+                markdownUrl={markdownUrl}
+                structuredData={structuredData}
             />
             <Header
                 productKey={productKey}

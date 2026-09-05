@@ -1,7 +1,7 @@
-# Miller products
+# Miller Dev Tools products
 
-Miller makes practical tools for solo developers who want reliable software without giving up
-control of their code, infrastructure, or data.
+Miller Dev Tools makes practical tools for solo developers who want reliable software without
+giving up control of their code, infrastructure, or data.
 
 - [Miller Start](https://usemiller.dev/products/miller-start.md): an agent-ready application
   starter with authentication, billing, operations, and production infrastructure.

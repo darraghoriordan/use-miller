@@ -80,6 +80,7 @@ export default function Home({
             canonicalUrl={seo.canonicalUrl}
             seoTitle={seo.seoTitle}
             seoDescription={seo.seoDescription}
+            structuredData={seo.structuredData}
         >
             <ProductDocsHubPage product={product} />
         </LeftMenuWrappedContent>

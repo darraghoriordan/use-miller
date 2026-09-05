@@ -31,9 +31,11 @@ export type PostMatter = {
     date: string;
     section: string;
     order: number;
+    description?: string;
 };
 export type FullDoc = SummaryDoc & {
     html: string;
+    description: string;
 };
 
 export type DocsPageSummary = {
@@ -191,7 +193,40 @@ export async function getSinglePost({
         html: markdownResult,
         ...matterResult.data,
         section: sectionSlug!,
+        description:
+            matterResult.data.description ||
+            getMarkdownExcerpt(matterResult.content),
     };
+}
+
+function getMarkdownExcerpt(markdown: string): string {
+    const paragraph = markdown
+        .split(/\n\s*\n/)
+        .map((block) => block.trim())
+        .find(
+            (block) =>
+                block.length >= 40 &&
+                !block.startsWith("#") &&
+                !block.startsWith("```") &&
+                !block.startsWith("|") &&
+                !block.startsWith("-") &&
+                !/^\d+\./.test(block),
+        );
+
+    const plainText = (paragraph || "Read this Miller documentation guide.")
+        .replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1")
+        .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+        .replace(/[`*_~\\]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+
+    if (plainText.length <= 160) {
+        return plainText;
+    }
+
+    const shortened = plainText.slice(0, 157);
+    const lastSpace = shortened.lastIndexOf(" ");
+    return `${shortened.slice(0, lastSpace)}…`;
 }
 
 export async function markdownToHtml(

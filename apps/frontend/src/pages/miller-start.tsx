@@ -2,6 +2,7 @@ import { Hero } from "../marketing-pages/miller-start-home/Hero-learner";
 import Layout from "../components/Layout";
 import { Pricing } from "../marketing-pages/miller-start-home/Pricing";
 import { Container } from "../components/Container";
+import { productSeo } from "../marketing-pages/productSeo";
 
 export default function Home() {
     return (
@@ -12,6 +13,8 @@ export default function Home() {
             headerTitle="Miller // Start"
             productKey="miller-start"
             themeColor="violet"
+            markdownUrl={productSeo["miller-start"].markdownUrl}
+            structuredData={productSeo["miller-start"].structuredData}
         >
             <Container>
                 <Hero />

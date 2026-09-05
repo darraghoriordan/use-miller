@@ -77,9 +77,10 @@ export default function Home({
             menuHeaderTitle={menuHeaderTitle}
             menuHeaderHref={`/docs/${productKey}`}
             headerTitle={headerTitle}
-            canonicalUrl={`https://usemiller.dev/docs/${productKey}/${section.sectionSlug}`}
+            canonicalUrl={seo.canonicalUrl}
             seoTitle={seo.seoTitle}
             seoDescription={seo.seoDescription}
+            structuredData={seo.structuredData}
         >
             <SectionDocsHubPage product={product} section={section} />
         </LeftMenuWrappedContent>

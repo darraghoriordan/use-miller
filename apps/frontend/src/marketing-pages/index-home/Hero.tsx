@@ -2,7 +2,6 @@
 import { Container } from "../../components/Container";
 import { GitHubIcon } from "../../components/GithubIcon";
 import {
-    TypewriterText,
     AnimatedHeadline,
     FadeInOnScroll,
     StaggerContainer,
@@ -106,16 +105,7 @@ export function Hero() {
 
                     <AnimatedHeadline delay={0.2}>
                         <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-security-light leading-tight tracking-tight">
-                            <span className="hidden md:inline">
-                                <TypewriterText
-                                    text="Build with confidence."
-                                    speed={60}
-                                    delay={500}
-                                />
-                            </span>
-                            <span className="md:hidden">
-                                Build with confidence.
-                            </span>
+                            Build with confidence.
                         </h1>
                     </AnimatedHeadline>
 

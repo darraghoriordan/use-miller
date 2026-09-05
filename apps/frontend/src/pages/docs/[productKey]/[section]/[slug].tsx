@@ -26,6 +26,8 @@ export async function getStaticProps({
         params.productKey,
         article.title,
         article.section,
+        article.slug,
+        article.description,
     );
     // calculating this locally out of laziness
 
@@ -68,9 +70,10 @@ export default function DocsArticlePage({
             menuHeaderTitle={menuHeaderTitle}
             menuHeaderHref={`/docs/${productKey}`}
             headerTitle={headerTitle}
-            canonicalUrl={`https://usemiller.dev/docs/${productKey}/${article.section}/${article.slug}`}
+            canonicalUrl={seo.canonicalUrl}
             seoTitle={seo.seoTitle}
             seoDescription={seo.seoDescription}
+            structuredData={seo.structuredData}
         >
             <DocArticle article={article} />
         </LeftMenuWrappedContent>

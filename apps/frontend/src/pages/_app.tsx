@@ -1,7 +1,7 @@
 import "focus-visible";
 import "../styles/tailwind.css";
 import NextProgress from "next-progress";
-import OtelClientSide from "./otel";
+import OtelClientSide from "../otel/OtelClientSide";
 import dynamic from "next/dynamic";
 
 const CrispWithNoSSR = dynamic(() => import("../components/CrispChat"));

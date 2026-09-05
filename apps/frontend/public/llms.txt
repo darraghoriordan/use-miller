@@ -1,8 +1,16 @@
-# Miller
+# Miller Dev Tools
 
-> Miller makes agent-ready and local-first tools for solo developers. Miller Start helps a
-> developer and their coding agent move from an application idea to a maintainable production
-> system without rebuilding authentication, billing, operations, and project conventions.
+> Miller Dev Tools makes agent-ready and local-first tools for solo developers. Miller Start
+> helps a developer and their coding agent move from an application idea to a maintainable
+> production system without rebuilding authentication, billing, operations, and project conventions.
+
+## Organization
+
+- Official name: Miller Dev Tools
+- Alternate names: Miller, Use Miller
+- Website: https://usemiller.dev
+- Founder: Darragh O'Riordan (https://www.darraghoriordan.com)
+- Source organization: https://github.com/darraghoriordan
 
 ## Create an application
 

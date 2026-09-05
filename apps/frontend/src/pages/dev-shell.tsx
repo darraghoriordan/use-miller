@@ -2,6 +2,7 @@ import { Hero } from "../marketing-pages/dev-shell-home/Hero";
 import Layout from "../components/Layout";
 import { Pricing } from "../marketing-pages/dev-shell-home/Pricing";
 import { Container } from "../components/Container";
+import { productSeo } from "../marketing-pages/productSeo";
 
 export default function Home() {
     return (
@@ -12,6 +13,8 @@ export default function Home() {
             headerTitle="Miller // Dev Shell"
             productKey="dev-shell"
             themeColor="violet"
+            markdownUrl={productSeo["dev-shell"].markdownUrl}
+            structuredData={productSeo["dev-shell"].structuredData}
         >
             <Container>
                 <Hero />

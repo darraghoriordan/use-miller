@@ -2,6 +2,7 @@ import { Hero } from "../marketing-pages/local-dev-tools/Hero";
 import Layout from "../components/Layout";
 import { Pricing } from "../marketing-pages/local-dev-tools/Pricing";
 import { Container } from "../components/Container";
+import { productSeo } from "../marketing-pages/productSeo";
 
 export default function Home() {
     return (
@@ -12,6 +13,8 @@ export default function Home() {
             headerTitle="Miller // Local Dev Tools"
             productKey="local-dev-tools"
             themeColor="violet"
+            markdownUrl={productSeo["local-dev-tools"].markdownUrl}
+            structuredData={productSeo["local-dev-tools"].structuredData}
         >
             <Container>
                 <Hero />

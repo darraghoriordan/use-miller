@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { initInstrumentation } from "../otel/instrumentation.client";
+import { initInstrumentation } from "./instrumentation.client";
 
-function OtelClientSide() {
+export default function OtelClientSide() {
     useEffect(() => {
         if (typeof window !== undefined) {
             initInstrumentation();
@@ -12,5 +12,3 @@ function OtelClientSide() {
 
     return null;
 }
-
-export default OtelClientSide;
