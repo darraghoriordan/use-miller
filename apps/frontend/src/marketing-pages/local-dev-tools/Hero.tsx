@@ -93,8 +93,8 @@ export function Hero() {
 
                     <AnimatedHeadline delay={0.4}>
                         <p className="mt-6 text-lg md:text-xl text-security-text max-w-2xl leading-relaxed">
-                            Offline utilities for developers. Keep your business
-                            data safe and local. No data leaves your machine.
+                            Offline utilities for developers. Data you enter
+                            into the desktop tools stays on your machine.
                         </p>
                     </AnimatedHeadline>
 
@@ -104,7 +104,7 @@ export function Hero() {
                                 100% Offline AI Powered Dev Utilities
                             </SecurityBadge>
                             <SecurityBadge icon="shield" variant="accent">
-                                Data Never Leaves Your Machine
+                                Tool Inputs Stay on Your Machine
                             </SecurityBadge>
                             <SecurityBadge icon="code" variant="accent">
                                 Source is Shared

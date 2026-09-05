@@ -2,12 +2,12 @@ import { Container } from "../components/Container";
 import Layout from "../components/Layout";
 
 export default function Home() {
-    const url = process.env.NEXT_PUBLIC_APP_BASE_PATH;
+    const url = "https://usemiller.dev";
     const email = "info@usemiller.dev";
     return (
         <Layout
             seoDescription="Read how Miller collects, uses, and safeguards personal data, and how you can contact us with privacy questions."
-            seoTitle={`Dev tools to save you time`}
+            seoTitle="Privacy Policy"
             canonicalUrl="https://usemiller.dev/privacy"
             headerTitle="Miller Dev Tools"
             themeColor="violet"
@@ -15,13 +15,14 @@ export default function Home() {
             <Container>
                 <article className="prose prose-lg prose-invert mx-auto">
                     <h1>Privacy Policy</h1>
+                    <p>Last updated: 5 September 2026</p>
                     <h2>1. Introduction</h2>
                     <p>
                         This Privacy Policy applies to the website {url}{" "}
                         (hereinafter the “website”) published by Darragh
-                        ORiordan (hereinafter “Miller” or “we”) and its other
-                        services and products for which personal data is being
-                        communicated to Miller.
+                        O&apos;Riordan (hereinafter “Miller” or “we”) and its
+                        other services and products for which personal data is
+                        being communicated to Miller.
                     </p>
                     <p>
                         Please read this Privacy Policy carefully as it explains
@@ -77,13 +78,10 @@ export default function Home() {
                     </p>
                     <h2>3. Legal context</h2>
                     <p>
-                        We abide by the recommendations of the relevant
-                        authorities and have put in place an organization to
-                        ensure our compliance with the regulatory framework
-                        established by the General Data Protection Regulation
-                        (EU) 2016/679 of the European Parliament and of the
-                        Council (GDPR) and any other laws or regulations
-                        relating to personal information that apply to us.
+                        We aim to handle personal information in accordance with
+                        applicable privacy and data-protection laws, including
+                        the General Data Protection Regulation (EU) 2016/679
+                        (GDPR) where it applies.
                     </p>
                     <h2>4. What is our role?</h2>
                     <p>
@@ -121,14 +119,34 @@ export default function Home() {
                         audience metrics, etc.
                     </p>
                     <p>
-                        The collection of this information may at times be
-                        mandatory in order to provide our service, other times
-                        optional to enhance your experience and left to your
-                        good will. Mandatory information will be identified as
-                        such when we collect your data. Know that if you refuse
-                        to provide it, Miller won't be able to provide you with
-                        its utmost service and you will unfortunately experience
-                        inconveniences.
+                        We use Google Analytics 4 to understand how people find
+                        and use this website. It may collect pages viewed,
+                        referral and campaign information, browser and device
+                        details, approximate location, session activity, and
+                        interactions such as downloads, checkout starts, and
+                        clicks that begin the Miller Start agent workflow.
+                    </p>
+                    <p>
+                        Google Analytics uses an IP address while processing a
+                        request and deriving approximate location. Google states
+                        that GA4 does not log or store the raw IP address, and
+                        the raw address is not available to Miller through
+                        Google Analytics. We do not intentionally send names,
+                        email addresses, payment details, or content entered
+                        into Local Dev Tools to Google Analytics.
+                    </p>
+                    <p>
+                        Some information is required to provide requested
+                        features, such as account and payment services.
+                        Analytics information is not required for the
+                        website&apos;s core features. You can limit Google
+                        Analytics using the browser controls described in the
+                        Cookie Policy below.
+                    </p>
+                    <p>
+                        The Crisp support chat may process technical session
+                        information and any messages or contact details you
+                        choose to submit through the chat widget.
                     </p>
                     <h2>6. When do we collect your personal information?</h2>
                     <p>
@@ -147,8 +165,15 @@ export default function Home() {
                         information for specified, explicit and legitimate
                         purposes, like:
                     </p>
-                    <p>- Website audience measurement</p>
-                    <p>- To gather analytics on the website traffic</p>
+                    <p>- To measure website audiences and traffic sources</p>
+                    <p>
+                        - To understand which pages and products are useful and
+                        whether visitors complete important actions
+                    </p>
+                    <p>
+                        - To improve website content, navigation, performance,
+                        and marketing
+                    </p>
                     <p>
                         In order to comply with the principle of lawfulness, the
                         legal bases for each data processing is determined
@@ -156,9 +181,10 @@ export default function Home() {
                         the list provided by Article 6 of the GDPR.
                     </p>
                     <p>
-                        We do not process your data or use automated decision
-                        making without your knowledge, nor do we sell or rent
-                        your personal information without your explicit consent.
+                        We do not use automated decision-making to make
+                        decisions that have legal or similarly significant
+                        effects on you. We do not sell or rent your personal
+                        information.
                     </p>
                     <h2>8. Who can access your personal information?</h2>
                     <p>
@@ -169,7 +195,32 @@ export default function Home() {
                         qualitative service:
                     </p>
 
-                    <p>Plausible.io for analytics</p>
+                    <p>
+                        Google Analytics, a service provided by Google, for
+                        website measurement. Google processes analytics data
+                        under its applicable terms and{" "}
+                        <a
+                            href="https://policies.google.com/privacy"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            privacy policy.
+                        </a>
+                        The current Google Analytics property is not linked to a
+                        Google Ads account.
+                    </p>
+                    <p>
+                        Crisp, provided by Crisp IM SAS, for customer-support
+                        chat. Crisp processes chat messages and related session
+                        information under its{" "}
+                        <a
+                            href="https://crisp.chat/en/privacy/"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            privacy statement.
+                        </a>
+                    </p>
                     <p>
                         Certain data recipients are considered our data
                         processors in accordance with Article 28 of the GDPR,
@@ -187,11 +238,10 @@ export default function Home() {
                     </p>
                     <h2>9. Where do we transfer your personal information?</h2>
                     <p>
-                        As far as possible, your personal information is
-                        processed within the European Union. However, some of
-                        our service providers may be located in another country
-                        of which you are a resident or pursuing their activity
-                        outside of the European Union.
+                        Our service providers may process personal information
+                        outside your country of residence. Where applicable, we
+                        rely on appropriate contractual or legal safeguards for
+                        international transfers.
                     </p>
                     <p>
                         When we transfer your personal information to a
@@ -203,7 +253,13 @@ export default function Home() {
                         Protection Agreements to ensure your personal
                         information is protected.
                     </p>
-                    <p>Plausible.io in Europe</p>
+                    <p>
+                        Google may process analytics data in countries outside
+                        your country of residence, including the United States.
+                        Google uses regional collection infrastructure and
+                        contractual safeguards for international transfers as
+                        described in its privacy and data-transfer materials.
+                    </p>
                     <h2>10. How long do we store your personal information?</h2>
                     <p>
                         As a general rule when we are considered a data
@@ -222,6 +278,14 @@ export default function Home() {
                         When these purposes are fulfilled or when you ask us,
                         your personal information is archived, erased or
                         anonymized.
+                    </p>
+                    <p>
+                        In the current Google Analytics configuration,
+                        event-level data is retained for two months and
+                        user-level data is retained for fourteen months. The
+                        user-data retention period resets when new activity is
+                        recorded. Aggregated reports may remain available after
+                        event-level or user-level data expires.
                     </p>
                     <h2>11. How do we protect your personal information?</h2>
                     <p>
@@ -281,10 +345,10 @@ export default function Home() {
                     </ul>
                     <p>
                         These rights can be exercised directly and at any time
-                        by sending an email to {url} or on our Data Requests
-                        page. In the case you are our customer's end user,
-                        please take into consideration that this request will be
-                        forwarded and must be answered directly by them.
+                        by sending an email to {email}. In the case you are our
+                        customer&apos;s end user, please take into consideration
+                        that this request will be forwarded and must be answered
+                        directly by them.
                     </p>
                     <h2>13. Children's privacy</h2>
                     <p>
@@ -315,10 +379,10 @@ export default function Home() {
                     </p>
                     <h2>Cookie Policy</h2>
                     <p>
-                        Part of the provision of our service and this website
-                        relies on the collection of cookies. Depending on their
-                        use, they may be considered essential or subject to your
-                        explicit consent.
+                        This website uses essential cookies for features such as
+                        authentication, functional cookies for Crisp support
+                        chat, and Google Analytics first-party cookies for
+                        audience and performance measurement.
                     </p>
                     <h3>What is a cookie?</h3>
                     <p>
@@ -333,20 +397,50 @@ export default function Home() {
                         to your interests.
                     </p>
                     <h3>What types of cookies are collected?</h3>
-                    <p>Analytics and Performance Cookies</p>
+                    <p>Essential cookies</p>
                     <p>
-                        These cookies are useful to measure the audience and
-                        performance of our website and help us understand how
-                        visitors interact with it.
+                        These cookies support requested functionality such as
+                        signing in, maintaining a session, and protecting the
+                        service. Blocking them may prevent account features from
+                        working.
+                    </p>
+                    <p>Chat cookies</p>
+                    <p>
+                        The Crisp chat widget uses functional cookies with the
+                        <code>crisp-client/*</code> prefix to maintain a chat
+                        session and restore messages between pages or visits.
+                        Crisp documents a default expiration of six months,
+                        renewed when the chatbox is loaded again. These cookies
+                        support the chat feature rather than Google Analytics.
+                    </p>
+                    <p>Analytics and performance cookies</p>
+                    <p>
+                        Google Analytics normally sets the first-party cookies
+                        <code>_ga</code> and <code>_ga_*</code> to distinguish
+                        users and maintain session state. Google documents a
+                        default expiration of two years, subject to browser
+                        limits and deletion by the user. These cookies help us
+                        measure website use and the product actions described
+                        above; they are not required for the website&apos;s core
+                        features.
                     </p>
                     <h3>How to manage cookies?</h3>
                     <p>
                         Your internet browser may allow you to manage your
                         cookie preferences by removing or rejecting them via
                         your browser settings (usually located in "help",
-                        “tools” or “edit” sections). Remember that if you choose
-                        to disable our cookies, you may experience some
-                        inconvenience when using our website.
+                        “tools” or “edit” sections). You can also use browser
+                        privacy protections or Google&apos;s{" "}
+                        <a
+                            href="https://tools.google.com/dlpage/gaoptout"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            Analytics opt-out browser add-on.
+                        </a>
+                        Blocking analytics cookies will not prevent you from
+                        reading the website, although blocking essential cookies
+                        may stop account features from working.
                     </p>
                 </article>
             </Container>

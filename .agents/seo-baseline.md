@@ -83,8 +83,9 @@ engaged organic sessions, and the outcome events above instead.
 5. Decide whether consulting should be sold directly on `usemiller.dev`, referred to
    `darraghoriordan.com/hire-me`, or presented as one offer with a single canonical landing
    page before expanding consulting content.
-6. Reconcile the privacy page: it currently describes Plausible while production code loads
-   Google Analytics. Treat this as a legal/privacy review, not merely an SEO copy edit.
+6. Keep the privacy page synchronized with analytics vendors, retention settings, event
+   collection, and cookie behavior. The Plausible references were replaced with the current
+   Google Analytics configuration on 2026-09-05.
 
 Review on a 28-day cadence until volume is materially higher. Compare complete periods and
 record the hypothesis and change date for every title, content, or internal-link experiment.
