@@ -15,7 +15,7 @@ order: 10
 
 ## EULA (End User License Agreement)
 
-Read about the licensing terms for Dev Shall. Have a question? Feel free to contact us.
+Read about the licensing terms for Dev Shell. Have a question? Feel free to contact us.
 
 Darragh ORiordan grants you an ongoing, non-exclusive personal license to **use** the download files. The license grants permission to one individual (the Licensee) to access and use the download files.
 
@@ -44,7 +44,7 @@ Darragh ORiordan grants you an ongoing, non-exclusive personal license to **use*
 
 Licensee is the business entity who has purchased a License.
 
-Download files are the files that are downloaded from the Dev Shall repository.
+Download files are the files that are downloaded from the Dev Shell repository.
 
 Service is the website, documentation, application, and other services provided by Darragh ORiordan.
 
@@ -65,6 +65,8 @@ Darragh ORiordan's liability to you for costs, damages, or other losses arising 
 ## Support and modifications
 
 Darragh ORiordan does not provide technical support for modified source code. The source code is provided as is. In the event that you develop any troubleshooting-related modifications of the download files, Darragh ORiordan will not be responsible for troubleshooting these issues.
+
+The license is perpetual and includes access to updates released during the first year after purchase. You may continue using the last version available to you after that period. Access to later updates may require a separate renewal or purchase.
 
 You are granted the right to use such modifications as set forth in this agreement. You acknowledge that the download files contain valuable and proprietary trade secrets of Darragh ORiordan. All individuals employed by or belonging to your entity agree to expend every effort to insure its confidentiality.
 

@@ -20,6 +20,8 @@ Darragh ORiordan grants you an ongoing, non-exclusive license to **use** the app
 
 The license specifies how many computers or seats the license is valid for. The license grants permission for this many Employees and Contractors of the Licensee to access and use the application concurrently.
 
+The license is perpetual and includes access to updates released during the first year after purchase. You may continue using the last version available to you after that period. Access to later updates may require a separate renewal or purchase.
+
 ## License Definitions
 
 Licensee is the business entity who has purchased a License.
@@ -40,7 +42,7 @@ Darragh ORiordan's liability to you for costs, damages, or other losses arising 
 
 ## Support and modifications
 
-Darragh ORiordan does not provide technical support for the application. The application is provided as is. Darragh ORiordan will not be responsible for troubleshooting any issues or issuing fixes or modifications.
+The application is provided as is and does not include a guaranteed support response time. You may report defects through the documented support channel. Fixes and modifications are provided at Darragh ORiordan's discretion as part of product updates.
 
 ## No Responsibility Disclaimer
 

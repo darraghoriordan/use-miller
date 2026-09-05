@@ -1,8 +1,8 @@
 resource "stripe_product" "miller_start_product" {
   name                 = "Miller Start"
-  description          = "Web product kit with 1 year of updates"
+  description          = "Legacy paid Miller Start tier"
   shippable            = false
-  active               = true
+  active               = false
   statement_descriptor = "USEMILLER.DEV"
   metadata = {
     internalSku = "miller-start"
@@ -10,8 +10,8 @@ resource "stripe_product" "miller_start_product" {
 }
 
 resource "stripe_product" "product_with_consult" {
-  name                 = "Miller Start Consulting"
-  description          = "Web product kit, 1 year of updates, 8h of consulting"
+  name                 = "Miller Production Launch Sprint"
+  description          = "Fixed-price production readiness and implementation engagement"
   shippable            = false
   active               = true
   statement_descriptor = "USEMILLER.DEV"
@@ -21,14 +21,9 @@ resource "stripe_product" "product_with_consult" {
 }
 
 resource "stripe_price" "miller_start_consult_price" {
-  product     = stripe_product.product_with_consult.id
-  unit_amount = 164900
-  currency    = "usd"
-  recurring {
-    interval       = "year"
-    interval_count = 1
-    usage_type     = "licensed"
-  }
+  product        = stripe_product.product_with_consult.id
+  unit_amount    = 250000
+  currency       = "usd"
   billing_scheme = "per_unit"
   tax_behavior   = "inclusive"
 }
@@ -97,15 +92,6 @@ resource "stripe_portal_configuration" "portal_configuration" {
       mode               = "at_period_end"
       proration_behavior = "none"
     }
-    subscription_update {
-      enabled                 = true
-      default_allowed_updates = ["price", "quantity", "promotion_code"]
-      proration_behavior      = "none"
-      products {
-        product = stripe_product.product_with_consult.id
-        prices  = [stripe_price.miller_start_consult_price.id]
-      }
-    }
   }
 }
 
@@ -123,7 +109,7 @@ output "stripe_product_catalog" {
   value = {
     "miller-start-consulting" = {
       priceId     = stripe_price.miller_start_consult_price.id
-      mode        = "subscription"
+      mode        = "payment"
       internalSku = "miller-start-consulting"
       displayName = stripe_product.product_with_consult.name
     }

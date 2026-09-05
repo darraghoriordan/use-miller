@@ -7,25 +7,45 @@ const founderId = `${siteUrl}/#founder`;
 export const productSeo = {
     "miller-start": {
         markdownUrl: `${siteUrl}/products/miller-start.md`,
-        structuredData: {
-            "@context": "https://schema.org",
-            "@type": "SoftwareSourceCode",
-            "@id": `${siteUrl}/miller-start#software`,
-            name: "Miller Start",
-            description:
-                "An agent-ready NestJS and Next.js application starter with authentication, billing, PostgreSQL, Terraform, and operational tooling.",
-            url: `${siteUrl}/miller-start`,
-            codeRepository: "https://github.com/darraghoriordan/use-miller",
-            programmingLanguage: ["TypeScript", "JavaScript"],
-            runtimePlatform: "Node.js 24",
-            isAccessibleForFree: true,
-            author: {
-                "@id": founderId,
+        structuredData: [
+            {
+                "@context": "https://schema.org",
+                "@type": "SoftwareSourceCode",
+                "@id": `${siteUrl}/miller-start#software`,
+                name: "Miller Start",
+                description:
+                    "An agent-ready NestJS and Next.js application starter with authentication, billing, PostgreSQL, Terraform, and operational tooling.",
+                url: `${siteUrl}/miller-start`,
+                codeRepository: "https://github.com/darraghoriordan/use-miller",
+                programmingLanguage: ["TypeScript", "JavaScript"],
+                runtimePlatform: "Node.js 24",
+                isAccessibleForFree: true,
+                author: {
+                    "@id": founderId,
+                },
+                publisher: {
+                    "@id": organizationId,
+                },
             },
-            publisher: {
-                "@id": organizationId,
+            {
+                "@context": "https://schema.org",
+                "@type": "Service",
+                "@id": `${siteUrl}/miller-start#launch-sprint`,
+                name: "Miller Production Launch Sprint",
+                description:
+                    "A fixed-price architecture, production-readiness, and implementation engagement for TypeScript teams.",
+                provider: {
+                    "@id": founderId,
+                },
+                offers: {
+                    "@type": "Offer",
+                    price: "2500",
+                    priceCurrency: "USD",
+                    availability: "https://schema.org/LimitedAvailability",
+                    url: `${siteUrl}/miller-start#pricing`,
+                },
             },
-        },
+        ],
     },
     "dev-shell": {
         markdownUrl: `${siteUrl}/products/dev-shell.md`,
@@ -69,9 +89,21 @@ export const productSeo = {
             publisher: {
                 "@id": organizationId,
             },
+            offers: {
+                "@type": "AggregateOffer",
+                lowPrice: "29",
+                highPrice: "79",
+                priceCurrency: "USD",
+                offerCount: 3,
+                availability: "https://schema.org/InStock",
+                url: `${siteUrl}/local-dev-tools#pricing`,
+            },
         },
     },
 } satisfies Record<
     "miller-start" | "dev-shell" | "local-dev-tools",
-    { markdownUrl: string; structuredData: StructuredData }
+    {
+        markdownUrl: string;
+        structuredData: StructuredData | StructuredData[];
+    }
 >;

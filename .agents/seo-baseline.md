@@ -13,7 +13,7 @@ The commercial outcomes, in priority order, are:
 1. A Local Dev Tools installer download.
 2. A Dev Shell checkout start.
 3. A Miller Start "Create with your agent" click.
-4. A Miller Start consulting checkout start.
+4. A Miller Production Launch Sprint enquiry.
 
 GA4 event names:
 
@@ -23,12 +23,15 @@ GA4 event names:
 | Local Dev Tools checkout start | `local_dev_tools_begin_checkout` |
 | Dev Shell checkout start | `dev_shell_begin_checkout` |
 | Miller Start agent handoff | `miller_start_agent_click` |
-| Miller Start consulting checkout start | `miller_consulting_begin_checkout` |
+| Miller Production Launch Sprint enquiry | `miller_launch_sprint_enquiry` |
 
-The four priority outcome events were configured as GA4 key events on 2026-09-05. The GA4
-property also has the built-in `purchase` key event. Checkout-start events measure intent,
-not completed revenue; send provider-confirmed purchase events later through Stripe and
-Gumroad rather than inferring purchases from button clicks.
+The original four priority outcome events were configured as GA4 key events on 2026-09-05.
+The Launch Sprint changed from direct checkout to a qualified enquiry on the same date; after
+deployment, configure `miller_launch_sprint_enquiry` as a key event and retire
+`miller_consulting_begin_checkout`. The GA4 property also has the built-in `purchase` key
+event. Checkout-start and enquiry events measure intent, not completed revenue; send
+provider-confirmed purchase events later through Stripe and Gumroad rather than inferring
+purchases from button clicks.
 
 ## Search baseline
 
@@ -80,9 +83,8 @@ engaged organic sessions, and the outcome events above instead.
    were aligned to "dev shell" intent on 2026-09-05.
 4. Align the remaining homepage and product pages around distinct query intent; avoid making several
    pages compete for the same broad "developer tools" theme.
-5. Decide whether consulting should be sold directly on `usemiller.dev`, referred to
-   `darraghoriordan.com/hire-me`, or presented as one offer with a single canonical landing
-   page before expanding consulting content.
+5. Validate five paid Miller Production Launch Sprint design-partner engagements before
+   expanding the consulting offer or raising its price.
 6. Keep the privacy page synchronized with analytics vendors, retention settings, event
    collection, and cookie behavior. The Plausible references were replaced with the current
    Google Analytics configuration on 2026-09-05.

@@ -94,9 +94,9 @@ export const createStripePaymentsConfig = (
                       config,
                       "STRIPE_PRICE_MILLER_START_CONSULTING",
                   ),
-                  mode: "subscription" as const,
+                  mode: "payment" as const,
                   internalSku: "miller-start-consulting",
-                  displayName: "Miller Start Consulting",
+                  displayName: "Miller Production Launch Sprint",
               },
               {
                   key: "dev-shell",

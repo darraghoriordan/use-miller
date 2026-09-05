@@ -5,7 +5,7 @@ import { SignUpBuyNowButton } from "../../components/SignupBuyNow";
 const buyBenefits = [
     "Mac and Windows dev environment setup in 1 command",
     "Direct access to the GitHub repository",
-    "Lifetime license - get all future updates for free",
+    "Perpetual license with 1 year of updates",
 ];
 export function Pricing() {
     return (
@@ -27,7 +27,8 @@ export function Pricing() {
                             Pricing
                         </p>
                         <p className="mt-4 text-left font-display text-lg font-medium ">
-                            Simple pricing, pay once and use forever.
+                            Keep the scripts forever. Your purchase includes one
+                            year of updates.
                         </p>
 
                         <div className="mt-8 font-semibold  text-white">
@@ -53,12 +54,13 @@ export function Pricing() {
                                     productKey="dev-shell"
                                     color="cyan"
                                     className="w-full"
+                                    text="Get Dev Shell"
                                 />
                             </div>
                             <p className="mt-6 text-sm">
-                                Why do you need to sign up? - I need an account
-                                to store and use your GitHub username for access
-                                to the repo.
+                                Sign in is required so your purchase can grant
+                                your GitHub account access to the private source
+                                repository.
                             </p>
                         </div>
                     </div>

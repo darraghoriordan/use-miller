@@ -103,9 +103,13 @@ Unsure if your use case is covered by our licenses?
 
 Contact us if you have any questions.
 
-## Consulting
+## Production Launch Sprint
 
-Consulting will only be scheduled on mutual agreement between you and Darragh ORiordan. Consulting must occur within 1 year of purchase date unless otherwise agreed with Darragh ORiordan. The consulting cannot be split into small blocks unless agreed on by Darragh ORiordan. Each 8 hours of consulting will be scheduled in one block within a single 24 hour period.
+The Production Launch Sprint is a one-time, fixed-price consulting engagement. Before payment, you and Darragh ORiordan will confirm that the engagement is a fit, agree its scope, and schedule the working sessions.
+
+The standard engagement includes an architecture and production-readiness review, up to eight hours of focused implementation support, a written record of risks and next steps, and seven calendar days of reasonable follow-up questions after the final working session. The live hours may be split into mutually agreed sessions. Work outside the agreed scope requires a separate written agreement.
+
+Unless otherwise agreed in writing, the working sessions must be used within 90 days of payment. The engagement does not renew automatically.
 
 ## Refunds
 

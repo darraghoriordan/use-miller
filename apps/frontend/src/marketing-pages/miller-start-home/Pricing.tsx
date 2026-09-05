@@ -4,16 +4,20 @@ import { Price } from "./Price";
 import { FreePrice } from "./FreePrice";
 
 const learnerBenefits = [
-    "Direct access to the GitHub repositories",
-    "Expert documentation",
-    "Access to support community",
+    "Complete NestJS and Next.js source",
+    "Agent-ready setup and verification commands",
+    "Documentation and community support",
 ];
 
 const builderBenefits = [
-    "All the benefits of the Learner plan",
-    "Prioritised support for paying customers",
-    "8 hours of consulting time from Me!",
+    "Architecture and production-readiness review",
+    "Up to 8 hours of focused implementation support",
+    "Written risks, decisions, and next-step plan",
+    "7 days of follow-up after the working session",
 ];
+
+const launchSprintEnquiryHref =
+    "mailto:info@usemiller.dev?subject=Miller%20Production%20Launch%20Sprint&body=Tell%20me%20briefly%20about%20the%20product%2C%20your%20team%2C%20and%20what%20you%20need%20to%20get%20into%20production.";
 
 export function Pricing() {
     return (
@@ -31,22 +35,28 @@ export function Pricing() {
                 </div>
                 <div>
                     <div id="pricing" className="mt-16 text-gray-200">
-                        <p className="my-8 max-w-4xl text-left font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
-                            Simple pricing, pay once and use forever.
+                        <h2 className="my-8 max-w-4xl text-left font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
+                            Start with the code. Bring in an expert when the
+                            stakes get higher.
+                        </h2>
+                        <p className="mb-12 max-w-3xl text-lg leading-8 text-security-text">
+                            Miller Start is free to use. The fixed-price Launch
+                            Sprint is for teams that want hands-on help turning
+                            their application into a production-ready system.
                         </p>
-                        <div className="md:flex md:space-x-32 max-w-7xl">
+                        <div className="grid max-w-7xl gap-12 md:grid-cols-2 md:gap-16">
                             <FreePrice
-                                title="Learner Package"
+                                title="Miller Start Community"
                                 productKey="miller-start"
                                 benefits={learnerBenefits}
                             />
                             <Price
-                                title="Builder Package"
-                                productKey="miller-start-consulting"
+                                title="Production Launch Sprint"
                                 currency="usd"
-                                price="1649"
+                                price="$2,500"
                                 benefits={builderBenefits}
-                                licenceUrl="/docs/miller-start/support/license-terms"
+                                description="A paid design-partner engagement for technical founders and small TypeScript teams preparing to launch or repair an agent-built application."
+                                enquiryHref={launchSprintEnquiryHref}
                             />
                         </div>
                         <div>
@@ -57,11 +67,13 @@ export function Pricing() {
                                     }
                                     className="text-sm hover:underline hover:cursor-pointer"
                                 >
-                                    License Terms
+                                    Service and license terms
                                 </a>
                             </p>
                         </div>
-                        <TwitterCTA />
+                        <div className="mt-12">
+                            <TwitterCTA />
+                        </div>
                     </div>
                 </div>
             </div>

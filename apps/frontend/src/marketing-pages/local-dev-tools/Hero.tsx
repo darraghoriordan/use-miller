@@ -56,7 +56,7 @@ export function Hero() {
         {
             name: "Universal license",
             description:
-                "Buy a licence and use the tool on all your Mac and Windows machines.",
+                "Choose a license for 5, 10, or 20 Mac and Windows computers.",
         },
         {
             name: "Shared source",
@@ -218,8 +218,8 @@ export function Hero() {
                         Download Local Dev Tools (v{version})
                     </h2>
                     <p className="text-security-text mb-8">
-                        Download for free Trial. Buy a license later if you find
-                        it useful. Source available{" "}
+                        Download the free trial. Buy a license later if it earns
+                        a place in your workflow. Source available{" "}
                         <a
                             className="text-product-localtools hover:underline"
                             href="https://github.com/darraghoriordan/ssh-tool-new-electron"

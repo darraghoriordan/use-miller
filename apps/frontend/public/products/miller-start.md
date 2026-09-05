@@ -45,9 +45,17 @@ Miller Start is designed for solo developers and small teams who want production
 handled early without adopting microservices, Kubernetes, or a proprietary application
 runtime. Generated code belongs to the application and can be changed normally.
 
+## Production Launch Sprint
+
+Teams that want hands-on help can apply for a fixed-price Production Launch Sprint. The
+$2,500 USD design-partner engagement includes an architecture and production-readiness
+review, up to eight hours of focused implementation support, written risks and next steps,
+and seven days of follow-up. Fit, scope, and availability are confirmed before payment.
+
 ## Links
 
 - Product: https://usemiller.dev/miller-start
 - Creation guide: https://usemiller.dev/start.md
 - Source: https://github.com/darraghoriordan/use-miller
 - Repository guide: https://github.com/darraghoriordan/use-miller#readme
+- Launch Sprint: https://usemiller.dev/miller-start#pricing

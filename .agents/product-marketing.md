@@ -10,12 +10,35 @@ Miller-specific implementation or consulting offers should be evaluated alongsid
 broader consulting funnel on darraghoriordan.com. Keep the sites' positioning distinct and
 link them where the visitor's intent calls for it.
 
+## Positioning and audience
+
+Miller is the production foundation for technical founders and small TypeScript teams that
+build with coding agents. AI can generate features quickly; Miller gives the agent ordinary,
+inspectable application code plus deterministic setup, authorization, billing, migrations,
+observability, and verification.
+
+The primary commercial audience is a technical founder or engineering lead at a 2–20 person
+B2B software company using NestJS, Next.js, or adjacent TypeScript infrastructure. Secondary
+audiences are consultancies that build repeated client applications and individual developers
+buying the utility products.
+
+## Offer ladder
+
+1. Free acquisition: the NestJS ESLint plugin, Miller Start, and the Local Dev Tools trial.
+2. Individual tools: Dev Shell at $29 USD and Local Dev Tools from $29 USD.
+3. Product bundle: Dev Shell plus a personal Local Dev Tools license, proposed at $49 USD.
+4. Service: the Miller Production Launch Sprint at $2,500 USD during the first five paid
+   design-partner engagements, then reviewed for a move to $3,500 USD.
+
+The Production Launch Sprint is a qualified, one-time service rather than a self-serve annual
+subscription. Confirm fit, scope, and availability before taking payment.
+
 ## Primary conversion signals
 
 1. Local Dev Tools download.
 2. Dev Shell purchase.
 3. Miller Start "build with agent" interaction.
-4. Miller Start consulting-package purchase.
+4. Miller Production Launch Sprint enquiry.
 
 Treat activation events such as clicks, prompt copies, and downloads separately from
 authoritative purchase events.

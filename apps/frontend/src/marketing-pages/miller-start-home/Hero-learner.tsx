@@ -113,7 +113,7 @@ export function Hero() {
                                 Hardened Defaults
                             </SecurityBadge>
                             <SecurityBadge icon="code" variant="accent">
-                                Open Source
+                                Source Available
                             </SecurityBadge>
                             <SecurityBadge icon="lock" variant="accent">
                                 Auth without SaaS lock-in

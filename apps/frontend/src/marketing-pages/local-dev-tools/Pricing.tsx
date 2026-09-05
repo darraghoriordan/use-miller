@@ -12,9 +12,15 @@ const DynamicGumRoad = dynamic(() => import("../components/GumRoadWrapper"), {
 });
 
 const buyBenefits = [
-    "Mac and Windows electron apps",
-    "Docs and notes on usage",
-    "Lifetime license + get 1 year of updates for free",
+    "Mac and Windows desktop apps",
+    "Perpetual license with 1 year of updates",
+    "30-day money-back guarantee",
+];
+
+const licenseOptions = [
+    { computers: 5, price: "$29" },
+    { computers: 10, price: "$49" },
+    { computers: 20, price: "$79" },
 ];
 
 export function Pricing() {
@@ -31,7 +37,9 @@ export function Pricing() {
                         </h2>
 
                         <p className="mt-4 text-lg text-security-text">
-                            Simple pricing, pay once and use forever.
+                            Choose the number of computers you need. Prices are
+                            in USD and the app remains usable after the update
+                            period ends.
                         </p>
 
                         <div className="mt-8">
@@ -51,9 +59,25 @@ export function Pricing() {
                             </ul>
                         </div>
 
+                        <div className="mt-10 grid max-w-3xl gap-px overflow-hidden rounded-xl border border-security-border bg-security-border sm:grid-cols-3">
+                            {licenseOptions.map((option) => (
+                                <div
+                                    key={option.computers}
+                                    className="bg-security-dark px-5 py-6"
+                                >
+                                    <p className="font-display text-3xl font-semibold tracking-tight text-security-light">
+                                        {option.price}
+                                    </p>
+                                    <p className="mt-2 text-sm text-security-text">
+                                        {option.computers} computers
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+
                         <p className="mt-8 text-security-text">
-                            I use Gumroad to handle licenses. You will receive
-                            an email with a license key after purchase.
+                            Gumroad handles payment and emails your license key.
+                            Existing customers keep their current license terms.
                         </p>
 
                         <div className="mt-8">

@@ -373,9 +373,10 @@ export function Hero() {
                             learn yourself.
                         </p>
                         <p className="text-security-text">
-                            It will take 10-20 hours, at least, to build up all
-                            the tools and config here so that's ~$3/hour. If you
-                            just want to save time... DevShell is for you!
+                            The individual tools are free. Dev Shell saves you
+                            the work of choosing, testing, documenting, and
+                            keeping a complete setup consistent across macOS and
+                            Windows WSL.
                         </p>
                     </div>
                 </FadeInOnScroll>

@@ -201,9 +201,9 @@ function stripeCatalog(
                     outputs,
                     "miller_start_consult_price_id",
                 ),
-                mode: "subscription",
+                mode: "payment",
                 internalSku: "miller-start-consulting",
-                displayName: "Miller Start Consulting",
+                displayName: "Miller Production Launch Sprint",
             },
             "dev-shell": {
                 priceId: requiredStringOutput(outputs, "dev_shell_price_id"),
@@ -215,20 +215,14 @@ function stripeCatalog(
     }
 
     return {
-        "miller-start": {
-            priceId: requiredStringOutput(outputs, "regular_price_id"),
-            mode: "subscription",
-            internalSku: "miller-start",
-            displayName: "Miller Start",
-        },
         "miller-start-consulting": {
             priceId: requiredStringOutput(
                 outputs,
                 "miller_start_consult_price_id",
             ),
-            mode: "subscription",
+            mode: "payment",
             internalSku: "miller-start-consulting",
-            displayName: "Miller Start Consulting",
+            displayName: "Miller Production Launch Sprint",
         },
         "dev-shell": {
             priceId: requiredStringOutput(
