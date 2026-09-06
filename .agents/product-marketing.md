@@ -33,6 +33,11 @@ buying the utility products.
 The Production Launch Sprint is a qualified, one-time service rather than a self-serve annual
 subscription. Confirm fit, scope, and availability before taking payment.
 
+Miller is the product and delivery system; Darragh O'Riordan is the expert and trust layer.
+Keep the brands distinct while connecting the funnel in both directions: personal-site visitors
+with a focused TypeScript launch problem go to the Miller Sprint, while Miller visitors needing
+broader modernisation, workshops, or fractional leadership go to darraghoriordan.com/hire.
+
 ## Primary conversion signals
 
 1. Local Dev Tools download.

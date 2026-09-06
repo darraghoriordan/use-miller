@@ -5,6 +5,7 @@ export type AnalyticsEventName =
     | "dev_shell_begin_checkout"
     | "local_dev_tools_begin_checkout"
     | "local_dev_tools_download"
+    | "miller_consulting_services_click"
     | "miller_launch_sprint_enquiry"
     | "miller_start_agent_click";
 

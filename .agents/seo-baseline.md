@@ -25,6 +25,9 @@ GA4 event names:
 | Miller Start agent handoff | `miller_start_agent_click` |
 | Miller Production Launch Sprint enquiry | `miller_launch_sprint_enquiry` |
 
+`miller_consulting_services_click` is a supporting referral event for Miller visitors who
+need broader modernisation, workshops, or fractional leadership. It is not a key event.
+
 The original four priority outcome events were configured as GA4 key events on 2026-09-05.
 The Launch Sprint changed from direct checkout to a qualified enquiry on the same date; after
 deployment, configure `miller_launch_sprint_enquiry` as a key event and retire

@@ -1,5 +1,8 @@
+import Image from "next/image";
 import { Container } from "../../components/Container";
-import { TwitterCTA } from "../components/TwitterCTA";
+import StyledLink from "../../components/StyledLink";
+import portraitImage from "../../images/profile-pic.jpg";
+import { trackAnalyticsEvent } from "../../lib/analytics";
 import { Price } from "./Price";
 import { FreePrice } from "./FreePrice";
 
@@ -18,6 +21,9 @@ const builderBenefits = [
 
 const launchSprintEnquiryHref =
     "mailto:info@usemiller.dev?subject=Miller%20Production%20Launch%20Sprint&body=Tell%20me%20briefly%20about%20the%20product%2C%20your%20team%2C%20and%20what%20you%20need%20to%20get%20into%20production.";
+
+const broaderConsultingHref =
+    "https://www.darraghoriordan.com/hire?utm_source=usemiller.dev&utm_medium=referral&utm_campaign=launch_sprint";
 
 export function Pricing() {
     return (
@@ -59,8 +65,52 @@ export function Pricing() {
                                 enquiryHref={launchSprintEnquiryHref}
                             />
                         </div>
-                        <div>
-                            <p className="text-sm text-center">
+                        <section
+                            aria-labelledby="launch-sprint-lead"
+                            className="mt-16 grid max-w-5xl gap-6 border-y border-security-border py-10 sm:grid-cols-[7rem_1fr] sm:items-center sm:gap-8"
+                        >
+                            <Image
+                                src={portraitImage}
+                                alt="Darragh O'Riordan"
+                                sizes="112px"
+                                className="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28"
+                            />
+                            <div>
+                                <h3
+                                    id="launch-sprint-lead"
+                                    className="font-display text-2xl font-medium tracking-tight text-white"
+                                >
+                                    Hi, I'm Darragh 👋
+                                </h3>
+                                <p className="mt-3 max-w-3xl leading-7 text-security-text">
+                                    I'm a hands-on engineering leader with 15+
+                                    years of experience. Examples of my recent
+                                    platform work include reducing AWS spend by
+                                    25%, DB spend by 30%, modernising 15 nodejs
+                                    applications into a modern monorepo for AI,
+                                    reducing user-facing 500 errors by 60%, and
+                                    the engineering leadership for SOC 2
+                                    compliance.
+                                </p>
+                                <StyledLink
+                                    href={broaderConsultingHref}
+                                    color="millerstart"
+                                    variant="ghost"
+                                    className="mt-5 px-0"
+                                    onClick={() =>
+                                        trackAnalyticsEvent(
+                                            "miller_consulting_services_click",
+                                            { source: "launch_sprint_pricing" },
+                                        )
+                                    }
+                                >
+                                    Need a larger engagement? See consulting
+                                    options
+                                </StyledLink>
+                            </div>
+                        </section>
+                        <div className="mt-8">
+                            <p className="text-left text-sm">
                                 <a
                                     href={
                                         "/docs/miller-start/support/license-terms"
@@ -70,9 +120,6 @@ export function Pricing() {
                                     Service and license terms
                                 </a>
                             </p>
-                        </div>
-                        <div className="mt-12">
-                            <TwitterCTA />
                         </div>
                     </div>
                 </div>
