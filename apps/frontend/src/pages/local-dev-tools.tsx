@@ -7,7 +7,7 @@ import { productSeo } from "../marketing-pages/productSeo";
 export default function Home() {
     return (
         <Layout
-            seoDescription="Local Dev Tools is an offline toolkit for developers with JSON, JWT, Base64, regex, timestamps, curl, color, and local AI utilities for Mac and Windows."
+            seoDescription="Offline developer tools for Mac and Windows, plus installable AI agent skills for local JWT, JSON, encoding and more. Keep sensitive inputs out of chat."
             seoTitle="Offline Developer Utilities for Mac and Windows"
             canonicalUrl="https://usemiller.dev/local-dev-tools"
             headerTitle="Miller // Local Dev Tools"

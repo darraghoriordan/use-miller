@@ -13,6 +13,7 @@ import {
 } from "../../components/Animations";
 import { AppWindow } from "../../components/AppWindow";
 import { JwtDecoderDemo } from "./JwtDecoderDemo";
+import { AiSkills } from "./AiSkills";
 import { SecurityBadge } from "../../components/SecurityBadge";
 import { useLocalDevToolsVersion } from "../../hooks/useLocalDevToolsVersion";
 import { trackAnalyticsEvent } from "../../lib/analytics";
@@ -135,6 +136,14 @@ export function Hero() {
                             >
                                 Read the docs
                             </StyledLink>
+                            <StyledLink
+                                href="#ai-skills"
+                                color="localtools"
+                                variant="ghost"
+                                className="text-base px-5 py-3"
+                            >
+                                Install AI skills
+                            </StyledLink>
                         </div>
                     </AnimatedHeadline>
                 </div>
@@ -148,6 +157,8 @@ export function Hero() {
                         <JwtDecoderDemo />
                     </AppWindow>
                 </FadeInOnScroll>
+
+                <AiSkills />
 
                 {/* Features Grid */}
                 <section id="features" className="mt-24 md:mt-32">
