@@ -57,6 +57,7 @@ export const productSeo = {
             description:
                 "Reproducible developer-machine setup scripts for macOS and Windows WSL.",
             url: `${siteUrl}/dev-shell`,
+            image: `${siteUrl}/og-default.png`,
             category: "Developer tools",
             brand: {
                 "@id": organizationId,
