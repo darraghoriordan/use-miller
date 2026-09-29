@@ -60,7 +60,8 @@ export const productSeo = {
             image: `${siteUrl}/og-default.png`,
             category: "Developer tools",
             brand: {
-                "@id": organizationId,
+                "@type": "Brand",
+                name: "Miller Dev Tools",
             },
             offers: {
                 "@type": "Offer",
@@ -68,6 +69,39 @@ export const productSeo = {
                 priceCurrency: "USD",
                 availability: "https://schema.org/InStock",
                 url: `${siteUrl}/dev-shell#pricing`,
+                shippingDetails: {
+                    "@type": "OfferShippingDetails",
+                    shippingRate: {
+                        "@type": "MonetaryAmount",
+                        value: "0",
+                        currency: "USD",
+                    },
+                    shippingDestination: {
+                        "@type": "DefinedRegion",
+                        addressCountry: "AU",
+                    },
+                    deliveryTime: {
+                        "@type": "ShippingDeliveryTime",
+                        handlingTime: {
+                            "@type": "QuantitativeValue",
+                            minValue: 0,
+                            maxValue: 0,
+                            unitCode: "DAY",
+                        },
+                        transitTime: {
+                            "@type": "QuantitativeValue",
+                            minValue: 0,
+                            maxValue: 0,
+                            unitCode: "DAY",
+                        },
+                    },
+                },
+                hasMerchantReturnPolicy: {
+                    "@type": "MerchantReturnPolicy",
+                    applicableCountry: "AU",
+                    returnPolicyCategory:
+                        "https://schema.org/MerchantReturnNotPermitted",
+                },
             },
         },
     },

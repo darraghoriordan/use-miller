@@ -1,5 +1,6 @@
 export interface PublicRuntimeConfig {
     apiBasePath: string;
+    cloudflareWebAnalyticsToken: string;
 }
 
 declare global {
@@ -10,6 +11,7 @@ declare global {
 
 const buildTimeFallback: PublicRuntimeConfig = {
     apiBasePath: process.env.NEXT_PUBLIC_API_BASE_PATH ?? "",
+    cloudflareWebAnalyticsToken: "",
 };
 
 export function getPublicRuntimeConfig(): PublicRuntimeConfig {

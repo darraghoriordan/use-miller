@@ -16,7 +16,6 @@ import { JwtDecoderDemo } from "./JwtDecoderDemo";
 import { AiSkills } from "./AiSkills";
 import { SecurityBadge } from "../../components/SecurityBadge";
 import { useLocalDevToolsVersion } from "../../hooks/useLocalDevToolsVersion";
-import { trackAnalyticsEvent } from "../../lib/analytics";
 
 const FALLBACK_VERSION = "1.74.4";
 
@@ -256,16 +255,6 @@ export function Hero() {
                             <div className="space-y-4">
                                 <a
                                     href={downloadUrls.macArm64}
-                                    onClick={() =>
-                                        trackAnalyticsEvent(
-                                            "local_dev_tools_download",
-                                            {
-                                                architecture: "arm64",
-                                                platform: "macos",
-                                                version,
-                                            },
-                                        )
-                                    }
                                     className="flex items-center justify-between p-4 border border-security-border rounded-lg hover:border-product-localtools/50 hover:bg-security-dark/50 transition-colors group"
                                 >
                                     <div>
@@ -285,16 +274,6 @@ export function Hero() {
                                 </a>
                                 <a
                                     href={downloadUrls.macX64}
-                                    onClick={() =>
-                                        trackAnalyticsEvent(
-                                            "local_dev_tools_download",
-                                            {
-                                                architecture: "x64",
-                                                platform: "macos",
-                                                version,
-                                            },
-                                        )
-                                    }
                                     className="flex items-center justify-between p-4 border border-security-border rounded-lg hover:border-product-localtools/50 hover:bg-security-dark/50 transition-colors group"
                                 >
                                     <div>
@@ -330,16 +309,6 @@ export function Hero() {
                             <div className="space-y-4">
                                 <a
                                     href={downloadUrls.winX64}
-                                    onClick={() =>
-                                        trackAnalyticsEvent(
-                                            "local_dev_tools_download",
-                                            {
-                                                architecture: "x64",
-                                                platform: "windows",
-                                                version,
-                                            },
-                                        )
-                                    }
                                     className="flex items-center justify-between p-4 border border-security-border rounded-lg hover:border-product-localtools/50 hover:bg-security-dark/50 transition-colors group"
                                 >
                                     <div>
@@ -359,16 +328,6 @@ export function Hero() {
                                 </a>
                                 <a
                                     href={downloadUrls.winArm64}
-                                    onClick={() =>
-                                        trackAnalyticsEvent(
-                                            "local_dev_tools_download",
-                                            {
-                                                architecture: "arm64",
-                                                platform: "windows",
-                                                version,
-                                            },
-                                        )
-                                    }
                                     className="flex items-center justify-between p-4 border border-security-border rounded-lg hover:border-product-localtools/50 hover:bg-security-dark/50 transition-colors group"
                                 >
                                     <div>

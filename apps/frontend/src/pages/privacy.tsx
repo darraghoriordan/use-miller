@@ -15,7 +15,7 @@ export default function Home() {
             <Container>
                 <article className="prose prose-lg prose-invert mx-auto">
                     <h1>Privacy Policy</h1>
-                    <p>Last updated: 5 September 2026</p>
+                    <p>Last updated: 29 September 2026</p>
                     <h2>1. Introduction</h2>
                     <p>
                         This Privacy Policy applies to the website {url}{" "}
@@ -119,29 +119,26 @@ export default function Home() {
                         audience metrics, etc.
                     </p>
                     <p>
-                        We use Google Analytics 4 to understand how people find
-                        and use this website. It may collect pages viewed,
-                        referral and campaign information, browser and device
-                        details, approximate location, session activity, and
-                        interactions such as downloads, checkout starts, and
-                        clicks that begin the Miller Start agent workflow.
+                        We use Cloudflare Web Analytics to measure page views,
+                        referral sources, browser and device types, approximate
+                        country, and page performance. This helps us understand
+                        and improve the website.
                     </p>
                     <p>
-                        Google Analytics uses an IP address while processing a
-                        request and deriving approximate location. Google states
-                        that GA4 does not log or store the raw IP address, and
-                        the raw address is not available to Miller through
-                        Google Analytics. We do not intentionally send names,
-                        email addresses, payment details, or content entered
-                        into Local Dev Tools to Google Analytics.
+                        Cloudflare Web Analytics does not use cookies or browser
+                        storage to follow visitors across visits. Cloudflare
+                        receives an IP address as part of the network request
+                        and states that it discards the address rather than
+                        storing it in Web Analytics logs or databases. We do not
+                        send names, email addresses, payment details, or content
+                        entered into Local Dev Tools to Web Analytics.
                     </p>
                     <p>
                         Some information is required to provide requested
                         features, such as account and payment services.
                         Analytics information is not required for the
-                        website&apos;s core features. You can limit Google
-                        Analytics using the browser controls described in the
-                        Cookie Policy below.
+                        website&apos;s core features. Browser content blockers
+                        may prevent the Web Analytics beacon from loading.
                     </p>
                     <p>
                         The Crisp support chat may process technical session
@@ -166,10 +163,7 @@ export default function Home() {
                         purposes, like:
                     </p>
                     <p>- To measure website audiences and traffic sources</p>
-                    <p>
-                        - To understand which pages and products are useful and
-                        whether visitors complete important actions
-                    </p>
+                    <p>- To understand which pages and products are useful</p>
                     <p>
                         - To improve website content, navigation, performance,
                         and marketing
@@ -196,18 +190,16 @@ export default function Home() {
                     </p>
 
                     <p>
-                        Google Analytics, a service provided by Google, for
-                        website measurement. Google processes analytics data
-                        under its applicable terms and{" "}
+                        Cloudflare, for website measurement and performance.
+                        Cloudflare describes its Web Analytics data practices in
+                        its{" "}
                         <a
-                            href="https://policies.google.com/privacy"
+                            href="https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/"
                             target="_blank"
                             rel="noreferrer"
                         >
-                            privacy policy.
+                            documentation.
                         </a>
-                        The current Google Analytics property is not linked to a
-                        Google Ads account.
                     </p>
                     <p>
                         Crisp, provided by Crisp IM SAS, for customer-support
@@ -254,11 +246,10 @@ export default function Home() {
                         information is protected.
                     </p>
                     <p>
-                        Google may process analytics data in countries outside
-                        your country of residence, including the United States.
-                        Google uses regional collection infrastructure and
-                        contractual safeguards for international transfers as
-                        described in its privacy and data-transfer materials.
+                        Cloudflare may process Web Analytics requests outside
+                        your country of residence. Its Web Analytics service
+                        discards the source IP address at the nearest data
+                        center, according to Cloudflare's documentation.
                     </p>
                     <h2>10. How long do we store your personal information?</h2>
                     <p>
@@ -280,12 +271,9 @@ export default function Home() {
                         anonymized.
                     </p>
                     <p>
-                        In the current Google Analytics configuration,
-                        event-level data is retained for two months and
-                        user-level data is retained for fourteen months. The
-                        user-data retention period resets when new activity is
-                        recorded. Aggregated reports may remain available after
-                        event-level or user-level data expires.
+                        Cloudflare makes Web Analytics reports available for the
+                        previous six months. It stores unsampled beacon data for
+                        seven days and keeps aggregated data for longer.
                     </p>
                     <h2>11. How do we protect your personal information?</h2>
                     <p>
@@ -380,9 +368,9 @@ export default function Home() {
                     <h2>Cookie Policy</h2>
                     <p>
                         This website uses essential cookies for features such as
-                        authentication, functional cookies for Crisp support
-                        chat, and Google Analytics first-party cookies for
-                        audience and performance measurement.
+                        authentication and functional cookies for Crisp support
+                        chat. Cloudflare Web Analytics does not set analytics
+                        cookies.
                     </p>
                     <h3>What is a cookie?</h3>
                     <p>
@@ -411,18 +399,13 @@ export default function Home() {
                         session and restore messages between pages or visits.
                         Crisp documents a default expiration of six months,
                         renewed when the chatbox is loaded again. These cookies
-                        support the chat feature rather than Google Analytics.
+                        support the chat feature rather than Web Analytics.
                     </p>
-                    <p>Analytics and performance cookies</p>
+                    <p>Website analytics</p>
                     <p>
-                        Google Analytics normally sets the first-party cookies
-                        <code>_ga</code> and <code>_ga_*</code> to distinguish
-                        users and maintain session state. Google documents a
-                        default expiration of two years, subject to browser
-                        limits and deletion by the user. These cookies help us
-                        measure website use and the product actions described
-                        above; they are not required for the website&apos;s core
-                        features.
+                        Cloudflare Web Analytics uses a browser beacon for page
+                        views and performance measurement. It does not read or
+                        write cookies or other browser storage.
                     </p>
                     <h3>How to manage cookies?</h3>
                     <p>
@@ -430,17 +413,9 @@ export default function Home() {
                         cookie preferences by removing or rejecting them via
                         your browser settings (usually located in "help",
                         “tools” or “edit” sections). You can also use browser
-                        privacy protections or Google&apos;s{" "}
-                        <a
-                            href="https://tools.google.com/dlpage/gaoptout"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            Analytics opt-out browser add-on.
-                        </a>
-                        Blocking analytics cookies will not prevent you from
-                        reading the website, although blocking essential cookies
-                        may stop account features from working.
+                        privacy protections. Content blockers may also block
+                        Cloudflare Web Analytics. Blocking essential cookies may
+                        stop account features from working.
                     </p>
                 </article>
             </Container>

@@ -1,6 +1,5 @@
 import { CheckIcon } from "@heroicons/react/24/outline";
 import StyledLink from "../../components/StyledLink";
-import { trackAnalyticsEvent } from "../../lib/analytics";
 
 export function Price({
     title,
@@ -52,11 +51,6 @@ export function Price({
                     href={enquiryHref}
                     color="cyan"
                     className="w-full px-6 py-4 text-base sm:w-auto"
-                    onClick={() =>
-                        trackAnalyticsEvent("miller_launch_sprint_enquiry", {
-                            offer: "miller-production-launch-sprint",
-                        })
-                    }
                 >
                     Apply for a Launch Sprint
                 </StyledLink>

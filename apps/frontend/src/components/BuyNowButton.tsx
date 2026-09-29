@@ -4,7 +4,6 @@ import clsx from "clsx";
 import { ThemeColor } from "../styles/themeColors";
 import { useState } from "react";
 import StyledButton from "./StyledButton";
-import { trackCheckoutIntent } from "../lib/analytics";
 
 /**
  * Logged in users go to payment
@@ -27,7 +26,6 @@ export function BuyNowButton({
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     const onClick = async () => {
-        trackCheckoutIntent(productKey);
         setIsLoading(true);
         setErrorMessage(null);
         try {

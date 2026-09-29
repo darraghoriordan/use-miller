@@ -2,7 +2,6 @@
 
 import Script from "next/script";
 import clsx from "clsx";
-import { trackAnalyticsEvent } from "../../lib/analytics";
 
 interface GumRoadWrapperProps {
     productUrl: string;
@@ -32,11 +31,6 @@ export default function GumRoadWrapper({
             {/* Styled button that opens Gumroad overlay */}
             <a
                 href={productUrl}
-                onClick={() =>
-                    trackAnalyticsEvent("local_dev_tools_begin_checkout", {
-                        productUrl,
-                    })
-                }
                 className={clsx(
                     "gumroad-button",
                     baseStyles,

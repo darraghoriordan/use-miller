@@ -7,5 +7,7 @@ function runtimeEnvironmentValue(name: string): string | undefined {
 export function readServerPublicRuntimeConfig(): PublicRuntimeConfig {
     return {
         apiBasePath: runtimeEnvironmentValue("NEXT_PUBLIC_API_BASE_PATH") ?? "",
+        cloudflareWebAnalyticsToken:
+            runtimeEnvironmentValue("CF_WEB_ANALYTICS_TOKEN") ?? "",
     };
 }

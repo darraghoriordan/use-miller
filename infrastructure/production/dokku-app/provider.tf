@@ -160,6 +160,10 @@ variable "frontend_app_base_url" {
 variable "frontend_app_api_base_path" {
   type = string
 }
+variable "frontend_app_cloudflare_web_analytics_token" {
+  type    = string
+  default = ""
+}
 variable "otel_exporter_otlp_endpoint" {
   type = string
 }

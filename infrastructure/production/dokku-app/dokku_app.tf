@@ -5,6 +5,7 @@ resource "dokku_app" "frontend_app" {
     APP_BASE                        = "apps/frontend"
     APP_BASE_URL                    = var.frontend_app_base_url
     NEXT_PUBLIC_API_BASE_PATH       = var.frontend_app_api_base_path
+    CF_WEB_ANALYTICS_TOKEN          = var.frontend_app_cloudflare_web_analytics_token
     OTEL_EXPORTER_OTLP_ENDPOINT     = var.otel_exporter_otlp_endpoint
     OTEL_EXPORTER_OTLP_HEADERS      = var.frontend_app_otel_exporter_otlp_headers
   }

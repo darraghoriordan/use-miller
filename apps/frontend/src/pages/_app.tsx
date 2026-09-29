@@ -5,14 +5,15 @@ import OtelClientSide from "../otel/OtelClientSide";
 import dynamic from "next/dynamic";
 
 const CrispWithNoSSR = dynamic(() => import("../components/CrispChat"));
-const GoogleAnalyticsWithNoSSR = dynamic(
-    () => import("../components/GoogleAnalytics"),
+const CloudflareWebAnalyticsWithNoSSR = dynamic(
+    () => import("../components/CloudflareWebAnalytics"),
+    { ssr: false },
 );
 
 export default function App({ Component, pageProps }: any) {
     return (
         <>
-            <GoogleAnalyticsWithNoSSR />
+            <CloudflareWebAnalyticsWithNoSSR />
             <CrispWithNoSSR />
             <OtelClientSide />
             <NextProgress delay={300} options={{ showSpinner: true }} />

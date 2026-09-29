@@ -2,7 +2,6 @@ import Image from "next/image";
 import { Container } from "../../components/Container";
 import StyledLink from "../../components/StyledLink";
 import portraitImage from "../../images/profile-pic.jpg";
-import { trackAnalyticsEvent } from "../../lib/analytics";
 import { Price } from "./Price";
 import { FreePrice } from "./FreePrice";
 
@@ -97,12 +96,6 @@ export function Pricing() {
                                     color="millerstart"
                                     variant="ghost"
                                     className="mt-5 px-0"
-                                    onClick={() =>
-                                        trackAnalyticsEvent(
-                                            "miller_consulting_services_click",
-                                            { source: "launch_sprint_pricing" },
-                                        )
-                                    }
                                 >
                                     Need a larger engagement? See consulting
                                     options
